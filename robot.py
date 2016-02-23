@@ -46,7 +46,7 @@ while True:
             if (S.setSpeedAndSteering(speed, steering) == True):
                 print "yaw: ", D.yaw, " pitch:", D.pitch, " roll: ", D.roll, " error: ", D.error, " speed: ", S.speed, " steering: ", S.steering
 
-    if ((S.steering < 5) and (S.steering > -5)):
+    if ((S.steering < 2) and (S.steering > -2)):
         currentTime = time.time()
         markers = R.see( res=(1280,960) )         ## Takes a picture and analyses it at a resolution. For information on which resolutions can vbe used: https://www.studentrobotics.org/docs/programming/sr/vision/#ChoosingResolution
         print "I can see", len(markers), "markers:"       ## Prints out how many markers by taking the length of the markers array
