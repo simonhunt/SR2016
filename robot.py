@@ -10,7 +10,7 @@ R = Robot.setup()
 print "Robot.setup ran"
 
 # Register the custom class with the Robot object
-R.ruggeduino_set_handler_by_fwver("SRcustom", customRuggeduino.mpuRuggeduino)
+R.ruggeduino_set_handler_by_fwver("SRcustom", customRuggeduino.mpuSonarRuggeduino)
 print "Ruggeduino handler ran"
 
 R.init()
