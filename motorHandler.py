@@ -1,3 +1,4 @@
+import time
 from mapToLimits import mapToLimits
 
 class motorHandler():
