@@ -37,7 +37,16 @@ S = motorHandler.motorHandler(R.motors[0].m0, R.motors[0].m1) #left motor, right
 print "motorHandler setup"
 
 while True:
-    if (S.steering < 5 & S.steering > -5):
+    
+    if (D.updateAll() == True):
+        
+        if (P.run(D.yaw) == True):
+            steering = P.output
+            
+            if (S.setSpeedAndSteering(speed, steering) == True):
+                print "yaw: ", D.yaw, " pitch:", D.pitch, " roll: ", D.roll, " error: ", D.error, " speed: ", S.speed, " steering: ", S.steering
+
+    if ((S.steering < 5) and (S.steering > -5)):
         currentTime = time.time()
         markers = R.see( res=(1280,960) )         ## Takes a picture and analyses it at a resolution. For information on which resolutions can vbe used: https://www.studentrobotics.org/docs/programming/sr/vision/#ChoosingResolution
         print "I can see", len(markers), "markers:"       ## Prints out how many markers by taking the length of the markers array
@@ -51,14 +60,6 @@ while True:
         print "cCubeLocations: ", M.cCubeLocations
         print "robotLocations: ", M.robotLocations
         
-    if (D.updateAll() == True):
-        
-        if (P.run(D.yaw) == True):
-            steering = P.output
-            
-            if (S.setSpeedAndSteering(speed, steering) == True):
-                print "yaw: ", D.yaw, " pitch:", D.pitch, " roll: ", D.roll, " error: ", D.error, " speed: ", S.speed, " steering: ", S.steering
-
         
         
     
