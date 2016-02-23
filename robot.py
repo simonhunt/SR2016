@@ -25,7 +25,7 @@ print "wait_start ran"
 targetYaw = 0
 speed = 30
 
-P = PID.pidController("steeringPID", 1.5, 2, 0, targetYaw) #p, i, d, setpoint
+P = PID.pidController("steeringPID", 1.5, 2, 1, targetYaw) #p, i, d, setpoint
 print "PID setup"
 
 S = motorHandler.motorHandler(R.motors[0].m0, R.motors[0].m1) #left motor, right motor
