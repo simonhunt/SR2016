@@ -1,7 +1,7 @@
 from sr.robot import *
 import time
 
-class mpuRuggeduino(Ruggeduino):
+class mpuSonarRuggeduino(Ruggeduino):
     
     def mpuGetYaw(self):
         
