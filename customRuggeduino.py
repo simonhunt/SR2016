@@ -25,7 +25,12 @@ class mpuSonarRuggeduino(Ruggeduino):
         
         with self.lock:
             error = float(self.command('w'))
-        return error
+            
+            if (error == 0):
+                return False
+            
+            else:
+                return True
         
     def mpuInit(self):
         
