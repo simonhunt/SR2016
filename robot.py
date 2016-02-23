@@ -53,6 +53,7 @@ while True:
         print " "       ##line clear
          
         M.update(markers, currentTime)
+        M.filterCubes(currentTime)
          
         print "Cameralocation: ", M.cameraLocation
         print "aCubeLocations: ", M.aCubeLocations
