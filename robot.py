@@ -3,6 +3,7 @@ import time
 import customRuggeduino
 import PID
 import motorHandler
+import mapHandler
   
 print "Classes imported"
 
@@ -16,7 +17,7 @@ print "Ruggeduino handler ran"
 R.init()
 print "R.init ran"
 
-M = customRuggeduino.mpuHandler(R.ruggeduinos[0])
+D = customRuggeduino.mpuHandler(R.ruggeduinos[0])
 print "mpuHandler initialised"
 
 R.wait_start()
@@ -25,7 +26,11 @@ print "wait_start ran"
 targetYaw = 0
 speed = 30
 
-P = PID.pidController("steeringPID", 1.5, 2, 1, targetYaw) #p, i, d, setpoint
+currentTime = time.time()
+zone = R.zone
+M = mapHandler.mapHandler(zone, currentTime)
+
+P = PID.pidController("steeringPID", 3, 2, 3, targetYaw, 100) #p, i, d, setpoint
 print "PID setup"
 
 S = motorHandler.motorHandler(R.motors[0].m0, R.motors[0].m1) #left motor, right motor
@@ -33,13 +38,27 @@ print "motorHandler setup"
 
 while True:
     
-    if (M.updateAll() == True):
+    currentTime = time.time()
+    markers = R.see( res=(1280,960) )         ## Takes a picture and analyses it at a resolution. For information on which resolutions can vbe used: https://www.studentrobotics.org/docs/programming/sr/vision/#ChoosingResolution
+    
+    print "I can see", len(markers), "markers:"       ## Prints out how many markers by taking the length of the markers array
+    print " "       ##line clear
+    
+    M.update(markers, currentTime)
+    
+    print "Cameralocation: ", M.cameraLocation
+    print "aCubeLocations: ", M.aCubeLocations
+    print "bCubeLocations: ", M.bCubeLocations
+    print "cCubeLocations: ", M.cCubeLocations
+    print "robotLocations: ", M.robotLocations
+    
+    if (D.updateAll() == True):
         
-        if (P.run(M.yaw) == True):
+        if (P.run(D.yaw) == True):
             steering = P.output
             
             if (S.setSpeedAndSteering(speed, steering) == True):
-                print "yaw: ", M.yaw, " pitch:", M.pitch, " roll: ", M.roll, " error: ", M.error, " speed: ", S.speed, " steering: ", S.steering
+                print "yaw: ", D.yaw, " pitch:", D.pitch, " roll: ", D.roll, " error: ", D.error, " speed: ", S.speed, " steering: ", S.steering
         
     
     
