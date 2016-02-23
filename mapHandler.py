@@ -343,11 +343,11 @@ class mapHandler():
         
         for B in self.bCubeLocations:
              if ((currentTime - B['time']) > maxAge):
-                 self.aCubeLocations.remove(B)
+                 self.bCubeLocations.remove(B)
                  
         for C in self.cCubeLocations:
              if ((currentTime - C['time']) > maxAge):
-                 self.aCubeLocations.remove(C)
+                 self.cCubeLocations.remove(C)
                  
         
     def update(self, markers, currentTime):
