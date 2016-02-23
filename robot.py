@@ -59,6 +59,7 @@ while True:
         print "bCubeLocations: ", M.bCubeLocations
         print "cCubeLocations: ", M.cCubeLocations
         print "robotLocations: ", M.robotLocations
+        print " "       ##line clear
         
         
         
