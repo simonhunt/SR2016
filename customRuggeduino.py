@@ -47,19 +47,22 @@ class mpuSonarRuggeduino(Ruggeduino):
         
 class mpuHandler():
     
-    def __init__(self, mpuRuggeduino, timePeriod = 0.025, mpuStartTime = 2): # default 40Hz
+    def __init__(self, mpuRuggeduino, yawDrift, timePeriod = 0.025, mpuStartTimeout = 2): # default 40Hz
         currentTime = time.time()
+        self.innitTime = currentTime()
         self.timePeriod = timePeriod
         self.mpuRuggeduino = mpuRuggeduino
         self.mpuRuggeduino.mpuInit()
         self.yaw = 0
+        self.yawWithoutDrift = 0
+        self.yawDrift = yawDrift
         self.pitch = 0
         self.roll = 0
         self.error = 0
-        self.lastYawTime = currentTime + mpuStartTime - timePeriod
-        self.lastPitchTime = currentTime + mpuStartTime - timePeriod
-        self.lastRollTime = currentTime + mpuStartTime - timePeriod
-        self.lastErrorTime = currentTime + mpuStartTime - timePeriod
+        self.lastYawTime = currentTime + mpuStartTimeout - timePeriod
+        self.lastPitchTime = currentTime + mpuStartTimeout - timePeriod
+        self.lastRollTime = currentTime + mpuStartTimeout - timePeriod
+        self.lastErrorTime = currentTime + mpuStartTimeout - timePeriod
         
     def setTimePeriod(self, timePeriod):
         self.timePeriod = timePeriod
@@ -83,6 +86,11 @@ class mpuHandler():
             self.lastErrorTime = currentTime
             updated = True
         return updated
+        
+    def updateYawWithoutDrift(self):
+        elapsedTime = self.lastYawTime - self.innitTime
+        drift = self.yawDrift * elapsedTime
+        self.yawWithoutDrift = self.yaw - drift
                 
     def updateYaw(self):
         currentTime = time.time()
