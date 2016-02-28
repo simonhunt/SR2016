@@ -84,7 +84,8 @@ class mpuHandler():
             self.lastPitchTime = currentTime
             self.lastRollTime = currentTime
             self.lastErrorTime = currentTime
-            updated = True
+            updated = True 
+        self.updateYawWithoutDrift()
         return updated
         
     def updateYawWithoutDrift(self):
