@@ -1,5 +1,6 @@
 from sr.robot import *
 import time
+from mapToLimits import angleMod
 
 class mpuSonarRuggeduino(Ruggeduino):
     
@@ -91,7 +92,7 @@ class mpuHandler():
     def updateYawWithoutDrift(self):
         elapsedTime = self.lastYawTime - self.innitTime
         drift = self.yawDrift * elapsedTime
-        self.yawWithoutDrift = self.yaw - drift
+        self.yawWithoutDrift = angleMod(self.yaw - drift)
                 
     def updateYaw(self):
         currentTime = time.time()
