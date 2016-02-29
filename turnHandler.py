@@ -38,7 +38,7 @@ def turnHandler(net, type, roll, teamOfMarker, teamOfRobot):
         sideNumber = 5
     
         
-    output = getTurn(netNumber, sideNumber, rollNumber, team)
+    output = getTurn(netNumber, sideNumber, rollNumber, teamOfRobot)
     return output
     
 #NET, SIDE, ROLL
@@ -71,6 +71,7 @@ A0 = [A0a, A0b, A0c, A0d]
 A1 = [A1a, A1b, A1c, A1d]
 A2 = [A2a, A2b, A2c, A2d]
 A3 = [A3a, A3b, A3c, A3d]
+A = [A0, A1, A2, A3]
 
 B0a = [[False, 1], [False, 3], [True, 3], [True, 1]]
 B0b = [[False, 1], [False, 3], [False, 2], [False, 0]]
@@ -97,7 +98,11 @@ B5b = [[True, 3], [True, 1], [False, 0], [False, 0]]
 B5c = [[False, 2], [False, 0], [True, 1], [True, 3]]
 B5d = [[True, 1], [True, 3], [False, 2], [False, 2]]
 
-
+B0 = [B0a, B0b, B0c, B0d]
+B1 = [B1a, B1b, B1c, B1d]
+B2 = [B2a, B2b, B2c, B2d]
+B3 = [B3a, B3b, B3c, B3d]
+B = [B0, B1, B2, B3]
 
 C0a = [[False, 1], [True, 1], [True, 3], [False, 3]]
 C0b = [[False, 1], [False, 0], [False, 2], [False, 3]]
@@ -124,16 +129,19 @@ C5b = [[True, 3], [False, 0], [False, 2], [True, 1]]
 C5c = [[False, 2], [True, 3], [True, 1], [False, 0]]
 C5d = [[True, 1], [False, 2], [False, 0], [True, 3]]
 
+C0 = [C0a, C0b, C0c, C0d]
+C1 = [C1a, C1b, C1c, C1d]
+C2 = [C2a, C2b, C2c, C2d]
+C3 = [C3a, C3b, C3c, C3d]
+C = [C0, C1, C2, C3]
 
-
-
-
-
-
+turnTable = [A, B, C]
     
 def getTurn(net, side, roll, team):
     
-    turn = turnArray[net][side][roll][team]
+    turn = turnTable[net][side][roll][team]
+    
+    return turn
     
     
 
