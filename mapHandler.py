@@ -209,19 +209,22 @@ def objectLocationFromObjectMarker(objectMarker, cameraLocation, currentTime, ob
         code = objectMarker.MarkerInfo.code
         turn = turnHandler.turnHandler(net, roll, code, zone)
         
-        adX = approachDistance * math.cos(math.radians(azimuthal)) * math.sin(math.radians(polar))
-        adY = approachDistance * math.sin(math.radians(azimuthal)) * math.sin(math.radians(polar))
-        adZ = approachDistance * math.cos(math.radians(polar))
+        if (turn[0] == False):
         
-        #position of approach spot
-        ax = x - adX
-        ay = y - adY
-        az = z - adZ
+            adX = approachDistance * math.cos(math.radians(azimuthal)) * math.sin(math.radians(polar))
+            adY = approachDistance * math.sin(math.radians(azimuthal)) * math.sin(math.radians(polar))
+            adZ = approachDistance * math.cos(math.radians(polar))
         
-        #add positions to objectLocation array
-        objectLocation['ax'] = ax
-        objectLocation['ay'] = ay
-        objectLocation['az'] = az
+            #position of approach spot
+            ax = x - adX
+            ay = y - adY
+            az = z - adZ
+        
+            #add positions to objectLocation array
+            objectLocation['ax'] = ax
+            objectLocation['ay'] = ay
+            objectLocation['az'] = az
+            objectLocation['turns'] = turn[1]
         
     return objectLocation 
  
