@@ -1,5 +1,6 @@
 import math
 import cmath
+import turnHandler
 from sr.robot import *
 
 robotWidth = 0.5
@@ -93,11 +94,11 @@ class robotMarkerHandler(markerHandler):
         
 class tokenMarkerHandler(markerHandler):
             
-    def processMarkers(self, cameraLocation):
+    def processMarkers(self, cameraLocation, zone):
         tokenLocations = []
         
         for marker in self.markers:
-            tokenLocation = objectLocationFromObjectMarker(marker, cameraLocation, self.currentTime, tokenWidth)
+            tokenLocation = objectLocationFromObjectMarker(marker, cameraLocation, self.currentTime, tokenWidth, zone)
             tokenLocations.append(tokenLocation)
         
         return tokenLocations
@@ -146,7 +147,7 @@ def getAverageLocation(locations):
 ################################################################################################################
     
     
-def objectLocationFromObjectMarker(objectMarker, cameraLocation, currentTime, objectWidth, isCube = False, approachDistance = 1):
+def objectLocationFromObjectMarker(objectMarker, cameraLocation, currentTime, objectWidth, zone = None, approachDistance = 1):
     
     # SPHERICAL VECTOR REFERENCE: http://mathworld.wolfram.com/SphericalCoordinates.html
     
@@ -202,8 +203,11 @@ def objectLocationFromObjectMarker(objectMarker, cameraLocation, currentTime, ob
     
     objectLocation = {'x': x, 'y': y, 'z': z, 'yaw': yaw, 'pitch': pitch, 'roll': roll, 'time': time}
     
-    if (isCube == True):
+    if (objectMarker.MarkerInfo.marker_type == MARKER_TOKEN_TOP or objectMarker.MarkerInfo.marker_type == MARKER_TOKEN_BOTTOM or objectMarker.MarkerInfo.marker_type == MARKER_TOKEN_SIDE):
         #vector from center to approach spot
+        net = objectMarker.MarkerInfo.token_net
+        code = objectMarker.MarkerInfo.code
+        turn = turnHandler.turnHandler(net, roll, code, zone)
         
         adX = approachDistance * math.cos(math.radians(azimuthal)) * math.sin(math.radians(polar))
         adY = approachDistance * math.sin(math.radians(azimuthal)) * math.sin(math.radians(polar))
@@ -367,7 +371,7 @@ class mapHandler():
                  self.cCubeLocations.remove(C)
                  
         
-    def update(self, markers, currentTime):
+    def update(self, markers, currentTime, zone):
         A = arenaMarkerHandler(currentTime)
         
         R0 = robotMarkerHandler(currentTime)
@@ -398,8 +402,11 @@ class mapHandler():
                 elif(marker.info.offset == 2):
                     R2.addMarker(marker)
                     
-                else: #marker.info.offset == 3
+                elif (marker.info.offset == 3):
                     R3.addMarker(marker)
+                
+                else:
+                    print "error: robot marker with offset != {0,1,2,3}"
                 
             else: # MARKER_TOKEN
                 
@@ -428,13 +435,13 @@ class mapHandler():
                 i += 1
             
             if (TA.markerSeen == True):
-                self.aCubeLocations.extend(TA.processMarkers(self.cameraLocation))
+                self.aCubeLocations.extend(TA.processMarkers(self.cameraLocation, zone))
             
             if (TB.markerSeen == True):
-                self.bCubeLocations.extend(TB.processMarkers(self.cameraLocation))
+                self.bCubeLocations.extend(TB.processMarkers(self.cameraLocation, zone))
                 
             if (TC.markerSeen == True):
-                self.cCubeLocations.extend(TC.processMarkers(self.cameraLocation))
+                self.cCubeLocations.extend(TC.processMarkers(self.cameraLocation, zone))
                 
                   
         #print "camerLocation according to all markers: ", cameraLocation
