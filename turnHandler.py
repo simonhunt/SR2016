@@ -1,5 +1,5 @@
 from sr.robot import NET_A, NET_B, NET_C, MARKER_TOKEN_SIDE, MARKER_TOKEN_TOP, MARKER_TOKEN_BOTTOM
-def turnHandler(net, type, roll, teamOfMarker, teamOfRobot):
+def turnHandler(net, roll, code, teamOfRobot):
     
     if (roll <= 45 and roll > -45):
         rollNumber = 0 #a
@@ -16,26 +16,33 @@ def turnHandler(net, type, roll, teamOfMarker, teamOfRobot):
     
     if (net == NET_A):
         netNumber = 0
+        sideNumber = code - 34
         
     elif (net == NET_B):
         netNumber = 1
+        sideNumber = code - 40
         
     elif (net == NET_C):
         netNumber = 2
+        sideNumber = code - 46
         
     else:
         print "error marker with undefined net handled in turn handler"
-        netNumber = 0
+        
+        #defaults
+        
+        netNumber = 0 
+        sideNumber = code - 34 
         
     
-    if (type == MARKER_TOKEN_SIDE):
-        sideNumber = teamOfMarker
-    
-    elif (type == MARKER_TOKEN_TOP):
-        sideNumber = 4
-        
-    elif (type == MARKER_TOKEN_BOTTOM):
-        sideNumber = 5
+    #if (type == MARKER_TOKEN_SIDE):
+    #    pass
+    #
+    #elif (type == MARKER_TOKEN_TOP):
+    #   sideNumber = 4
+    #    
+    #elif (type == MARKER_TOKEN_BOTTOM):
+    #    sideNumber = 5
     
         
     output = getTurn(netNumber, sideNumber, rollNumber, teamOfRobot)
