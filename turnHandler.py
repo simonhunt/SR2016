@@ -1,5 +1,6 @@
 from sr.robot import NET_A, NET_B, NET_C, MARKER_TOKEN_SIDE, MARKER_TOKEN_TOP, MARKER_TOKEN_BOTTOM
-def turnHandler(net, roll, code, teamOfRobot):
+
+def turnHandler(net, roll, code, zone):
     
     if (roll <= 45 and roll > -45):
         rollNumber = 0 #a
@@ -45,7 +46,7 @@ def turnHandler(net, roll, code, teamOfRobot):
     #    sideNumber = 5
     
         
-    output = getTurn(netNumber, sideNumber, rollNumber, teamOfRobot)
+    output = getTurn(netNumber, sideNumber, rollNumber, zone)
     return output
     
 #NET, SIDE, ROLL
