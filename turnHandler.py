@@ -1,4 +1,4 @@
-from sr.robot import *
+from sr.robot import NET_A, NET_B, NET_C, MARKER_TOKEN_SIDE, MARKER_TOKEN_TOP, MARKER_TOKEN_BOTTOM
 def turnHandler(net, type, roll, teamOfMarker, teamOfRobot):
     
     if (roll <= 45 and roll > -45):
