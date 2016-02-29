@@ -146,7 +146,7 @@ def getAverageLocation(locations):
 ################################################################################################################
     
     
-def objectLocationFromObjectMarker(objectMarker, cameraLocation, currentTime, objectWidth):
+def objectLocationFromObjectMarker(objectMarker, cameraLocation, currentTime, objectWidth, isCube = False, approachDistance = 1):
     
     # SPHERICAL VECTOR REFERENCE: http://mathworld.wolfram.com/SphericalCoordinates.html
     
@@ -202,6 +202,23 @@ def objectLocationFromObjectMarker(objectMarker, cameraLocation, currentTime, ob
     
     objectLocation = {'x': x, 'y': y, 'z': z, 'yaw': yaw, 'pitch': pitch, 'roll': roll, 'time': time}
     
+    if (isCube == True):
+        #vector from center to approach spot
+        
+        adX = approachDistance * math.cos(math.radians(azimuthal)) * math.sin(math.radians(polar))
+        adY = approachDistance * math.sin(math.radians(azimuthal)) * math.sin(math.radians(polar))
+        adZ = approachDistance * math.cos(math.radians(polar))
+        
+        #position of approach spot
+        ax = x - adX
+        ay = y - adY
+        az = z - adZ
+        
+        #add positions to objectLocation array
+        objectLocation['ax'] = ax
+        objectLocation['ay'] = ay
+        objectLocation['az'] = az
+        
     return objectLocation 
  
 
