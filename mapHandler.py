@@ -159,7 +159,7 @@ def objectLocationFromObjectMarker(objectMarker, cameraLocation, currentTime, ob
     translatedPRX = 90 - math.degrees(math.acos(translatedVector.imag)) 
     translatedPRY = 90 - math.degrees(math.acos(translatedVector.real / math.sin(math.acos(translatedVector.imag))))
     
-    # next I add the yaw and pitch to the translated valuse (THIS ONLY WORKES FOR SMALL PITCH, YAW, PRY OR PRX!! IT IS AN APPROXIMATION, i got stuck here) :(
+    # next I add the yaw and pitch to the translated values (THIS ONLY WORKES FOR SMALL PITCH, YAW, PRY OR PRX!! IT IS AN APPROXIMATION, i got stuck here) :(
     #build a spherical vector
     
     radial = objectMarker.centre.polar.length
