@@ -1,76 +1,76 @@
 import time
 from limits import mapToLimits
 
-class pidController():
+class PidController():
     
-    def __init__(self, name, kp = 0, ki = 0, kd = 0, setpoint = 0, iLimit = 0, startingI = 0, timePeriod = 0.05): # default 20Hz
+    def __init__(self, name, kp = 0, ki = 0, kd = 0, setpoint = 0, i_limit = 0, starting_i = 0, time_period = 0.05): # default 20Hz
         self.name = name
         self.kp = kp
         self.ki = ki    
         self.kd = kd
         self.setpoint = setpoint
-        self.timePeriod = timePeriod
-        self.lastTime = 0
-        self.lastError = 0
-        self.i = startingI
-        self.iLimit = iLimit
+        self.time_period = time_period
+        self.last_time = 0
+        self.last_error = 0
+        self.i = starting_i
+        self.i_limit = i_limit
         self.output = 0
-        self.firstRun = True
+        self.first_run = True
     
-    def setCoefficients(self, newKp, newKi, newKd):
-        self.kp = newKp
-        self.ki = newKi
-        self.kd = newKd
+    def setCoefficients(self, new_kp, new_ki, new_kd):
+        self.kp = new_kp
+        self.ki = new_ki
+        self.kd = new_kd
     
-    def setTimeperiod(self, timePeriod):
-        self.timePeriod = timePeriod
+    def setTimeperiod(self, time_period):
+        self.time_period = time_period
         
-    def setSetpoint(self, newSetpoint):
-        self.Setpoint = newSetpoint
+    def setSetpoint(self, new_setpoint):
+        self.setpoint = new_setpoint
         
     def restart(self):
-        self.firstRun = True
+        self.first_run = True
         
     def run(self, value):
-        currentTime = time.time()
-        dt = currentTime - self.lastTime
-        outputCalculated = False
+        current_time = time.time()
+        dt = current_time - self.last_time
+        output_calculated = False
         
-        if (self.firstRun == False):
+        if (self.first_run == False):
             
-            if (dt >= self.timePeriod): 
+            if (dt >= self.time_period): 
                 error = value - self.setpoint
                 
                 p = self.kp * error
                 self.i += self.ki * error * dt
-                d = (error - self.lastError) / dt
+                d = (error - self.last_error) / dt
                 
-                if (self.iLimit != 0):
-                    self.i = mapToLimits(self.i, self.iLimit, - self.iLimit)
+                if (self.i_limit != 0):
+                    self.i = mapToLimits(self.i, self.i_limit, - self.i_limit)
                 
                 self.output = p + self.i + d
-                outputCalculated = True
+                output_calculated = True
         
-                self.lastTime = currentTime
-                self.lastError = error
+                self.last_time = current_time
+                self.last_error = error
                 
-        else: #self.firstRun == True
+        else: #self.first_run == True
             error = value - self.setpoint
             
             p = self.kp * error
             self.i += 0
             d = 0
             
-            if (self.iLimit != 0):
-                self.i = mapToLimits(self.i, self.iLimit, - self.iLimit)
+            if (self.i_limit != 0):
+                self.i = mapToLimits(self.i, self.i_limit, - self.i_limit)
             
             self.output = p + self.i + d
-            outputCalculated = True
+            output_calculated = True
         
-            self.lastTime = currentTime
-            self.lastError = error
-            self.firstRun = False
+            self.last_time = current_time
+            self.last_error = error
+            self.first_run = False
         
-        return outputCalculated
+        return output_calculated
         
         
