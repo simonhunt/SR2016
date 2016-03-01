@@ -44,29 +44,45 @@ print "motorHandler setup"
 
 while True:
     
-    if (D.updateAll() == True):
-        
-        if (P.run(D.yawWithoutDrift) == True):
-            steering = P.output
-            
-            if (S.setSpeedAndSteering(speed, steering) == True):
-                print "yaw: ", D.yaw, " yawWithoutDrift: ", D.yawWithoutDrift, " pitch:", D.pitch, " roll: ", D.roll, " error: ", D.error, " speed: ", S.speed, " steering: ", S.steering
-
-    if ((S.steering < 2) and (S.steering > -2)):
-        currentTime = time.time()
-        markers = R.see( res=(1280,960) )         ## Takes a picture and analyses it at a resolution. For information on which resolutions can vbe used: https://www.studentrobotics.org/docs/programming/sr/vision/#ChoosingResolution
-        print "I can see", len(markers), "markers:"       ## Prints out how many markers by taking the length of the markers array
-        print " "       ##line clear
+    
+    #if (D.updateAll() == True):
+    #    
+    #    if (P.run(D.yawWithoutDrift) == True):
+    #        steering = P.output
+    #        
+    #        if (S.setSpeedAndSteering(speed, steering) == True):
+    #            print "yaw: ", D.yaw, " yawWithoutDrift: ", D.yawWithoutDrift, " pitch:", D.pitch, " roll: ", D.roll, " error: ", D.error, " speed: ", S.speed, " steering: ", S.steering
+    #
+    #if ((S.steering < 2) and (S.steering > -2)):
+    #    currentTime = time.time()
+    #    markers = R.see( res=(1280,960) )         ## Takes a picture and analyses it at a resolution. For information on which resolutions can vbe used: https://www.studentrobotics.org/docs/programming/sr/vision/#ChoosingResolution
+    #    print "I can see", len(markers), "markers:"       ## Prints out how many markers by taking the length of the markers array
+    #    print " "       ##line clear
+    #     
+    #    M.update(markers, currentTime, zone)
+    #    M.filterCubes(currentTime)
+    #     
+    #    print "Cameralocation: ", M.cameraLocation
+    #    print "aCubeLocations: ", M.aCubeLocations
+    #    print "bCubeLocations: ", M.bCubeLocations
+    #    print "cCubeLocations: ", M.cCubeLocations
+    #    print "robotLocations: ", M.robotLocations
+    #    print " "       ##line clear
+    
+    currentTime = time.time()
+    markers = R.see( res=(1280,960) )         ## Takes a picture and analyses it at a resolution. For information on which resolutions can vbe used: https://www.studentrobotics.org/docs/programming/sr/vision/#ChoosingResolution
+    print "I can see", len(markers), "markers:"       ## Prints out how many markers by taking the length of the markers array
+    print " "       ##line clear
+    
+    M.update(markers, currentTime, zone)
+    M.filterCubes(currentTime)
          
-        M.update(markers, currentTime, zone)
-        M.filterCubes(currentTime)
-         
-        print "Cameralocation: ", M.cameraLocation
-        print "aCubeLocations: ", M.aCubeLocations
-        print "bCubeLocations: ", M.bCubeLocations
-        print "cCubeLocations: ", M.cCubeLocations
-        print "robotLocations: ", M.robotLocations
-        print " "       ##line clear
+    print "Cameralocation: ", M.cameraLocation
+    print "aCubeLocations: ", M.aCubeLocations
+    print "bCubeLocations: ", M.bCubeLocations
+    print "cCubeLocations: ", M.cCubeLocations
+    print "robotLocations: ", M.robotLocations
+    print " "       ##line clear
         
         
         
