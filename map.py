@@ -3,8 +3,28 @@ import cmath
 import turn
 from sr.robot import *
 
-robotWidth = 0.5
-tokenWidth = 0.25
+ROBOT_WIDTH = 0.5
+TOKEN_WIDTH = 0.25
+
+ZONE_0_INITIAL_CAMERA_LOCATION = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
+ZONE_1_INITIAL_CAMERA_LOCATION = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
+ZONE_2_INITIAL_CAMERA_LOCATION = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
+ZONE_3_INITIAL_CAMERA_LOCATION = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
+
+STARTING_CUBE_0 = {'x': 2.5, 'y': 2.5, 'z': 0.125, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
+STARTING_CUBE_1 = {'x': 4, 'y': 2.5, 'z': 0.125, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
+STARTING_CUBE_2 = {'x': 5.5, 'y': 2.5, 'z': 0.125, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
+STARTING_CUBE_3 = {'x': 2.5, 'y': 4, 'z': 0.125, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
+STARTING_CUBE_4 = {'x': 4, 'y': 4, 'z': 0.125, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
+STARTING_CUBE_5 = {'x': 5.5, 'y': 4, 'z': 0.125, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
+STARTING_CUBE_6 = {'x': 2.5, 'y': 5.5, 'z': 0.125, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
+STARTING_CUBE_7 = {'x': 4, 'y': 5.5, 'z': 0.125, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
+STARTING_CUBE_8 = {'x': 5.5, 'y': 5.5, 'z': 0.125, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
+
+STARTING__ROBOT_0 = {'x': 1, 'y': 7, 'z': 0.25, 'yaw': -45, 'pitch': 0, 'roll': 0, 'time': None}
+STARTING__ROBOT_1 = {'x': 7, 'y': 7, 'z': 0.25, 'yaw': -135, 'pitch': 0, 'roll': 0, 'time': None}
+STARTING__ROBOT_2 = {'x': 7, 'y': 1, 'z': 0.25, 'yaw': 135, 'pitch': 0, 'roll': 0, 'time': None}
+STARTING__ROBOT_3 = {'x': 1, 'y': 1, 'z': 0.25, 'yaw': 45, 'pitch': 0, 'roll': 0, 'time': None}
 
 ###########
 
@@ -14,44 +34,41 @@ tokenWidth = 0.25
 ################################################################################################################
 
 def getInitialCameraLocation(zone, currentTime): ##this method is not finished
-    zone0InitialCameraLocation = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': currentTime}
-    zone1InitialCameraLocation = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': currentTime}
-    zone2InitialCameraLocation = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': currentTime}
-    zone3InitialCameraLocation = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': currentTime}
+    
     
     if (zone == 0):
-        initialCameraLocation = zone0InitialCameraLocation
+        initialCameraLocation = ZONE_0_INITIAL_CAMERA_LOCATION
     
     elif (zone == 1):
-        initialCameraLocation = zone1InitialCameraLocation
+        initialCameraLocation = ZONE_1_INITIAL_CAMERA_LOCATION
     
     elif (zone == 2):
-        initialCameraLocation = zone2InitialCameraLocation
+        initialCameraLocation = ZONE_2_INITIAL_CAMERA_LOCATION
     
     else: #zone == 3
-        initialCameraLoctaion = zone3InitialCameraLocation
+        initialCameraLoctaion = ZONE_0_INITIAL_CAMERA_LOCATION
+    
+    initialCameraLocation['time'] = currentTime
         
     return initialCameraLocation
             
 def getStartingCubeLocations(currentTime):
-    cube0 = {'x': 2.5, 'y': 2.5, 'z': 0.125, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': currentTime}
-    cube1 = {'x': 4, 'y': 2.5, 'z': 0.125, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': currentTime}
-    cube2 = {'x': 5.5, 'y': 2.5, 'z': 0.125, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': currentTime}
-    cube3 = {'x': 2.5, 'y': 4, 'z': 0.125, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': currentTime}
-    cube4 = {'x': 4, 'y': 4, 'z': 0.125, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': currentTime}
-    cube5 = {'x': 5.5, 'y': 4, 'z': 0.125, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': currentTime}
-    cube6 = {'x': 2.5, 'y': 5.5, 'z': 0.125, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': currentTime}
-    cube7 = {'x': 4, 'y': 5.5, 'z': 0.125, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': currentTime}
-    cube8 = {'x': 5.5, 'y': 5.5, 'z': 0.125, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': currentTime}
-    startingCubeLocations = [cube0, cube1, cube2, cube3, cube4 , cube5 , cube6 , cube7 , cube8]
+    
+    startingCubeLocations = [STARTING_CUBE_0, STARTING_CUBE_1, STARTING_CUBE_2, STARTING_CUBE_3, STARTING_CUBE_4 , STARTING_CUBE_5 , STARTING_CUBE_6 , STARTING_CUBE_7 , STARTING_CUBE_8]
     return startingCubeLocations
     
-def getStartingRobotLocations(currentTime):
-    robot0 = {'x': 1, 'y': 7, 'z': 0.25, 'yaw': -45, 'pitch': 0, 'roll': 0, 'time': currentTime}
-    robot1 = {'x': 7, 'y': 7, 'z': 0.25, 'yaw': -135, 'pitch': 0, 'roll': 0, 'time': currentTime}
-    robot2 = {'x': 7, 'y': 1, 'z': 0.25, 'yaw': 135, 'pitch': 0, 'roll': 0, 'time': currentTime}
-    robot3 = {'x': 1, 'y': 1, 'z': 0.25, 'yaw': 45, 'pitch': 0, 'roll': 0, 'time': currentTime}
-    startingRobotLocations = [robot0, robot1, robot2, robot3]
+def getStartingRobotLocations(current_time):
+    
+    robot_0 = STARTING__ROBOT_0
+    robot_0['time'] = current_time
+    robot_1 = STARTING__ROBOT_1
+    robot_1['time'] = current_time
+    robot_2 = STARTING__ROBOT_2
+    robot_2['time'] = current_time
+    robot_3 = STARTING__ROBOT_3
+    robot_3['time'] = current_time
+    
+    startingRobotLocations = [robot_0, robot_1, robot_2, robot_3]
     return startingRobotLocations
     
 class markerHandler():
@@ -85,7 +102,7 @@ class robotMarkerHandler(markerHandler):
         robotLocations = []
         
         for marker in self.markers:
-            robotLocation = objectLocationFromObjectMarker(marker, cameraLocation, self.currentTime, robotWidth)
+            robotLocation = objectLocationFromObjectMarker(marker, cameraLocation, self.currentTime, ROBOT_WIDTH)
             robotLocations.append(robotLocation)
             
         robotLocation = getAverageLocation(robotLocations)
@@ -98,7 +115,7 @@ class tokenMarkerHandler(markerHandler):
         tokenLocations = []
         
         for marker in self.markers:
-            tokenLocation = objectLocationFromObjectMarker(marker, cameraLocation, self.currentTime, tokenWidth, zone)
+            tokenLocation = objectLocationFromObjectMarker(marker, cameraLocation, self.currentTime, TOKEN_WIDTH, zone)
             tokenLocations.append(tokenLocation)
         
         return tokenLocations
