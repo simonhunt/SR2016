@@ -77,12 +77,12 @@ while True:
     M.update(markers, currentTime, zone)
     M.filterCubes(currentTime)
          
-    print "Cameralocation: ", M.cameraLocation
-    print "aCubeLocations: ", M.aCubeLocations
-    print "bCubeLocations: ", M.bCubeLocations
-    print "cCubeLocations: ", M.cCubeLocations
-    print "robotLocations: ", M.robotLocations
-    print " "       ##line clear
+    #print "Cameralocation: ", M.cameraLocation
+    #print "aCubeLocations: ", M.aCubeLocations
+    #print "bCubeLocations: ", M.bCubeLocations
+    #print "cCubeLocations: ", M.cCubeLocations
+    #print "robotLocations: ", M.robotLocations
+    #print " "       ##line clear
         
         
         
