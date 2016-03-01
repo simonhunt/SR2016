@@ -225,7 +225,8 @@ def objectLocationFromObjectMarker(objectMarker, cameraLocation, currentTime, ob
             objectLocation['ay'] = ay
             objectLocation['az'] = az
             objectLocation['turns'] = turn[1]
-            print "turn: ", turn
+        
+        print "turn: ", turn
         
     return objectLocation 
  
