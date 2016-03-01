@@ -195,9 +195,9 @@ def objectLocationFromObjectMarker(objectMarker, cameraLocation, currentTime, ob
     
     # position of center 
     
-    x += dX
-    y += dY
-    z += dZ
+    x -= dX
+    y -= dY
+    z -= dZ
     
     time = currentTime
     
@@ -216,15 +216,16 @@ def objectLocationFromObjectMarker(objectMarker, cameraLocation, currentTime, ob
             adZ = approachDistance * math.cos(math.radians(polar))
         
             #position of approach spot
-            ax = x - adX
-            ay = y - adY
-            az = z - adZ
+            ax = x + adX
+            ay = y + adY
+            az = z + adZ
         
             #add positions to objectLocation array
             objectLocation['ax'] = ax
             objectLocation['ay'] = ay
             objectLocation['az'] = az
             objectLocation['turns'] = turn[1]
+            print "turn", turn[1]
         
     return objectLocation 
  
