@@ -1,6 +1,6 @@
 from sr.robot import *
 import time
-from mapToLimits import angleMod
+from limits import angleMod
 
 class mpuSonarRuggeduino(Ruggeduino):
     
