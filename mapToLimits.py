@@ -1,11 +1,11 @@
-def mapToLimits(value, upperLimit = 100, lowerLimit = - 100):
+def mapToLimits(value, upper_limit = 100, lower_limit = - 100):
     output = value
     
-    if (value > upperLimit):
-        output = upperLimit
+    if (value > upper_limit):
+        output = upper_limit
         
-    elif (value < lowerLimit):
-        output = lowerLimit
+    elif (value < lower_limit):
+        output = lower_limit
     return output
     
 def angleMod(angle):
