@@ -92,4 +92,4 @@ C2 = [C2a, C2b, C2c, C2d]
 C3 = [C3a, C3b, C3c, C3d]
 C = [C0, C1, C2, C3]
 
-turnTable = [A, B, C]
+TURN_TABLE = [A, B, C]
