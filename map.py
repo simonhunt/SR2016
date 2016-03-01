@@ -265,6 +265,8 @@ def objectLocationFromObjectMarker(object_marker, camera_location, current_time,
         
         print "approach locations: ", approach_locations
         
+        object_location['approach'] = approach_locations
+        
     return object_location 
  
 
