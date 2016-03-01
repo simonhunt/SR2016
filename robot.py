@@ -1,6 +1,6 @@
 yawDrift = -0.004 #degrees per second 
 targetYaw = 0
-speed = 30
+speed = 0
 
 kp = 3
 ki = 2
