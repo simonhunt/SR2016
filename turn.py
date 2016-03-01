@@ -2,7 +2,7 @@ from sr.robot import NET_A, NET_B, NET_C, MARKER_TOKEN_SIDE, MARKER_TOKEN_TOP, M
 from lut import TURN_TABLE
 from limits import mod4
 
-def getTurn(net, roll, code, zone):
+def getTurns(net, roll, code, zone):
     
     if (roll <= 45 and roll > -45):
         roll_index = 0 #a
