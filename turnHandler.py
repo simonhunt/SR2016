@@ -4,11 +4,11 @@ def turnHandler(net, roll, code, zone):
     
     if (roll <= 45 and roll > -45):
         rollNumber = 0 #a
-    
-    elif (roll <= 135 and roll > 45):
+        
+    elif (roll <= -45 and roll > -135):
         rollNumber = 1 #b
     
-    elif (roll <= -45 and roll > -135):
+    elif (roll <= 135 and roll > 45):
         rollNumber = 3 #d
     
     else:
