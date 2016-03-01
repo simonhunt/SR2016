@@ -2,6 +2,7 @@ import math
 import cmath
 import turn
 from sr.robot import *
+from limits import mapToLimits, angleMod
 
 ROBOT_WIDTH = 0.5
 TOKEN_WIDTH = 0.25
@@ -224,27 +225,45 @@ def objectLocationFromObjectMarker(object_marker, camera_location, current_time,
         #vector from center to approach spot
         net = object_marker.info.token_net
         code = object_marker.info.code
-        turn = turn.getTurn(net, roll, code, zone)
+        turns = turn.getTurns(net, roll, code, zone)
+        approach_locations = []
         
-        if (turn[0] == False):
+        i = 0
+        for turn in turns:
+            if (turn[0] == True):
+                adX = approach_distance * math.cos(math.radians(azimuthal)) * math.sin(math.radians(polar))
+                adY = approach_distance * math.sin(math.radians(azimuthal)) * math.sin(math.radians(polar))
+                adZ = approach_distance * math.cos(math.radians(polar))
+                
+                if (i == 0):
+                    ax = x + adX
+                    ay = y + adY
+                    
+                elif (i == 1):
+                    ax = x - adY
+                    ay = y + adX
+                    
+                elif (i == 2):
+                    ax = x - adX
+                    ay = y - adY
+                    
+                else: # i == 3
+                    ax = x + adY
+                    ay = y - adX
+                
+                az = z + adZ
+                
+                a_yaw = mapToLimits(yaw - 180 + 90 * i)
+                a_pitch = - pitch
+                a_roll = - roll
+                
+                degrees = angleMod(turn[1] * 90)
+                
+                approach_location = {'x': ax, 'y': ay, 'z': az, 'yaw': a_yaw, 'pitch': a_pitch, 'roll': a_roll, 'time': time, 'degrees': degrees}
+                
+                approach_locations.append(approach_location) 
         
-            adX = approach_distance * math.cos(math.radians(azimuthal)) * math.sin(math.radians(polar))
-            adY = approach_distance * math.sin(math.radians(azimuthal)) * math.sin(math.radians(polar))
-            adZ = approach_distance * math.cos(math.radians(polar))
-        
-            #position of approach spot
-            ax = x + adX
-            ay = y + adY
-            az = z + adZ
-        
-            #add positions to object_location array
-            object_location['ax'] = ax
-            object_location['ay'] = ay
-            object_location['az'] = az
-            
-            object_location['turns'] = turn[1]
-        
-        print "turn: ", turn
+        print "approach locations: ", approach_locations
         
     return object_location 
  
@@ -266,14 +285,17 @@ def cameraLocationFromArenaMarker(arenaMarker, current_time):
         x = arena_marker_location['x'] + arena_marker_vector['alpha']
         y = arena_marker_location['y'] - arena_marker_vector['beta']
         yaw = arena_marker_angles['yaw'] + 90
+        
     elif (arena_marker_location['wall'] == "Right"):
         x = arena_marker_location['x'] - arena_marker_vector['beta']
         y = arena_marker_location['y'] - arena_marker_vector['alpha']
         yaw = arena_marker_angles['yaw']
+        
     elif (arena_marker_location['wall'] == "Bottom"):
         x = arena_marker_location['x'] - arena_marker_vector['alpha']
         y = arena_marker_location['y'] + arena_marker_vector['beta']
         yaw = arena_marker_angles['yaw'] - 90
+        
     else: #arena_marker_location['wall'] == "Left"
         x = arena_marker_location['x'] + arena_marker_vector['beta']
         y = arena_marker_location['y'] + arena_marker_vector['alpha']
@@ -337,12 +359,15 @@ def getArenaMarkerLocation(arenaMarker):
     if (arena_marker_wall == "Top"):
         x = arena_marker_offset +1
         y = 8
+        
     elif (arena_marker_wall == "Right"):
         x = 8
         y = 14 - arena_marker_offset
+        
     elif (arena_marker_wall == "Bottom"):
         x = 21 - arena_marker_offset
         y = 0
+        
     elif (arena_marker_wall == "Left"):
         x = 0
         y = arena_marker_offset - 20
@@ -355,10 +380,13 @@ def getArenaMarkerWall(arena_marker_offset):
     
     if (arena_marker_offset < 7): 
         arena_marker_wall = "Top"
+        
     elif (arena_marker_offset < 14):
         arena_marker_wall = "Right" 
+        
     elif (arena_marker_offset < 21):
         arena_marker_wall = "Bottom" 
+        
     elif (arena_marker_offset < 28):
         arena_marker_wall = "Left"
         
