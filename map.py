@@ -374,24 +374,24 @@ class MapHandler():
     def __init__(self, zone, current_time):
         self.camera_location = getInitialCameraLocation(zone, current_time)
         self.starting_cube_locations = getStartingCubeLocations(current_time)
-        self.aCubeLocations = []
-        self.bCubeLocations = []
-        self.cCubeLocations = []
+        self.a_cube_locations = []
+        self.b_cube_locations = []
+        self.c_cube_locations = []
         self.robot_locations = getStartingRobotLocations(current_time)
         
     def filterCubes(self, current_time, maxAge = 1):
          
-        for A in self.aCubeLocations:
+        for A in self.a_cube_locations:
              if ((current_time - A['time']) > maxAge):
-                 self.aCubeLocations.remove(A)
+                 self.a_cube_locations.remove(A)
         
-        for B in self.bCubeLocations:
+        for B in self.b_cube_locations:
              if ((current_time - B['time']) > maxAge):
-                 self.bCubeLocations.remove(B)
+                 self.b_cube_locations.remove(B)
                  
-        for C in self.cCubeLocations:
+        for C in self.c_cube_locations:
              if ((current_time - C['time']) > maxAge):
-                 self.cCubeLocations.remove(C)
+                 self.c_cube_locations.remove(C)
                  
         
     def update(self, markers, current_time, zone):
@@ -458,13 +458,13 @@ class MapHandler():
                 i += 1
             
             if (TA.marker_seen == True):
-                self.aCubeLocations.extend(TA.processMarkers(self.camera_location, zone))
+                self.a_cube_locations.extend(TA.processMarkers(self.camera_location, zone))
             
             if (TB.marker_seen == True):
-                self.bCubeLocations.extend(TB.processMarkers(self.camera_location, zone))
+                self.b_cube_locations.extend(TB.processMarkers(self.camera_location, zone))
                 
             if (TC.marker_seen == True):
-                self.cCubeLocations.extend(TC.processMarkers(self.camera_location, zone))
+                self.c_cube_locations.extend(TC.processMarkers(self.camera_location, zone))
                 
                   
         #print "camerLocation according to all markers: ", camera_location
