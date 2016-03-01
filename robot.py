@@ -58,7 +58,7 @@ while True:
         print "I can see", len(markers), "markers:"       ## Prints out how many markers by taking the length of the markers array
         print " "       ##line clear
          
-        M.update(markers, currentTime)
+        M.update(markers, currentTime, zone)
         M.filterCubes(currentTime)
          
         print "Cameralocation: ", M.cameraLocation
