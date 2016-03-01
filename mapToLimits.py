@@ -19,4 +19,15 @@ def angleMod(angle):
         
     return output
     
+def angleNumberMod(number):
+    output = number
+    
+    while (output > 2):
+        output -= 4
+        
+    while (output <= -2):
+        output += 4
+        
+    return output
+    
     
