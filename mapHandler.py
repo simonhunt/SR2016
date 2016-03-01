@@ -203,10 +203,10 @@ def objectLocationFromObjectMarker(objectMarker, cameraLocation, currentTime, ob
     
     objectLocation = {'x': x, 'y': y, 'z': z, 'yaw': yaw, 'pitch': pitch, 'roll': roll, 'time': time}
     
-    if (objectMarker.MarkerInfo.marker_type == MARKER_TOKEN_TOP or objectMarker.MarkerInfo.marker_type == MARKER_TOKEN_BOTTOM or objectMarker.MarkerInfo.marker_type == MARKER_TOKEN_SIDE):
+    if (objectMarker.info.marker_type == MARKER_TOKEN_TOP or objectMarker.info.marker_type == MARKER_TOKEN_BOTTOM or objectMarker.info.marker_type == MARKER_TOKEN_SIDE):
         #vector from center to approach spot
-        net = objectMarker.MarkerInfo.token_net
-        code = objectMarker.MarkerInfo.code
+        net = objectMarker.info.token_net
+        code = objectMarker.info.code
         turn = turnHandler.turnHandler(net, roll, code, zone)
         
         if (turn[0] == False):
