@@ -9,10 +9,10 @@ iLimit = 100
 
 from sr.robot import *
 import time
-import customRuggeduino
-import PID
-import motorHandler
-import mapHandler
+import ruggeduino
+import pid
+import motors
+import map
   
 print "Classes imported"
 
@@ -20,13 +20,13 @@ R = Robot.setup()
 print "Robot.setup ran"
 
 # Register the custom class with the Robot object
-R.ruggeduino_set_handler_by_fwver("SRcustom", customRuggeduino.mpuSonarRuggeduino)
+R.ruggeduino_set_handler_by_fwver("SRcustom", ruggeduino.mpuSonarRuggeduino)
 print "Ruggeduino handler ran"
 
 R.init()
 print "R.init ran"
 
-D = customRuggeduino.mpuHandler(R.ruggeduinos[0], yawDrift)
+D = ruggeduino.mpuHandler(R.ruggeduinos[0], yawDrift)
 print "mpuHandler initialised"
 
 R.wait_start()
@@ -34,12 +34,12 @@ print "wait_start ran"
 
 currentTime = time.time()
 zone = R.zone
-M = mapHandler.mapHandler(zone, currentTime)
+M = map.mapHandler(zone, currentTime)
 
-P = PID.pidController("steeringPID", kp, ki, kd, targetYaw, iLimit) #p, i, d, setpoint, iLimit, startingI
+P = pid.pidController("steeringPID", kp, ki, kd, targetYaw, iLimit) #p, i, d, setpoint, iLimit, startingI
 print "PID setup"
 
-S = motorHandler.motorHandler(R.motors[0].m0, R.motors[0].m1) #left motor, right motor
+S = motors.motorHandler(R.motors[0].m0, R.motors[0].m1) #left motor, right motor
 print "motorHandler setup"
 
 while True:
