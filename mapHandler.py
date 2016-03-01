@@ -184,7 +184,7 @@ def objectLocationFromObjectMarker(objectMarker, cameraLocation, currentTime, ob
     
     # vector from face to center
     
-    radial = objectWidth / 2
+    radial = - objectWidth / 2
     
     azimuthal = yaw
     polar = 90 - pitch
@@ -195,9 +195,9 @@ def objectLocationFromObjectMarker(objectMarker, cameraLocation, currentTime, ob
     
     # position of center 
     
-    x -= dX
-    y -= dY
-    z -= dZ
+    x += dX
+    y += dY
+    z += dZ
     
     time = currentTime
     
@@ -224,6 +224,7 @@ def objectLocationFromObjectMarker(objectMarker, cameraLocation, currentTime, ob
             objectLocation['ax'] = ax
             objectLocation['ay'] = ay
             objectLocation['az'] = az
+            
             objectLocation['turns'] = turn[1]
         
         print "turn: ", turn
