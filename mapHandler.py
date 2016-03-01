@@ -207,7 +207,7 @@ def objectLocationFromObjectMarker(objectMarker, cameraLocation, currentTime, ob
         #vector from center to approach spot
         net = objectMarker.info.token_net
         code = objectMarker.info.code
-        turn = turn.turnHandler(net, roll, code, zone)
+        turn = turn.getTurn(net, roll, code, zone)
         
         if (turn[0] == False):
         
