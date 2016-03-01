@@ -1,5 +1,5 @@
 import time
-from mapToLimits import mapToLimits
+from limits import mapToLimits
 
 class motorHandler():
     
