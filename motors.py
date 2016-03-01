@@ -1,35 +1,35 @@
 import time
 from limits import mapToLimits
 
-class motorHandler():
+class MotorHandler():
     
-    def __init__(self, leftMotor, rightMotor, timePeriod = 0.01): #100hz default
-        self.timePeriod = timePeriod
-        self.lastTime = time.time() - self.timePeriod
-        self.leftMotor = leftMotor
-        self.rightMotor = rightMotor
+    def __init__(self, LeftMotor, RightMotor, time_period = 0.01): #100hz default
+        self.time_period = time_period
+        self.last_time = time.time() - self.time_period
+        self.LeftMotor = LeftMotor
+        self.RightMotor = RightMotor
         self.speed = 0
         self.steering = 0
         self.update()        
         
     def update(self):
-        currentTime = time.time()
-        dt = currentTime - self.lastTime
+        current_time = time.time()
+        dt = current_time - self.last_time
         updated = False
         
-        if (dt >= self.timePeriod):
-            self.leftSpeed = mapToLimits(self.speed + self.steering)
-            self.rightSpeed = mapToLimits(self.speed - self.steering)
+        if (dt >= self.time_period):
+            self.left_speed = mapToLimits(self.speed + self.steering)
+            self.right_speed = mapToLimits(self.speed - self.steering)
             
-            self.leftMotor.power = self.leftSpeed
-            self.rightMotor.power = self.rightSpeed
-            self.lastTime = currentTime
+            self.LeftMotor.power = self.left_speed
+            self.RightMotor.power = self.right_speed
+            self.last_time = current_time
             updated = True
             
         return updated
         
-    def setTimePeriod(self, timePeriod):
-        self.timePeriod = timePeriod
+    def setTimePeriod(self, time_period):
+        self.time_period = time_period
         
     def setSpeed(self, speed):
         self.speed = mapToLimits(speed)
