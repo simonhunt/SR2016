@@ -51,7 +51,7 @@ def getTurns(net, roll, code, zone):
     
     table_output = TURN_TABLE[net_index][side_index][roll_index][zone_index]
     
-    turns = [[False, 0], [False, 0], [False, 0], [False, 0]]
+    turns = [[False, None], [False, None], [False, None], [False, None]]
     
     if (table_output[0] == False):
         if (table_output[1] == 0 or table_output[1] == 2):
