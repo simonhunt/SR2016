@@ -50,7 +50,7 @@ class mpuHandler():
     
     def __init__(self, mpuRuggeduino, yawDrift, timePeriod = 0.025, mpuStartTimeout = 2): # default 40Hz
         currentTime = time.time()
-        self.innitTime = currentTime()
+        self.innitTime = currentTime
         self.timePeriod = timePeriod
         self.mpuRuggeduino = mpuRuggeduino
         self.mpuRuggeduino.mpuInit()
