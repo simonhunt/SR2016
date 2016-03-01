@@ -33,29 +33,29 @@ STARTING__ROBOT_3 = {'x': 1, 'y': 1, 'z': 0.25, 'yaw': 45, 'pitch': 0, 'roll': 0
 ################################################################################################################
 ################################################################################################################
 
-def getInitialCameraLocation(zone, currentTime): ##this method is not finished
+def getInitialCameraLocation(zone, current_time): ##this method is not finished
     
     
     if (zone == 0):
-        initialCameraLocation = ZONE_0_INITIAL_CAMERA_LOCATION
+        initial_camera_location = ZONE_0_INITIAL_CAMERA_LOCATION
     
     elif (zone == 1):
-        initialCameraLocation = ZONE_1_INITIAL_CAMERA_LOCATION
+        initial_camera_location = ZONE_1_INITIAL_CAMERA_LOCATION
     
     elif (zone == 2):
-        initialCameraLocation = ZONE_2_INITIAL_CAMERA_LOCATION
+        initial_camera_location = ZONE_2_INITIAL_CAMERA_LOCATION
     
     else: #zone == 3
-        initialCameraLoctaion = ZONE_0_INITIAL_CAMERA_LOCATION
+        initial_camera_location = ZONE_0_INITIAL_CAMERA_LOCATION
     
-    initialCameraLocation['time'] = currentTime
+    initial_camera_location['time'] = current_time
         
-    return initialCameraLocation
+    return initial_camera_location
             
-def getStartingCubeLocations(currentTime):
+def getStartingCubeLocations(current_time):
     
-    startingCubeLocations = [STARTING_CUBE_0, STARTING_CUBE_1, STARTING_CUBE_2, STARTING_CUBE_3, STARTING_CUBE_4 , STARTING_CUBE_5 , STARTING_CUBE_6 , STARTING_CUBE_7 , STARTING_CUBE_8]
-    return startingCubeLocations
+    starting_cube_locations = [STARTING_CUBE_0, STARTING_CUBE_1, STARTING_CUBE_2, STARTING_CUBE_3, STARTING_CUBE_4 , STARTING_CUBE_5 , STARTING_CUBE_6 , STARTING_CUBE_7 , STARTING_CUBE_8]
+    return starting_cube_locations
     
 def getStartingRobotLocations(current_time):
     
@@ -68,54 +68,54 @@ def getStartingRobotLocations(current_time):
     robot_3 = STARTING__ROBOT_3
     robot_3['time'] = current_time
     
-    startingRobotLocations = [robot_0, robot_1, robot_2, robot_3]
-    return startingRobotLocations
+    starting_robot_locations = [robot_0, robot_1, robot_2, robot_3]
+    return starting_robot_locations
     
-class markerHandler():
+class MarkerHandler():
     
-    def __init__(self, currentTime):
-        self.currentTime = currentTime
-        self.markerSeen = False
+    def __init__(self, current_time):
+        self.current_time = current_time
+        self.marker_seen = False
         self.markers = []
     
     def addMarker(self, marker):
-        self.markerSeen = True
+        self.marker_seen = True
         self.markers.append(marker)
     
 
-class arenaMarkerHandler(markerHandler):
+class ArenaMarkerHandler(MarkerHandler):
             
     def processMarkers(self):
         cameraLocations = []
         
         for marker in self.markers:
-            cameraLocation = cameraLocationFromArenaMarker(marker, self.currentTime)
+            cameraLocation = cameraLocationFromArenaMarker(marker, self.current_time)
             cameraLocations.append(cameraLocation)
             
         cameraLocation = getAverageLocation(cameraLocations)
         
         return cameraLocation
         
-class robotMarkerHandler(markerHandler):
+class RobotMarkerHandler(MarkerHandler):
             
     def processMarkers(self, cameraLocation):
         robotLocations = []
         
         for marker in self.markers:
-            robotLocation = objectLocationFromObjectMarker(marker, cameraLocation, self.currentTime, ROBOT_WIDTH)
+            robotLocation = objectLocationFromObjectMarker(marker, cameraLocation, self.current_time, ROBOT_WIDTH)
             robotLocations.append(robotLocation)
             
         robotLocation = getAverageLocation(robotLocations)
         
         return robotLocation
         
-class tokenMarkerHandler(markerHandler):
+class TokenMarkerHandler(MarkerHandler):
             
     def processMarkers(self, cameraLocation, zone):
         tokenLocations = []
         
         for marker in self.markers:
-            tokenLocation = objectLocationFromObjectMarker(marker, cameraLocation, self.currentTime, TOKEN_WIDTH, zone)
+            tokenLocation = objectLocationFromObjectMarker(marker, cameraLocation, self.current_time, TOKEN_WIDTH, zone)
             tokenLocations.append(tokenLocation)
         
         return tokenLocations
@@ -164,7 +164,7 @@ def getAverageLocation(locations):
 ################################################################################################################
     
     
-def objectLocationFromObjectMarker(objectMarker, cameraLocation, currentTime, objectWidth, zone = None, approachDistance = 1):
+def objectLocationFromObjectMarker(objectMarker, cameraLocation, current_time, objectWidth, zone = None, approachDistance = 1):
     
     # SPHERICAL VECTOR REFERENCE: http://mathworld.wolfram.com/SphericalCoordinates.html
     
@@ -216,7 +216,7 @@ def objectLocationFromObjectMarker(objectMarker, cameraLocation, currentTime, ob
     y += dY
     z += dZ
     
-    time = currentTime
+    time = current_time
     
     objectLocation = {'x': x, 'y': y, 'z': z, 'yaw': yaw, 'pitch': pitch, 'roll': roll, 'time': time}
     
@@ -255,7 +255,7 @@ def objectLocationFromObjectMarker(objectMarker, cameraLocation, currentTime, ob
 ################################################################################################################
 
 
-def cameraLocationFromArenaMarker(arenaMarker, currentTime):
+def cameraLocationFromArenaMarker(arenaMarker, current_time):
     ## Returns the co-ordinates of the camera according to an arena marker by adding the arean marker vector to the arena marker location, in a direction depending on which wall it is on.
     
     arenaMarkerLocation = getArenaMarkerLocation(arenaMarker)
@@ -283,7 +283,7 @@ def cameraLocationFromArenaMarker(arenaMarker, currentTime):
     
     pitch = arenaMarkerAngles['pitch']
     roll = -arenaMarkerAngles['roll']
-    time = currentTime
+    time = current_time
     
     cameraLocation = {'x': x, 'y': y, 'z': z, 'yaw': yaw, 'pitch': pitch, 'roll': roll, 'time': time}
     
@@ -369,42 +369,42 @@ def getArenaMarkerWall(arenaMarkerOffset):
 ################################################################################################################
 ################################################################################################################
 
-class mapHandler():
+class MapHandler():
     
-    def __init__(self, zone, currentTime):
-        self.cameraLocation = getInitialCameraLocation(zone, currentTime)
-        self.startingCubeLocations = getStartingCubeLocations(currentTime)
+    def __init__(self, zone, current_time):
+        self.cameraLocation = getInitialCameraLocation(zone, current_time)
+        self.starting_cube_locations = getStartingCubeLocations(current_time)
         self.aCubeLocations = []
         self.bCubeLocations = []
         self.cCubeLocations = []
-        self.robotLocations = getStartingRobotLocations(currentTime)
+        self.robotLocations = getStartingRobotLocations(current_time)
         
-    def filterCubes(self, currentTime, maxAge = 1):
+    def filterCubes(self, current_time, maxAge = 1):
          
         for A in self.aCubeLocations:
-             if ((currentTime - A['time']) > maxAge):
+             if ((current_time - A['time']) > maxAge):
                  self.aCubeLocations.remove(A)
         
         for B in self.bCubeLocations:
-             if ((currentTime - B['time']) > maxAge):
+             if ((current_time - B['time']) > maxAge):
                  self.bCubeLocations.remove(B)
                  
         for C in self.cCubeLocations:
-             if ((currentTime - C['time']) > maxAge):
+             if ((current_time - C['time']) > maxAge):
                  self.cCubeLocations.remove(C)
                  
         
-    def update(self, markers, currentTime, zone):
-        A = arenaMarkerHandler(currentTime)
+    def update(self, markers, current_time, zone):
+        A = ArenaMarkerHandler(current_time)
         
-        R0 = robotMarkerHandler(currentTime)
-        R1 = robotMarkerHandler(currentTime)
-        R2 = robotMarkerHandler(currentTime)
-        R3 = robotMarkerHandler(currentTime)
+        R0 = RobotMarkerHandler(current_time)
+        R1 = RobotMarkerHandler(current_time)
+        R2 = RobotMarkerHandler(current_time)
+        R3 = RobotMarkerHandler(current_time)
         
-        TA = tokenMarkerHandler(currentTime)
-        TB = tokenMarkerHandler(currentTime)
-        TC = tokenMarkerHandler(currentTime)
+        TA = TokenMarkerHandler(current_time)
+        TB = TokenMarkerHandler(current_time)
+        TC = TokenMarkerHandler(current_time)
         
         RList = [R0, R1, R2, R3]
         
@@ -445,25 +445,25 @@ class mapHandler():
                 else:
                     print "error: marker with undefined NET handled as token"
         
-        if (A.markerSeen == True):
+        if (A.marker_seen == True):
             self.cameraLocation = A.processMarkers()
             
-        if (currentTime - self.cameraLocation['time'] <= 1):
+        if (current_time - self.cameraLocation['time'] <= 1):
             
             i = 0
             for R in RList:
                 
-                if (R.markerSeen == True):
+                if (R.marker_seen == True):
                     self.robotLocations[i] = R.processMarkers(self.cameraLocation)
                 i += 1
             
-            if (TA.markerSeen == True):
+            if (TA.marker_seen == True):
                 self.aCubeLocations.extend(TA.processMarkers(self.cameraLocation, zone))
             
-            if (TB.markerSeen == True):
+            if (TB.marker_seen == True):
                 self.bCubeLocations.extend(TB.processMarkers(self.cameraLocation, zone))
                 
-            if (TC.markerSeen == True):
+            if (TC.marker_seen == True):
                 self.cCubeLocations.extend(TC.processMarkers(self.cameraLocation, zone))
                 
                   
