@@ -1,6 +1,6 @@
 import math
 import cmath
-import turn
+from turn import getTurns
 from sr.robot import *
 from limits import mapToLimits, angleMod
 
@@ -225,7 +225,7 @@ def objectLocationFromObjectMarker(object_marker, camera_location, current_time,
         #vector from center to approach spot
         net = object_marker.info.token_net
         code = object_marker.info.code
-        turns = turn.getTurns(net, roll, code, zone)
+        turns = getTurns(net, roll, code, zone)
         approach_locations = []
         
         i = 0
