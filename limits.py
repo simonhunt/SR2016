@@ -21,7 +21,7 @@ def angleMod(angle):
     
 def mod4(number):
     output = number
-    
+    # output= number%4 is the same as this function. % is the modulus operator
     while (output >= 4):
         output -= 4
         
