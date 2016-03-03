@@ -253,7 +253,7 @@ def objectLocationFromObjectMarker(object_marker, camera_location, current_time,
                 
                 az = z + adZ
                 
-                a_yaw = mapToLimits(yaw - 180 + 90 * i)
+                a_yaw = angleMod(yaw - 180 + (90 * i))
                 a_pitch = - pitch
                 a_roll = - roll
                 
