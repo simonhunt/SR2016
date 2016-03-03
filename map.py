@@ -262,6 +262,7 @@ def objectLocationFromObjectMarker(object_marker, camera_location, current_time,
                 approach_location = {'x': ax, 'y': ay, 'z': az, 'yaw': a_yaw, 'pitch': a_pitch, 'roll': a_roll, 'time': time, 'degrees': degrees}
                 
                 approach_locations.append(approach_location) 
+                i += 1
         
         print "approach locations: ", approach_locations
         
