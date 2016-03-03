@@ -230,6 +230,7 @@ def objectLocationFromObjectMarker(object_marker, camera_location, current_time,
         
         i = 0
         for turn in turns:
+            
             if (turn[0] == True):
                 adX = approach_distance * math.cos(math.radians(azimuthal)) * math.sin(math.radians(polar))
                 adY = approach_distance * math.sin(math.radians(azimuthal)) * math.sin(math.radians(polar))
@@ -262,7 +263,7 @@ def objectLocationFromObjectMarker(object_marker, camera_location, current_time,
                 approach_location = {'x': ax, 'y': ay, 'z': az, 'yaw': a_yaw, 'pitch': a_pitch, 'roll': a_roll, 'time': time, 'degrees': degrees}
                 
                 approach_locations.append(approach_location) 
-                i += 1
+            i += 1
         
         print "approach locations: ", approach_locations
         
