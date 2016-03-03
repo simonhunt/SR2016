@@ -1,7 +1,9 @@
+print "Main thread started"
+
 YAW_DRIFT = -0.004 #degrees per second 
-KP = 3
-KI = 2
-KD = 3
+YKP = 3
+YKI = 2
+YKD = 3
 I_LIMIT = 100
 
 from sr.robot import *
@@ -10,8 +12,9 @@ import ruggeduino
 import pid
 import motors
 import map
+import multi
  
-targetYaw = 0
+target_yaw = 0
 speed = 0 
  
 print "Classes imported"
@@ -36,13 +39,24 @@ currentTime = time.time()
 zone = R.zone
 M = map.MapHandler(zone, currentTime)
 
-P = pid.PidController("steeringPID", KP, KI, KD, targetYaw, I_LIMIT) #p, i, d, setpoint, iLimit, startingI
+Y = pid.PidController("yawPID", YKP, YKI, YKD, target_yaw, I_LIMIT) #p, i, d, setpoint, iLimit, startingI
 print "PID setup"
 
 S = motors.MotorHandler(R.motors[0].m0, R.motors[0].m1) #left motor, right motor
 print "motorHandler setup"
 
-while True:
+# Create yaw thread
+YawThread = multi.YawThread(Y, D)
+print "YawThread created"
+
+YawThread.start()
+print "YawThread started"
+
+while (True):
+    print YawThread.steering
+    time.sleep(1)
+
+#while True:
     
     
     #if (D.updateAll() == True):
@@ -69,16 +83,16 @@ while True:
     #    print "robot locations: ", M.robot_locations
     #    print " "       ##line clear
     
-    current_time = time.time()
-    markers = R.see( res=(1280,960) )         ## Takes a picture and analyses it at a resolution. For information on which resolutions can vbe used: https://www.studentrobotics.org/docs/programming/sr/vision/#ChoosingResolution
-    print "I can see", len(markers), "markers:"       ## Prints out how many markers by taking the length of the markers array
-    print " "       ##line clear
-    
-    M.update(markers, current_time, zone)
-    M.filterCubes(current_time)
-    print "aCubeLocations: ", M.a_cube_locations
-    print "bCubeLocations: ", M.b_cube_locations
-    print "cCubeLocations: ", M.c_cube_locations
+    #current_time = time.time()
+    #markers = R.see( res=(1280,960) )         ## Takes a picture and analyses it at a resolution. For information on which resolutions can vbe used: https://www.studentrobotics.org/docs/programming/sr/vision/#ChoosingResolution
+    #print "I can see", len(markers), "markers:"       ## Prints out how many markers by taking the length of the markers array
+    #print " "       ##line clear
+    #
+    #M.update(markers, current_time, zone)
+    #M.filterCubes(current_time)
+    #print "aCubeLocations: ", M.a_cube_locations
+    #print "bCubeLocations: ", M.b_cube_locations
+    #print "cCubeLocations: ", M.c_cube_locations
          
     #print "Cameralocation: ", M.cameraLocation
     #print "aCubeLocations: ", M.aCubeLocations
@@ -86,6 +100,8 @@ while True:
     #print "cCubeLocations: ", M.cCubeLocations
     #print "robotLocations: ", M.robotLocations
     #print " "       ##line clear
+    
+print "Main thread exited"
         
         
         
