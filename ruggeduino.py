@@ -7,7 +7,7 @@ class MpuSonarRuggeduino(Ruggeduino):
     def mpuGetYaw(self):
         
         with self.lock:
-            yaw = float(self.command('x'))
+            yaw = - float(self.command('x'))
         return yaw
     
     def mpuGetPitch(self):
