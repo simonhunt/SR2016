@@ -26,7 +26,7 @@ class YawThread(threading.Thread):
         while (True):
             
             if (self.D.updateAll() == True or heading_updated == True):
-                pid_input = angleMod(self.D.yawWithoutDrift - heading)
+                pid_input = angleMod(self.D.yaw_without_drift - heading)
                 global heading_updated
                 heading_updated = False
                 
