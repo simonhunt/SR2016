@@ -17,7 +17,7 @@ import multi
 target_yaw = 0
 speed = 0 
  
-print "Classes imported"
+print "packages imported"
 
 R = Robot.setup()
 print "Robot.setup ran"
