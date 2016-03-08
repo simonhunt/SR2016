@@ -49,12 +49,19 @@ print "motorHandler setup"
 YawThread = multi.YawThread(Y, D)
 print "YawThread created"
 
+MotorThread = multi.MotorThread(S)
+print "MotorThread created"
+
 YawThread.start()
 print "YawThread started"
+
+MotorThread.start()
+print "MotorThread started"
 
 while (True):
     print YawThread.steering
     time.sleep(1)
+    MotorThread.speed = 10
 
 #while True:
     
