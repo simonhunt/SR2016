@@ -37,33 +37,37 @@ print "wait_start ran"
 
 currentTime = time.time()
 zone = R.zone
-M = map.MapHandler(zone, currentTime)
+A = map.MapHandler(zone, currentTime)
 
 Y = pid.PidController("yawPID", YKP, YKI, YKD, target_yaw, I_LIMIT) #p, i, d, setpoint, iLimit, startingI
 print "PID setup"
 
-S = motors.MotorHandler(R.motors[0].m0, R.motors[0].m1) #left motor, right motor
+M = motors.MotorHandler(R.motors[0].m0, R.motors[0].m1) #left motor, right motor
 print "motorHandler setup"
 
 
 
 # Create yaw thread
-YawThread = multi.YawThread(Y, D)
-print "YawThread created"
+#YawThread = multi.YawThread(Y, D)
+#print "YawThread created"
+#
+#MotorThread = multi.MotorThread(S)
+#print "MotorThread created"
+#
+#MotionThread = multi.MotionThread(YawThread, MotorThread)
+#print "MotionThread created"
 
-MotorThread = multi.MotorThread(S)
-print "MotorThread created"
-
-MotionThread = multi.MotionThread(YawThread, MotorThread)
-print "MotionThread created"
+MotionThread = multi.MotionThread(D, Y, M)
 
 MotionThread.start()
 print "MotionThread started"
 
 while (True):
-    print YawThread.steering
+    print "steering" + MotionThread.steering
+    print "speed" + MotionThread.speed
+    print "yaw" + MotionThread.yaw
+    print "heading" + MotionThread.heading
     time.sleep(1)
-    MotorThread.speed = 10
 
 #while True:
     
