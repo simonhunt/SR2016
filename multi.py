@@ -15,13 +15,14 @@ class YawThread(threading.Thread):
     
     def __init__(self, YawPid, MpuHandler):
         threading.Thread.__init__(self)
+        self.name = "YawThread"
         self.steering = 0
         self.steering_updated = True
         self.Y = YawPid
         self.D = MpuHandler
     
     def run(self):
-        print "Starting YawThread"
+        print "Starting" + self.name
         
         while (True):
             
@@ -35,7 +36,24 @@ class YawThread(threading.Thread):
                 self.steering_updated = True
                 
         print "Exiting " + self.name
-
+        
+class MotorThread(threading.Thread):
+    
+    def __init__(self, MotorHandler):
+        threading.Thread.__init__(self)
+        self.name = "MotorThread"
+        self.steering = 0
+        self.speed = 0
+        self.S = MotorHandler
+    
+    def run(self):
+        print "Starting" + self.name
+        while (True):
+            
+           self.S.setSpeedAndSteering(self.speed, self.steering)
+                
+        print "Exiting " + self.name
+        
 
     
     
