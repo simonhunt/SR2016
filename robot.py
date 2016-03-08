@@ -68,6 +68,7 @@ while (True):
     print "yaw" + MotionThread.yaw
     print "heading" + MotionThread.heading
     time.sleep(1)
+    print "-"
 
 #while True:
     
