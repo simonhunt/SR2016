@@ -48,7 +48,7 @@ class MpuSonarRuggeduino(Ruggeduino):
         
 class MpuHandler():
     
-    def __init__(self, MpuRuggeduino, yaw_drift, time_period = 0.025, mpu_start_timeout = 2): # default 40Hz
+    def __init__(self, MpuRuggeduino, yaw_drift, time_period = 0.01, mpu_start_timeout = 2): # default 100Hz
         current_time = time.time()
         self.innit_time = current_time
         self.time_period = time_period
