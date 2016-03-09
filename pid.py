@@ -39,7 +39,7 @@ class PidController():
         if (self.first_run == False):
             
             if (dt >= self.time_period): 
-                error = value - self.setpoint
+                error = self.setpoint - value
                 
                 p = self.kp * error
                 self.i += self.ki * error * dt
