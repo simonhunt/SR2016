@@ -5,6 +5,7 @@ YKP = 3
 YKI = 2
 YKD = 3
 I_LIMIT = 100
+MAX_STEERING = 20
 
 from sr.robot import *
 import time
@@ -42,10 +43,8 @@ A = map.MapHandler(zone, currentTime)
 Y = pid.PidController("yawPID", YKP, YKI, YKD, target_yaw, I_LIMIT) #p, i, d, setpoint, iLimit, startingI
 print "PID setup"
 
-M = motors.MotorHandler(R.motors[0].m0, R.motors[0].m1) #left motor, right motor
+M = motors.MotorHandler(R.motors[0].m0, R.motors[0].m1, MAX_STEERING) #left motor, right motor
 print "motorHandler setup"
-
-
 
 # Create yaw thread
 #YawThread = multi.YawThread(Y, D)
