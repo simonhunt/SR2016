@@ -19,8 +19,8 @@ class MotorHandler():
         updated = False
         
         if (dt >= self.time_period):
-            self.left_speed = mapToLimits(self.speed + self.steering)
-            self.right_speed = mapToLimits(self.speed - self.steering)
+            self.left_speed = mapToLimits(self.speed - self.steering)
+            self.right_speed = mapToLimits(self.speed + self.steering)
             
             self.LeftMotor.power = self.left_speed
             self.RightMotor.power = self.right_speed
