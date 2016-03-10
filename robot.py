@@ -1,9 +1,9 @@
 print "Main thread started"
 
 YAW_DRIFT = -0.004 #degrees per second 
-YKP = 3
-YKI = 2
-YKD = 3
+YKP = -3
+YKI = -2
+YKD = -3
 I_LIMIT = 100
 MAX_STEERING = 20
 
