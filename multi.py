@@ -46,6 +46,9 @@ class MotionThread(threading.Thread):
             
             if (self.D.updateAll() == True):
                 self.yaw = self.D.yaw_without_drift
+                
+            else:
+                print "D returned false in Motion Thread"
             
             self.heading_available = False
             heading = self.heading
@@ -56,6 +59,9 @@ class MotionThread(threading.Thread):
             if (self.Y.run(pid_input) == True):
                 self.steering = self.Y.output
                 new_steering = True
+                
+            else:
+                print "Y returned false in Motion Thread"
             
             self.speed_available = False
             speed = self.speed
@@ -65,6 +71,8 @@ class MotionThread(threading.Thread):
                 self.M.setSpeedAndSteering(speed, self.steering)
                 print "new speed"
                 self.new_speed = False
+            else:
+                print "speed and steering not set in Motion Thread"
             
             time.sleep(self.timePeriod)
                 
