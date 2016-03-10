@@ -44,7 +44,7 @@ class MotionThread(threading.Thread):
             
             new_steering = False
             
-            if (self.D.updateAll == True):
+            if (self.D.updateAll() == True):
                 print "D.ua = true"
                 self.yaw = self.D.yaw_without_drift
             
