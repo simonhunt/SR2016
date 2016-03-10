@@ -62,10 +62,10 @@ MotionThread.start()
 print "MotionThread started"
 
 while (True):
-    print "steering" + str(MotionThread.steering)
-    print "speed" + str(MotionThread.speed)
-    print "yaw" + str(MotionThread.yaw)
-    print "heading" + str(MotionThread.heading)
+    print "steering " + str(MotionThread.steering)
+    print "speed " + str(MotionThread.speed)
+    print "yaw " + str(MotionThread.yaw)
+    print "heading " + str(MotionThread.heading)
     time.sleep(1)
     print "-"
 
