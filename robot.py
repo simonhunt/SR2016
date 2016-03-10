@@ -1,6 +1,6 @@
 print "Main thread started"
 
-YAW_DRIFT = -0.004 #degrees per second 
+YAW_DRIFT = 0.004 #degrees per second 
 YKP = -3
 YKI = -2
 YKD = -3
