@@ -46,7 +46,7 @@ class MpuSonarRuggeduino(Ruggeduino):
         with self.lock:
             steps = int(self.command('e'))
         return steps
-        
+
 class MpuHandler():
     
     def __init__(self, MpuRuggeduino, yaw_drift, time_period = 0.01, mpu_start_timeout = 2): # default 100Hz
