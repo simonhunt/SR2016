@@ -63,6 +63,7 @@ class MotionThread(threading.Thread):
             
             if (new_steering == True or self.new_speed == True):
                 self.M.setSpeedAndSteering(speed, self.steering)
+                print "new speed"
                 self.new_speed = False
             
             time.sleep(self.timePeriod)
