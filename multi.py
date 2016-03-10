@@ -40,7 +40,7 @@ class MotionThread(threading.Thread):
         print "Starting" + self.name
         
         while (True):
-            
+            print "ran while loop in motionThread"
             new_steering = False
             
             if (self.D.updateAll):
