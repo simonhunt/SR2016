@@ -45,7 +45,6 @@ class MotionThread(threading.Thread):
             new_steering = False
             
             if (self.D.updateAll() == True):
-                print "D.ua = true"
                 self.yaw = self.D.yaw_without_drift
             
             self.heading_available = False
