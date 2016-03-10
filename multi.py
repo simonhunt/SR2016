@@ -41,6 +41,10 @@ class MotionThread(threading.Thread):
         
         while (True):
             print "ran while loop in motionThread"
+            print "steering " + str(self.steering)
+            print "speed " + str(self.speed)
+            print "yaw " + str(self.yaw)
+            print "heading " + str(self.heading)
             new_steering = False
             
             if (self.D.updateAll):
