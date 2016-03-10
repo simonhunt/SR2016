@@ -69,7 +69,6 @@ class MotionThread(threading.Thread):
             
             if (new_steering == True or self.new_speed == True):
                 self.M.setSpeedAndSteering(speed, self.steering)
-                print "new speed"
                 self.new_speed = False
             else:
                 print "speed and steering not set in Motion Thread"
