@@ -42,5 +42,5 @@ class MotorHandler():
         
     def setSpeedAndSteering(self, speed, steering):
         self.speed = mapToLimits(speed)
-        self.steering = mapToLimits(steering, 200, - 200)
+        self.steering = mapToLimits(steering, self.maxSteering, - self.maxSteering)
         return self.update()
