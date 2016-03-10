@@ -25,13 +25,8 @@ class MpuSonarRuggeduino(Ruggeduino):
     def mpuGetError(self):
         
         with self.lock:
-            error = float(self.command('w'))
-            
-            if (error == 0):
-                return False
-            
-            else:
-                return True
+            error = float(self.command('w')) #error = int(self.command('w'))
+        return error
         
     def mpuInit(self):
         
@@ -43,8 +38,14 @@ class MpuSonarRuggeduino(Ruggeduino):
         with self.lock:
             trig_pin_char = chr(trig_pin + 97) 
             echo_pin_char = chr(echo_pin + 97)
-            duration = int(self.command("s" + trig_pin_char + echo_pin_char))  # s for sonar
+            duration = int(self.command('s' + trig_pin_char + echo_pin_char))  # s for sonar
         return duration
+    
+    def encoderGetSteps(self):
+        
+        with self.lock:
+            steps = int(self.command('e'))
+        return steps
         
 class MpuHandler():
     
