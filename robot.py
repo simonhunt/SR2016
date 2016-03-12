@@ -46,16 +46,6 @@ print "PID setup"
 M = motors.MotorHandler(R.motors[0].m0, R.motors[0].m1, MAX_STEERING) #left motor, right motor
 print "motorHandler setup"
 
-# Create yaw thread
-#YawThread = multi.YawThread(Y, D)
-#print "YawThread created"
-#
-#MotorThread = multi.MotorThread(S)
-#print "MotorThread created"
-#
-#MotionThread = multi.MotionThread(YawThread, MotorThread)
-#print "MotionThread created"
-
 MotionThread = multi.MotionThread(D, Y, M)
 
 MotionThread.start()
