@@ -4,7 +4,7 @@ from limits import angleMod
 
 class MotionThread(threading.Thread):
     
-    def __init__(self, MpuHandler, YawPid, MotorHandler, timePeriod = 0.01):
+    def __init__(self, MpuHandler, YawPid, MotorHandler, EncoderHandler, timePeriod = 0.01):
         threading.Thread.__init__(self)
         self.name = "MotionThread"
         self.steering = 0
@@ -14,9 +14,11 @@ class MotionThread(threading.Thread):
         self.speed = 0
         self.speed_available = True
         self.new_speed = False
+        self.displacement = 0
         self.D = MpuHandler
         self.Y = YawPid
         self.M = MotorHandler
+        self.E = EncoderHandler
         self.timePeriod = timePeriod
     
     def changeHeading(self, angle):
@@ -40,7 +42,6 @@ class MotionThread(threading.Thread):
         print "Starting" + self.name
         
         while (True):
-            #print "ran while loop in motionThread"
             
             new_steering = False
             
@@ -49,6 +50,12 @@ class MotionThread(threading.Thread):
                 
             else:
                 print "D returned false in Motion Thread"
+                
+            if (self.E.update() == True):
+                self.displacement = self.E.displacement
+                
+            else:
+                print "E returned false in Motion Thread"
             
             self.heading_available = False
             heading = self.heading
@@ -72,6 +79,8 @@ class MotionThread(threading.Thread):
                 self.new_speed = False
             else:
                 print "speed and steering not set in Motion Thread"
+                
+            
             
             time.sleep(self.timePeriod)
                 
