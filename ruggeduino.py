@@ -1,6 +1,10 @@
 from sr.robot import *
 import time
+import math
 from limits import angleMod
+
+WHEEL_RADIUS = 0.05
+ENCODER_RESOLUTION = 96
 
 class MpuSonarEncoderRuggeduino(Ruggeduino):
     
@@ -25,7 +29,7 @@ class MpuSonarEncoderRuggeduino(Ruggeduino):
     def mpuGetError(self):
         
         with self.lock:
-            error = float(self.command('w')) #error = int(self.command('w'))
+            error = int(self.command('w')) #error = float(self.command('w'))
         return error
         
     def mpuInit(self):
@@ -46,6 +50,27 @@ class MpuSonarEncoderRuggeduino(Ruggeduino):
         with self.lock:
             steps = int(self.command('e'))
         return steps
+
+class EncoderHandler():
+    
+    def __init__(self, EncoderRuggeduino, time_period = 0.01): # default 100Hz
+        current_time = time.time()
+        self.EncoderRuggeduino = EncoderRuggeduino
+        self.time_period = time_period
+        self.displacement = 0
+        self.last_time = current_time - time_period
+    
+    def update(self):
+        current_time = time.time()
+        dt = current_time - self.last_time
+        updated = False
+        
+        if (dt >= self.time_period):
+            self.displacement = self.EncoderRuggeduino.encoderGetSteps() * 2 * math.pi * WHEEL_RADIUS / ENCODER_RESOLUTION
+            self.last_time = current_time
+            updated = True
+        return updated
+        
 
 class MpuHandler():
     
