@@ -66,7 +66,7 @@ class EncoderHandler():
         updated = False
         
         if (dt >= self.time_period):
-            self.displacement = self.EncoderRuggeduino.encoderGetSteps() * 2 * math.pi * WHEEL_RADIUS / ENCODER_RESOLUTION
+            self.displacement = (self.EncoderRuggeduino.encoderGetSteps() / ENCODER_RESOLUTION) * 2 * math.pi * WHEEL_RADIUS
             self.last_time = current_time
             updated = True
         return updated
