@@ -2,7 +2,7 @@ from sr.robot import *
 import time
 from limits import angleMod
 
-class MpuSonarRuggeduino(Ruggeduino):
+class MpuSonarEncoderRuggeduino(Ruggeduino):
     
     def mpuGetYaw(self):
         
