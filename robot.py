@@ -70,6 +70,7 @@ while (True):
     print "speed " + str(MotionThread.speed)
     print "yaw " + str(MotionThread.yaw)
     print "heading " + str(MotionThread.heading)
+    print "displacement " + str(MotionThread.displacement)
     time.sleep(1)
     print "-"
 
