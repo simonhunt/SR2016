@@ -1,11 +1,17 @@
 print "Main thread started"
 
+DEBUG_YAW_DRIFT = True
+
 YAW_DRIFT = 0.004 #degrees per second 
 YKP = -3
 YKI = -2
 YKD = -3
 I_LIMIT = 100
 MAX_STEERING = 20
+
+if (DEBUG_YAW_DRIFT == True):
+    YAW_DRIFT = 0
+    MAX_STEERING = 0
 
 from sr.robot import *
 import time
@@ -24,14 +30,17 @@ R = Robot.setup()
 print "Robot.setup ran"
 
 # Register the custom class with the Robot object
-R.ruggeduino_set_handler_by_fwver("SRcustom", ruggeduino.MpuSonarRuggeduino)
+R.ruggeduino_set_handler_by_fwver("SRcustom", ruggeduino.MpuSonarEncoderRuggeduino)
 print "Ruggeduino handler ran"
 
 R.init()
 print "R.init ran"
 
 D = ruggeduino.MpuHandler(R.ruggeduinos[0], YAW_DRIFT)
-print "mpuHandler initialised"
+print "MpuHandler initialised"
+
+E = ruggeduino.EncoderHandler(R.ruggeduinos[0])
+print "EncoderHandler initialised"
 
 R.wait_start()
 print "wait_start ran"
@@ -46,10 +55,15 @@ print "PID setup"
 M = motors.MotorHandler(R.motors[0].m0, R.motors[0].m1, MAX_STEERING) #left motor, right motor
 print "motorHandler setup"
 
-MotionThread = multi.MotionThread(D, Y, M)
+MotionThread = multi.MotionThread(D, Y, M, E)
 
 MotionThread.start()
 print "MotionThread started"
+
+if (DEBUG_YAW_DRIFT == True):
+    while (True):
+        print str(MotionThread.yaw)
+        time.sleep(1)
 
 while (True):
     print "steering " + str(MotionThread.steering)
