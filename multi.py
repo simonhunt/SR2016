@@ -66,7 +66,7 @@ class MotionThread(threading.Thread):
             
             yaw_pid_input = angleMod(self.yaw - heading)
             
-            if (self.Y.run(pid_input) == True):
+            if (self.Y.run(yaw_pid_input) == True):
                 self.steering = self.Y.output
                 new_steering = True
                 
