@@ -4,7 +4,7 @@ from limits import angleMod
 
 class MotionThread(threading.Thread):
     
-    def __init__(self, MpuHandler, YawPid, MotorHandler, EncoderHandler, timePeriod = 0.01):
+    def __init__(self, MpuHandler, YawPid, MotorHandler, EncoderHandler, DisplacementPid, timePeriod = 0.01):
         threading.Thread.__init__(self)
         self.name = "MotionThread"
         self.steering = 0
@@ -15,10 +15,12 @@ class MotionThread(threading.Thread):
         self.speed_available = True
         self.new_speed = False
         self.displacement = 0
+        self.desiredDisplacement = 0
         self.D = MpuHandler
         self.Y = YawPid
         self.M = MotorHandler
         self.E = EncoderHandler
+        self.S = DisplacementPid
         self.timePeriod = timePeriod
     
     def changeHeading(self, angle):
@@ -35,7 +37,8 @@ class MotionThread(threading.Thread):
         if (self.speed_available == True):
             self.speed = speed
             updated = True
-        self.new_speed = updated
+            self.new_speed = True
+        
         return updated
     
     def run(self):
@@ -61,7 +64,7 @@ class MotionThread(threading.Thread):
             heading = self.heading
             self.heading_available = True
             
-            pid_input = angleMod(self.yaw - heading)
+            yaw_pid_input = angleMod(self.yaw - heading)
             
             if (self.Y.run(pid_input) == True):
                 self.steering = self.Y.output
@@ -70,8 +73,20 @@ class MotionThread(threading.Thread):
             else:
                 print "Y returned false in Motion Thread"
             
+            #self.desired_displacement_available = False
+            #self.S.setpoint = self.desired_displacement
+            #self.desired_displacement_available = True
+            #
+            #if (self.S.run(self.displacement) == True):
+            #    self.speed = self.S.output
+            #    self.new_speed = True
+            #     
+            #else:
+            #    print "S returned false in Motion Thread"
+            
             self.speed_available = False
             speed = self.speed
+            new_speed = self.new_speed
             self.speed_available = True
             
             if (new_steering == True or self.new_speed == True):
