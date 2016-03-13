@@ -8,6 +8,7 @@ class MotionThread(threading.Thread):
         threading.Thread.__init__(self)
         self.name = "MotionThread"
         self.steering = 0
+        self.speed = 0
         self.yaw = 0
         self.heading = 0
         self.heading_available = True
@@ -86,13 +87,13 @@ class MotionThread(threading.Thread):
             
             if (self.new_forced_speed == True):
                 self.forced_speed_available = False
-                speed = self.forced_speed
+                self.speed = self.forced_speed
                 self.forced_speed_available = True
                 new_speed = True
                 self.new_forced_speed = False
             
             if (new_steering == True or new_speed == True):
-                self.M.setSpeedAndSteering(speed, self.steering)
+                self.M.setSpeedAndSteering(self.speed, self.steering)
             else:
                 print "speed and steering not set in Motion Thread"
                 
