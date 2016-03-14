@@ -15,7 +15,7 @@ class MotionThread(threading.Thread):
         self.forced_speed = 0
         self.forced_speed_available = True
         self.new_forced_speed = False
-        #self.displacement = 0
+        self.displacement = 0
         #self.desired_displacement = 0
         self.D = MpuHandler
         self.Y = YawPid
