@@ -2,7 +2,7 @@ print "Main thread started"
 
 DEBUG_YAW_DRIFT = False
 
-YAW_DRIFT = 0.004 #degrees per second 
+YAW_DRIFT = 0.00417 #degrees per second 
 YKP = -3
 YKI = -2
 YKD = -3
