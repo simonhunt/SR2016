@@ -63,7 +63,7 @@ print "MotionThread started"
 if (DEBUG_YAW_DRIFT == True):
     while (True):
         print str(MotionThread.yaw)
-        time.sleep(1)
+        time.sleep(30)
 
 while (True):
     print "steering " + str(MotionThread.steering)
