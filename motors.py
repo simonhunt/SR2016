@@ -8,8 +8,6 @@ MIN_OUTPUT = -100
 import time
 from limits import mapToLimits
 
-
-
 class MotorHandler():
     
     def __init__(self, LeftMotor, RightMotor, time_period = 0.01): #100hz default
