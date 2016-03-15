@@ -18,7 +18,7 @@ class PidController():
         self.i_limit = i_limit
         self.output = 0
         self.first_run = True
-        self.stop = False
+        self.stopped = False
     
     def setCoefficients(self, new_kp, new_ki, new_kd):
         self.kp = new_kp
@@ -37,10 +37,10 @@ class PidController():
         
     def restart(self):
         self.first_run = True
-        self.stop = False
+        self.stopped = False
     
     def stop(self):
-        self.stop = True
+        self.stopped = True
         
     def run(self, value):
         
@@ -96,3 +96,4 @@ class PidController():
                 self.first_run = False
             
         return output_calculated
+        
