@@ -3,11 +3,13 @@ from limits import mapToLimits
 
 class PidController():
     
-    def __init__(self, name, kp = 0, ki = 0, kd = 0, setpoint = 0, i_limit = 0, starting_i = 0, time_period = 0.01): # default 100Hz
+    def __init__(self, name, kp = 0, ki = 0, kd = 0, max_output = 0, min_output = 0, setpoint = 0, i_limit = 0, starting_i = 0, time_period = 0.01): # default 100Hz
         self.name = name
         self.kp = kp
         self.ki = ki    
         self.kd = kd
+        self.max_output = max_output
+        self.min_output = min_output    
         self.setpoint = setpoint
         self.time_period = time_period
         self.last_time = 0
@@ -47,8 +49,14 @@ class PidController():
                 
                 if (self.i_limit != 0):
                     self.i = mapToLimits(self.i, self.i_limit, - self.i_limit)
+                    
+                if ((self.max_output != 0) and (self.min_output != 0)):
+                    self.output = mapToLimits((p + self.i + d), self.max_output, self.min_output)
                 
-                self.output = p + self.i + d
+                else:
+                    self.output = p + self.i + d
+                    
+                
                 output_calculated = True
         
                 self.last_time = current_time
@@ -64,7 +72,12 @@ class PidController():
             if (self.i_limit != 0):
                 self.i = mapToLimits(self.i, self.i_limit, - self.i_limit)
             
-            self.output = p + self.i + d
+            if ((self.max_output != 0) and (self.min_output != 0)):
+                    self.output = mapToLimits((p + self.i + d), self.max_output, self.min_output)
+                
+                else:
+                    self.output = p + self.i + d
+                    
             output_calculated = True
         
             self.last_time = current_time
