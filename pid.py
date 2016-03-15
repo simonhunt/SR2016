@@ -73,10 +73,10 @@ class PidController():
                 self.i = mapToLimits(self.i, self.i_limit, - self.i_limit)
             
             if ((self.max_output != 0) and (self.min_output != 0)):
-                    self.output = mapToLimits((p + self.i + d), self.max_output, self.min_output)
+                self.output = mapToLimits((p + self.i + d), self.max_output, self.min_output)
                 
-                else:
-                    self.output = p + self.i + d
+            else:
+                self.output = p + self.i + d
                     
             output_calculated = True
         
