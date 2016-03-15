@@ -18,6 +18,7 @@ class PidController():
         self.i_limit = i_limit
         self.output = 0
         self.first_run = True
+        self.stop = False
     
     def setCoefficients(self, new_kp, new_ki, new_kd):
         self.kp = new_kp
@@ -36,58 +37,62 @@ class PidController():
         
     def restart(self):
         self.first_run = True
+        self.stop = False
+    
+    def stop(self):
+        self.stop = True
         
     def run(self, value):
-        current_time = time.time()
-        dt = current_time - self.last_time
-        output_calculated = False
         
-        if (self.first_run == False):
+        if (self.stop == True):
+            self.output = 0
+            output_calculated = True
             
-            if (dt >= self.time_period): 
-                error = self.setpoint - value
+        else: #self.stop == False
+            current_time = time.time()
+            dt = current_time - self.last_time
+            output_calculated = False
+            
+            if (self.first_run == False):
+                
+                if (dt >= self.time_period): 
+                    error = self.setpoint - value
+                    
+                    p = self.kp * error
+                    self.i += self.ki * error * dt
+                    d = (error - self.last_error) / dt
+                    
+                    if (self.i_limit != 0):
+                        self.i = mapToLimits(self.i, self.i_limit, - self.i_limit)
+                        
+                    if ((self.max_output != 0) and (self.min_output != 0)):
+                        self.output = mapToLimits((p + self.i + d), self.max_output, self.min_output)
+                    
+                    else:
+                        self.output = p + self.i + d
+                    
+                    output_calculated = True
+            
+                    self.last_time = current_time
+                    self.last_error = error
+                    
+            else: #self.first_run == True
+                error = value - self.setpoint
                 
                 p = self.kp * error
-                self.i += self.ki * error * dt
-                d = (error - self.last_error) / dt
+                self.i = 0
+                d = 0
                 
-                if (self.i_limit != 0):
-                    self.i = mapToLimits(self.i, self.i_limit, - self.i_limit)
-                    
                 if ((self.max_output != 0) and (self.min_output != 0)):
                     self.output = mapToLimits((p + self.i + d), self.max_output, self.min_output)
-                
+                    
                 else:
                     self.output = p + self.i + d
-                    
-                
+                        
                 output_calculated = True
-        
+            
                 self.last_time = current_time
                 self.last_error = error
-                
-        else: #self.first_run == True
-            error = value - self.setpoint
+                self.first_run = False
             
-            p = self.kp * error
-            self.i += 0
-            d = 0
-            
-            if (self.i_limit != 0):
-                self.i = mapToLimits(self.i, self.i_limit, - self.i_limit)
-            
-            if ((self.max_output != 0) and (self.min_output != 0)):
-                self.output = mapToLimits((p + self.i + d), self.max_output, self.min_output)
-                
-            else:
-                self.output = p + self.i + d
-                    
-            output_calculated = True
-        
-            self.last_time = current_time
-            self.last_error = error
-            self.first_run = False
-        
         return output_calculated
-        
-        
