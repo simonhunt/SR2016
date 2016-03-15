@@ -3,6 +3,8 @@ print "Main thread started"
 DEBUG_YAW_DRIFT = False
 DEBUG_TEST_DRIFT = 0.00417
 DEBUG_TIMEPERIOD = 5
+DEBUG_SPEED = 0
+DEBUG_STEERING = 20
 
 YAW_DRIFT = 0.00417 #degrees per second 
 YKP = -3
@@ -13,7 +15,7 @@ MAX_STEERING = 20
 
 if (DEBUG_YAW_DRIFT == True):
     YAW_DRIFT = DEBUG_TEST_DRIFT
-    MAX_STEERING = 0
+    MAX_STEERING = DEBUG_STEERING
 
 from sr.robot import *
 import time
