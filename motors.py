@@ -2,6 +2,8 @@ MAX_STEERING = 200
 MIN_STEERING = - 200
 MAX_SPEED = 100
 MIN_SPEED = - 100
+MAX_OUTPUT = 100
+MIN_OUTPUT = -100
 
 import time
 from limits import mapToLimits
@@ -25,8 +27,8 @@ class MotorHandler():
         updated = False
         
         if (dt >= self.time_period):
-            self.left_speed = mapToLimits(self.speed - self.steering)
-            self.right_speed = mapToLimits(self.speed + self.steering)
+            self.left_speed = mapToLimits((self.speed - self.steering), MAX_OUTPUT, MIN_OUTPUT)
+            self.right_speed = mapToLimits((self.speed + self.steering), MAX_OUTPUT, MIN_OUTPUT)
             
             self.LeftMotor.power = self.left_speed
             self.RightMotor.power = self.right_speed
