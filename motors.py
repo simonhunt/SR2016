@@ -1,12 +1,18 @@
+MAX_STEERING = 200
+MIN_STEERING = - 200
+MAX_SPEED = 100
+MIN_SPEED = - 100
+
 import time
 from limits import mapToLimits
 
+
+
 class MotorHandler():
     
-    def __init__(self, LeftMotor, RightMotor, maxSteering = 200, time_period = 0.01): #100hz default
+    def __init__(self, LeftMotor, RightMotor, time_period = 0.01): #100hz default
         self.LeftMotor = LeftMotor
         self.RightMotor = RightMotor
-        self.maxSteering = maxSteering
         self.time_period = time_period
         self.last_time = time.time() - self.time_period
         self.speed = 0
@@ -33,14 +39,14 @@ class MotorHandler():
         self.time_period = time_period
         
     def setSpeed(self, speed):
-        self.speed = mapToLimits(speed)
+        self.speed = mapToLimits(speed, MAX_SPEED, MIN_SPEED)
         return self.update()
     
     def setSteering(self, steering):
-        self.steering = mapToLimits(steering, self.maxSteering, - self.maxSteering)
+        self.steering = mapToLimits(steering, MAX_STEERING, MIN_STEERING)
         return self.update()
         
     def setSpeedAndSteering(self, speed, steering):
-        self.speed = mapToLimits(speed)
-        self.steering = mapToLimits(steering, self.maxSteering, - self.maxSteering)
+        self.speed = mapToLimits(speed, MAX_SPEED, MIN_SPEED)
+        self.steering = mapToLimits(steering, MAX_STEERING, MIN_STEERING)
         return self.update()
