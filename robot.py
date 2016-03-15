@@ -1,6 +1,8 @@
 print "Main thread started"
 
-DEBUG_YAW_DRIFT = False
+DEBUG_YAW_DRIFT = True
+DEBUG_TEST_DRIFT = 0.00417
+DEBUG_TIMEPERIOD = 5
 
 YAW_DRIFT = 0.00417 #degrees per second 
 YKP = -3
@@ -10,7 +12,7 @@ I_LIMIT = 100
 MAX_STEERING = 20
 
 if (DEBUG_YAW_DRIFT == True):
-    YAW_DRIFT = 0
+    YAW_DRIFT = DEBUG_TEST_DRIFT
     MAX_STEERING = 0
 
 from sr.robot import *
@@ -61,9 +63,11 @@ MotionThread.start()
 print "MotionThread started"
 
 if (DEBUG_YAW_DRIFT == True):
+    print "debugging yaw drift"
+    
     while (True):
         print str(MotionThread.yaw)
-        time.sleep(30)
+        time.sleep(DEBUG_TIMEPERIOD)
 
 while (True):
     print "steering " + str(MotionThread.steering)
