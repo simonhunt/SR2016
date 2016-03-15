@@ -10,9 +10,12 @@ YAW_DRIFT = 0.00417 #degrees per second
 YKP = -3
 YKI = -2
 YKD = -3
-I_LIMIT = 100
+Y_I_LIMIT = 100
+SKP = 0
+SKI = 0
+SKD = 0
+S_I_LIMIT = 0
 MAX_STEERING = 20
-MIN_STEERING = - MAX_STEERING
 MAX_SPEED = 50
 MIN_SPEED = -50
 
@@ -27,8 +30,9 @@ import pid
 import motors
 import map
 import multi
- 
-target_yaw = 0
+
+displacement_setpoint = 0
+yaw_setpoint = 0
 speed = 0 
  
 print "packages imported"
@@ -56,16 +60,18 @@ currentTime = time.time()
 zone = R.zone
 A = map.MapHandler(zone, currentTime)
 
-Y = pid.PidController("yawPID", YKP, YKI, YKD, target_yaw, I_LIMIT) #p, i, d, setpoint, iLimit, startingI
+Y = pid.PidController("yawPID", YKP, YKI, YKD, yaw_setpoint, Y_I_LIMIT, MAX_STEERING, - MAX_STEERING) #p, i, d, setpoint, iLimit, startingI
 print "PID setup"
 
-M = motors.MotorHandler(R.motors[0].m0, R.motors[0].m1, MAX_STEERING) #left motor, right motor
+S = pid.PidController("displacementPID", SKP, SKI, SKD, displacement_setpoint, S_I_LIMIT, MAX_SPEED, MIN_SPEED)
+
+M = motors.MotorHandler(R.motors[0].m0, R.motors[0].m1) #left motor, right motor
 print "motorHandler setup"
 
-MotionThread = multi.MotionThread(D, Y, M, E)
+MotionThread = multi.MotionThread(D, Y, M, S, E)
 
 MotionThread.start()
-print "MotionThread started"
+print "MotionThread started"                                       
 
 if (DEBUG_YAW_DRIFT == True):
     print "debugging yaw drift"
