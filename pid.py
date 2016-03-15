@@ -23,6 +23,10 @@ class PidController():
         self.kp = new_kp
         self.ki = new_ki
         self.kd = new_kd
+        
+    def setOutputLimits(self, new_max_output, new_min_output):
+        self.max_output = new_max_output
+        self.min_output = new_min_output
     
     def setTimeperiod(self, time_period):
         self.time_period = time_period
