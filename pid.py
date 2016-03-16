@@ -14,7 +14,7 @@ class PidController():
         self.time_period = time_period
         self.last_time = 0
         self.last_error = 0
-        self.i = starting_i
+        self.starting_i = starting_i
         self.i_limit = i_limit
         self.output = 0
         self.first_run = True
@@ -80,7 +80,7 @@ class PidController():
                 error = value - self.setpoint
                 
                 p = self.kp * error
-                self.i = 0
+                self.i = starting_i
                 d = 0
                 
                 if ((self.max_output != 0) and (self.min_output != 0)):
