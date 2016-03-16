@@ -55,14 +55,14 @@ class MotionThread(threading.Thread):
                 self.Y.restart()
                 self.deired_yaw = self.yaw + self.action_value
                 self.S.stop()
-                print "New Action: TURN, with value: " + self.action_value
+                print "New Action: TURN, with value: " + str(self.action_value)
             
             elif (self.action == MOVE):
                 self.Y.stop()
                 self.S.restart()
                 self.desired_displacement = self.displacement + self.action_value
                 self.S.setSetpoint(self.desired_displacement)
-                print "New Action: MOVE, with value: " + self.action_value
+                print "New Action: MOVE, with value: " + str(self.action_value)
             
             elif (self.action == MOVE_HOLD):
                 self.Y.restart()
@@ -70,7 +70,7 @@ class MotionThread(threading.Thread):
                 self.S.restart()
                 self.desired_displacement = self.displacement + self.action_value
                 self.S.setSetpoint(self.desired_displacement)
-                print "New Action: MOVE_HOLD, with value: " + self.action_value
+                print "New Action: MOVE_HOLD, with value: " + str(self.action_value)
                 
             else:
                 print "ERROR: unknown action processed in motionThread.processAction"
