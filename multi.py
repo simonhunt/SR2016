@@ -27,6 +27,7 @@ class MotionThread(threading.Thread):
         
         self.action = STILL
         self.action_value = 0
+        self.action_available = True
         self.action_needs_processing = True
         
     def setAction(self, action, action_value):
@@ -44,6 +45,7 @@ class MotionThread(threading.Thread):
         
         if (self.action_needs_processing == True):
             self.action_available = False
+            
             if (self.action == STILL):
                 self.Y.stop()
                 self.S.stop()
