@@ -1,6 +1,6 @@
 print "Main thread started"
 
-DEBUG_YAW_DRIFT = True
+DEBUG_YAW_DRIFT = False
 DEBUG_TEST_DRIFT = 0.0068
 DEBUG_TIMEPERIOD = 5
 DEBUG_SPEED = 0
