@@ -30,29 +30,37 @@ class MotionThread(threading.Thread):
         self.action_needs_processing = True
         
     def setAction(self, action, action_value):
-        self.action_needs_processing = False
-        self.action = action
-        self.action_value = action_value
-        self.action_needs_processing = True
+        
+        if (self.action_available == True):
+            self.action_needs_processing = False
+            self.action = action
+            self.action_value = action_value
+            self.action_needs_processing = True
+        
+        else: #self.action_available == False
+            print "ERROR: no action set in MotionThread.setAction()"
     
     def processAction(self):
         
         if (self.action_needs_processing == True):
-            
+            self.action_available = False
             if (self.action == STILL):
                 self.Y.stop()
-                self.S.stop() 
+                self.S.stop()
+                print "New Action: STILL"
             
             elif (self.action == TURN):
                 self.Y.restart()
                 self.deired_yaw = self.yaw + self.action_value
                 self.S.stop()
+                print "New Action: TURN, with value: " + self.action_value
             
             elif (self.action == MOVE):
                 self.Y.stop()
                 self.S.restart()
                 self.desired_displacement = self.displacement + self.action_value
                 self.S.setSetpoint(self.desired_displacement)
+                print "New Action: MOVE, with value: " + self.action_value
             
             elif (self.action == MOVE_HOLD):
                 self.Y.restart()
@@ -60,10 +68,12 @@ class MotionThread(threading.Thread):
                 self.S.restart()
                 self.desired_displacement = self.displacement + self.action_value
                 self.S.setSetpoint(self.desired_displacement)
+                print "New Action: MOVE_HOLD, with value: " + self.action_value
                 
             else:
                 print "ERROR: unknown action processed in motionThread.processAction"
-                
+            
+            self.action_available = True                
             self.action_needs_processing = False
                 
     
@@ -73,6 +83,7 @@ class MotionThread(threading.Thread):
         while (True):
             
             new_steering = False
+            new_speed = False
             
             if (self.D.updateAll() == True):
                 self.yaw = self.D.yaw_without_drift
@@ -109,8 +120,6 @@ class MotionThread(threading.Thread):
                 self.M.setSpeedAndSteering(self.speed, self.steering)
             else:
                 print "ERROR: speed and steering not set in Motion Thread"
-                
-            
             
             time.sleep(self.time_period)
                 
