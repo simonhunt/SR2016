@@ -45,7 +45,7 @@ class PidController():
         
     def run(self, value):
         
-        if (self.stop == True):
+        if (self.stopped == True):
             self.output = 0
             output_calculated = True
             
