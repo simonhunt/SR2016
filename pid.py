@@ -49,7 +49,7 @@ class PidController():
             self.output = 0
             output_calculated = True
             
-        else: #self.stop == False
+        else: #self.stopped == False
             current_time = time.time()
             dt = current_time - self.last_time
             output_calculated = False
