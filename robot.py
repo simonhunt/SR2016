@@ -16,7 +16,7 @@ SKI = 0
 SKD = 0
 S_I_LIMIT = 0
 MAX_STEERING = 20
-MAX_SPEED = 50
+MAX_SPEED = 30
 MIN_SPEED = 0
 
 if (DEBUG_YAW_DRIFT == True):
@@ -84,8 +84,9 @@ while (True):
     print "steering " + str(MotionThread.steering)
     print "speed " + str(MotionThread.speed)
     print "yaw " + str(MotionThread.yaw)
-    print "heading " + str(MotionThread.heading)
+    print "desired_yaw " + str(MotionThread.desired_yaw)
     print "displacement " + str(MotionThread.displacement)
+    print "desired_displacement " + str(MotionThread.desired_displacement)
     time.sleep(1)
     print "-"
 
