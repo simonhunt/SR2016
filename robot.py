@@ -79,6 +79,18 @@ if (DEBUG_YAW_DRIFT == True):
     while (True):
         print str(MotionThread.yaw)
         time.sleep(DEBUG_TIMEPERIOD)
+        
+print "steering " + str(MotionThread.steering)
+print "speed " + str(MotionThread.speed)
+print "yaw " + str(MotionThread.yaw)
+print "raw yaw " + str(MotionThread.D.yaw)
+print "desired_yaw " + str(MotionThread.desired_yaw)
+print "displacement " + str(MotionThread.displacement)
+print "desired_displacement " + str(MotionThread.desired_displacement)
+time.sleep(20)
+print "-"
+
+MotionThread.setAction(3, 1)
 
 while (True):
     print "steering " + str(MotionThread.steering)
@@ -89,7 +101,8 @@ while (True):
     print "displacement " + str(MotionThread.displacement)
     print "desired_displacement " + str(MotionThread.desired_displacement)
     time.sleep(1)
-    print "-"
+    print "-"    
+    
 
 #while True:
     
@@ -140,4 +153,3 @@ print "Main thread exited"
         
         
         
-    
