@@ -84,6 +84,7 @@ while (True):
     print "steering " + str(MotionThread.steering)
     print "speed " + str(MotionThread.speed)
     print "yaw " + str(MotionThread.yaw)
+    print "raw yaw " + str(MotionThread.D.yaw)
     print "desired_yaw " + str(MotionThread.desired_yaw)
     print "displacement " + str(MotionThread.displacement)
     print "desired_displacement " + str(MotionThread.desired_displacement)
