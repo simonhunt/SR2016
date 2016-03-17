@@ -77,7 +77,17 @@ class MotionThread(threading.Thread):
             
             self.action_available = True                
             self.action_needs_processing = False
-                
+    
+    def debug(self):
+        print self.name
+        
+        print "desired_yaw = " + str(self.desired_yaw) + ", yaw = " + str(self.yaw) + ", D.yaw = " + str(self.D.yaw)
+        self.Y.debug()
+        print "steering " + str(self.steering)
+        
+        print "desired_displacement = " + str(self.desired_displacement) + ", displacement = " + str(self.displacement)  
+        self.S.debug()
+        print "speed = " + str(self.speed)
     
     def run(self):
         print "Starting " + self.name
