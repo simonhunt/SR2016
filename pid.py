@@ -103,7 +103,7 @@ class PidController():
         
         if (self.stopped == True):
             status = "Stopped"
-        print self.name + ": Status = " + status + ", PID = (" + str(self.p) + ", " + str(self.i) + ", " + str(self.d) + ")"
+        print self.name + ": Status = " + status + ", PID = (" + str(self.p) + ", " + str(self.i) + ", " + str(self.d) + "), Output = " + str(self.output)
         
         
         
