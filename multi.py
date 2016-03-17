@@ -54,7 +54,7 @@ class MotionThread(threading.Thread):
             elif (self.action == TURN):
                 self.Y.restart()
                 self.desired_yaw = self.yaw + self.action_value
-                self.S.stop()
+                self.S.stop() 
                 print "New Action: TURN, with value: " + str(self.action_value)
             
             elif (self.action == MOVE):
