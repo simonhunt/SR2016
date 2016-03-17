@@ -1,7 +1,7 @@
 print "Main thread started"
 
 DEBUG_YAW_DRIFT = False
-DEBUG_TEST_DRIFT = 0.0068
+DEBUG_TEST_DRIFT = 0
 DEBUG_TIMEPERIOD = 5
 DEBUG_SPEED = 0
 DEBUG_STEERING = 20
@@ -76,6 +76,8 @@ print "MotionThread started"
 if (DEBUG_YAW_DRIFT == True):
     print "debugging yaw drift"
     
+    MotionThread.setAction(0, 0)
+    
     while (True):
         print str(MotionThread.yaw)
         time.sleep(DEBUG_TIMEPERIOD)
@@ -87,10 +89,10 @@ print "raw yaw " + str(MotionThread.D.yaw)
 print "desired_yaw " + str(MotionThread.desired_yaw)
 print "displacement " + str(MotionThread.displacement)
 print "desired_displacement " + str(MotionThread.desired_displacement)
-time.sleep(20)
+time.sleep(30)
 print "-"
 
-MotionThread.setAction(3, 1)
+MotionThread.setAction(2, 1.5)
 
 while (True):
     print "steering " + str(MotionThread.steering)
