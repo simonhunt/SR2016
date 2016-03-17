@@ -15,7 +15,7 @@ SKP = 250
 SKI = 0
 SKD = 0
 S_I_LIMIT = 0
-MAX_STEERING = 20
+MAX_STEERING = 40
 MAX_SPEED = 30
 MIN_SPEED = 0
 
@@ -96,6 +96,44 @@ while (i < 30):
     print "-"  
 
 MotionThread.setAction(2, 1.5)
+time.sleep(1)
+print "steering " + str(MotionThread.steering)
+print "speed " + str(MotionThread.speed)
+print "yaw " + str(MotionThread.yaw)
+print "raw yaw " + str(MotionThread.D.yaw)
+print "desired_yaw " + str(MotionThread.desired_yaw)
+print "displacement " + str(MotionThread.displacement)
+print "desired_displacement " + str(MotionThread.desired_displacement)
+time.sleep(10)
+MotionThread.setAction(1, 180)
+time.sleep(1)
+print "steering " + str(MotionThread.steering)
+print "speed " + str(MotionThread.speed)
+print "yaw " + str(MotionThread.yaw)
+print "raw yaw " + str(MotionThread.D.yaw)
+print "desired_yaw " + str(MotionThread.desired_yaw)
+print "displacement " + str(MotionThread.displacement)
+print "desired_displacement " + str(MotionThread.desired_displacement)
+time.sleep(10)
+MotionThread.setAction(2, 1.5)
+time.sleep(1)
+print "steering " + str(MotionThread.steering)
+print "speed " + str(MotionThread.speed)
+print "yaw " + str(MotionThread.yaw)
+print "raw yaw " + str(MotionThread.D.yaw)
+print "desired_yaw " + str(MotionThread.desired_yaw)
+print "displacement " + str(MotionThread.displacement)
+print "desired_displacement " + str(MotionThread.desired_displacement)
+time.sleep(10)
+MotionThread.setAction(1, 180)
+time.sleep(1)
+print "steering " + str(MotionThread.steering)
+print "speed " + str(MotionThread.speed)
+print "yaw " + str(MotionThread.yaw)
+print "raw yaw " + str(MotionThread.D.yaw)
+print "desired_yaw " + str(MotionThread.desired_yaw)
+print "displacement " + str(MotionThread.displacement)
+print "desired_displacement " + str(MotionThread.desired_displacement)
 
 while (True):
     print "steering " + str(MotionThread.steering)
