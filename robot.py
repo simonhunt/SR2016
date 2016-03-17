@@ -24,12 +24,16 @@ if (DEBUG_YAW_DRIFT == True):
     MAX_STEERING = DEBUG_STEERING
 
 from sr.robot import *
+from limits import mapToLimits
+from multi import STILL, TURN, MOVE_HOLD, MOVE
 import time
 import ruggeduino
 import pid
 import motors
 import map
 import multi
+
+
 
 displacement_setpoint = 0
 yaw_setpoint = 0
@@ -71,80 +75,62 @@ print "motorHandler setup"
 MotionThread = multi.MotionThread(D, Y, M, S, E)
 
 MotionThread.start()
-print "MotionThread started"                                       
+print "MotionThread started" 
+
+
 
 if (DEBUG_YAW_DRIFT == True):
     print "debugging yaw drift"
-    
-    MotionThread.setAction(0, 0)
+    MotionThread.setAction(STILL)
+    wake_up_time = time.time()
     
     while (True):
+        wake_up_time += DEBUG_TIMEPERIOD
         print str(MotionThread.yaw)
+        sleep_time = mapToLimits(wake_up_time - time.time(), DEBUG_TIMEPERIOD, 0) 
         time.sleep(DEBUG_TIMEPERIOD)
         
 i = 0
 while (i < 30):
-    i += 1
-    print "steering " + str(MotionThread.steering)
-    print "speed " + str(MotionThread.speed)
-    print "yaw " + str(MotionThread.yaw)
-    print "raw yaw " + str(MotionThread.D.yaw)
-    print "desired_yaw " + str(MotionThread.desired_yaw)
-    print "displacement " + str(MotionThread.displacement)
-    print "desired_displacement " + str(MotionThread.desired_displacement)
+    i += 
     time.sleep(1)
-    print "-"  
+    MotionThread.debug()
+    print "-" 
 
-MotionThread.setAction(2, 1.5)
-time.sleep(1)
-print "steering " + str(MotionThread.steering)
-print "speed " + str(MotionThread.speed)
-print "yaw " + str(MotionThread.yaw)
-print "raw yaw " + str(MotionThread.D.yaw)
-print "desired_yaw " + str(MotionThread.desired_yaw)
-print "displacement " + str(MotionThread.displacement)
-print "desired_displacement " + str(MotionThread.desired_displacement)
-time.sleep(10)
-MotionThread.setAction(1, 180)
-time.sleep(1)
-print "steering " + str(MotionThread.steering)
-print "speed " + str(MotionThread.speed)
-print "yaw " + str(MotionThread.yaw)
-print "raw yaw " + str(MotionThread.D.yaw)
-print "desired_yaw " + str(MotionThread.desired_yaw)
-print "displacement " + str(MotionThread.displacement)
-print "desired_displacement " + str(MotionThread.desired_displacement)
-time.sleep(20)
-MotionThread.setAction(2, 1.5)
-time.sleep(1)
-print "steering " + str(MotionThread.steering)
-print "speed " + str(MotionThread.speed)
-print "yaw " + str(MotionThread.yaw)
-print "raw yaw " + str(MotionThread.D.yaw)
-print "desired_yaw " + str(MotionThread.desired_yaw)
-print "displacement " + str(MotionThread.displacement)
-print "desired_displacement " + str(MotionThread.desired_displacement)
-time.sleep(10)
-MotionThread.setAction(1, 180)
-time.sleep(1)
-print "steering " + str(MotionThread.steering)
-print "speed " + str(MotionThread.speed)
-print "yaw " + str(MotionThread.yaw)
-print "raw yaw " + str(MotionThread.D.yaw)
-print "desired_yaw " + str(MotionThread.desired_yaw)
-print "displacement " + str(MotionThread.displacement)
-print "desired_displacement " + str(MotionThread.desired_displacement)
+MotionThread.setAction(MOVE_HOLD, 1.5)
+print "-" 
+i = 0
+while (i < 10):
+    i += 
+    time.sleep(1)
+    MotionThread.debug()
+    print "-" 
+
+MotionThread.setAction(TURN, 180)
+print "-" 
+i = 0
+while (i < 20):
+    i += 
+    time.sleep(1)
+    MotionThread.debug()
+    print "-" 
+    
+MotionThread.setAction(MOVE_HOLD, 1.5)
+print "-" 
+while (i < 10):
+    i += 
+    time.sleep(1)
+    MotionThread.debug()
+    print "-" 
+    
+MotionThread.setAction(TURN, 180)
+print "-" 
 
 while (True):
-    print "steering " + str(MotionThread.steering)
-    print "speed " + str(MotionThread.speed)
-    print "yaw " + str(MotionThread.yaw)
-    print "raw yaw " + str(MotionThread.D.yaw)
-    print "desired_yaw " + str(MotionThread.desired_yaw)
-    print "displacement " + str(MotionThread.displacement)
-    print "desired_displacement " + str(MotionThread.desired_displacement)
     time.sleep(1)
-    print "-"    
+    MotionThread.debug()
+    print "-"
+       
     
 
 #while True:
@@ -194,5 +180,5 @@ while (True):
     
 print "Main thread exited"
         
-        
+
         
