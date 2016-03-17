@@ -92,7 +92,7 @@ if (DEBUG_YAW_DRIFT == True):
         
 i = 0
 while (i < 30):
-    i += 
+    i += 1
     time.sleep(1)
     MotionThread.debug()
     print "-" 
@@ -101,7 +101,7 @@ MotionThread.setAction(MOVE_HOLD, 1.5)
 print "-" 
 i = 0
 while (i < 10):
-    i += 
+    i += 1
     time.sleep(1)
     MotionThread.debug()
     print "-" 
@@ -110,7 +110,7 @@ MotionThread.setAction(TURN, 180)
 print "-" 
 i = 0
 while (i < 20):
-    i += 
+    i += 1
     time.sleep(1)
     MotionThread.debug()
     print "-" 
@@ -118,7 +118,7 @@ while (i < 20):
 MotionThread.setAction(MOVE_HOLD, 1.5)
 print "-" 
 while (i < 10):
-    i += 
+    i += 1
     time.sleep(1)
     MotionThread.debug()
     print "-" 
