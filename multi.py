@@ -30,7 +30,7 @@ class MotionThread(threading.Thread):
         self.action_available = True
         self.action_needs_processing = True
         
-    def setAction(self, action, action_value):
+    def setAction(self, action, action_value = 0):
         
         if (self.action_available == True):
             self.action_needs_processing = False
