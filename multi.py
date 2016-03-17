@@ -81,7 +81,7 @@ class MotionThread(threading.Thread):
     def debug(self):
         print self.name
         
-        print "desired_yaw = " + str(self.desired_yaw) + ", yaw = " + str(self.yaw) + ", D.yaw = " + str(self.D.yaw)
+        print "desired_yaw = " + str(self.desired_yaw) + ", yaw = " + str(self.yaw) + ", D.yaw = " + str(self.D.yaw) + ", D.error = " + str(self.D.error)
         self.Y.debug()
         print "steering " + str(self.steering)
         
