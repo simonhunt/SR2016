@@ -59,18 +59,18 @@ class PidController():
                 if (dt >= self.time_period): 
                     error = self.setpoint - value
                     
-                    p = self.kp * error
+                    self.p = self.kp * error
                     self.i += self.ki * error * dt
-                    d = (error - self.last_error) / dt
+                    self.d = (error - self.last_error) / dt
                     
                     if (self.i_limit != 0):
                         self.i = mapToLimits(self.i, self.i_limit, - self.i_limit)
                         
                     if ((self.max_output != 0) and (self.min_output != 0)):
-                        self.output = mapToLimits((p + self.i + d), self.max_output, self.min_output)
+                        self.output = mapToLimits((self.p + self.i + self.d), self.max_output, self.min_output)
                     
                     else:
-                        self.output = p + self.i + d
+                        self.output = self.p + self.i + self.d
                     
                     output_calculated = True
             
@@ -80,15 +80,15 @@ class PidController():
             else: #self.first_run == True
                 error = value - self.setpoint
                 
-                p = self.kp * error
+                self.p = self.kp * error
                 self.i = self.starting_i
-                d = 0
+                self.d = 0
                 
                 if ((self.max_output != 0) and (self.min_output != 0)):
-                    self.output = mapToLimits((p + self.i + d), self.max_output, self.min_output)
+                    self.output = mapToLimits((self.p + self.i + self.d), self.max_output, self.min_output)
                     
                 else:
-                    self.output = p + self.i + d
+                    self.output = self.p + self.i + self.d
                         
                 output_calculated = True
             
@@ -97,4 +97,13 @@ class PidController():
                 self.first_run = False
             
         return output_calculated
+    
+    def debug(self):
+        status = "Runnning"
+        
+        if (self.stopped == True):
+            status = "Stopped"
+        print self.name + ": Status = " + status + ", PID = (" + str(self.p) + ", " + str(self.i) + ", " + str(self.d) + ")"
+        
+        
         
