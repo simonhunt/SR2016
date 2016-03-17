@@ -15,7 +15,7 @@ SKP = 250
 SKI = 0
 SKD = 0
 S_I_LIMIT = 0
-MAX_STEERING = 40
+MAX_STEERING = 20
 MAX_SPEED = 30
 MIN_SPEED = 0
 
@@ -114,7 +114,7 @@ print "raw yaw " + str(MotionThread.D.yaw)
 print "desired_yaw " + str(MotionThread.desired_yaw)
 print "displacement " + str(MotionThread.displacement)
 print "desired_displacement " + str(MotionThread.desired_displacement)
-time.sleep(10)
+time.sleep(20)
 MotionThread.setAction(2, 1.5)
 time.sleep(1)
 print "steering " + str(MotionThread.steering)
