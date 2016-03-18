@@ -94,42 +94,41 @@ i = 0
 while (i < 30):
     i += 1
     time.sleep(1)
-    MotionThread.debug()
-    print "-" 
+    MotionThread.debug() 
 
-MotionThread.setAction(MOVE_HOLD, 1.5)
-print "-" 
+MotionThread.setAction(MOVE_HOLD, 0.5)
+
 i = 0
 while (i < 10):
     i += 1
     time.sleep(1)
     MotionThread.debug()
-    print "-" 
 
-MotionThread.setAction(TURN, 180)
-print "-" 
+MotionThread.setAction(TURN, 20)
+
+
 i = 0
-while (i < 20):
-    i += 1
-    time.sleep(1)
-    MotionThread.debug()
-    print "-" 
-    
-MotionThread.setAction(MOVE_HOLD, 1.5)
-print "-" 
 while (i < 10):
     i += 1
     time.sleep(1)
     MotionThread.debug()
-    print "-" 
+
+MotionThread.setAction(TURN, -20)
+
+i = 0
+while (i < 10):
+    i += 1
+    time.sleep(1)
+    MotionThread.debug()
+
     
-MotionThread.setAction(TURN, 180)
-print "-" 
+MotionThread.setAction(TURN, 90)
+
 
 while (True):
     time.sleep(1)
     MotionThread.debug()
-    print "-"
+  
        
     
 
