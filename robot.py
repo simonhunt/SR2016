@@ -124,6 +124,15 @@ while (i < 10):
     
 MotionThread.setAction(TURN, 90)
 
+i = 0
+while (i < 10):
+    i += 1
+    time.sleep(1)
+    MotionThread.debug()
+
+    
+MotionThread.setAction(TURN, - 180)
+
 
 while (True):
     time.sleep(1)
