@@ -14,9 +14,11 @@ class PidController():
         self.time_period = time_period
         self.last_time = 0
         self.last_error = 0
+        self.p = 0
         self.starting_i = starting_i
         self.i = self.starting_i
         self.i_limit = i_limit
+        self.d = 0
         self.output = 0
         self.first_run = True
         self.stopped = False
