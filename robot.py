@@ -34,7 +34,6 @@ import map
 import multi
 
 
-
 displacement_setpoint = 0
 yaw_setpoint = 0
 speed = 0 
@@ -104,7 +103,7 @@ while (i < 10):
     time.sleep(1)
     MotionThread.debug()
 
-MotionThread.setAction(TURN, 20)
+MotionThread.setAction(TURN, 90)
 
 
 i = 0
@@ -113,7 +112,41 @@ while (i < 10):
     time.sleep(1)
     MotionThread.debug()
 
-MotionThread.setAction(TURN, -20)
+MotionThread.setAction(MOVE_HOLD, 0.5)
+
+i = 0
+while (i < 10):
+    i += 1
+    time.sleep(1)
+    MotionThread.debug()
+
+    
+MotionThread.setAction(TURN, 90)
+
+i = 0
+while (i < 30):
+    i += 1
+    time.sleep(1)
+    MotionThread.debug() 
+
+MotionThread.setAction(MOVE_HOLD, 0.5)
+
+i = 0
+while (i < 10):
+    i += 1
+    time.sleep(1)
+    MotionThread.debug()
+
+MotionThread.setAction(TURN, 90)
+
+
+i = 0
+while (i < 10):
+    i += 1
+    time.sleep(1)
+    MotionThread.debug()
+
+MotionThread.setAction(MOVE_HOLD, 0.5)
 
 i = 0
 while (i < 10):
@@ -131,15 +164,13 @@ while (i < 10):
     MotionThread.debug()
 
     
-MotionThread.setAction(TURN, - 180)
+MotionThread.setAction(STILL)
 
 
 while (True):
     time.sleep(1)
     MotionThread.debug()
-  
-       
-    
+
 
 #while True:
     
