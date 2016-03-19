@@ -4,9 +4,18 @@ MAX_SPEED = 100
 MIN_SPEED = - 100
 MAX_OUTPUT = 100
 MIN_OUTPUT = -100
+MAX_STEERING_ACCEL = 50 #units %/sec
+MAX_SPEED_ACCEL = 100 #units %/sec
 
 import time
 from limits import mapToLimits
+
+def accelManager(dt, value, max_accel):
+    max_change = dt * max_accel
+    value_upper_limit = value + max_change
+    value_lower_limit = value - max_change
+    output = mapToLimits(value, value_upper_limit, value_lower_limit)
+    return output
 
 class MotorHandler():
     
@@ -15,8 +24,10 @@ class MotorHandler():
         self.RightMotor = RightMotor
         self.time_period = time_period
         self.last_time = time.time() - self.time_period
-        self.speed = 0
-        self.steering = 0
+        self.desired_speed = 0
+        self.last_speed = 0
+        self.desired_steering = 0
+        self.last_steering = 0
         self.update()        
         
     def update(self):
@@ -25,11 +36,16 @@ class MotorHandler():
         updated = False
         
         if (dt >= self.time_period):
-            self.left_speed = mapToLimits((self.speed - self.steering), MAX_OUTPUT, MIN_OUTPUT)
-            self.right_speed = mapToLimits((self.speed + self.steering), MAX_OUTPUT, MIN_OUTPUT)
             
-            self.LeftMotor.power = self.left_speed
-            self.RightMotor.power = self.right_speed
+            speed = accelManager(dt, self.desired_speed, MAX_SPEED_ACCEL)
+            steering = accelManager(dt, self.desired_steering, MAX_STEERING_ACCEL)
+            left_speed = mapToLimits((speed - steering), MAX_OUTPUT, MIN_OUTPUT)
+            right_speed = mapToLimits((speed + steering), MAX_OUTPUT, MIN_OUTPUT)
+            
+            self.LeftMotor.power = left_speed
+            self.RightMotor.power = right_speed
+            self.last_speed = speed
+            self.last_steering = steering
             self.last_time = current_time
             updated = True
             
@@ -38,15 +54,15 @@ class MotorHandler():
     def setTimePeriod(self, time_period):
         self.time_period = time_period
         
-    def setSpeed(self, speed):
-        self.speed = mapToLimits(speed, MAX_SPEED, MIN_SPEED)
+    def setDesiredSpeed(self, desired_speed):
+        self.desired_speed = mapToLimits(desired_speed, MAX_SPEED, MIN_SPEED)
         return self.update()
     
-    def setSteering(self, steering):
-        self.steering = mapToLimits(steering, MAX_STEERING, MIN_STEERING)
+    def setDesiredSteering(self, desired_steering):
+        self.desired_steering = mapToLimits(desired_steering, MAX_STEERING, MIN_STEERING)
         return self.update()
         
-    def setSpeedAndSteering(self, speed, steering):
-        self.speed = mapToLimits(speed, MAX_SPEED, MIN_SPEED)
-        self.steering = mapToLimits(steering, MAX_STEERING, MIN_STEERING)
+    def setDesiredSpeedAndSteering(self, desired_speed, desired_steering):
+        self.desired_speed = mapToLimits(desired_speed, MAX_SPEED, MIN_SPEED)
+        self.desired_steering = mapToLimits(desired_steering, MAX_STEERING, MIN_STEERING)
         return self.update()
