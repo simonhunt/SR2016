@@ -129,7 +129,7 @@ class MotionThread(threading.Thread):
                 print "ERROR: S returned false in Motion Thread"
             
             if (new_steering == True or new_speed == True):
-                self.M.setSpeedAndSteering(self.speed, self.steering)
+                self.M.setDesiredSpeedAndSteering(self.speed, self.steering)
             else:
                 print "ERROR: speed and steering not set in Motion Thread"
             
