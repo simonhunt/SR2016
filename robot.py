@@ -7,9 +7,9 @@ DEBUG_SPEED = 0
 DEBUG_STEERING = 20
 
 YAW_DRIFT = 0.00417 #degrees per second 
-YKP = -3
-YKI = -2
-YKD = -3
+YKP = 3
+YKI = 2
+YKD = 3
 Y_I_LIMIT = 10
 SKP = 250
 SKI = 0
