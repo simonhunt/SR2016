@@ -101,11 +101,7 @@ class PidController():
         return output_calculated
     
     def debug(self):
-        status = "Runnning"
-        
-        if (self.stopped == True):
-            status = "Stopped"
-        print self.name + ": Status = " + status + ", PID = (" + str(self.p) + ", " + str(self.i) + ", " + str(self.d) + "), Output = " + str(self.output)
+        print self.name + ": stopped = " + self.stopped + ", (p, i, d) = (" + str(self.p) + ", " + str(self.i) + ", " + str(self.d) + "), output = " + str(self.output)
         
         
         
