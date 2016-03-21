@@ -15,7 +15,7 @@ SKP = 250
 SKI = 0
 SKD = 0
 S_I_LIMIT = 0
-MAX_STEERING = 20
+MAX_STEERING = 50
 MAX_SPEED = 30
 MIN_SPEED = 0
 
@@ -76,8 +76,74 @@ MotionThread = multi.MotionThread(D, Y, M, S, E)
 MotionThread.start()
 print "MotionThread started" 
 
+def squareDemo():
+    MotionThread.setAction(MOVE_HOLD, 0.5)
+    
+    i = 0
+    while (i < 10):
+        i += 1
+        time.sleep(1)
+        MotionThread.debug()
+    
+    MotionThread.setAction(TURN, 90)
+    
+    i = 0
+    while (i < 10):
+        i += 1
+        time.sleep(1)
+        MotionThread.debug()
+    
+    MotionThread.setAction(MOVE_HOLD, 0.5)
+    
+    i = 0
+    while (i < 10):
+        i += 1
+        time.sleep(1)
+        MotionThread.debug()
+        
+    MotionThread.setAction(TURN, 90)
+    
+    i = 0
+    while (i < 10):
+        i += 1
+        time.sleep(1)
+        MotionThread.debug()
+    
+    MotionThread.setAction(MOVE_HOLD, 0.5)
+    
+    i = 0
+    while (i < 10):
+        i += 1
+        time.sleep(1)
+        MotionThread.debug()
+    
+    MotionThread.setAction(TURN, 90)
+        
 
-
+    i = 0
+    while (i < 10):
+        i += 1
+        time.sleep(1)
+        MotionThread.debug()
+        
+    MotionThread.setAction(MOVE_HOLD, 0.5)
+    
+    i = 0
+    while (i < 10):
+        i += 1
+        time.sleep(1)
+        MotionThread.debug()
+        
+    MotionThread.setAction(TURN, 90)
+    
+    i = 0
+    while (i < 10):
+        i += 1
+        time.sleep(1)
+        MotionThread.debug()
+    
+    MotionThread.setAction(STILL)
+        
 if (DEBUG_YAW_DRIFT == True):
     print "debugging yaw drift"
     MotionThread.setAction(STILL)
@@ -95,77 +161,7 @@ while (i < 30):
     time.sleep(1)
     MotionThread.debug() 
 
-MotionThread.setAction(MOVE_HOLD, 0.5)
-
-i = 0
-while (i < 10):
-    i += 1
-    time.sleep(1)
-    MotionThread.debug()
-
-MotionThread.setAction(TURN, 90)
-
-
-i = 0
-while (i < 10):
-    i += 1
-    time.sleep(1)
-    MotionThread.debug()
-
-MotionThread.setAction(MOVE_HOLD, 0.5)
-
-i = 0
-while (i < 10):
-    i += 1
-    time.sleep(1)
-    MotionThread.debug()
-
-    
-MotionThread.setAction(TURN, 90)
-
-i = 0
-while (i < 30):
-    i += 1
-    time.sleep(1)
-    MotionThread.debug() 
-
-MotionThread.setAction(MOVE_HOLD, 0.5)
-
-i = 0
-while (i < 10):
-    i += 1
-    time.sleep(1)
-    MotionThread.debug()
-
-MotionThread.setAction(TURN, 90)
-
-
-i = 0
-while (i < 10):
-    i += 1
-    time.sleep(1)
-    MotionThread.debug()
-
-MotionThread.setAction(MOVE_HOLD, 0.5)
-
-i = 0
-while (i < 10):
-    i += 1
-    time.sleep(1)
-    MotionThread.debug()
-
-    
-MotionThread.setAction(TURN, 90)
-
-i = 0
-while (i < 10):
-    i += 1
-    time.sleep(1)
-    MotionThread.debug()
-
-    
-MotionThread.setAction(STILL)
-
+MotionThread.setAction(TURN, 45)
 
 while (True):
     time.sleep(1)
