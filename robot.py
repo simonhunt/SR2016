@@ -143,6 +143,73 @@ def squareDemo():
         MotionThread.debug()
     
     MotionThread.setAction(STILL)
+    
+def turnDemo():
+    MotionThread.setAction(turn, 10)
+    
+    i = 0
+    while (i < 10):
+        i += 1
+        time.sleep(1)
+        MotionThread.debug()
+    
+    MotionThread.setAction(TURN, -10)
+    
+    i = 0
+    while (i < 10):
+        i += 1
+        time.sleep(1)
+        MotionThread.debug()
+    
+    MotionThread.setAction(turn, 45)
+    
+    i = 0
+    while (i < 10):
+        i += 1
+        time.sleep(1)
+        MotionThread.debug()
+    
+    MotionThread.setAction(TURN, -45)
+    
+    i = 0
+    while (i < 10):
+        i += 1
+        time.sleep(1)
+        MotionThread.debug()
+        
+    MotionThread.setAction(turn, 90)
+    
+    i = 0
+    while (i < 10):
+        i += 1
+        time.sleep(1)
+        MotionThread.debug()
+    
+    MotionThread.setAction(TURN, -90)
+    
+    i = 0
+    while (i < 10):
+        i += 1
+        time.sleep(1)
+        MotionThread.debug()
+    
+    MotionThread.setAction(turn, 180)
+    
+    i = 0
+    while (i < 10):
+        i += 1
+        time.sleep(1)
+        MotionThread.debug()
+    
+    MotionThread.setAction(TURN, -180)
+    
+    i = 0
+    while (i < 10):
+        i += 1
+        time.sleep(1)
+        MotionThread.debug()
+    
+    MotionThread.setAction(STILL)
         
 if (DEBUG_YAW_DRIFT == True):
     print "debugging yaw drift"
@@ -156,7 +223,7 @@ if (DEBUG_YAW_DRIFT == True):
         time.sleep(DEBUG_TIMEPERIOD)
         
 i = 0
-while (i < 30):
+while (i < 10):
     i += 1
     time.sleep(1)
     MotionThread.debug() 
