@@ -63,13 +63,14 @@ currentTime = time.time()
 zone = R.zone
 A = map.MapHandler(zone, currentTime)
 
-Y = pid.PidController("yawPID", YKP, YKI, YKD, MAX_STEERING, - MAX_STEERING, yaw_setpoint, Y_I_LIMIT) #p, i, d, setpoint, iLimit, startingI
-print "PID setup"
+Y = pid.PidController("YawPID", YKP, YKI, YKD, MAX_STEERING, - MAX_STEERING, yaw_setpoint, Y_I_LIMIT) #p, i, d, setpoint, iLimit, startingI
+print "YawPID setup"
 
-S = pid.PidController("displacementPID", SKP, SKI, SKD, MAX_SPEED, MIN_SPEED, displacement_setpoint, S_I_LIMIT)
+S = pid.PidController("DisplacementPID", SKP, SKI, SKD, MAX_SPEED, MIN_SPEED, displacement_setpoint, S_I_LIMIT)
+print "DisplacementPID setup"
 
 M = motors.MotorHandler(R.motors[0].m0, R.motors[0].m1) #left motor, right motor
-print "motorHandler setup"
+print "MotorHandler setup"
 
 MotionThread = multi.MotionThread(D, Y, M, S, E)
 
