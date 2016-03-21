@@ -88,6 +88,8 @@ class MotionThread(threading.Thread):
         print "desired_displacement = " + str(self.desired_displacement) + ", displacement = " + str(self.displacement)  
         self.S.debug()
         print "speed = " + str(self.speed)
+        
+        self.M.debug()
     
     def run(self):
         print "Starting " + self.name
