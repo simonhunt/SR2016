@@ -101,7 +101,7 @@ class PidController():
         return output_calculated
     
     def debug(self):
-        print self.name + ": stopped = " + self.stopped + ", (p, i, d) = (" + str(self.p) + ", " + str(self.i) + ", " + str(self.d) + "), output = " + str(self.output)
+        print self.name + ": stopped = " + str(self.stopped) + ", (p, i, d) = (" + str(self.p) + ", " + str(self.i) + ", " + str(self.d) + "), output = " + str(self.output)
         
         
         
