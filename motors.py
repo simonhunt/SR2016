@@ -1,11 +1,13 @@
-MAX_STEERING = 200
-MIN_STEERING = - 200
-MAX_SPEED = 100
-MIN_SPEED = - 100
-MAX_OUTPUT = 100
-MIN_OUTPUT = -100
+MAX_STEERING = 160
+MIN_STEERING = - 160
+MAX_SPEED = 80
+MIN_SPEED = - 80
+MAX_OUTPUT = 80
+MIN_OUTPUT = - 80
 MAX_STEERING_ACCEL = 50 #units %/sec
 MAX_SPEED_ACCEL = 100 #units %/sec
+POWER_DEADZONE = 2.5
+MIN_POWER = 20
 
 import time
 from limits import mapToLimits
@@ -16,6 +18,16 @@ def accelerationRestrictor(dt, last_value, desired_value, max_accel):
     value_lower_limit = last_value - max_change
     output = mapToLimits(desired_value, value_upper_limit, value_lower_limit)
     return output
+
+def powerDeadzoneHandler(power):
+    
+    if (power > POWER_DEADZONE):
+        power += MIN_POWER
+    
+    elif (power < - POWER_DEADZONE):
+        power -= MIN_POWER
+        
+    return power
 
 class MotorHandler():
     
@@ -33,7 +45,6 @@ class MotorHandler():
         self.last_steering = 0
         self.left_power = 0
         self.right_power = 0
-        #self.update()        #dont think this line is needed (not sure why I ever used it)
         
     def update(self):
         current_time = time.time()
@@ -44,8 +55,11 @@ class MotorHandler():
             self.speed = accelerationRestrictor(dt, self.last_speed, self.desired_speed, MAX_SPEED_ACCEL)
             self.steering = accelerationRestrictor(dt, self.last_steering, self.desired_steering, MAX_STEERING_ACCEL)
             
-            self.left_power = mapToLimits((self.speed - self.steering), MAX_OUTPUT, MIN_OUTPUT)
-            self.right_power = mapToLimits((self.speed + self.steering), MAX_OUTPUT, MIN_OUTPUT)
+            left_power = mapToLimits((self.speed - self.steering), MAX_OUTPUT, MIN_OUTPUT)
+            right_power = mapToLimits((self.speed + self.steering), MAX_OUTPUT, MIN_OUTPUT)
+            
+            
+            
             
             self.LeftMotor.power = self.left_power
             self.RightMotor.power = self.right_power
