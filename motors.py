@@ -58,8 +58,8 @@ class MotorHandler():
             left_power = mapToLimits((self.speed - self.steering), MAX_OUTPUT, MIN_OUTPUT)
             right_power = mapToLimits((self.speed + self.steering), MAX_OUTPUT, MIN_OUTPUT)
             
-            
-            
+            self.left_power = powerDeadzoneHandler(left_power)
+            self.right_power = powerDeadzoneHandler(right_power)
             
             self.LeftMotor.power = self.left_power
             self.RightMotor.power = self.right_power
