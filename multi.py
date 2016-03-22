@@ -1,5 +1,6 @@
 import threading
 import time
+import math
 from limits import angleMod
 
 STILL = 0
@@ -96,6 +97,9 @@ class MotionThread(threading.Thread):
             
             self.action_available = True                
             self.action_needs_processing = False
+            
+    def displacementManager(self):
+        x = math.sin.
     
     def debug(self):
         print self.name
@@ -133,6 +137,8 @@ class MotionThread(threading.Thread):
             self.processMpuYawOffset()
             
             self.processAction()
+            
+            self.displacementManager()
             
             yaw_pid_input = angleMod(self.desired_yaw - self.yaw)
             
