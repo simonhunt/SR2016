@@ -6,8 +6,8 @@ MAX_OUTPUT = 80
 MIN_OUTPUT = - 80
 MAX_STEERING_ACCEL = 50 #units %/sec
 MAX_SPEED_ACCEL = 100 #units %/sec
-LINEAR_POWER_PIONT = 40
-MIN_POWER = 20
+LINEAR_POWER_PIONT = 20
+MIN_LINEAR_POWER = 20
 
 import time
 from limits import mapToLimits
@@ -22,13 +22,13 @@ def accelerationRestrictor(dt, last_value, desired_value, max_accel):
 def powerDeadzoneHandler(power):
     
     if ((power < LINEAR_POWER_PIONT) and (power > - LINEAR_POWER_PIONT)):
-        power += (MIN_POWER) * (power / LINEAR_POWER_PIONT)
+        power += (MIN_LINEAR_POWER) * (power / LINEAR_POWER_PIONT)
     
     elif (power > 0): #positive
-        power += MIN_POWER
+        power += MIN_LINEAR_POWER
     
     else: #negative
-        power -= MIN_POWER
+        power -= MIN_LINEAR_POWER
         
     return power
 
