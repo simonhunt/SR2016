@@ -6,6 +6,7 @@ STILL = 0
 TURN = 1
 MOVE_HOLD = 2
 MOVE = 3
+INITIAL_OFFSET = 9
 
 class MotionThread(threading.Thread):
     
@@ -25,10 +26,29 @@ class MotionThread(threading.Thread):
         self.E = EncoderHandler
         self.time_period = time_period
         
+        self.mpu_yaw_offset = INITIAL_OFFSET
+        self.new_mpu_yaw_offset = 0
+        self.new_mpu_yaw_offset_available = False
+        
         self.action = STILL
         self.action_value = 0
         self.action_available = True
         self.action_needs_processing = True
+        
+    def setMpuYawOffset(self, offset):
+        
+        if (self.new_mpu_yaw_offset_available == True):
+            offset += self.new_mpu_yaw_offset
+        
+        self.new_mpu_yaw_offset = self.mpu_yaw_offset + offset
+        self.new_mpu_yaw_offset_available = True
+        
+    def processMpuYawOffset(self):
+        
+        if (self.new_mpu_yaw_offset_available == True):
+            self.mpu_yaw_offset += self.new_mpu_yaw_offset
+            self.new_mpu_yaw_offset_available == False
+    
         
     def setAction(self, action, action_value = 0):
         
@@ -100,7 +120,7 @@ class MotionThread(threading.Thread):
             new_speed = False
             
             if (self.D.updateAll() == True):
-                self.yaw = self.D.yaw_without_drift
+                self.yaw = self.D.yaw_without_drift - self.mpu_yaw_offset
                 
             else:
                 print "ERROR: D returned false in Motion Thread"
@@ -110,6 +130,8 @@ class MotionThread(threading.Thread):
                 
             else:
                 print "ERROR: E returned false in Motion Thread"
+                
+            self.processMpuYawOffset()
             
             self.processAction()
             
