@@ -40,7 +40,7 @@ class MotionThread(threading.Thread):
         if (self.new_mpu_yaw_offset_available == True):
             offset += self.new_mpu_yaw_offset
         
-        self.new_mpu_yaw_offset = self.mpu_yaw_offset + offset
+        self.new_mpu_yaw_offset = offset
         self.new_mpu_yaw_offset_available = True
         
     def processMpuYawOffset(self):
@@ -48,7 +48,6 @@ class MotionThread(threading.Thread):
         if (self.new_mpu_yaw_offset_available == True):
             self.mpu_yaw_offset += self.new_mpu_yaw_offset
             self.new_mpu_yaw_offset_available == False
-    
         
     def setAction(self, action, action_value = 0):
         
