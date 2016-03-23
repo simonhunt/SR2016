@@ -16,7 +16,7 @@ def displacementByArcApproximation(length, theta_1, theta_2):
     radius = length / dtheta
     dx = radius * (math.sin(theta_2) - math.sin(theta_1))
     dy = radius * (math.cos(theta_1) - math.cos(theta_2))
-    return (dx, dy)
+    return {'x': dx, 'y': dy}
 
 def displacementByLineApproximation(length, theta_1, theta_2):
     theta_1 = math.radians(theta_1) #convert angles into radians
