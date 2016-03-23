@@ -57,7 +57,7 @@ class EncoderHandler():
         current_time = time.time()
         self.EncoderRuggeduino = EncoderRuggeduino
         self.time_period = time_period
-        self.displacement = 0
+        self.distance = 0
         self.last_time = current_time - time_period
     
     def update(self):
@@ -66,7 +66,7 @@ class EncoderHandler():
         updated = False
         
         if (dt >= self.time_period):
-            self.displacement = (float(self.EncoderRuggeduino.encoderGetSteps()) / ENCODER_RESOLUTION) * 2 * math.pi * WHEEL_RADIUS
+            self.distance = (float(self.EncoderRuggeduino.encoderGetSteps()) / ENCODER_RESOLUTION) * 2 * math.pi * WHEEL_RADIUS
             self.last_time = current_time
             updated = True
         return updated
