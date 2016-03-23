@@ -230,7 +230,7 @@ while (i < 10):
     MotionThread.debug()
 
 
-squareDemo()
+#squareDemo()
 
 while (True):
     time.sleep(1)
