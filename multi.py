@@ -24,7 +24,7 @@ def displacementByLineApproximation(length, theta_1, theta_2):
     average_theta = (theta_1 + theta_2) / 2
     dx = length * math.cos(average_theta)
     dy = length * math.sin(average_theta)
-    return (dx, dy)
+    return {'x': dx, 'y': dy}
 
 class MotionThread(threading.Thread):
     
@@ -43,8 +43,8 @@ class MotionThread(threading.Thread):
         self.last_distance = 0
         self.desired_distance = 0
         
-        self.arc_displacement = (0, 0)
-        self.line_displacement = (0, 0)
+        self.arc_displacement = {'x': 0, 'y': 0}
+        self.line_displacement = {'x': 0, 'y': 0}
         #self.last_displacement_time = 0
         
         self.D = MpuHandler
@@ -133,16 +133,16 @@ class MotionThread(threading.Thread):
         length = self.distance - self.last_distance
         
         dline_displacement = displacementByLineApproximation(length, theta_1, theta_2)
-        self.line_displacement[0] += dline_displacement[0]
-        self.line_displacement[1] += dline_displacement[1]
+        self.line_displacement['x'] += dline_displacement['x']
+        self.line_displacement['y'] += dline_displacement['y']
         
         if (theta_2 == theta_1): #error case for arc length /0 err
             darc_displacement = displacementByLineApproximation(length, theta_1, theta_2)
         else:
             darc_displacement = displacementByArcApproximation(length, theta_1, theta_2)
             
-        self.arc_displacement[0] += darc_displacement[0]
-        self.arc_displacement[1] += darc_displacement[1]
+        self.arc_displacement['x'] += darc_displacement['x']
+        self.arc_displacement['y'] += darc_displacement['y']
     
     def debug(self):
         print self.name
