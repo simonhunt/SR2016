@@ -78,7 +78,7 @@ MotionThread.start()
 print "MotionThread started" 
 
 def squareDemo():
-    MotionThread.setAction(MOVE_HOLD, 0.5)
+    MotionThread.setAction(MOVE_HOLD, 1.5)
     
     i = 0
     while (i < 10):
@@ -94,7 +94,7 @@ def squareDemo():
         time.sleep(1)
         MotionThread.debug()
     
-    MotionThread.setAction(MOVE_HOLD, 0.5)
+    MotionThread.setAction(MOVE_HOLD, 1.5)
     
     i = 0
     while (i < 10):
@@ -110,7 +110,7 @@ def squareDemo():
         time.sleep(1)
         MotionThread.debug()
     
-    MotionThread.setAction(MOVE_HOLD, 0.5)
+    MotionThread.setAction(MOVE_HOLD, 1.5)
     
     i = 0
     while (i < 10):
@@ -127,7 +127,7 @@ def squareDemo():
         time.sleep(1)
         MotionThread.debug()
         
-    MotionThread.setAction(MOVE_HOLD, 0.5)
+    MotionThread.setAction(MOVE_HOLD, 1.5)
     
     i = 0
     while (i < 10):
@@ -230,7 +230,7 @@ while (i < 10):
     MotionThread.debug()
 
 
-#turnDemo()
+squareDemo()
 
 while (True):
     time.sleep(1)
