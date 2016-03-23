@@ -3,7 +3,7 @@ import time
 import math
 from limits import angleMod
 
-WHEEL_RADIUS = 0.05
+WHEEL_RADIUS = 0.05134
 ENCODER_RESOLUTION = 96
 
 class MpuSonarEncoderRuggeduino(Ruggeduino):
