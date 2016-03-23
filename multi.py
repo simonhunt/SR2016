@@ -9,22 +9,50 @@ MOVE_HOLD = 2
 MOVE = 3
 INITIAL_OFFSET = 9
 
+def displacementByArcApproximation(length, theta_1, theta_2):
+    theta_1 = math.radians(theta_1) #convert angles into radians
+    theta_2 = math.radians(theta_2)
+    dtheta = theta_2 - theta_1
+    radius = length / dtheta
+    dx = radius * (math.sin(theta_2) - math.sin(theta_1))
+    dy = radius * (math.cos(theta_1) - math.cos(theta_2))
+    return (dx, dy)
+
+def displacementByLineApproximation(length, theta_1, theta_2):
+    theta_1 = math.radians(theta_1) #convert angles into radians
+    theta_2 = math.radians(theta_2)
+    average_theta = (theta_1 + theta_2) / 2
+    dx = length * math.cos(average_theta)
+    dy = length * math.sin(average_theta)
+    return (dx, dy)
+
 class MotionThread(threading.Thread):
     
     def __init__(self, MpuHandler, YawPid, MotorHandler, DistancePid, EncoderHandler, time_period = 0.01):
         threading.Thread.__init__(self)
         self.name = "MotionThread"
+        
         self.steering = 0
         self.speed = 0
+        
         self.yaw = 0
+        self.last_yaw = 0
         self.desired_yaw = 0
+        
         self.distance = 0
+        self.last_distance = 0
         self.desired_distance = 0
+        
+        self.arc_displacement = (0, 0)
+        self.line_displacement = (0, 0)
+        #self.last_displacement_time = 0
+        
         self.D = MpuHandler
         self.Y = YawPid
         self.M = MotorHandler
         self.S = DistancePid
         self.E = EncoderHandler
+        
         self.time_period = time_period
         
         self.mpu_yaw_offset = INITIAL_OFFSET
@@ -99,7 +127,22 @@ class MotionThread(threading.Thread):
             self.action_needs_processing = False
             
     def displacementManager(self):
-        pass# x = math.sin.
+        
+        theta_1 = self.last_yaw
+        theta_2 = self.yaw
+        length = self.distance - self.last_distance
+        
+        dline_displacement = displacementByLineApproximation(length, theta_1, theta_2)
+        self.line_displacement[0] += dline_displacement[0]
+        self.line_displacement[1] += dline_displacement[1]
+        
+        if (theta_2 == theta_1): #error case for arc length /0 err
+            darc_displacement = displacementByLineApproximation(length, theta_1, theta_2)
+        else:
+            darc_displacement = displacementByArcApproximation(length, theta_1, theta_2)
+            
+        self.arc_displacement[0] += darc_displacement[0]
+        self.arc_displacement[1] += darc_displacement[1]
     
     def debug(self):
         print self.name
@@ -113,6 +156,8 @@ class MotionThread(threading.Thread):
         print "speed = " + str(self.speed)
         
         self.M.debug()
+        
+        print "arc_displacement = " + str(self.arc_displacement), ", line_displacement = " + str(self.line_displacement)
     
     def run(self):
         print "Starting " + self.name
@@ -123,12 +168,14 @@ class MotionThread(threading.Thread):
             new_speed = False
             
             if (self.D.updateAll() == True):
+                self.last_yaw = self.yaw
                 self.yaw = self.D.yaw_without_drift - self.mpu_yaw_offset
                 
             else:
                 print "ERROR: D returned false in Motion Thread"
                 
             if (self.E.update() == True):
+                self.last_distance = self.distance
                 self.distance = self.E.distance
                 
             else:
