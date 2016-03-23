@@ -11,19 +11,19 @@ INITIAL_OFFSET = 9
 
 class MotionThread(threading.Thread):
     
-    def __init__(self, MpuHandler, YawPid, MotorHandler, DisplacementPid, EncoderHandler, time_period = 0.01):
+    def __init__(self, MpuHandler, YawPid, MotorHandler, DistancePid, EncoderHandler, time_period = 0.01):
         threading.Thread.__init__(self)
         self.name = "MotionThread"
         self.steering = 0
         self.speed = 0
         self.yaw = 0
         self.desired_yaw = 0
-        self.displacement = 0
-        self.desired_displacement = 0
+        self.distance = 0
+        self.desired_distance = 0
         self.D = MpuHandler
         self.Y = YawPid
         self.M = MotorHandler
-        self.S = DisplacementPid
+        self.S = DistancePid
         self.E = EncoderHandler
         self.time_period = time_period
         
@@ -80,16 +80,16 @@ class MotionThread(threading.Thread):
             elif (self.action == MOVE):
                 self.Y.stop()
                 self.S.restart()
-                self.desired_displacement = self.displacement + self.action_value
-                self.S.setSetpoint(self.desired_displacement)
+                self.desired_distance = self.distance + self.action_value
+                self.S.setSetpoint(self.desired_distance)
                 print "New Action: MOVE, with value: " + str(self.action_value)
             
             elif (self.action == MOVE_HOLD):
                 self.Y.restart()
                 self.desired_yaw = self.yaw
                 self.S.restart()
-                self.desired_displacement = self.displacement + self.action_value
-                self.S.setSetpoint(self.desired_displacement)
+                self.desired_distance = self.distance + self.action_value
+                self.S.setSetpoint(self.desired_distance)
                 print "New Action: MOVE_HOLD, with value: " + str(self.action_value)
                 
             else:
@@ -99,7 +99,7 @@ class MotionThread(threading.Thread):
             self.action_needs_processing = False
             
     def displacementManager(self):
-        x = math.sin.
+        pass# x = math.sin.
     
     def debug(self):
         print self.name
@@ -108,7 +108,7 @@ class MotionThread(threading.Thread):
         self.Y.debug()
         print "steering " + str(self.steering)
         
-        print "desired_displacement = " + str(self.desired_displacement) + ", displacement = " + str(self.displacement)  
+        print "desired_distance = " + str(self.desired_distance) + ", distance = " + str(self.distance)  
         self.S.debug()
         print "speed = " + str(self.speed)
         
@@ -129,7 +129,7 @@ class MotionThread(threading.Thread):
                 print "ERROR: D returned false in Motion Thread"
                 
             if (self.E.update() == True):
-                self.displacement = self.E.displacement
+                self.distance = self.E.distance
                 
             else:
                 print "ERROR: E returned false in Motion Thread"
@@ -150,7 +150,7 @@ class MotionThread(threading.Thread):
                 print "ERROR: Y returned false in Motion Thread"
             
             
-            if (self.S.run(self.displacement) == True):
+            if (self.S.run(self.distance) == True):
                 self.speed = self.S.output
                 new_speed = True
                 
