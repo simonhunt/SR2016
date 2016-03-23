@@ -66,16 +66,6 @@ class MotionThread(threading.Thread):
         self.action_value = 0
         self.action_needs_processing = True
         
-    def setRobotLocation(self, robot_location):
-        
-        with self.location_lock:
-            self.robot_location = robot_location
-            self.arc_displacement = {'x': 0, 'y': 0}
-            self.line_displacement = {'x': 0, 'y': 0}
-            
-        with self.offset_lock:
-            self.
-        
     def setAction(self, action, action_value = 0):
         
         with self.action_lock:
@@ -119,9 +109,24 @@ class MotionThread(threading.Thread):
                     print "ERROR: unknown action processed in motionThread.processAction"
                    
                 self.action_needs_processing = False
+                
+        def setNewRobotLocation(self, robot_location):
             
-    def displacementManager(self):
-        theta_1 = self.last_yaw
+            with self.location_lock:
+                self.new_robot_location = robot_location
+                self.
+        
+        with self.location_lock:
+            self.robot_location = robot_location
+            self.arc_displacement = {'x': 0, 'y': 0}
+            self.line_displacement = {'x': 0, 'y': 0}
+            
+        with self.offset_lock:
+            pass
+            #self.
+            
+    def locationChangeManager(self):
+        theta_1 = self.last_yaw        
         theta_2 = self.yaw
         length = self.distance - self.last_distance
         
@@ -129,14 +134,19 @@ class MotionThread(threading.Thread):
         
         if (theta_2 == theta_1): #error case for arc length /0 err
             darc_displacement = dline_displacement
+            
         else:
             darc_displacement = displacementByArcApproximation(length, theta_1, theta_2)
         
-        with self.location_lock:
-            self.line_displacement['x'] += dline_displacement['x']
-            self.line_displacement['y'] += dline_displacement['y']
-            self.arc_displacement['x'] += darc_displacement['x']
-            self.arc_displacement['y'] += darc_displacement['y']
+        self.robot_location['x'] += darc_displacement['x']
+        self.robot_location['y'] += darc_displacement['y']
+        self.line_displacement['x'] += dline_displacement['x']
+        self.line_displacement['y'] += dline_displacement['y']
+        self.arc_displacement['x'] += darc_displacement['x']
+        self.arc_displacement['y'] += darc_displacement['y']
+            
+        self.last_yaw = self.yaw
+        self.last_distance = self.distance
     
     def debug(self):
         print self.name
@@ -158,18 +168,18 @@ class MotionThread(threading.Thread):
         
         while (True):
             
+            self.checkForNewRobotLocaion()
+            
             new_steering = False
             new_speed = False
             
             if (self.D.updateAll() == True):
-                self.last_yaw = self.yaw
                 self.yaw = self.D.yaw_without_drift - self.mpu_yaw_offset
                 
             else:
                 print "ERROR: D returned false in Motion Thread"
                 
             if (self.E.update() == True):
-                self.last_distance = self.distance
                 self.distance = self.E.distance
                 
             else:
@@ -177,7 +187,7 @@ class MotionThread(threading.Thread):
             
             self.processAction()
             
-            self.displacementManager()
+            self.locationChangeManager()
             
             yaw_pid_input = angleMod(self.desired_yaw - self.yaw)
             
@@ -202,5 +212,9 @@ class MotionThread(threading.Thread):
                 print "ERROR: speed and steering not set in Motion Thread"
             
             time.sleep(self.time_period)
+                
+                
+                
+                
                 
         print "Exiting " + self.name
