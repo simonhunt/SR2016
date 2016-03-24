@@ -34,6 +34,7 @@ import map
 import multi
 
 initial_robot_location = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
+test_location = {'x': 100, 'y': 100, 'z': 100, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
 
 
 distance_setpoint = 0
@@ -226,12 +227,12 @@ if (DEBUG_YAW_DRIFT == True):
         time.sleep(DEBUG_TIMEPERIOD)
         
 i = 0
-while (i < 10):
+while (i < 20):
     i += 1
     time.sleep(1)
     MotionThread.debug()
 
-
+MotionThread.setRobotLocation(test_location)
 #squareDemo()
 
 while (True):
