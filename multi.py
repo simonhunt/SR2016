@@ -118,7 +118,7 @@ class MotionThread(threading.Thread):
             self.arc_displacement = {'x': 0, 'y': 0}
             self.line_displacement = {'x': 0, 'y': 0}
             self.last_distance = self.distance
-            self.mpu_yaw_offset = self.yaw - self.robot_location['yaw']
+            self.mpu_yaw_offset += self.yaw - self.robot_location['yaw']
             self.yaw = self.robot_location['yaw']
             self.last_yaw = self.yaw
                     
