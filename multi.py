@@ -164,24 +164,24 @@ class MotionThread(threading.Thread):
         new_steering = False
         yaw_pid_input = angleMod(self.desired_yaw - self.yaw)
             
-            if (self.Y.run(yaw_pid_input) == True):
-                self.steering = self.Y.output
-                new_steering = True
-                
-            else:
-                print "ERROR: Y returned false in Motion Thread"
+        if (self.Y.run(yaw_pid_input) == True):
+            self.steering = self.Y.output
+            new_steering = True
+            
+        else:
+            print "ERROR: Y returned false in Motion Thread"
         return new_steering
     
     def runDistancePid(self):
         new_speed = False
-        disptance_pid_input = self.distance
+        distance_pid_input = self.distance
             
-            if (self.S.run(distance_pid_input) == True):
-                self.speed = self.S.output
-                new_speed = True
-                
-            else:
-                print "ERROR: S returned false in Motion Thread"
+        if (self.S.run(distance_pid_input) == True):
+            self.speed = self.S.output
+            new_speed = True
+            
+        else:
+            print "ERROR: S returned false in Motion Thread"
         return new_speed
         
     
