@@ -33,6 +33,8 @@ import motors
 import map
 import multi
 
+initial_robot_location = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
+
 
 distance_setpoint = 0
 yaw_setpoint = 0
@@ -72,7 +74,7 @@ print "DistancePID setup"
 M = motors.MotorHandler(R.motors[0].m0, R.motors[0].m1) #left motor, right motor
 print "MotorHandler setup"
 
-MotionThread = multi.MotionThread(D, Y, M, S, E)
+MotionThread = multi.MotionThread(initial_robot_location, D, Y, M, S, E)
 
 MotionThread.start()
 print "MotionThread started" 
