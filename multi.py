@@ -111,7 +111,7 @@ class MotionThread(threading.Thread):
                    
                 self.action_needs_processing = False
                 
-    def setNewRobotLocation(self, robot_location):
+    def setRobotLocation(self, robot_location):
         
         with self.location_update_lock:
             self.robot_location = robot_location
