@@ -3,14 +3,17 @@ import time
 import math
 from limits import angleMod
 
+INITIAL_MPU_YAW_OFFSET = 9 #deg
+INITIAL_ROBOT_ACTION = STILL
+INITIAL_ROBOT_ACTION_VALUE = 0
+
+WHEEL_BASE = 0.45 #meters
+
+# ACTIONS
 STILL = 0
 TURN = 1
 MOVE_HOLD = 2
 MOVE = 3
-INITIAL_MPU_YAW_OFFSET = 9
-INITIAL_ROBOT_ACTION = STILL
-
-WHEEL_BASE = 0.45 #meters
 
 def robotDisplacementByArcApproximation(length, theta_1, theta_2):
     theta_1 = math.radians(theta_1) #convert angles into radians
@@ -62,7 +65,7 @@ class MotionThread(threading.Thread):
         
         self.action_lock = threading.Lock()
         self.action = INITIAL_ROBOT_ACTION
-        self.action_value = 0
+        self.action_value = INITIAL_ROBOT_ACTION_VALUE
         self.action_needs_processing = True
         
     def setAction(self, action, action_value = 0):
@@ -118,7 +121,7 @@ class MotionThread(threading.Thread):
             self.yaw = self.robot_location['yaw']
             self.last_yaw = self.yaw
                     
-    def locationChangeManager(self):
+    def updateRobotLocation(self):
         
         with self.location_update_lock:
             theta_1 = self.last_yaw        
@@ -184,6 +187,17 @@ class MotionThread(threading.Thread):
             print "ERROR: S returned false in Motion Thread"
         return new_speed
         
+    def updateMotors(self, new_steering, new_speed):
+        
+        if (new_steering == True or new_speed == True):
+            
+            if (self.M.setDesiredSpeedAndSteering(self.speed, self.steering) == False):
+                print "ERROR: speed and steering not set in MotorHandler"
+            
+        else:
+            print "ERROR: speed and steering not set in Motion Thread"
+        
+        
     
     def run(self, MotorHandler):
         self.M = MotorHandler
@@ -191,23 +205,13 @@ class MotionThread(threading.Thread):
         
         while (True):        
             
-            self.processAction()
-            
             self.updateYaw()
-                
-            self.updateDistance()
-                
-            self.locationChangeManager()
-                
+            self.updateDistance()                
+            self.updateRobotLocation()
+            self.processAction()               
             new_steering = self.runYawPid()
-            
-            new_speed = self.runDistancePid()
-            
-                
-            if (new_steering == True or new_speed == True):
-                self.M.setDesiredSpeedAndSteering(self.speed, self.steering)
-            else:
-                print "ERROR: speed and steering not set in Motion Thread"
+            new_speed = self.runDistancePid()           
+            self.updateMotors(new_steering, new_speed)              
                 
             time.sleep(self.time_period)
             
