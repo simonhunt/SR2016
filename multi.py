@@ -28,7 +28,7 @@ def displacementByLineApproximation(length, theta_1, theta_2):
 
 class MotionThread(threading.Thread):
     
-    def __init__(self, MpuHandler, YawPid, MotorHandler, DistancePid, EncoderHandler, time_period = 0.01):
+    def __init__(self, initial_robot_location, MpuHandler, YawPid, MotorHandler, DistancePid, EncoderHandler, time_period = 0.01):
         
         threading.Thread.__init__(self)
         
@@ -45,9 +45,10 @@ class MotionThread(threading.Thread):
         self.last_distance = 0
         self.desired_distance = 0
         
-        self.location_lock = threading.Lock()
+        self.location_update_lock = threading.Lock()
         self.arc_displacement = {'x': 0, 'y': 0}
         self.line_displacement = {'x': 0, 'y': 0}
+        self.robot_location = initial_robot_location
         
         self.D = MpuHandler
         self.Y = YawPid
@@ -57,7 +58,7 @@ class MotionThread(threading.Thread):
         
         self.time_period = time_period
         
-        self.offset_lock = threading.Lock()
+        #self.offset_lock = threading.Lock()
         self.mpu_yaw_offset = INITIAL_OFFSET
         self.new_mpu_yaw_offset = 0
         
@@ -110,21 +111,17 @@ class MotionThread(threading.Thread):
                    
                 self.action_needs_processing = False
                 
-        def setNewRobotLocation(self, robot_location):
-            
-            with self.location_lock:
-                self.new_robot_location = robot_location
-                self.
+    def setNewRobotLocation(self, robot_location):
         
-        with self.location_lock:
+        with self.location_update_lock:
             self.robot_location = robot_location
             self.arc_displacement = {'x': 0, 'y': 0}
             self.line_displacement = {'x': 0, 'y': 0}
-            
-        with self.offset_lock:
-            pass
-            #self.
-            
+            self.last_distance = self.distance
+            self.mpu_yaw_offset = self.yaw - self.robot_location['yaw']
+            self.yaw = self.robot_location['yaw']
+            self.last_yaw = self.yaw
+                    
     def locationChangeManager(self):
         theta_1 = self.last_yaw        
         theta_2 = self.yaw
@@ -162,34 +159,39 @@ class MotionThread(threading.Thread):
         self.M.debug()
         
         print "arc_displacement = " + str(self.arc_displacement), ", line_displacement = " + str(self.line_displacement)
+        print "robot_location = " + str(self.robot_location)
     
     def run(self):
         print "Starting " + self.name
         
-        while (True):
-            
-            self.checkForNewRobotLocaion()
+        while (True):        
             
             new_steering = False
             new_speed = False
             
+            self.processAction()
+            
             if (self.D.updateAll() == True):
-                self.yaw = self.D.yaw_without_drift - self.mpu_yaw_offset
                 
+                with self.location_update_lock:
+                    self.yaw = self.D.yaw_without_drift - self.mpu_yaw_offset
+              
             else:
                 print "ERROR: D returned false in Motion Thread"
                 
             if (self.E.update() == True):
-                self.distance = self.E.distance
+                
+                with self.location_update_lock:
+                    self.distance = self.E.distance
                 
             else:
                 print "ERROR: E returned false in Motion Thread"
             
-            self.processAction()
-            
-            self.locationChangeManager()
-            
-            yaw_pid_input = angleMod(self.desired_yaw - self.yaw)
+            with self.location_update_lock:
+                self.locationChangeManager()
+                
+            with self.location_update_lock:
+                yaw_pid_input = angleMod(self.desired_yaw - self.yaw)
             
             if (self.Y.run(yaw_pid_input) == True):
                 self.steering = self.Y.output
@@ -198,23 +200,21 @@ class MotionThread(threading.Thread):
             else:
                 print "ERROR: Y returned false in Motion Thread"
             
+            with self.location_update_lock:
+                displacement_pid_input = self.distance
             
-            if (self.S.run(self.distance) == True):
+            if (self.S.run(displacement_pid_input) == True):
                 self.speed = self.S.output
                 new_speed = True
                 
             else:
                 print "ERROR: S returned false in Motion Thread"
-            
+                
             if (new_steering == True or new_speed == True):
                 self.M.setDesiredSpeedAndSteering(self.speed, self.steering)
             else:
                 print "ERROR: speed and steering not set in Motion Thread"
-            
+                
             time.sleep(self.time_period)
-                
-                
-                
-                
-                
+            
         print "Exiting " + self.name
