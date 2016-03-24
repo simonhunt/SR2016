@@ -3,17 +3,19 @@ import time
 import math
 from limits import angleMod
 
+# ACTIONS
+STILL = 0
+TURN = 1
+MOVE_HOLD = 2
+MOVE = 3
+
 INITIAL_MPU_YAW_OFFSET = 9 #deg
 INITIAL_ROBOT_ACTION = STILL
 INITIAL_ROBOT_ACTION_VALUE = 0
 
 WHEEL_BASE = 0.45 #meters
 
-# ACTIONS
-STILL = 0
-TURN = 1
-MOVE_HOLD = 2
-MOVE = 3
+
 
 def robotDisplacementByArcApproximation(length, theta_1, theta_2):
     theta_1 = math.radians(theta_1) #convert angles into radians
