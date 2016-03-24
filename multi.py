@@ -137,6 +137,7 @@ class MotionThread(threading.Thread):
         
         self.robot_location['x'] += darc_displacement['x']
         self.robot_location['y'] += darc_displacement['y']
+        self.robot_location['yaw'] = self.yaw
         self.line_displacement['x'] += dline_displacement['x']
         self.line_displacement['y'] += dline_displacement['y']
         self.arc_displacement['x'] += darc_displacement['x']
