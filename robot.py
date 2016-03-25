@@ -68,24 +68,26 @@ print "DistancePID setup"
 MotionThread = multi.MotionThread(initial_robot_location, D, Y, S, E)
 print "MotionThread setup"
 
-MotionThread.calibrationCheck()
-
-
-
+while (MotionThread.calibrationCheck() == False):
+    print "MotionThread.calibrationCheck() == False, retrying"
+    
+print "wait_start..."
 R.wait_start()
-print "wait_start ran"
+print "wait_start returned"
+
+M = motors.MotorHandler(R.motors[0].m0, R.motors[0].m1) #left motor, right motor
+print "MotorHandler setup"
+
+MotionThread.start(M)
+print "MotionThread started" 
 
 currentTime = time.time()
 zone = R.zone
 A = map.MapHandler(zone, currentTime)
 
-M = motors.MotorHandler(R.motors[0].m0, R.motors[0].m1) #left motor, right motor
-print "MotorHandler setup"
 
 
 
-MotionThread.start()
-print "MotionThread started" 
 
 def squareDemo():
     MotionThread.setAction(MOVE_HOLD, 1.5)
