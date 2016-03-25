@@ -9,7 +9,7 @@ TURN = 1
 MOVE_HOLD = 2
 MOVE = 3
 
-SAMPLE_SIZE = 20
+SAMPLE_SIZE = 40
 SAMPLE_TIMEPERIOD = 0.1 #seconds
 MAX_YAW_SAMPLE_RANGE = 0.05 #degrees
 
@@ -18,8 +18,6 @@ INITIAL_ROBOT_ACTION = STILL
 INITIAL_ROBOT_ACTION_VALUE = 0
 
 WHEEL_BASE = 0.45 #meters
-
-
 
 def robotDisplacementByArcApproximation(length, theta_1, theta_2):
     theta_1 = math.radians(theta_1) #convert angles into radians
@@ -205,38 +203,45 @@ class MotionThread(threading.Thread):
         
     def calibrationCheck(self):
         
+        def check():
+            yaws = ()
+            distances = ()
+            
+            for x in range(0, SAMPLE_SIZE):
+                self.updateYaw()
+                self.updateDistance()
+                yaws += (self.yaw,)
+                distances += (self.distance,)
+                time.sleep(SAMPLE_TIMEPERIOD)
+                
+            yaw_range = abs(angleMod(max(yaws) - min(yaws)))
+            distance_range = max(distances) - min(distances)
+            
+            passed = True
+            
+            if (yaw_range < MAX_YAW_SAMPLE_RANGE):
+                print "MPU calibration test passed with yaw_range = " + str(yaw_range)
+            
+            else: #range >= MAX_YAW_SAMPLE_RANGE
+                print "MPU calibration test failed with yaw_range = " + str(yaw_range) + ", yaws = " + str(yaws)
+                passed = False
+                
+            if (distance_range == 0):
+                print "encoder calibration test passed"
+            
+            else: #distance_range != 0
+                print "encoder calibration test failed with distance_range = " + str(distance_range) + ", distances = " + str(distances)
+                passed = False
+            return passed
+        
         print "Running MPU and encoder calibration check..."
+        attempts = 1
         
-        yaws = ()
-        distances = ()
-        
-        for x in range(0, SAMPLE_SIZE):
-            self.updateYaw()
-            self.updateDistance()
-            yaws += (self.yaw,)
-            distances += (self.distance,)
-            time.sleep(SAMPLE_TIMEPERIOD)
+        while (check() == False):
+            print "Test failed, trying again attempts = " +str(attempts)
+            attempts += 1
             
-        yaw_range = abs(angleMod(max(yaws) - min(yaws)))
-        distance_range = max(distances) - min(distances)
-        
-        passed = True
-        
-        if (yaw_range < MAX_YAW_SAMPLE_RANGE):
-            print "MPU calibration test passed with yaw_range = " + str(yaw_range)
-        
-        else: #range >= MAX_YAW_SAMPLE_RANGE
-            print "MPU calibration test failed with yaw_range = " + str(yaw_range) + ", yaws = " + str(yaws)
-            passed = False
-            
-        if (distance_range == 0):
-            print "encoder calibration test passed"
-        
-        else: #distance_range != 0
-            print "encoder calibration test failed with distance_range = " + str(distance_range) + ", distances = " + str(distances)
-            passed = False
-
-        return passed
+        print "Test passed with attempts = " +str(attempts)
     
     def run(self, MotorHandler):
         self.M = MotorHandler
