@@ -13,9 +13,11 @@ SAMPLE_SIZE = 40
 SAMPLE_TIMEPERIOD = 0.1 #seconds
 MAX_YAW_SAMPLE_RANGE = 0.05 #degrees
 
-INITIAL_MPU_YAW_OFFSET = 9 #degrees 
+INITIAL_MPU_YAW_OFFSET = 9 #degrees   
 INITIAL_ROBOT_ACTION = STILL
 INITIAL_ROBOT_ACTION_VALUE = 0
+
+INITIAL_ROBOT_LOCATION = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
 
 WHEEL_BASE = 0.45 #meters
 
@@ -38,7 +40,7 @@ def wheelDisplacementByLineApproximation(length, theta_1, theta_2):
 
 class MotionThread(threading.Thread):
     
-    def __init__(self, initial_robot_location, MpuHandler, YawPid, DistancePid, EncoderHandler, time_period = 0.01):
+    def __init__(self, MpuHandler, YawPid, DistancePid, EncoderHandler, time_period = 0.01):
         
         threading.Thread.__init__(self)
         
@@ -56,7 +58,7 @@ class MotionThread(threading.Thread):
         self.desired_distance = 0
         
         self.location_update_lock = threading.Lock()
-        self.robot_location = initial_robot_location
+        self.robot_location = INITIAL_ROBOT_LOCATION
         
         self.D = MpuHandler
         self.Y = YawPid
