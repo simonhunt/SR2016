@@ -33,7 +33,7 @@ import motors
 import map
 import multi
 
-initial_robot_location = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
+
 test_location = {'x': 100, 'y': 100, 'z': 100, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
 
 
@@ -65,7 +65,7 @@ print "YawPID setup"
 S = pid.PidController("DistancePID", SKP, SKI, SKD, MAX_SPEED, MIN_SPEED, distance_setpoint, S_I_LIMIT)
 print "DistancePID setup"
 
-MotionThread = multi.MotionThread(initial_robot_location, D, Y, S, E)
+MotionThread = multi.MotionThread(D, Y, S, E)
 print "MotionThread setup"
 
 MotionThread.calibrationCheck()
