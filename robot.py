@@ -68,8 +68,7 @@ print "DistancePID setup"
 MotionThread = multi.MotionThread(initial_robot_location, D, Y, S, E)
 print "MotionThread setup"
 
-while (MotionThread.calibrationCheck() == False):
-    print "MotionThread.calibrationCheck() == False, retrying"
+MotionThread.calibrationCheck()
     
 print "wait_start..."
 R.wait_start()
