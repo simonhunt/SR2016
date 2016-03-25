@@ -90,6 +90,7 @@ class MpuHandler():
         self.last_pitch_time = current_time + mpu_start_timeout - time_period
         self.last_roll_time = current_time + mpu_start_timeout - time_period
         self.last_error_time = current_time + mpu_start_timeout - time_period
+        time.sleep(mpu_start_timeout)
         
     def setTimePeriod(self, time_period):
         self.time_period = time_period
