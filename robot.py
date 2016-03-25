@@ -59,6 +59,19 @@ print "MpuHandler initialised"
 E = ruggeduino.EncoderHandler(R.ruggeduinos[0])
 print "EncoderHandler initialised"
 
+Y = pid.PidController("YawPID", YKP, YKI, YKD, MAX_STEERING, - MAX_STEERING, yaw_setpoint, Y_I_LIMIT) #p, i, d, setpoint, iLimit, startingI
+print "YawPID setup"
+
+S = pid.PidController("DistancePID", SKP, SKI, SKD, MAX_SPEED, MIN_SPEED, distance_setpoint, S_I_LIMIT)
+print "DistancePID setup"
+
+MotionThread = multi.MotionThread(initial_robot_location, D, Y, S, E)
+print "MotionThread setup"
+
+MotionThread.calibrationCheck()
+
+
+
 R.wait_start()
 print "wait_start ran"
 
@@ -66,16 +79,10 @@ currentTime = time.time()
 zone = R.zone
 A = map.MapHandler(zone, currentTime)
 
-Y = pid.PidController("YawPID", YKP, YKI, YKD, MAX_STEERING, - MAX_STEERING, yaw_setpoint, Y_I_LIMIT) #p, i, d, setpoint, iLimit, startingI
-print "YawPID setup"
-
-S = pid.PidController("DistancePID", SKP, SKI, SKD, MAX_SPEED, MIN_SPEED, distance_setpoint, S_I_LIMIT)
-print "DistancePID setup"
-
 M = motors.MotorHandler(R.motors[0].m0, R.motors[0].m1) #left motor, right motor
 print "MotorHandler setup"
 
-MotionThread = multi.MotionThread(initial_robot_location, D, Y, M, S, E)
+
 
 MotionThread.start()
 print "MotionThread started" 
