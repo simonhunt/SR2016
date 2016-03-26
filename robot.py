@@ -94,6 +94,7 @@ print "MotionThread started"
 MapThread.start()
 print "MapThread started"
 
+
 def squareDemo():
     MotionThread.setAction(MOVE_HOLD, 1.5)
     
@@ -260,7 +261,7 @@ if (DEBUG_YAW_DRIFT == True):
 
 while (True):
     time.sleep(1)
-#    MotionThread.debug()
+    MotionThread.debug()
 
 
 #while True:
