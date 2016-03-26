@@ -17,7 +17,7 @@ INITIAL_MPU_YAW_OFFSET = 9 #degrees
 INITIAL_ROBOT_ACTION = STILL
 INITIAL_ROBOT_ACTION_VALUE = 0
 
-INITIAL_ROBOT_LOCATION = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
+DEFAULT_ROBOT_LOCATION = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
 
 WHEEL_BASE = 0.45 #meters
 
@@ -58,7 +58,7 @@ class MotionThread(threading.Thread):
         self.desired_distance = 0
         
         self.location_update_lock = threading.Lock()
-        self.robot_location = INITIAL_ROBOT_LOCATION
+        self.robot_location = DEFAULT_ROBOT_LOCATION
         
         self.D = MpuHandler
         self.Y = YawPid
@@ -249,10 +249,10 @@ class MotionThread(threading.Thread):
             
         print "Test passed with attempts = " +str(attempts)
         
-    def prepareForStart(self, MotorHandler, robot_location):
+    def prepareForStart(self, MotorHandler, start_robot_location):
         self.M = MotorHandler
         self.updateSensors() # freshen up sensor readings so that offsets can be set correctly
-        self.setRobotLocation(robot_location)
+        self.setRobotLocation(start_robot_location)
     
     def run(self, MotorHandler, ):
         print "Starting " + self.name
