@@ -77,12 +77,15 @@ print "wait_start returned"
 M = motors.MotorHandler(R.motors[0].m0, R.motors[0].m1) #left motor, right motor
 print "MotorHandler setup"
 
+MotionThread.prepareForStart(M, test_location)
+print "MotionThread prepared for start"
+
 MotionThread.start(M)
 print "MotionThread started" 
 
 currentTime = time.time()
-zone = R.zone
-A = map.MapHandler(zone, currentTime)
+#zone = R.zone
+#A = map.MapHandler(zone, currentTime)
 
 
 
