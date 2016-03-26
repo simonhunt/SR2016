@@ -17,9 +17,17 @@ INITIAL_MPU_YAW_OFFSET = 9 #degrees
 INITIAL_ROBOT_ACTION = STILL
 INITIAL_ROBOT_ACTION_VALUE = 0
 
-DEFAULT_ROBOT_LOCATION = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
+DEFAULT_ROBOT_LOCATION = None
 
 WHEEL_BASE = 0.45 #meters
+
+class MotorHandlerPlaceholder():
+    
+    def setDesiredSpeedAndSteering(self, desired_speed, desired_steering):
+        return False
+    
+    def debug(self):
+        print "MotorHandler not passed to MotionThread yet"
 
 def robotDisplacementByArcApproximation(length, theta_1, theta_2):
     theta_1 = math.radians(theta_1) #convert angles into radians
@@ -64,6 +72,7 @@ class MotionThread(threading.Thread):
         self.Y = YawPid
         self.S = DistancePid
         self.E = EncoderHandler
+        self.M = MotorHandlerPlaceholder()
         
         self.time_period = time_period
         
