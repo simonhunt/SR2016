@@ -36,7 +36,6 @@ STARTING__ROBOT_3 = {'x': 1, 'y': 1, 'z': 0.25, 'yaw': 45, 'pitch': 0, 'roll': 0
 
 def getInitialCameraLocation(zone, current_time): ##this method is not finished
     
-    
     if (zone == 0):
         initial_camera_location = ZONE_0_INITIAL_CAMERA_LOCATION
     
@@ -82,7 +81,6 @@ class MarkerHandler():
     def addMarker(self, marker):
         self.marker_seen = True
         self.markers.append(marker)
-    
 
 class ArenaMarkerHandler(MarkerHandler):
             
