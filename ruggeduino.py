@@ -53,7 +53,7 @@ class MpuSonarEncoderRuggeduino(Ruggeduino):
 
 class EncoderHandler():
     
-    def __init__(self, EncoderRuggeduino, time_period = 0.01): # default 100Hz
+    def __init__(self, EncoderRuggeduino, time_period = 0.005): # default 200Hz
         current_time = time.time()
         self.EncoderRuggeduino = EncoderRuggeduino
         self.time_period = time_period
@@ -74,7 +74,7 @@ class EncoderHandler():
 
 class MpuHandler():
     
-    def __init__(self, MpuRuggeduino, yaw_drift, time_period = 0.01, mpu_start_timeout = 2): # default 100Hz
+    def __init__(self, MpuRuggeduino, yaw_drift, time_period = 0.05, mpu_start_timeout = 1): # default 200Hz
         current_time = time.time()
         self.innit_time = current_time
         self.time_period = time_period
