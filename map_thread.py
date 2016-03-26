@@ -66,7 +66,7 @@ class MapThread(threading.Thread):
             
             RList = [R0, R1, R2, R3]
             
-            markers = self.see()
+            markers = self.see( res=(1280,960) )
             
             for marker in markers:
                 
