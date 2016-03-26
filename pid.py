@@ -3,7 +3,7 @@ from limits import mapToLimits
 
 class PidController():
     
-    def __init__(self, name, kp = 0, ki = 0, kd = 0, max_output = 0, min_output = 0, i_limit = 0, setpoint = 0, starting_i = 0, time_period = 0.01): # default 100Hz
+    def __init__(self, name, kp = 0, ki = 0, kd = 0, max_output = 0, min_output = 0, i_limit = 0, setpoint = 0, starting_i = 0, time_period = 0.005): # default 200Hz
         self.name = name
         self.kp = kp
         self.ki = ki    
