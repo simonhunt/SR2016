@@ -258,10 +258,10 @@ class MotionThread(threading.Thread):
             
         print "Test passed with attempts = " +str(attempts)
         
-    def prepareForStart(self, MotorHandler, start_robot_location):
+    def prepareForStart(self, MotorHandler): #def prepareForStart(self, MotorHandler, start_robot_location):
         self.M = MotorHandler
         self.updateSensors() # freshen up sensor readings so that offsets can be set correctly
-        self.setRobotLocation(start_robot_location)
+        #self.setRobotLocation(start_robot_location)
     
     def run(self):
         print "Starting " + self.name
