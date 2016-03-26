@@ -49,7 +49,6 @@ def wheelDisplacementByLineApproximation(length, theta_1, theta_2):
 class MotionThread(threading.Thread):
     
     def __init__(self, MpuHandler, YawPid, DistancePid, EncoderHandler, time_period = 0.01):
-        
         threading.Thread.__init__(self)
         
         self.name = "MotionThread"
@@ -263,7 +262,7 @@ class MotionThread(threading.Thread):
         self.updateSensors() # freshen up sensor readings so that offsets can be set correctly
         self.setRobotLocation(start_robot_location)
     
-    def run(self, MotorHandler, ):
+    def run(self):
         print "Starting " + self.name
         wake_up_time = time.time() + self.time_period
 
