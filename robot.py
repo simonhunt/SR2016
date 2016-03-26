@@ -32,14 +32,10 @@ import pid
 import motors
 import map
 import multi
-
+import map_thread
+import debug
 
 test_location = {'x': 100, 'y': 100, 'z': 100, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
-
-
-distance_setpoint = 0
-yaw_setpoint = 0
-speed = 0 
  
 print "packages imported"
 
@@ -59,37 +55,44 @@ print "MpuHandler initialised"
 E = ruggeduino.EncoderHandler(R.ruggeduinos[0])
 print "EncoderHandler initialised"
 
-Y = pid.PidController("YawPID", YKP, YKI, YKD, MAX_STEERING, - MAX_STEERING, yaw_setpoint, Y_I_LIMIT) #p, i, d, setpoint, iLimit, startingI
+Y = pid.PidController("YawPID", YKP, YKI, YKD, MAX_STEERING, - MAX_STEERING, Y_I_LIMIT) #p, i, d, setpoint, iLimit, startingI
 print "YawPID setup"
 
-S = pid.PidController("DistancePID", SKP, SKI, SKD, MAX_SPEED, MIN_SPEED, distance_setpoint, S_I_LIMIT)
+S = pid.PidController("DistancePID", SKP, SKI, SKD, MAX_SPEED, MIN_SPEED, S_I_LIMIT)
 print "DistancePID setup"
 
 MotionThread = multi.MotionThread(D, Y, S, E)
 print "MotionThread setup"
 
 MotionThread.calibrationCheck()
+
+MapThread = map_thread.MapThread()
+print "MapThread setup"
+
+DebugThread = debug.DebugThread((MotionThread, MapThread))
+print "DebugThread setup"
     
 print "wait_start..."
 R.wait_start()
 print "wait_start returned"
 
+DebugThread.start()
+print "DebugThread started"
+
 M = motors.MotorHandler(R.motors[0].m0, R.motors[0].m1) #left motor, right motor
 print "MotorHandler setup"
 
-MotionThread.prepareForStart(M, test_location)
+MotionThread.prepareForStart(M)
 print "MotionThread prepared for start"
 
-MotionThread.start(M)
+MapThread.prepareForStart(R.see, R.zone, MotionThread)
+print "MapThread prepared for start"
+
+MotionThread.start()
 print "MotionThread started" 
 
-currentTime = time.time()
-#zone = R.zone
-#A = map.MapHandler(zone, currentTime)
-
-
-
-
+MapThread.start()
+print "MapThread started"
 
 def squareDemo():
     MotionThread.setAction(MOVE_HOLD, 1.5)
@@ -99,6 +102,7 @@ def squareDemo():
         i += 1
         time.sleep(1)
         MotionThread.debug()
+        MapThread.debug()
     
     MotionThread.setAction(TURN, 90)
     
@@ -107,6 +111,7 @@ def squareDemo():
         i += 1
         time.sleep(1)
         MotionThread.debug()
+        MapThread.debug()
     
     MotionThread.setAction(MOVE_HOLD, 1.5)
     
@@ -115,6 +120,7 @@ def squareDemo():
         i += 1
         time.sleep(1)
         MotionThread.debug()
+        MapThread.debug()
         
     MotionThread.setAction(TURN, 90)
     
@@ -123,6 +129,7 @@ def squareDemo():
         i += 1
         time.sleep(1)
         MotionThread.debug()
+        MapThread.debug()
     
     MotionThread.setAction(MOVE_HOLD, 1.5)
     
@@ -131,6 +138,7 @@ def squareDemo():
         i += 1
         time.sleep(1)
         MotionThread.debug()
+        MapThread.debug()
     
     MotionThread.setAction(TURN, 90)
         
@@ -140,6 +148,7 @@ def squareDemo():
         i += 1
         time.sleep(1)
         MotionThread.debug()
+        MapThread.debug()
         
     MotionThread.setAction(MOVE_HOLD, 1.5)
     
@@ -148,6 +157,7 @@ def squareDemo():
         i += 1
         time.sleep(1)
         MotionThread.debug()
+        MapThread.debug()
         
     MotionThread.setAction(TURN, 90)
     
@@ -156,6 +166,7 @@ def squareDemo():
         i += 1
         time.sleep(1)
         MotionThread.debug()
+        MapThread.debug()
     
     MotionThread.setAction(STILL)
     
@@ -167,6 +178,7 @@ def turnDemo():
         i += 1
         time.sleep(1)
         MotionThread.debug()
+        MapThread.debug()
     
     MotionThread.setAction(TURN, -10)
     
@@ -237,18 +249,18 @@ if (DEBUG_YAW_DRIFT == True):
         sleep_time = mapToLimits(wake_up_time - time.time(), DEBUG_TIMEPERIOD, 0) 
         time.sleep(DEBUG_TIMEPERIOD)
         
-i = 0
-while (i < 20):
-    i += 1
-    time.sleep(1)
-    MotionThread.debug()
-
-MotionThread.setRobotLocation(test_location)
+#i = 0
+#while (i < 20):
+#    i += 1
+#    time.sleep(1)
+#    MotionThread.debug()
+#
+#MotionThread.setRobotLocation(test_location)
 #squareDemo()
 
 while (True):
     time.sleep(1)
-    MotionThread.debug()
+#    MotionThread.debug()
 
 
 #while True:
