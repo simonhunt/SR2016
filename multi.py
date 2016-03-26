@@ -280,7 +280,8 @@ class MotionThread(threading.Thread):
         print "Exiting " + self.name
     
     def debug(self):
-        print self.name
+        activity = 1 - (self.time_to_sleep - self.time_period)
+        print self.name, + ", activity = " + str(activity)
         
         print "desired_yaw = " + str(self.desired_yaw) + ", yaw = " + str(self.yaw) + ", D.yaw = " + str(self.D.yaw) + ", D.error = " + str(self.D.error)
         self.Y.debug()
