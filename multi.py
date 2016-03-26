@@ -1,7 +1,7 @@
 import threading
 import time
 import math
-from limits import angleMod
+from limits import angleMod, mapToLimits
 
 # ACTIONS
 STILL = 0
@@ -168,6 +168,10 @@ class MotionThread(threading.Thread):
         
         else: #self.E.update() == False
                 print "ERROR: E returned false in Motion Thread"
+    
+    def updateSensors(self):
+        self.updateDistance()
+        self.updateYaw()
                 
     def runYawPid(self):
         new_steering = False
@@ -244,22 +248,26 @@ class MotionThread(threading.Thread):
             attempts += 1
             
         print "Test passed with attempts = " +str(attempts)
-    
-    def run(self, MotorHandler):
-        self.M = MotorHandler
-        print "Starting " + self.name
         
+    def prepareForStart(self, MotorHandler, robot_location):
+        self.M = MotorHandler
+        self.updateSensors() # freshen up sensor readings so that offsets can be set correctly
+        self.setRobotLocation(robot_location)
+    
+    def run(self, MotorHandler, ):
+        print "Starting " + self.name
+        wake_up_time = time.time() + self.time_period
+
         while (True):        
-            
-            self.updateYaw()
-            self.updateDistance()                
+            self.time_to_sleep = mapToLimits(wake_up_time - time.time(), self.time_period, 0)
+            time.sleep(self.time_to_sleep)
+            self.updateSensors()               
             self.updateRobotLocation()
             self.processAction()               
             new_steering = self.runYawPid()
             new_speed = self.runDistancePid()           
             self.updateMotors(new_steering, new_speed)              
-                
-            time.sleep(self.time_period)
+            wake_up_time += self.time_period
             
         print "Exiting " + self.name
     
