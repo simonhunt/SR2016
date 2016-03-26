@@ -1,7 +1,7 @@
 import math
 import cmath
 from turn import getTurns
-from sr.robot import *
+from sr.robot import MARKER_TOKEN_SIDE, MARKER_TOKEN_BOTTOM, MARKER_TOKEN_TOP, MARKER_ARENA, MARKER_ROBOT, NET_A, NET_B, NET_C
 from limits import mapToLimits, angleMod
 
 ROBOT_WIDTH = 0.5
@@ -399,102 +399,102 @@ def getArenaMarkerWall(arena_marker_offset):
 ################################################################################################################
 ################################################################################################################
 
-class MapHandler():
-    
-    def __init__(self, zone, current_time):
-        self.camera_location = getInitialCameraLocation(zone, current_time)
-        self.starting_cube_locations = getStartingCubeLocations(current_time)
-        self.a_cube_locations = []
-        self.b_cube_locations = []
-        self.c_cube_locations = []
-        self.robot_locations = getStartingRobotLocations(current_time)
-        
-    def filterCubes(self, current_time, maxAge = 1):
-         
-        for A in self.a_cube_locations:
-             if ((current_time - A['time']) > maxAge):
-                 self.a_cube_locations.remove(A)
-        
-        for B in self.b_cube_locations:
-             if ((current_time - B['time']) > maxAge):
-                 self.b_cube_locations.remove(B)
-                 
-        for C in self.c_cube_locations:
-             if ((current_time - C['time']) > maxAge):
-                 self.c_cube_locations.remove(C)
-                 
-        
-    def update(self, markers, current_time, zone):
-        A = ArenaMarkerHandler(current_time)
-        
-        R0 = RobotMarkerHandler(current_time)
-        R1 = RobotMarkerHandler(current_time)
-        R2 = RobotMarkerHandler(current_time)
-        R3 = RobotMarkerHandler(current_time)
-        
-        TA = TokenMarkerHandler(current_time)
-        TB = TokenMarkerHandler(current_time)
-        TC = TokenMarkerHandler(current_time)
-        
-        RList = [R0, R1, R2, R3]
-        
-        for marker in markers:
-            
-            if (marker.info.marker_type == MARKER_ARENA): # & (m.info.code < 28)
-                A.addMarker(marker)
-                
-            elif (marker.info.marker_type == MARKER_ROBOT): # & (m.info.code > 27 & m.info.code < 32) 
-                #RList[marker.info.offset].addMarker(marker)
-                
-                if (marker.info.offset == 0):
-                    R0.addMarker(marker)
-                    
-                elif(marker.info.offset == 1):
-                    R1.addMarker(marker)
-                    
-                elif(marker.info.offset == 2):
-                    R2.addMarker(marker)
-                    
-                elif (marker.info.offset == 3):
-                    R3.addMarker(marker)
-                
-                else:
-                    print "error: robot marker with offset != {0,1,2,3}"
-                
-            else: # MARKER_TOKEN
-                
-                if (marker.info.token_net == NET_A):
-                    TA.addMarker(marker)
-                
-                elif (marker.info.token_net == NET_B):
-                    TB.addMarker(marker)
-                    
-                elif (marker.info.token_net == NET_C):
-                    TC.addMarker(marker)
-                    
-                else:
-                    print "error: marker with undefined NET handled as token"
-        
-        if (A.marker_seen == True):
-            self.camera_location = A.processMarkers()
-            
-        if (current_time - self.camera_location['time'] <= 1):
-            
-            i = 0
-            for R in RList:
-                
-                if (R.marker_seen == True):
-                    self.robot_locations[i] = R.processMarkers(self.camera_location)
-                i += 1
-            
-            if (TA.marker_seen == True):
-                self.a_cube_locations.extend(TA.processMarkers(self.camera_location, zone))
-            
-            if (TB.marker_seen == True):
-                self.b_cube_locations.extend(TB.processMarkers(self.camera_location, zone))
-                
-            if (TC.marker_seen == True):
-                self.c_cube_locations.extend(TC.processMarkers(self.camera_location, zone))
-                
-                  
-        #print "camerLocation according to all markers: ", camera_location
+#class MapHandler():
+#    
+#    def __init__(self, zone, current_time):
+#        self.camera_location = getInitialCameraLocation(zone, current_time)
+#        self.starting_cube_locations = getStartingCubeLocations(current_time)
+#        self.a_cube_locations = []
+#        self.b_cube_locations = []
+#        self.c_cube_locations = []
+#        self.robot_locations = getStartingRobotLocations(current_time)
+#        
+#    def filterCubes(self, current_time, maxAge = 1):
+#         
+#        for A in self.a_cube_locations:
+#             if ((current_time - A['time']) > maxAge):
+#                 self.a_cube_locations.remove(A)
+#        
+#        for B in self.b_cube_locations:
+#             if ((current_time - B['time']) > maxAge):
+#                 self.b_cube_locations.remove(B)
+#                 
+#        for C in self.c_cube_locations:
+#             if ((current_time - C['time']) > maxAge):
+#                 self.c_cube_locations.remove(C)
+#                 
+#        
+#    def update(self, markers, current_time, zone):
+#        A = ArenaMarkerHandler(current_time)
+#        
+#        R0 = RobotMarkerHandler(current_time)
+#        R1 = RobotMarkerHandler(current_time)
+#        R2 = RobotMarkerHandler(current_time)
+#        R3 = RobotMarkerHandler(current_time)
+#        
+#        TA = TokenMarkerHandler(current_time)
+#        TB = TokenMarkerHandler(current_time)
+#        TC = TokenMarkerHandler(current_time)
+#        
+#        RList = [R0, R1, R2, R3]
+#        
+#        for marker in markers:
+#            
+#            if (marker.info.marker_type == MARKER_ARENA): # & (m.info.code < 28)
+#                A.addMarker(marker)
+#                
+#            elif (marker.info.marker_type == MARKER_ROBOT): # & (m.info.code > 27 & m.info.code < 32) 
+#                #RList[marker.info.offset].addMarker(marker)
+#                
+#                if (marker.info.offset == 0):
+#                    R0.addMarker(marker)
+#                    
+#                elif(marker.info.offset == 1):
+#                    R1.addMarker(marker)
+#                    
+#                elif(marker.info.offset == 2):
+#                    R2.addMarker(marker)
+#                    
+#                elif (marker.info.offset == 3):
+#                    R3.addMarker(marker)
+#                
+#                else:
+#                    print "error: robot marker with offset != {0,1,2,3}"
+#                
+#            else: # MARKER_TOKEN
+#                
+#                if (marker.info.token_net == NET_A):
+#                    TA.addMarker(marker)
+#                
+#                elif (marker.info.token_net == NET_B):
+#                    TB.addMarker(marker)
+#                    
+#                elif (marker.info.token_net == NET_C):
+#                    TC.addMarker(marker)
+#                    
+#                else:
+#                    print "error: marker with undefined NET handled as token"
+#        
+#        if (A.marker_seen == True):
+#            self.camera_location = A.processMarkers()
+#            
+#        if (current_time - self.camera_location['time'] <= 1):
+#            
+#            i = 0
+#            for R in RList:
+#                
+#                if (R.marker_seen == True):
+#                    self.robot_locations[i] = R.processMarkers(self.camera_location)
+#                i += 1
+#            
+#            if (TA.marker_seen == True):
+#                self.a_cube_locations.extend(TA.processMarkers(self.camera_location, zone))
+#            
+#            if (TB.marker_seen == True):
+#                self.b_cube_locations.extend(TB.processMarkers(self.camera_location, zone))
+#                
+#            if (TC.marker_seen == True):
+#                self.c_cube_locations.extend(TC.processMarkers(self.camera_location, zone))
+#                
+#                  
+#        #print "camerLocation according to all markers: ", camera_location
