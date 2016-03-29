@@ -25,7 +25,7 @@ if (DEBUG_YAW_DRIFT == True):
 
 from sr.robot import *
 from limits import mapToLimits
-from multi import STILL, TURN, MOVE_HOLD, MOVE
+from multi import STILL, TURN, MOVE_HOLD, MOVE, TURN_CHANGE, MOVE_CHANGE
 import time
 import ruggeduino
 import pid
@@ -93,7 +93,6 @@ print "MotionThread started"
 
 MapThread.start()
 print "MapThread started"
-
 
 def squareDemo():
     MotionThread.setAction(MOVE_HOLD, 1.5)
