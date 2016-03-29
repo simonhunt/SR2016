@@ -8,6 +8,8 @@ STILL = 0
 TURN = 1
 MOVE_HOLD = 2
 MOVE = 3
+TURN_CHANGE = 4
+MOVE_CHANGE = 5
 
 SAMPLE_SIZE = 40
 SAMPLE_TIMEPERIOD = 0.1 #seconds
@@ -121,6 +123,14 @@ class MotionThread(threading.Thread):
                     self.desired_distance = self.distance + self.action_value
                     self.S.setSetpoint(self.desired_distance)
                     print "New Action: MOVE_HOLD, with value: " + str(self.action_value)
+                
+                elif (self.action == TURN_CHANGE):
+                    self.desired_yaw = self.yaw + self.action_value
+                    print "New Action: TURN_CHANGE, with value: " + str(self.action_value)
+                
+                elif (self.action == MOVE_CHANGE):
+                    self.S.setSetpoint(self.desired_distance)
+                    print "New Action: MOVE_CHANGE, with value: " + str(self.action_value)
                     
                 else:
                     print "ERROR: unknown action processed in motionThread.processAction"
