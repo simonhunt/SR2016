@@ -76,7 +76,7 @@ class MotionThread(threading.Thread):
         self.M = MotorHandlerPlaceholder()
         
         self.time_period = time_period
-        #self.time_to_sleep = time_period
+        self.time_to_sleep = time_period
         
         self.mpu_yaw_offset = INITIAL_MPU_YAW_OFFSET
         
