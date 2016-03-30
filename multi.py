@@ -50,7 +50,7 @@ def wheelDisplacementByLineApproximation(length, theta_1, theta_2):
 
 class MotionThread(threading.Thread):
     
-    def __init__(self, MpuHandler, YawPid, DistancePid, EncoderHandler, time_period = 0.005):
+    def __init__(self, MpuHandler, YawPid, DistancePid, EncoderHandler, time_period = 0.01):
         threading.Thread.__init__(self)
         
         self.name = "MotionThread"
@@ -76,7 +76,7 @@ class MotionThread(threading.Thread):
         self.M = MotorHandlerPlaceholder()
         
         self.time_period = time_period
-        self.time_to_sleep = time_period
+        #self.time_to_sleep = time_period
         
         self.mpu_yaw_offset = INITIAL_MPU_YAW_OFFSET
         
@@ -275,7 +275,7 @@ class MotionThread(threading.Thread):
     
     def run(self):
         print "Starting " + self.name
-        wake_up_time = time.time() + self.time_period
+        #wake_up_time = time.time() + self.time_period
 
         while (True):        
             #self.time_to_sleep = mapToLimits(wake_up_time - time.time(), self.time_period, 0)
@@ -292,7 +292,8 @@ class MotionThread(threading.Thread):
         print "Exiting " + self.name
     
     def debug(self):
-        activity = 1 - (self.time_to_sleep / self.time_period)
+        #activity = 1 - (self.time_to_sleep / self.time_period)
+        activity = 1
         print self.name + ", activity = " + str(activity)
         
         print "desired_yaw = " + str(self.desired_yaw) + ", yaw = " + str(self.yaw) + ", D.yaw = " + str(self.D.yaw) + ", D.error = " + str(self.D.error)
