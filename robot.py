@@ -25,7 +25,7 @@ if (DEBUG_YAW_DRIFT == True):
 
 from sr.robot import *
 from limits import mapToLimits
-from multi import STILL, TURN, MOVE_HOLD, MOVE, TURN_CHANGE, MOVE_CHANGE
+from actions import *
 import time
 import ruggeduino
 import pid
