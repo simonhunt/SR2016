@@ -49,32 +49,42 @@ print "Ruggeduino handler ran"
 R.init()
 print "R.init ran"
 
+# MPU Handler
 D = ruggeduino.MpuHandler(R.ruggeduinos[0], YAW_DRIFT)
 print "MpuHandler initialised"
 
+# Encoder Handler
 E = ruggeduino.EncoderHandler(R.ruggeduinos[0])
 print "EncoderHandler initialised"
 
+# Yaw PID
 Y = pid.PidController("YawPID", YKP, YKI, YKD, MAX_STEERING, - MAX_STEERING, Y_I_LIMIT) #p, i, d, setpoint, iLimit, startingI
 print "YawPID setup"
 
+# Distance PID
 S = pid.PidController("DistancePID", SKP, SKI, SKD, MAX_SPEED, MIN_SPEED, S_I_LIMIT)
 print "DistancePID setup"
 
+# Setup Motion Thread
 MotionThread = multi.MotionThread(D, Y, S, E)
 print "MotionThread setup"
 
 MotionThread.calibrationCheck()
 
+# Setup Map Thread
 MapThread = map_thread.MapThread()
 print "MapThread setup"
 
+# Setup Debug Thread
 DebugThread = debug.DebugThread((MotionThread, MapThread))
 print "DebugThread setup"
     
+# Wait for start button press
 print "wait_start..."
 R.wait_start()
 print "wait_start returned"
+
+# Initialise Core Processes
 
 DebugThread.start()
 print "DebugThread started"
@@ -93,6 +103,8 @@ print "MotionThread started"
 
 MapThread.start()
 print "MapThread started"
+
+# Functions
 
 def squareDemo():
     MotionThread.setAction(MOVE_HOLD, 1.5)
@@ -257,10 +269,6 @@ if (DEBUG_YAW_DRIFT == True):
 #
 #MotionThread.setRobotLocation(test_location)
 #squareDemo()
-
-while (True):
-    time.sleep(1)
-    MotionThread.debug()
 
 
 #while True:
