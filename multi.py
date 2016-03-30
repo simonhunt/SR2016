@@ -140,16 +140,11 @@ class MotionThread(threading.Thread):
     def setRobotLocation(self, robot_location):
         
         with self.location_update_lock:
-            
-            print "********2" + str(robot_location) + " * " + str(self.robot_location)
-            
             self.robot_location = robot_location
             self.last_distance = self.distance
             self.mpu_yaw_offset += self.yaw - self.robot_location['yaw']
             self.yaw = self.robot_location['yaw']
             self.last_yaw = self.yaw
-                    
-            print "********3" + str(robot_location) + " * " + str(self.robot_location)
             
     def updateRobotLocation(self):
         
