@@ -271,29 +271,28 @@ class MotionThread(threading.Thread):
     def prepareForStart(self, MotorHandler): #def prepareForStart(self, MotorHandler, start_robot_location):
         self.M = MotorHandler
         self.updateSensors() # freshen up sensor readings so that offsets can be set correctly
-        #self.setRobotLocation(start_robot_location)
-    
+        
     def run(self):
         print "Starting " + self.name
-        #wake_up_time = time.time() + self.time_period
+        wake_up_time = time.time() + self.time_period
 
         while (True):        
-            #self.time_to_sleep = mapToLimits(wake_up_time - time.time(), self.time_period, 0)
-            #time.sleep(self.time_to_sleep)
-            time.sleep(self.time_period)
+            self.time_to_sleep = mapToLimits(wake_up_time - time.time(), self.time_period, 0)
+            time.sleep(self.time_to_sleep)
+            #time.sleep(self.time_period)
             self.updateSensors()               
             self.updateRobotLocation()
             self.processAction()               
             new_steering = self.runYawPid()
             new_speed = self.runDistancePid()           
             self.updateMotors(new_steering, new_speed)              
-            #wake_up_time += self.time_period
+            wake_up_time += self.time_period
             
         print "Exiting " + self.name
     
     def debug(self):
-        #activity = 1 - (self.time_to_sleep / self.time_period)
-        activity = 1
+        activity = 1 - (self.time_to_sleep / self.time_period)
+        #activity = 1
         print self.name + ", activity = " + str(activity)
         
         print "desired_yaw = " + str(self.desired_yaw) + ", yaw = " + str(self.yaw) + ", D.yaw = " + str(self.D.yaw) + ", D.error = " + str(self.D.error)
