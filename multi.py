@@ -2,13 +2,8 @@ import threading
 import time
 import math
 from limits import angleMod, mapToLimits
+from actions import *
 
-# ACTIONS
-STILL = 0
-TURN = 1
-MOVE_HOLD = 2
-MOVE = 3
-TURN_CHANGE = 4
 MOVE_CHANGE = 5
 
 SAMPLE_SIZE = 40
@@ -109,12 +104,43 @@ class MotionThread(threading.Thread):
                     self.S.stop() 
                     print "New Action: TURN, with value: " + str(self.action_value)
                 
+                elif (self.action == TURN_CHANGE):
+                    self.desired_yaw = self.yaw + self.action_value
+                    print "New Action: TURN_CHANGE, with value: " + str(self.action_value)
+                
+                elif (self.action == TURN_TO):
+                    self.Y.restart()
+                    self.desired_yaw = self.action_value
+                    self.S.stop() 
+                    print "New Action: TURN_TO, with value: " + str(self.action_value)
+                
+                elif (self.action == TURN_TO_CHANGE):
+                    self.desired_yaw = self.action_value
+                    print "New Action: TURN_TO_CHANGE, with value: " + str(self.action_value)
+                
                 elif (self.action == MOVE):
                     self.Y.stop()
                     self.S.restart()
                     self.desired_distance = self.distance + self.action_value
                     self.S.setSetpoint(self.desired_distance)
                     print "New Action: MOVE, with value: " + str(self.action_value)
+                    
+                elif (self.action == MOVE_CHANGE):
+                    self.desired_distance = self.distance + self.action_value
+                    self.S.setSetpoint(self.desired_distance)
+                    print "New Action: MOVE_CHANGE, with value: " + str(self.action_value)
+                
+                elif (self.action == MOVE_TO):
+                    self.Y.stop()
+                    self.S.restart()
+                    self.desired_distance = self.action_value
+                    self.S.setSetpoint(self.desired_distance)
+                    print "New Action: MOVE_TO, with value: " + str(self.action_value)
+                    
+                elif (self.action == MOVE_TO_CHANGE):
+                    self.desired_distance = self.action_value
+                    self.S.setSetpoint(self.desired_distance)
+                    print "New Action: MOVE_TO_CHANGE, with value: " + str(self.action_value)
                 
                 elif (self.action == MOVE_HOLD):
                     self.Y.restart()
@@ -124,13 +150,17 @@ class MotionThread(threading.Thread):
                     self.S.setSetpoint(self.desired_distance)
                     print "New Action: MOVE_HOLD, with value: " + str(self.action_value)
                 
-                elif (self.action == TURN_CHANGE):
-                    self.desired_yaw = self.yaw + self.action_value
-                    print "New Action: TURN_CHANGE, with value: " + str(self.action_value)
-                
-                elif (self.action == MOVE_CHANGE):
+                elif (self.action == MOVE_TO_HOLD):
+                    self.Y.restart()
+                    self.desired_yaw = self.yaw
+                    self.S.restart()
+                    self.desired_distance = self.action_value
                     self.S.setSetpoint(self.desired_distance)
-                    print "New Action: MOVE_CHANGE, with value: " + str(self.action_value)
+                    print "New Action: MOVE_TO_HOLD, with value: " + str(self.action_value)
+                
+                
+                
+                
                     
                 else:
                     print "ERROR: unknown action processed in motionThread.processAction"
