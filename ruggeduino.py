@@ -69,6 +69,7 @@ class EncoderHandler():
             self.distance = (float(self.EncoderRuggeduino.encoderGetSteps()) / ENCODER_RESOLUTION) * 2 * math.pi * WHEEL_RADIUS
             self.last_time = current_time
             updated = True
+        
         return updated
         
 
