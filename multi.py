@@ -50,7 +50,7 @@ def wheelDisplacementByLineApproximation(length, theta_1, theta_2):
 
 class MotionThread(threading.Thread):
     
-    def __init__(self, MpuHandler, YawPid, DistancePid, EncoderHandler, time_period = 0.02):
+    def __init__(self, MpuHandler, YawPid, DistancePid, EncoderHandler, time_period = 0.005):
         threading.Thread.__init__(self)
         
         self.name = "MotionThread"
@@ -278,20 +278,21 @@ class MotionThread(threading.Thread):
         wake_up_time = time.time() + self.time_period
 
         while (True):        
-            self.time_to_sleep = mapToLimits(wake_up_time - time.time(), self.time_period, 0)
-            time.sleep(self.time_to_sleep)
+            #self.time_to_sleep = mapToLimits(wake_up_time - time.time(), self.time_period, 0)
+            #time.sleep(self.time_to_sleep)
+            time.sleep(self.time_period)
             self.updateSensors()               
             self.updateRobotLocation()
             self.processAction()               
             new_steering = self.runYawPid()
             new_speed = self.runDistancePid()           
             self.updateMotors(new_steering, new_speed)              
-            wake_up_time += self.time_period
+            #wake_up_time += self.time_period
             
         print "Exiting " + self.name
     
     def debug(self):
-        activity = 1 - (self.time_to_sleep - self.time_period)
+        activity = 1 - (self.time_to_sleep / self.time_period)
         print self.name + ", activity = " + str(activity)
         
         print "desired_yaw = " + str(self.desired_yaw) + ", yaw = " + str(self.yaw) + ", D.yaw = " + str(self.D.yaw) + ", D.error = " + str(self.D.error)
