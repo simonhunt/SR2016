@@ -278,14 +278,16 @@ class MotionThread(threading.Thread):
 
         while (True):     
             self.time_to_sleep = mapToLimits(wake_up_time - time.time(), self.time_period, 0)
+            wake_up_time += self.time_period
             time.sleep(self.time_to_sleep)
+            
             self.updateSensors()               
             self.updateRobotLocation()
             self.processAction()               
             new_steering = self.runYawPid()
             new_speed = self.runDistancePid()           
             self.updateMotors(new_steering, new_speed)              
-            wake_up_time += self.time_period
+            
             
         print "Exiting " + self.name
     
