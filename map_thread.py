@@ -108,9 +108,7 @@ class MapThread(threading.Thread):
             
             if (A.marker_seen == True):
                 self.camera_location = A.processMarkers()
-                print "Processed Markers"
                 self.setMotionThreadRobotLocation()
-                print "Should have updated robot location by now"
             
             if (current_time - self.camera_location['time'] < MAX_BLIND_TIME):
                 
