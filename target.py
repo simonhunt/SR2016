@@ -1,6 +1,7 @@
 import threading
 import time
 import math
+from limits import mapToLimits
 from actions import *
 
 class TargetThread(threading.Thread):
@@ -21,9 +22,7 @@ class TargetThread(threading.Thread):
         dx = self.target['x'] - robot_location['x']
         dy = self.target['y'] - robot_location['y']
         self.polar_r = (dx**2 + dy**2)**0.5
-        self.polar_t = math.atan2(math.radians(robot_location['yaw']))
-        
-        
+        self.polar_t = math.degrees(math.atan2(dy, dx))        
         
     def run(self):
         print "Starting " + self.name
@@ -36,9 +35,11 @@ class TargetThread(threading.Thread):
             time.sleep(self.time_to_sleep)             
             
             if (self.target == None):
-                MotionThread.setAction(STILL)
+                self.MotionThread.setAction(STILL)
                 
             else:
+                self.calculatePolar()
+                self.MotionThread.setAction(MOVE_AND_TURN_TO, self.polar_r, self.polar_t)
                 
                 
             
