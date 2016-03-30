@@ -291,7 +291,7 @@ class MotionThread(threading.Thread):
         print "Exiting " + self.name
     
     def debug(self):
-        activity = 1 - (self.time_to_sleep / self.time_period)
+        activity = float(1 - (self.time_to_sleep / self.time_period))
         #activity = 1
         print self.name + ", activity = " + str(activity)
         
