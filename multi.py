@@ -50,7 +50,7 @@ def wheelDisplacementByLineApproximation(length, theta_1, theta_2):
 
 class MotionThread(threading.Thread):
     
-    def __init__(self, MpuHandler, YawPid, DistancePid, EncoderHandler, time_period = 0.01):
+    def __init__(self, MpuHandler, YawPid, DistancePid, EncoderHandler, time_period = 0.1):
         threading.Thread.__init__(self)
         
         self.name = "MotionThread"
@@ -276,10 +276,9 @@ class MotionThread(threading.Thread):
         print "Starting " + self.name
         wake_up_time = time.time() + self.time_period
 
-        while (True):        
+        while (True):     
             self.time_to_sleep = mapToLimits(wake_up_time - time.time(), self.time_period, 0)
             time.sleep(self.time_to_sleep)
-            #time.sleep(self.time_period)
             self.updateSensors()               
             self.updateRobotLocation()
             self.processAction()               
