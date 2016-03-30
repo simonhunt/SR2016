@@ -18,7 +18,7 @@ class MapThread(threading.Thread):
     def prepareForStart(self, see, zone, MotionThread):
         self.zone = zone
         self.see = see
-        self.MotionThread = MotionThread # not sure if you can do this
+        self.MotionThread = MotionThread
         
         current_time = time.time()
         
@@ -30,7 +30,8 @@ class MapThread(threading.Thread):
     def setMotionThreadRobotLocation(self):
         robot_location = self.camera_location # map.robotLocationFromCameraLocation(self.camera_location)
         self.MotionThread.setRobotLocation(robot_location)
-    
+        print "********"
+        
     def filterCubes(self, current_time):
          
         for A in self.a_cube_locations:
