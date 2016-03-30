@@ -4,7 +4,7 @@ from sr.robot import MARKER_ARENA, MARKER_ROBOT, NET_A, NET_B, NET_C
 import map 
 
 MAX_CUBE_AGE = 1
-MAX_BLIND_TIME = 60 #seconds
+MAX_BLIND_TIME = 1000 #seconds
 
 class MapThread(threading.Thread):
     
