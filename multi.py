@@ -50,7 +50,7 @@ def wheelDisplacementByLineApproximation(length, theta_1, theta_2):
 
 class MotionThread(threading.Thread):
     
-    def __init__(self, MpuHandler, YawPid, DistancePid, EncoderHandler, time_period = 0.1):
+    def __init__(self, MpuHandler, YawPid, DistancePid, EncoderHandler, time_period = 0.02): #50hz default
         threading.Thread.__init__(self)
         
         self.name = "MotionThread"
