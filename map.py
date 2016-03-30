@@ -312,7 +312,7 @@ def cameraLocationFromArenaMarker(arenaMarker, current_time):
     camera_location = {'x': x, 'y': y, 'z': z, 'yaw': yaw, 'pitch': pitch, 'roll': roll, 'time': time}
     
    # print "camera_location acording to", arenaMarker.info.code, ": ", camera_location, " | with vector: ", arena_marker_vector
-    print "camera_location acording to", arenaMarker.info.code, ": ", camera_location
+   # print "camera_location acording to", arenaMarker.info.code, ": ", camera_location
     
     return camera_location
     
