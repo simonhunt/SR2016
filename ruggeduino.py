@@ -74,7 +74,7 @@ class EncoderHandler():
 
 class MpuHandler():
     
-    def __init__(self, MpuRuggeduino, yaw_drift, time_period = 0.05, mpu_start_timeout = 2): # default 200Hz
+    def __init__(self, MpuRuggeduino, yaw_drift, time_period = 0.005, mpu_start_timeout = 2): # default 200Hz
         current_time = time.time()
         self.innit_time = current_time
         self.time_period = time_period
