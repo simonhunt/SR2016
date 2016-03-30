@@ -314,9 +314,113 @@ if (DEBUG_YAW_DRIFT == True):
     #print "bCubeLocations: ", M.bCubeLocations
     #print "cCubeLocations: ", M.cCubeLocations
     #print "robotLocations: ", M.robotLocations
-    #print " "       ##line clear
+    #print " "       ##line clear    
     
 print "Main thread exited"
+
+rt = 1 #right hand top servo  (positive up)
+rb = 0 #right hand bottom servo (positive is inwards)
+lt = 4 #left hand top servo (positive is down)
+lb = 3 #left hand bottom servo (positive is out)
+lr = 5
+rr = 2
+angle = 0
+pitch = 0
+
+#R.servos[0][lt] = 20
+
+def initialiseTurn(): #sets all servos to a starting point and sets some varibles allocated t thier angle however I have not et implicated any way of ensureing that this is the real angle as if the bt crashes it's arms may be turned without influecne from the porgram
+    
+    R.servos[0][lr] = 1
+    R.servos[0][rr] = 1
+    R.servos[0][lt] = -20
+    R.servos[0][rt] = 20
+    R.servos[0][lb] = 20
+    R.servos[0][rb] = 20
+    angle = 1
+    pitch = 20
+    time.sleep(2)
+
+def setTurn(turn,res,delay,angle): #turn: angle you wish to turn to     res: resoloution fo turn, how much it turns each step     delay: how long to wiat between steps for the mtoro to finish turning and slow its movement   angle: the current angle of the servo
+    
+    while (angle < turn):
+        angle = angle + res 
+        R.servos[0][lr] = -angle
+        R.servos[0][rr] = angle
+        time.sleep(delay)
+        
+    while (angle > turn):
+        angle = angle - res 
+        R.servos[0][lr] = -angle
+        R.servos[0][rr] = angle
+        time.sleep(delay)
+        
+    return angle
+    
+
+def closeArms():
+    
+    R.servos[0][lb] = -19
+    R.servos[0][rb] = 19
+    
+    return
+
+def openArms():
+    
+    R.servos[0][lb] = 33
+    R.servos[0][rb] = -33
+    
+    return
+
+def holdArms(ang): #moves the arms in the smae way as open/close but to a specified angle
+    
+    R.servos[0][lb] = ang
+    R.servos[0][rb] = -ang
+    
+    return
+
+def liftArms(height,res,delay,pitch):
+    
+    
+   while (pitch < height):
+        pitch = pitch + res 
+        R.servos[0][lt] = -pitch
+        R.servos[0][rt] = pitch
+        time.sleep(delay)
+        
+   while (pitch > height):
+        pitch = pitch - res 
+        R.servos[0][lt] = -pitch
+        R.servos[0][rt] = pitch
+        time.sleep(delay)
+   
+        
+    
+    
+   return
+
+while (True):
+    
+    angle = 0
+    pitch = 20
+    initialiseTurn()
+    angle = setTurn(0,10,0.1,angle)
+    time.sleep(0.5)
+    liftArms(20,2.5,0.05,pitch)
+    time.sleep(0.5)
+    openArms()
+    time.sleep(3)   
+    closeArms()
+    time.sleep(2)
+    liftArms(100,2.5,0.05,pitch)
+    time.sleep(1)
+    angle = setTurn(80,10,0.1,angle)
+    time.sleep(1)
+    angle = setTurn(0,10,0.1,angle)
+    time.sleep(1)
+    openArms()
+    liftArms(20,2.5,0.05,pitch)
+    time.sleep(1)
         
 
         
