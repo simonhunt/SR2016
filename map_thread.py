@@ -30,7 +30,6 @@ class MapThread(threading.Thread):
     def setMotionThreadRobotLocation(self):
         robot_location = self.camera_location # map.robotLocationFromCameraLocation(self.camera_location)
         self.MotionThread.setRobotLocation(robot_location)
-        print "********"
         
     def filterCubes(self, current_time):
          
