@@ -52,7 +52,7 @@ class TargetThread(threading.Thread):
                         wake_up_time += self.time_period
                         time.sleep(self.time_to_sleep)
                         self.calculatePolar()
-                        self.MotionThread.setAction(MOVE_AND_TURN_TO_CHANGE, self.polar_r, self.polar_t)
+                        self.MotionThread.setAction(MOVE_AND_TURN_TO, self.polar_r, self.polar_t)
         print "Exiting " + self.name
     
     def debug(self):
