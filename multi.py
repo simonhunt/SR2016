@@ -335,16 +335,16 @@ class MotionThread(threading.Thread):
         print "Exiting " + self.name
     
     def debug(self):
-        print self.name + ", time_to_sleep = " + str(self.time_to_sleep)
+        # self.name + ", time_to_sleep = " + str(self.time_to_sleep)
         
-        print "desired_yaw = " + str(self.desired_yaw) + ", yaw = " + str(self.yaw) + ", D.yaw = " + str(self.D.yaw) + ", D.error = " + str(self.D.error)
-        self.Y.debug()
-        print "steering " + str(self.steering)
-        
-        print "desired_distance = " + str(self.desired_distance) + ", distance = " + str(self.distance)  
-        self.S.debug()
-        print "speed = " + str(self.speed)
-        
-        self.M.debug()
+        #print "desired_yaw = " + str(self.desired_yaw) + ", yaw = " + str(self.yaw) + ", D.yaw = " + str(self.D.yaw) + ", D.error = " + str(self.D.error)
+        #self.Y.debug()
+        #print "steering " + str(self.steering)
+        #
+        #print "desired_distance = " + str(self.desired_distance) + ", distance = " + str(self.distance)  
+        #self.S.debug()
+        #print "speed = " + str(self.speed)
+        #
+        #self.M.debug()
         
         print "robot_location = " + str(self.robot_location)
