@@ -165,13 +165,13 @@ class MotionThread(threading.Thread):
                     self.Y.restart()
                     self.desired_yaw = self.action_value_2
                     self.S.restart()
-                    self.desired_distance = self.action_value_1
+                    self.desired_distance = self.distace + self.action_value_1
                     self.S.setSetpoint(self.desired_distance)
                     print "New Action: MOVE_AND_TURN_TO, with value_1 = " + str(self.action_value_1) + ", value_2 = " + str(self.action_value_2)
                 
                 elif (self.action == MOVE_AND_TURN_TO_CHANGE):
                     self.desired_yaw = self.action_value_2
-                    self.desired_distance = self.action_value_1
+                    self.desired_distance = self.distace + self.action_value_1
                     self.S.setSetpoint(self.desired_distance)
                     print "New Action: MOVE_AND_TURN_TO_CHANGE, with value_1 = " + str(self.action_value_1) + ", value_2 = " + str(self.action_value_2)           
                     
