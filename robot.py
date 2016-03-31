@@ -270,7 +270,7 @@ if (DEBUG_YAW_DRIFT == True):
         
 time.sleep(20)
 TargetThread.setTarget(test_target)
-
+time.sleep(6)
 TargetThread.setTarget(None)
         
 #i = 0
