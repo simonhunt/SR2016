@@ -35,7 +35,7 @@ import multi
 import map_thread
 import debug
 
-test_location = {'x': 100, 'y': 100, 'z': 100, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
+test_target = {'x': 4, 'y': 4, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
  
 print "packages imported"
 
@@ -78,6 +78,9 @@ print "MapThread setup"
 # Setup Debug Thread
 DebugThread = debug.DebugThread((MotionThread, MapThread))
 print "DebugThread setup"
+
+TargetThread = target.TargetThread(MotionThread)
+print "TargetThread setup"
     
 # Wait for start button press
 print "wait_start..."
@@ -103,6 +106,9 @@ print "MotionThread started"
 
 MapThread.start()
 print "MapThread started"
+
+TargetThread.start()
+print "TargetThread started"
 
 # Functions
 
@@ -260,6 +266,9 @@ if (DEBUG_YAW_DRIFT == True):
         print str(MotionThread.yaw)
         sleep_time = mapToLimits(wake_up_time - time.time(), DEBUG_TIMEPERIOD, 0) 
         time.sleep(DEBUG_TIMEPERIOD)
+        
+time.sleep(20)
+TargetThread.setTarget(test_target)
         
 #i = 0
 #while (i < 20):
