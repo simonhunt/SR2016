@@ -34,6 +34,7 @@ import map
 import multi
 import map_thread
 import debug
+import target
 
 test_target = {'x': 4, 'y': 4, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
  
