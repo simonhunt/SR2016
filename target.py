@@ -46,13 +46,6 @@ class TargetThread(threading.Thread):
                 else:
                     self.calculatePolar()
                     self.MotionThread.setAction(MOVE_AND_TURN_TO, self.polar_r, self.polar_t)
-                    
-                    while(True):
-                        self.time_to_sleep = mapToLimits(wake_up_time - time.time(), self.time_period, 0)
-                        wake_up_time += self.time_period
-                        time.sleep(self.time_to_sleep)
-                        self.calculatePolar()
-                        self.MotionThread.setAction(MOVE_AND_TURN_TO, self.polar_r, self.polar_t)
         print "Exiting " + self.name
     
     def debug(self):
