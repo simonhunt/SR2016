@@ -130,8 +130,9 @@ class MapThread(threading.Thread):
         print "Exiting " + self.name
         
     def debug(self):
-        print self.name
-        print "length of a_cube_locations = " + str(len(self.a_cube_locations))
-        print "length of b_cube_locations = " + str(len(self.b_cube_locations))
-        print "length of c_cube_locations = " + str(len(self.c_cube_locations))        
+        pass
+        #print self.name
+        #print "length of a_cube_locations = " + str(len(self.a_cube_locations))
+        #print "length of b_cube_locations = " + str(len(self.b_cube_locations))
+        #print "length of c_cube_locations = " + str(len(self.c_cube_locations))        
         
