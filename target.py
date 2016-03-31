@@ -6,7 +6,7 @@ from actions import *
 
 class TargetThread(threading.Thread):
     
-    def __init__(self, MotionThread, time_period = 0.1): #default 10hz
+    def __init__(self, MotionThread, time_period = 5): #default 10hz
         threading.Thread.__init__(self)
         
         self.name = "TargetThread"
