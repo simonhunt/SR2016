@@ -269,11 +269,8 @@ if (DEBUG_YAW_DRIFT == True):
         time.sleep(DEBUG_TIMEPERIOD)
         
 time.sleep(20)
-while (True):
-    TargetThread.setTarget(test_target)
-    time.sleep(6)
-    TargetThread.setTarget(None)
-    time.sleep(6)
+TargetThread.setTarget(test_target)
+
         
 #i = 0
 #while (i < 20):
