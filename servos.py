@@ -85,8 +85,13 @@ class ServosThread(threading.Thread):
         
         if (new_position_local_copy != None):
             self.moveTo(new_position_local_copy)
+            
+    def clearSequence(self, new_position):
+        
+        with self.lock:
+            self.sequence = []
     
-    def setNewPosition(self, new_position):
+    def addNewPosition(self, new_position):
         
         with self.lock:
             self.sequence.append(new_position)
