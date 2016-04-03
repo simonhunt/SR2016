@@ -1,6 +1,7 @@
 import threading
 import time
 from limits import mapToLimits
+from positions import *
 
 SERVO_BOARD = 0
 
@@ -27,35 +28,6 @@ RIGHT_LIFT_OFFSET = 0
 RIGHT_GRAB_PIN = 3
 RIGHT_GRAB_DIRECTION = 1
 RIGHT_GRAB_OFFSET = 0
-
-#POSITIONS
-
-INITIALISATION = {'rotate': 0, 'lift': 0, 'grab': 0, 'time': 1}
-ARMS_UP_OUT_THE_WAY = {'rotate': 0, 'lift': 100, 'grab': 0, 'time': 1}
-
-ARMS_WIDE_POSITIVE_TURN = {'rotate': - 100, 'lift': - 40, 'grab': - 50, 'time': 1}
-ARMS_WIDE_NEGATIVE_TURN = {'rotate': 100, 'lift': - 40, 'grab': - 50, 'time': 1}
-
-ARMS_ON_CUBE_POSITIVE_TURN = {'rotate': - 100, 'lift': - 40, 'grab': 20, 'time': 1}
-ARMS_ON_CUBE_NEGATIVE_TURN = {'rotate': 100, 'lift': - 40, 'grab': 20, 'time': 1}
-
-LIFT_CUBE_POSITIVE_TURN = {'rotate': - 100, 'lift': 40, 'grab': 20, 'time': 1}
-LIFT_CUBE_NEGATIVE_TURN = {'rotate': 100, 'lift': 40, 'grab': 20, 'time': 1}
-
-TURN_CUBE_90 = {'rotate': 0, 'lift': 40, 'grab': 20, 'time': 1}
-TURN_CUBE_180 = {'rotate': 100, 'lift': 40, 'grab': 20, 'time': 1}
-TURN_CUBE_MINUS_90 = {'rotate': 0, 'lift': 40, 'grab': 20, 'time': 1}
-TURN_CUBE_MINUS_180 = {'rotate': - 100, 'lift': 40, 'grab': 20, 'time': 1}
-
-DOWN_CUBE_90 = {'rotate': 0, 'lift': 0, 'grab': 20, 'time': 1}
-DOWN_CUBE_180 = {'rotate': 100, 'lift': 0, 'grab': 20, 'time': 1}
-DOWN_CUBE_MINUS_90 = {'rotate': 0, 'lift': 0, 'grab': 20, 'time': 1}
-DOWN_CUBE_MINUS_180 = {'rotate': - 100, 'lift': 0, 'grab': 20, 'time': 1}
-
-RELEASE_CUBE_90 = {'rotate': 0, 'lift': 0, 'grab': 0, 'time': 1}
-RELEASE_CUBE_180 = {'rotate': 100, 'lift': 0, 'grab': 0, 'time': 1}
-RELEASE_CUBE_MINUS_90 = {'rotate': 0, 'lift': 0, 'grab': 0, 'time': 1}
-RELEASE_CUBE_MINUS_180 = {'rotate': - 100, 'lift': 0, 'grab': 0, 'time': 1}
 
 class ServosThread(threading.Thread):
     
@@ -86,10 +58,15 @@ class ServosThread(threading.Thread):
         if (new_position_local_copy != None):
             self.moveTo(new_position_local_copy)
             
-    def clearSequence(self, new_position):
+    def clearSequence(self):
         
         with self.lock:
             self.sequence = []
+            
+    def setPosition(self, new_position):
+        
+        self.clearSequence()
+        self.addNewPosition(new_position)
     
     def addNewPosition(self, new_position):
         
@@ -97,6 +74,8 @@ class ServosThread(threading.Thread):
             self.sequence.append(new_position)
         
     def moveTo(self, new_position):
+        start_position = self.position
+        
         drotate = new_position['rotate'] - self.position['rotate']
         dlift = new_position['lift'] - self.position['lift']
         dgrab = new_position['grab'] - self.position['grab']
@@ -115,9 +94,9 @@ class ServosThread(threading.Thread):
         
         i = 1
         while (i < increments):
-            new_rotate = self.position['rotate'] + i * rotate_increment
-            new_lift = self.position['lift'] + i * lift_increment
-            new_grab = self.position['grab'] + i * grab_increment
+            new_rotate = start_position['rotate'] + i * rotate_increment
+            new_lift = start_position['lift'] + i * lift_increment
+            new_grab = start_position['grab'] + i * grab_increment
             
             self.setRotate(new_rotate)
             self.setLift(new_lift)
