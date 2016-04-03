@@ -70,26 +70,26 @@ class ServosThread(threading.Thread):
         
         self.position = INITIALISATION
         self.initialiseOffsets()
-        self.new_position = None
+        self.sequence = []
         
         self.moveTo(ARMS_UP_OUT_THE_WAY)
         
     def processNewPosition(self):
         
+        new_position_local_copy = None
+        
         with self.lock:
-            new_position_local_copy = self.new_position
             
+            if (len(self.sequence) != 0):
+                new_position_local_copy = self.sequence.pop()
+        
         if (new_position_local_copy != None):
-            
-            with self.lock:
-                self.new_position = None
-            
             self.moveTo(new_position_local_copy)
     
     def setNewPosition(self, new_position):
         
         with self.lock:
-            self.new_position = new_position
+            self.sequence.append(new_position)
         
     def moveTo(self, new_position):
         drotate = new_position['rotate'] - self.position['rotate']
