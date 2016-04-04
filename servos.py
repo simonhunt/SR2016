@@ -66,14 +66,14 @@ class ServosThread(threading.Thread):
     def setPosition(self, new_position):
         
         self.clearSequence()
-        self.addNewPosition(new_position)
+        self.addPosition(new_position)
     
-    def addNewPosition(self, new_position):
+    def addPosition(self, new_position):
         
         with self.lock:
             self.sequence.append(new_position)
             
-    def addNewSequence(self, new_sequence):
+    def addSequence(self, new_sequence):
         
         with self.lock:
             self.sequence.extend(new_sequence)
