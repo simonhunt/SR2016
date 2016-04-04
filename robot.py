@@ -41,7 +41,7 @@ import debug
 import target
 import servos
 
-test_target = {'x': 4, 'y': 4, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
+test_target = {'x': 1, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
  
 print "packages imported"
 
