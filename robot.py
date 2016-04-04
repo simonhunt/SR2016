@@ -24,8 +24,12 @@ if (DEBUG_YAW_DRIFT == True):
     MAX_STEERING = DEBUG_STEERING
 
 from sr.robot import *
+
 from limits import mapToLimits
+
 from actions import *
+from positions import *
+
 import time
 import ruggeduino
 import pid
@@ -35,6 +39,7 @@ import multi
 import map_thread
 import debug
 import target
+import servos
 
 test_target = {'x': 4, 'y': 4, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
  
@@ -65,6 +70,10 @@ print "YawPID setup"
 # Distance PID
 S = pid.PidController("DistancePID", SKP, SKI, SKD, MAX_SPEED, MIN_SPEED, S_I_LIMIT)
 print "DistancePID setup"
+
+# Setup Servos Thread
+ServosThread = servos.ServosThread(R.servos)
+print "ServosThread setup"
 
 # Setup Motion Thread
 MotionThread = multi.MotionThread(D, Y, S, E)
@@ -111,151 +120,12 @@ print "MapThread started"
 TargetThread.start()
 print "TargetThread started"
 
+ServosThread.start()
+print "ServosThread started"
+
 # Functions
 
-def squareDemo():
-    MotionThread.setAction(MOVE_HOLD, 1.5)
-    
-    i = 0
-    while (i < 10):
-        i += 1
-        time.sleep(1)
-        MotionThread.debug()
-        MapThread.debug()
-    
-    MotionThread.setAction(TURN, 90)
-    
-    i = 0
-    while (i < 10):
-        i += 1
-        time.sleep(1)
-        MotionThread.debug()
-        MapThread.debug()
-    
-    MotionThread.setAction(MOVE_HOLD, 1.5)
-    
-    i = 0
-    while (i < 10):
-        i += 1
-        time.sleep(1)
-        MotionThread.debug()
-        MapThread.debug()
-        
-    MotionThread.setAction(TURN, 90)
-    
-    i = 0
-    while (i < 10):
-        i += 1
-        time.sleep(1)
-        MotionThread.debug()
-        MapThread.debug()
-    
-    MotionThread.setAction(MOVE_HOLD, 1.5)
-    
-    i = 0
-    while (i < 10):
-        i += 1
-        time.sleep(1)
-        MotionThread.debug()
-        MapThread.debug()
-    
-    MotionThread.setAction(TURN, 90)
-        
-
-    i = 0
-    while (i < 10):
-        i += 1
-        time.sleep(1)
-        MotionThread.debug()
-        MapThread.debug()
-        
-    MotionThread.setAction(MOVE_HOLD, 1.5)
-    
-    i = 0
-    while (i < 10):
-        i += 1
-        time.sleep(1)
-        MotionThread.debug()
-        MapThread.debug()
-        
-    MotionThread.setAction(TURN, 90)
-    
-    i = 0
-    while (i < 10):
-        i += 1
-        time.sleep(1)
-        MotionThread.debug()
-        MapThread.debug()
-    
-    MotionThread.setAction(STILL)
-    
-def turnDemo():
-    MotionThread.setAction(TURN, 10)
-    
-    i = 0
-    while (i < 10):
-        i += 1
-        time.sleep(1)
-        MotionThread.debug()
-        MapThread.debug()
-    
-    MotionThread.setAction(TURN, -10)
-    
-    i = 0
-    while (i < 10):
-        i += 1
-        time.sleep(1)
-        MotionThread.debug()
-    
-    MotionThread.setAction(TURN, 45)
-    
-    i = 0
-    while (i < 10):
-        i += 1
-        time.sleep(1)
-        MotionThread.debug()
-    
-    MotionThread.setAction(TURN, -45)
-    
-    i = 0
-    while (i < 10):
-        i += 1
-        time.sleep(1)
-        MotionThread.debug()
-        
-    MotionThread.setAction(TURN, 90)
-    
-    i = 0
-    while (i < 10):
-        i += 1
-        time.sleep(1)
-        MotionThread.debug()
-    
-    MotionThread.setAction(TURN, -90)
-    
-    i = 0
-    while (i < 10):
-        i += 1
-        time.sleep(1)
-        MotionThread.debug()
-    
-    MotionThread.setAction(TURN, 180)
-    
-    i = 0
-    while (i < 10):
-        i += 1
-        time.sleep(1)
-        MotionThread.debug()
-    
-    MotionThread.setAction(TURN, -180)
-    
-    i = 0
-    while (i < 10):
-        i += 1
-        time.sleep(1)
-        MotionThread.debug()
-    
-    MotionThread.setAction(STILL)
+ServosThread.addSequence(TEST_SEQUENCE_90)
         
 if (DEBUG_YAW_DRIFT == True):
     print "debugging yaw drift"
