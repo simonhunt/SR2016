@@ -139,7 +139,9 @@ if (DEBUG_YAW_DRIFT == True):
         time.sleep(DEBUG_TIMEPERIOD)
         
 time.sleep(20)
-TargetThread.setTarget(test_target)
+
+ServosThread.addSequence(TEST_SEQUENCE_180)
+#TargetThread.setTarget(test_target)
 
         
 #i = 0
