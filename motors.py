@@ -34,7 +34,7 @@ def powerDeadzoneHandler(power):
 
 class MotorHandler():
     
-    def __init__(self, LeftMotor, RightMotor, time_period = 0.005): #200hz default
+    def __init__(self, LeftMotor, RightMotor, time_period = 0.005, use_break = False): #200hz default
         self.name = "MotorHandler"
         self.LeftMotor = LeftMotor
         self.RightMotor = RightMotor
@@ -48,6 +48,11 @@ class MotorHandler():
         self.last_steering = 0
         self.left_power = 0
         self.right_power = 0
+        self.setBreak(use_break)
+        
+    def setBreak(self, new_use_break):
+        self.LeftMotor.use_break = new_use_break
+        self.RightMotor.use_break = new_use_break
         
     def update(self):
         current_time = time.time()
