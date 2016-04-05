@@ -3,6 +3,7 @@ import time
 import math
 from limits import mapToLimits
 from actions import *
+from debug import DEBUG_TARGET
 
 class TargetThread(threading.Thread):
     
@@ -58,4 +59,11 @@ class TargetThread(threading.Thread):
         print "Exiting " + self.name
     
     def debug(self):
-        pass
+        
+        if (DEBUG_TARGET == True):
+            
+            print self.name
+            
+            print "target = " + str(self.target) 
+            print "polar_r = " + str(self.polar_r) + ", polar_t = " + str(self.polar_t)
+            
