@@ -40,6 +40,7 @@ import map_thread
 import debug
 import target
 import servos
+import power
 
 test_target = {'x': 1, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
  
@@ -89,9 +90,14 @@ print "MapThread setup"
 DebugThread = debug.DebugThread((MotionThread, MapThread))
 print "DebugThread setup"
 
+# Setup Target Thread
 TargetThread = target.TargetThread(MotionThread)
 print "TargetThread setup"
-    
+
+#Signal that the start button is ready to be pressed by making a sound
+power.signalReady(R.power)
+print "signalReady ran"
+
 # Wait for start button press
 print "wait_start..."
 R.wait_start()
@@ -102,7 +108,7 @@ print "wait_start returned"
 DebugThread.start()
 print "DebugThread started"
 
-M = motors.MotorHandler(R.motors[0].m0, R.motors[0].m1) #left motor, right motor
+M = motors.MotorHandler(R.motors)
 print "MotorHandler setup"
 
 MotionThread.prepareForStart(M)
@@ -124,8 +130,6 @@ ServosThread.start()
 print "ServosThread started"
 
 # Functions
-
-
         
 if (DEBUG_YAW_DRIFT == True):
     print "debugging yaw drift"
@@ -147,7 +151,7 @@ time.sleep(5)
 ServosThread.addPosition(TURN_CUBE_90)
 time.sleep(5)
 ServosThread.addPosition(DOWN_CUBE_90)
-time.sleep(50)
+time.sleep(10)
 
 ServosThread.addSequence(TEST_SEQUENCE_180)
 #TargetThread.setTarget(test_target)
