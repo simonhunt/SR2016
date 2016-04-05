@@ -1,3 +1,5 @@
+MOTOR_BOARD = 0
+
 MAX_STEERING = 160
 MIN_STEERING = - 160
 MAX_SPEED = 80
@@ -34,10 +36,10 @@ def powerDeadzoneHandler(power):
 
 class MotorHandler():
     
-    def __init__(self, LeftMotor, RightMotor, time_period = 0.005, use_break = False): #200hz default
+    def __init__(self, Motors, time_period = 0.005, use_break = False): #200hz default
         self.name = "MotorHandler"
-        self.LeftMotor = LeftMotor
-        self.RightMotor = RightMotor
+        self.LeftMotor = Motors[MOTOR_BOARD].m0
+        self.RightMotor = Motors[MOTOR_BOARD].m1
         self.time_period = time_period
         self.last_time = time.time() - self.time_period
         self.speed = 0
