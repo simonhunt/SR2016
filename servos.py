@@ -53,7 +53,7 @@ class ServosThread(threading.Thread):
         with self.lock:
             
             if (len(self.sequence) != 0):
-                new_position_local_copy = self.sequence.pop()
+                new_position_local_copy = self.sequence.pop(0)
         
         if (new_position_local_copy != None):
             self.moveTo(new_position_local_copy)
