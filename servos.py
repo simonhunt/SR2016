@@ -91,11 +91,11 @@ class ServosThread(threading.Thread):
             fraction_per_increment = 1
          
         else:
-            fraction_per_increment = 1 / increments
+            fraction_per_increment = float(1) / float(increments)
         
-        rotate_increment = drotate * fraction_per_increment
-        lift_increment = dlift * fraction_per_increment
-        grab_increment = dgrab * fraction_per_increment
+        rotate_increment = float(drotate) * fraction_per_increment
+        lift_increment = float(dlift) * fraction_per_increment
+        grab_increment = float(dgrab) * fraction_per_increment
         
         i = 1
         while (i < increments):
