@@ -80,26 +80,32 @@ class ServosThread(threading.Thread):
         
     def moveTo(self, new_position):
         
-        new_rotate = self.position['rotate']
-        new_lift = self.position['lift']
-        new_grab = self.position['grab']
         
         
-        drotate = new_position['rotate'] - self.position['rotate']
-        dlift = new_position['lift'] - self.position['lift']
-        dgrab = new_position['grab'] - self.position['grab']
+        start_rotate = self.position['rotate']
+        start_lift = self.position['lift']
+        start_grab = self.position['grab']
         
-        increments = float(new_position['time']) / float(self.move_timeperiod)
+        movement_time = new_position['time']        
+        finish_rotate = new_position['rotate']
+        finish_lift = new_position['lift']
+        finish_grab = new_position['grab']
+        
+        drotate = finish_rotate - start_rotate
+        dlift = finish_lift - start_lift
+        dgrab = finish_grab - start_grab
+        
+        increments = movement_time / self.move_timeperiod
         
         if (increments == 0):
             fraction_per_increment = 1
          
         else:
-            fraction_per_increment = float(1) / float(increments)
+            fraction_per_increment = 1 / increments
         
-        rotate_increment = float(drotate) * fraction_per_increment
-        lift_increment = float(dlift) * fraction_per_increment
-        grab_increment = float(dgrab) * fraction_per_increment
+        rotate_increment = drotate * fraction_per_increment
+        lift_increment = dlift * fraction_per_increment
+        grab_increment = dgrab * fraction_per_increment
         
         print str(self.move_timeperiod)
         print str(lift_increment)
@@ -108,9 +114,9 @@ class ServosThread(threading.Thread):
         print str (time.time())
         i = 1
         while (i < increments):
-            new_rotate += rotate_increment
-            new_lift += lift_increment 
-            new_grab += grab_increment
+            new_rotate = start_rotate + i * rotate_increment
+            new_lift = start_lift + i * lift_increment 
+            new_grab = start_grab + i * grab_increment
             
             self.setRotate(new_rotate)
             self.setLift(new_lift)
@@ -125,9 +131,9 @@ class ServosThread(threading.Thread):
             
         print str (time.time())
         
-        self.setRotate(new_position['rotate'])
-        self.setLift(new_position['lift'])
-        self.setGrab(new_position['grab'])
+        self.setRotate(finish_rotate)
+        self.setLift(finish_lift)
+        self.setGrab(finish_grab)
         time.sleep(self.move_timeperiod)
                 
     def initialiseOffsets(self):
