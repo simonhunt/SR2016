@@ -31,7 +31,7 @@ RIGHT_GRAB_OFFSET = 0
 
 class ServosThread(threading.Thread):
     
-    def __init__(self, servos, position_timeperiod = 0.01, move_timeperiod = 0.1): # default 100hz postition, 100hz move    
+    def __init__(self, servos, position_timeperiod = 0.1, move_timeperiod = 0.1): # default 100hz postition, 100hz move    
         threading.Thread.__init__(self)
         self.name = "ServosThread"
         self.servos = servos 
@@ -79,8 +79,6 @@ class ServosThread(threading.Thread):
             self.sequence.extend(new_sequence)
         
     def moveTo(self, new_position):
-        
-        
         
         start_rotate = self.position['rotate']
         start_lift = self.position['lift']
