@@ -79,7 +79,7 @@ class ServosThread(threading.Thread):
             self.sequence.extend(new_sequence)
         
     def moveTo(self, new_position):
-        start_position = self.position
+        current_position = self.position
         
         drotate = new_position['rotate'] - self.position['rotate']
         dlift = new_position['lift'] - self.position['lift']
@@ -98,6 +98,7 @@ class ServosThread(threading.Thread):
         grab_increment = float(dgrab) * fraction_per_increment
         
         print str(self.move_timeperiod)
+        print str(rotate_increment)
         print str(increments)
         print str (fraction_per_increment)
         print str (time.time())
