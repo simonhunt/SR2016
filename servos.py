@@ -85,7 +85,7 @@ class ServosThread(threading.Thread):
         dlift = new_position['lift'] - self.position['lift']
         dgrab = new_position['grab'] - self.position['grab']
         
-        increments = new_position['time'] / self.move_timeperiod
+        increments = float(new_position['time']) / float(self.move_timeperiod)
         
         if (increments == 0):
             fraction_per_increment = 1
