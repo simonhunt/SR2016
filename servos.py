@@ -2,6 +2,7 @@ import threading
 import time
 from limits import mapToLimits
 from positions import *
+from debug import DEBUG_SERVO
 
 SERVO_BOARD = 0
 
@@ -164,7 +165,13 @@ class ServoThread(threading.Thread):
         print "Exiting " + self.name
         
     def debug(self):
-        pass
+        
+        if (DEBUG_SERVO == True):
+            
+            print self.name
+            
+            print "position = " + str(self.position) 
+            print "len(sequence) = " + str(len(self.sequence))
 
 #from sr.robot import *
 #import time
