@@ -97,6 +97,8 @@ class ServosThread(threading.Thread):
         lift_increment = float(dlift) * fraction_per_increment
         grab_increment = float(dgrab) * fraction_per_increment
         
+        print str(increments)
+        print str (fraction_per_increment)
         i = 1
         while (i < increments):
             new_rotate = start_position['rotate'] + i * rotate_increment
@@ -109,6 +111,7 @@ class ServosThread(threading.Thread):
             
             time.sleep(self.move_timeperiod)
             i += 1
+            print str(i)
         
         self.setRotate(new_position['rotate'])
         self.setLift(new_position['lift'])
