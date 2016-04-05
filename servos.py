@@ -79,7 +79,7 @@ class ServosThread(threading.Thread):
             self.sequence.extend(new_sequence)
         
     def moveTo(self, new_position):
-        current_position = self.position
+        start_position = self.position
         
         drotate = new_position['rotate'] - self.position['rotate']
         dlift = new_position['lift'] - self.position['lift']
