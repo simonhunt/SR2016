@@ -79,7 +79,11 @@ class ServosThread(threading.Thread):
             self.sequence.extend(new_sequence)
         
     def moveTo(self, new_position):
-        start_position = self.position
+        
+        new_rotate = self.position['rotate']
+        new_lift = self.position['lift']
+        new_grab = self.position['grab']
+        
         
         drotate = new_position['rotate'] - self.position['rotate']
         dlift = new_position['lift'] - self.position['lift']
@@ -104,18 +108,20 @@ class ServosThread(threading.Thread):
         print str (time.time())
         i = 1
         while (i < increments):
-            new_rotate = start_position['rotate'] + i * rotate_increment
-            new_lift = start_position['lift'] + i * lift_increment
-            new_grab = start_position['grab'] + i * grab_increment
+            new_rotate += rotate_increment
+            new_lift += lift_increment 
+            new_grab += grab_increment
             
             self.setRotate(new_rotate)
             self.setLift(new_lift)
             self.setGrab(new_grab)
             
             time.sleep(self.move_timeperiod)
-            i += 1
+            
             print str(new_lift)
             print str(i)
+            
+            i += 1
             
         print str (time.time())
         
