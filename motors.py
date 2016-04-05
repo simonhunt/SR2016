@@ -64,8 +64,8 @@ class MotorHandler():
             self.left_power = powerDeadzoneHandler(left_power)
             self.right_power = powerDeadzoneHandler(right_power)
             
-            self.LeftMotor.power = self.left_power
-            self.RightMotor.power = self.right_power
+            self.LeftMotor.power = int(self.left_power)
+            self.RightMotor.power = int(self.right_power)
             
             self.last_speed = self.speed
             self.last_steering = self.steering
