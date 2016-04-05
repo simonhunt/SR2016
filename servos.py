@@ -115,6 +115,7 @@ class ServosThread(threading.Thread):
             time.sleep(self.move_timeperiod)
             i += 1
             print str(new_lift)
+            print str(i)
             
         print str (time.time())
         
