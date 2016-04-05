@@ -2,6 +2,7 @@ import threading
 import time
 from sr.robot import MARKER_ARENA, MARKER_ROBOT, NET_A, NET_B, NET_C
 import map 
+from debug import DEBUG_MAP
 
 MAX_CUBE_AGE = 1
 MAX_BLIND_TIME = 1000 #seconds
@@ -130,9 +131,12 @@ class MapThread(threading.Thread):
         print "Exiting " + self.name
         
     def debug(self):
-        pass
-        #print self.name
-        #print "length of a_cube_locations = " + str(len(self.a_cube_locations))
-        #print "length of b_cube_locations = " + str(len(self.b_cube_locations))
-        #print "length of c_cube_locations = " + str(len(self.c_cube_locations))        
+        
+        if (DEBUG_MAP == True):
+            
+            print self.name
+            
+            print "length of a_cube_locations = " + str(len(self.a_cube_locations))
+            print "length of b_cube_locations = " + str(len(self.b_cube_locations))
+            print "length of c_cube_locations = " + str(len(self.c_cube_locations))        
         
