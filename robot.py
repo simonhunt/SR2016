@@ -125,7 +125,7 @@ print "ServosThread started"
 
 # Functions
 
-ServosThread.addSequence(TEST_SEQUENCE_90)
+
         
 if (DEBUG_YAW_DRIFT == True):
     print "debugging yaw drift"
@@ -137,8 +137,17 @@ if (DEBUG_YAW_DRIFT == True):
         print str(MotionThread.yaw)
         sleep_time = mapToLimits(wake_up_time - time.time(), DEBUG_TIMEPERIOD, 0) 
         time.sleep(DEBUG_TIMEPERIOD)
-        
-time.sleep(20)
+    
+ServosThread.addPosition(ARMS_WIDE_90)
+time.sleep(5)
+ServosThread.addPosition(ARMS_ON_CUBE_90)
+time.sleep(5)
+ServosThread.addPosition(LIFT_CUBE_90)
+time.sleep(5)
+ServosThread.addPosition(TURN_CUBE_90)
+time.sleep(5)
+ServosThread.addPosition(DOWN_CUBE_90)
+time.sleep(50)
 
 ServosThread.addSequence(TEST_SEQUENCE_180)
 #TargetThread.setTarget(test_target)
