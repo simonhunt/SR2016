@@ -72,9 +72,9 @@ print "YawPID setup"
 S = pid.PidController("DistancePID", SKP, SKI, SKD, MAX_SPEED, MIN_SPEED, S_I_LIMIT)
 print "DistancePID setup"
 
-# Setup Servos Thread
-ServosThread = servos.ServosThread(R.servos)
-print "ServosThread setup"
+# Setup Servo Thread
+ServoThread = servos.ServoThread(R.servos)
+print "ServoThread setup"
 
 # Setup Motion Thread
 MotionThread = multi.MotionThread(D, Y, S, E)
@@ -86,13 +86,13 @@ MotionThread.calibrationCheck()
 MapThread = map_thread.MapThread()
 print "MapThread setup"
 
-# Setup Debug Thread
-DebugThread = debug.DebugThread((MotionThread, MapThread))
-print "DebugThread setup"
-
 # Setup Target Thread
 TargetThread = target.TargetThread(MotionThread)
 print "TargetThread setup"
+
+# Setup Debug Thread
+DebugThread = debug.DebugThread((MotionThread, Y, S, MapThread, TargetThread, ServoThread))
+print "DebugThread setup"
 
 #Signal that the start button is ready to be pressed by making a sound
 power.signalReady(R.power)
@@ -126,8 +126,8 @@ print "MapThread started"
 TargetThread.start()
 print "TargetThread started"
 
-ServosThread.start()
-print "ServosThread started"
+ServoThread.start()
+print "ServoThread started"
 
 #Signal that the robot has successfully started!
 power.signalGood(R.power)
@@ -147,18 +147,18 @@ if (DEBUG_YAW_DRIFT == True):
         sleep_time = mapToLimits(wake_up_time - time.time(), DEBUG_TIMEPERIOD, 0) 
         time.sleep(DEBUG_TIMEPERIOD)
     
-ServosThread.addPosition(ARMS_WIDE_90)
-time.sleep(5)
-ServosThread.addPosition(ARMS_ON_CUBE_90)
-time.sleep(5)
-ServosThread.addPosition(LIFT_CUBE_90)
-time.sleep(5)
-ServosThread.addPosition(TURN_CUBE_90)
-time.sleep(5)
-ServosThread.addPosition(DOWN_CUBE_90)
-time.sleep(10)
+#ServosThread.addPosition(ARMS_WIDE_90)
+#time.sleep(5)
+#ServosThread.addPosition(ARMS_ON_CUBE_90)
+#time.sleep(5)
+#ServosThread.addPosition(LIFT_CUBE_90)
+#time.sleep(5)
+#ServosThread.addPosition(TURN_CUBE_90)
+#time.sleep(5)
+#ServosThread.addPosition(DOWN_CUBE_90)
+#time.sleep(10)
 
-ServosThread.addSequence(TEST_SEQUENCE_180)
+#ServosThread.addSequence(TEST_SEQUENCE_180)
 #TargetThread.setTarget(test_target)
 
         
