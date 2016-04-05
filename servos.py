@@ -29,11 +29,11 @@ RIGHT_GRAB_PIN = 3
 RIGHT_GRAB_DIRECTION = 1
 RIGHT_GRAB_OFFSET = 0
 
-class ServosThread(threading.Thread):
+class ServoThread(threading.Thread):
     
     def __init__(self, servos, position_timeperiod = 0.1, move_timeperiod = 0.1): # default 100hz postition, 100hz move    
         threading.Thread.__init__(self)
-        self.name = "ServosThread"
+        self.name = "ServoThread"
         self.servos = servos 
         self.position_timeperiod = position_timeperiod
         self.move_timeperiod = move_timeperiod
@@ -162,6 +162,9 @@ class ServosThread(threading.Thread):
             time.sleep(self.position_timeperiod)
             
         print "Exiting " + self.name
+        
+    def debug(self):
+        pass
 
 #from sr.robot import *
 #import time
