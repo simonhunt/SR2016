@@ -129,6 +129,11 @@ print "TargetThread started"
 ServosThread.start()
 print "ServosThread started"
 
+#Signal that the robot has successfully started!
+power.signalGood(R.power)
+print "signalGood ran"
+
+
 # Functions
         
 if (DEBUG_YAW_DRIFT == True):
