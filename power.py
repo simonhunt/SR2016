@@ -14,5 +14,5 @@ def signalGood(Power):
     Power.beep(GOOD_DURATION, note = GOOD_NOTE)
 
 def signalBad(Power):
-    Power.beep(BAD_DURATION, note = BAD_NOTE
+    Power.beep(BAD_DURATION, note = BAD_NOTE)
     
