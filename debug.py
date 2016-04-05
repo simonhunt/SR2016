@@ -1,6 +1,16 @@
 import threading
 import time
 
+DEBUG_DEBUG = True
+DEBUG_MOTION = True
+DEBUG_Y = True
+DEBUG_S = True
+DEBUG_M = True
+DEBUG_MAP = True
+DEBUG_TARGET = True
+DEBUG_SERVO = True
+
+
 class DebugThread(threading.Thread):
     
     def __init__(self, Threads, time_period = 1): #default 1hz
@@ -23,6 +33,7 @@ class DebugThread(threading.Thread):
         print "Exiting " + self.name
     
     def debug(self):
-        self.debug_counter += 1   
-        current_time = time.time()
-        print self.name + ", debug_counter = " + str(self.debug_counter) + ", time = " + str(time.time())
+        
+        if (DEBUG_DEBUG == True):
+            self.debug_counter += 1
+            print self.name + ", debug_counter = " + str(self.debug_counter) + ", time = " + str(time.time())
