@@ -98,7 +98,7 @@ class ServosThread(threading.Thread):
         grab_increment = float(dgrab) * fraction_per_increment
         
         print str(self.move_timeperiod)
-        print str(rotate_increment)
+        print str(lift_increment)
         print str(increments)
         print str (fraction_per_increment)
         print str (time.time())
