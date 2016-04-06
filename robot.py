@@ -158,7 +158,7 @@ if (DEBUG_YAW_DRIFT == True):
 #ServosThread.addPosition(DOWN_CUBE_90)
 #time.sleep(10)
 
-ServosThread.addSequence(TEST_SEQUENCE)
+ServoThread.addSequence(TEST_SEQUENCE)
 TargetThread.setTarget(test_target)
 
         
