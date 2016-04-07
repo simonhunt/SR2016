@@ -32,7 +32,7 @@ RIGHT_GRAB_OFFSET = 0
 
 class ServoThread(threading.Thread):
     
-    def __init__(self, servos, position_timeperiod = 0.1, move_timeperiod = 0.1): # default 100hz postition, 100hz move    
+    def __init__(self, servos, position_timeperiod = 0.1, move_timeperiod = 0.01): # default 10hz postition, 100hz move    
         threading.Thread.__init__(self)
         self.name = "ServoThread"
         self.servos = servos 
