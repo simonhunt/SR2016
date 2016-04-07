@@ -73,6 +73,11 @@ class ServoThread(threading.Thread):
         
         with self.lock:
             self.sequence.append(new_position)
+    
+    def setSequence(self, new_sequence):
+        
+        self.clearSequence()
+        self.addSequence(new_sequence)
             
     def addSequence(self, new_sequence):
         
