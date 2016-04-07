@@ -7,7 +7,7 @@
 
 
 INITIALISATION = {'rotate': 0, 'lift': 0, 'grab': 0, 'time': 1}
-ARMS_UP_OUT_THE_WAY = {'rotate': 0, 'lift': 30, 'grab': 0, 'time': 1}
+ARMS_UP_OUT_THE_WAY = {'rotate': 0, 'lift': 100, 'grab': 0, 'time': 1}
 
 ARMS_WIDE_90 = {'rotate': - 100, 'lift': - 40, 'grab': - 50, 'time': 1}
 ARMS_ON_CUBE_90 = {'rotate': - 100, 'lift': - 40, 'grab': 30, 'time': 1}
@@ -30,12 +30,12 @@ TURN_CUBE_180 = {'rotate': -60, 'lift': 40, 'grab': 30, 'time': 4}
 DOWN_CUBE_180 = {'rotate': -100, 'lift': 0, 'grab': 30, 'time': 1}
 RELEASE_CUBE_180 = {'rotate': -100, 'lift': 0, 'grab': 0, 'time': 1}
 
-TEST_1 = {'rotate':  - 60, 'lift': - 40, 'grab': - 50, 'time': 1}
-TEST_2 = {'rotate': - 60, 'lift': - 40, 'grab': 30, 'time': 5}
-TEST_3 = {'rotate': - 60, 'lift': 40, 'grab': 30, 'time': 2}
-TEST_4 = {'rotate': 60, 'lift': 40, 'grab': 30, 'time': 3}
-TEST_5 = {'rotate': 60, 'lift': 0, 'grab': 30, 'time': 1}
-TEST_6 = {'rotate': 60, 'lift': 0, 'grab': 0, 'time': 1}
+TEST_1 = {'rotate':  - 100, 'lift': - 40, 'grab': - 50, 'time': 1}
+TEST_2 = {'rotate': - 100, 'lift': - 40, 'grab': 30, 'time': 5}
+TEST_3 = {'rotate': - 100, 'lift': 40, 'grab': 30, 'time': 2}
+TEST_4 = {'rotate': 100, 'lift': 40, 'grab': 30, 'time': 3}
+TEST_5 = {'rotate': 100, 'lift': 0, 'grab': 30, 'time': 1}
+TEST_6 = {'rotate': 100, 'lift': 0, 'grab': 0, 'time': 1}
 
 TEST_SEQUENCE = [TEST_1, TEST_2, TEST_3, TEST_4, TEST_5, TEST_6, ARMS_UP_OUT_THE_WAY]
 
