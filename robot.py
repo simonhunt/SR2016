@@ -42,7 +42,7 @@ import target
 import servos
 import power
 
-test_target = {'x': 0.2, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
+test_target = {'x': 0.5, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
  
 print "packages imported"
 
