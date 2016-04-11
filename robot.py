@@ -158,7 +158,11 @@ if (DEBUG_YAW_DRIFT == True):
 #ServosThread.addPosition(DOWN_CUBE_90)
 #time.sleep(10)
 
-TargetThread.setTarget(test_target)
+#TargetThread.setTarget(test_target)
+
+ServoThread.addSequence(TEST_SKANK)
+
+time.sleep(60)
 
 while (True):
     ServoThread.addSequence(TEST_SEQUENCE_90)
