@@ -159,11 +159,11 @@ if (DEBUG_YAW_DRIFT == True):
 #time.sleep(10)
 while (True):
     ServoThread.addSequence(TEST_SEQUENCE_90)
-    time.sleep(10)
+    time.sleep(20)
     ServoThread.addSequence(TEST_SEQUENCE_NEGATIVE_90)
-    time.sleep(10)
+    time.sleep(20)
     ServoThread.addSequence(TEST_SEQUENCE_180)
-    time.sleep(10)
+    time.sleep(30)
 
 #TargetThread.setTarget(test_target)
 
