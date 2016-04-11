@@ -19,15 +19,15 @@ RELEASE_CUBE_90 = {'rotate': 100, 'lift': - 30, 'grab': 0, 'time': 0.5}
 ARMS_WIDE_NEGATIVE= {'rotate': 100, 'lift': - 40, 'grab': - 50, 'time': 1}
 ARMS_ON_CUBE_NEGATIVE_90 = {'rotate': 100, 'lift': - 40, 'grab': 30, 'time': 2}
 LIFT_CUBE_NEGATIVE_90 = {'rotate': 100, 'lift': 40, 'grab': 30, 'time': 2}
-TURN_CUBE_NEGATIVE_90 = {'rotate': - 70, 'lift': 40, 'grab': 30, 'time': 2}
-DOWN_CUBE_NEGATIVE_90 = {'rotate': - 70, 'lift': 0, 'grab': 30, 'time': 1}
-RELEASE_CUBE_NEGATIVE_90 = {'rotate': - 70, 'lift': 0, 'grab': 0, 'time': 0.5}
+TURN_CUBE_NEGATIVE_90 = {'rotate': - 90, 'lift': 40, 'grab': 30, 'time': 2}
+DOWN_CUBE_NEGATIVE_90 = {'rotate': - 90, 'lift': 0, 'grab': 30, 'time': 1}
+RELEASE_CUBE_NEGATIVE_90 = {'rotate': - 90, 'lift': 0, 'grab': 0, 'time': 0.5}
 
 ARMS_ON_CUBE_180 = {'rotate': 100, 'lift': - 40, 'grab': 30, 'time': 2}
 LIFT_CUBE_180 = {'rotate': 100, 'lift': 40, 'grab': 30, 'time': 2}
-TURN_CUBE_180 = {'rotate': - 95, 'lift': 40, 'grab': 30, 'time': 2}
-DOWN_CUBE_180 = {'rotate': - 95, 'lift': -35, 'grab': 30, 'time': 1}
-RELEASE_CUBE_180 = {'rotate': - 95, 'lift': 0, 'grab': 0, 'time': 0.5}
+TURN_CUBE_180 = {'rotate': - 100, 'lift': 40, 'grab': 30, 'time': 2}
+DOWN_CUBE_180 = {'rotate': - 100, 'lift': -35, 'grab': 30, 'time': 1}
+RELEASE_CUBE_180 = {'rotate': - 100, 'lift': 0, 'grab': 0, 'time': 0.5}
 PREPARE_SECOND_ROTATE_180 = {'rotate': 100, 'lift': - 40, 'grab': 0, 'time': 0.5}
 ARMS_ON_CUBE_180_FAST = {'rotate': 100, 'lift': - 40, 'grab': 30, 'time': 1}
 
