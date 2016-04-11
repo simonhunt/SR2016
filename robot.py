@@ -42,7 +42,7 @@ import target
 import servos
 import power
 
-test_target = {'x': 1, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
+test_target = {'x': 0.2, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
  
 print "packages imported"
 
@@ -157,6 +157,9 @@ if (DEBUG_YAW_DRIFT == True):
 #time.sleep(5)
 #ServosThread.addPosition(DOWN_CUBE_90)
 #time.sleep(10)
+
+TargetThread.setTarget(test_target)
+
 while (True):
     ServoThread.addSequence(TEST_SEQUENCE_90)
     time.sleep(20)
