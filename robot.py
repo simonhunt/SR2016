@@ -162,7 +162,7 @@ if (DEBUG_YAW_DRIFT == True):
 
 #ServoThread.addSequence(TEST_SKANK)
 
-time.sleep(60)
+#time.sleep(60)
 
 while (True):
     ServoThread.addSequence(TEST_SEQUENCE_90)
