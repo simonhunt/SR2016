@@ -160,9 +160,23 @@ if (DEBUG_YAW_DRIFT == True):
 
 #TargetThread.setTarget(test_target)
 
-#ServoThread.addSequence(TEST_SKANK)
 
-#time.sleep(60)
+while (len(MapThread.a_cube_locations) == 0):
+    time.sleep(1)
+    
+time.sleep(10)
+
+while (True):
+    
+    if (len(MapThread.a_cube_locations) != 0):
+        a_cube = MapThread.a_cube_locations[0]
+        turn_location = a_cube['approach'][0]
+        break
+
+TargetThread.addTarget(turn_location)
+TargetThread.addTarget(a_cube)
+
+time.sleep(60)
 
 while (True):
     ServoThread.addSequence(TEST_SEQUENCE_90)
