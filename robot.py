@@ -160,7 +160,7 @@ if (DEBUG_YAW_DRIFT == True):
 
 #TargetThread.setTarget(test_target)
 
-ServoThread.addSequence(TEST_SKANK)
+#ServoThread.addSequence(TEST_SKANK)
 
 time.sleep(60)
 
