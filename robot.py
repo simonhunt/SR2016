@@ -42,7 +42,7 @@ import target
 import servos
 import power
 
-test_target = {'x': 1, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
+test_target = {'x': 0.5, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
  
 print "packages imported"
 
@@ -168,35 +168,27 @@ while (len(MapThread.a_cube_locations) == 0):
     
 time.sleep(10)
 
-a_cube = {}
-turn_location = {}
-
 
 while (True):
     
     if (len(MapThread.a_cube_locations) != 0):
-        a_cube['x'] = MapThread.a_cube_locations[0]['x']
-        a_cube['y'] = MapThread.a_cube_locations[0]['y']
-        turn_location['x'] = a_cube['approach'][0]['x']
-        turn_location['y'] = a_cube['approach'][0]['y']
-        turn_location['yaw'] = a_cube['approach'][0]['yaw']
+        a_cube = MapThread.a_cube_locations[0]
+        turn_location = a_cube['approach'][0]
+        
+        power.signalGood(R.power)
+        time.sleep(10)
+        
         break
 
 TargetThread.addTarget(turn_location)
 
 print "setting turn_location: " + str(turn_location)
 
-time.sleep(15)
+#TargetThread.addTarget(a_cube)
 
-MotionThread.setAction(TURN_TO, turn_location['yaw'])
+#print "setting a_cube: " + str(a_cube)
 
-time.sleep(15)
-
-TargetThread.addTarget(a_cube)
-
-print "setting a_cube: " + str(a_cube)
-
-time.sleep(20)
+time.sleep(60)
 
 while (True):
     ServoThread.addSequence(TEST_SEQUENCE_90)
