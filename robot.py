@@ -163,6 +163,8 @@ if (DEBUG_YAW_DRIFT == True):
 ServoThread.setPosition(ARMS_WIDE_ZERO)
 
 
+
+
 while (len(MapThread.a_cube_locations) == 0):
     time.sleep(1)
     
@@ -172,8 +174,8 @@ time.sleep(10)
 while (True):
     
     if (len(MapThread.a_cube_locations) != 0):
-        a_cube = MapThread.a_cube_locations[0]
-        turn_location = a_cube['approach'][0]
+        a_cube = MapThread.a_cube_locations[0].deepcopy()
+        turn_location = a_cube['approach'][0].deepcopy()
         
         power.signalGood(R.power)
         time.sleep(10)
