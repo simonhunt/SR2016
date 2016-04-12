@@ -110,12 +110,7 @@ class ServoThread(threading.Thread):
         rotate_increment = drotate * fraction_per_increment
         lift_increment = dlift * fraction_per_increment
         grab_increment = dgrab * fraction_per_increment
-        
-        print str(self.move_timeperiod)
-        print str(lift_increment)
-        print str(increments)
-        print str (fraction_per_increment)
-        print str (time.time())
+
         i = 1
         while (i < increments):
             new_rotate = start_rotate + i * rotate_increment
@@ -128,12 +123,7 @@ class ServoThread(threading.Thread):
             
             time.sleep(self.move_timeperiod)
             
-            print str(new_lift)
-            print str(i)
-            
             i += 1
-            
-        print str (time.time())
         
         self.setRotate(finish_rotate)
         self.setLift(finish_lift)
