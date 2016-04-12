@@ -160,7 +160,7 @@ if (DEBUG_YAW_DRIFT == True):
 
 #TargetThread.setTarget(test_target)
 
-
+ServoThread.setPosition(ARMS_WIDE_ZERO)
 
 
 while (len(MapThread.a_cube_locations) == 0):
@@ -168,7 +168,6 @@ while (len(MapThread.a_cube_locations) == 0):
     
 time.sleep(10)
 
-ServoThread.setPosition(ARMS_WIDE_ZERO)
 
 while (True):
     
@@ -179,7 +178,7 @@ while (True):
 
 #TargetThread.addTarget(turn_location)
 
-#print "setting turn_location: " + str(turn_location)
+print "setting turn_location: " + str(turn_location)
 
 TargetThread.addTarget(a_cube)
 
