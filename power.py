@@ -7,6 +7,9 @@ GOOD_DURATION = 1000 #milliseconds
 BAD_NOTE = 'a'
 BAD_DURATION = 1500 #milliseconds
 
+ACTIVITY_NOTE = 'b'
+ACTIVITY_DURATION = 200 #milliseconds
+
 def signalReady(Power):
     Power.beep(READY_DURATION, note = READY_NOTE)
     
@@ -15,4 +18,7 @@ def signalGood(Power):
 
 def signalBad(Power):
     Power.beep(BAD_DURATION, note = BAD_NOTE)
+    
+def signalActivity(Power):
+    Power.beep(ACTIVITY_DURATION, note = ACTIVITY_NOTE)
     
