@@ -158,7 +158,7 @@ if (DEBUG_YAW_DRIFT == True):
 #ServosThread.addPosition(DOWN_CUBE_90)
 #time.sleep(10)
 
-TargetThread.setTarget(test_target)
+#TargetThread.setTarget(test_target)
 
 ServoThread.setPosition(ARMS_WIDE_ZERO)
 
