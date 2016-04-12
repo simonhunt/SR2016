@@ -174,7 +174,6 @@ turn_location = {}
 
 while (True):
     
-    
     if (len(MapThread.a_cube_locations) != 0):
         a_cube['x'] = MapThread.a_cube_locations[0]['x']
         a_cube['y'] = MapThread.a_cube_locations[0]['y']
