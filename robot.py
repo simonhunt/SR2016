@@ -182,10 +182,9 @@ print "setting turn_location: " + str(turn_location)
 
 time.sleep(10)
 
-MotionThread.setAction(TURN_TO, turn_loacation['yaw']
+MotionThread.setAction(TURN_TO, turn_loacation['yaw'])
 
 time.sleep(5)
-
 
 TargetThread.addTarget(a_cube)
 
