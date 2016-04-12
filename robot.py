@@ -180,9 +180,9 @@ TargetThread.addTarget(turn_location)
 
 print "setting turn_location: " + str(turn_location)
 
-TargetThread.addTarget(a_cube)
+#TargetThread.addTarget(a_cube)
 
-print "setting a_cube: " + str(a_cube)
+#print "setting a_cube: " + str(a_cube)
 
 time.sleep(60)
 
