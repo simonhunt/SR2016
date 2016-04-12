@@ -168,8 +168,12 @@ while (len(MapThread.a_cube_locations) == 0):
     
 time.sleep(10)
 
+a_cube = {}
+turn_location = {}
+
 
 while (True):
+    
     
     if (len(MapThread.a_cube_locations) != 0):
         a_cube['x'] = MapThread.a_cube_locations[0]['x']
