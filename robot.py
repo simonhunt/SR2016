@@ -176,7 +176,7 @@ while (True):
         turn_location = a_cube['approach'][0]
         break
 
-#TargetThread.addTarget(turn_location)
+TargetThread.addTarget(turn_location)
 
 print "setting turn_location: " + str(turn_location)
 
