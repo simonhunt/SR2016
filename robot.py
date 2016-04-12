@@ -186,7 +186,7 @@ print "setting turn_location: " + str(turn_location)
 
 time.sleep(10)
 
-MotionThread.setAction(TURN_TO, turn_loacation['yaw'])
+MotionThread.setAction(TURN_TO, turn_location['yaw'])
 
 time.sleep(5)
 
