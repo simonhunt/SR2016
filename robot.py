@@ -172,8 +172,11 @@ time.sleep(10)
 while (True):
     
     if (len(MapThread.a_cube_locations) != 0):
-        a_cube = MapThread.a_cube_locations[0]
-        turn_location = a_cube['approach'][0]
+        a_cube['x'] = MapThread.a_cube_locations[0]['x']
+        a_cube['y'] = MapThread.a_cube_locations[0]['y']
+        turn_location['x'] = a_cube['approach'][0]['x']
+        turn_location['y'] = a_cube['approach'][0]['y']
+        turn_location['yaw'] = a_cube['approach'][0]['yaw']
         break
 
 TargetThread.addTarget(turn_location)
