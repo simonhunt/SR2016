@@ -158,27 +158,27 @@ if (DEBUG_YAW_DRIFT == True):
 #ServosThread.addPosition(DOWN_CUBE_90)
 #time.sleep(10)
 
-TargetThread.setTarget(test_target)
+#TargetThread.setTarget(test_target)
 
-#ServoThread.setPosition(ARMS_WIDE_ZERO)
+ServoThread.setPosition(ARMS_WIDE_ZERO)
 
 
-#while (len(MapThread.a_cube_locations) == 0):
-#    time.sleep(1)
+while (len(MapThread.a_cube_locations) == 0):
+    time.sleep(1)
     
 time.sleep(10)
 
 
-#while (True):
-#    
-#    if (len(MapThread.a_cube_locations) != 0):
-#        a_cube = MapThread.a_cube_locations[0]
-#        turn_location = a_cube['approach'][0]
-#        break
+while (True):
+    
+    if (len(MapThread.a_cube_locations) != 0):
+        a_cube = MapThread.a_cube_locations[0]
+        turn_location = a_cube['approach'][0]
+        break
 
-#TargetThread.addTarget(turn_location)
+TargetThread.addTarget(turn_location)
 
-#print "setting turn_location: " + str(turn_location)
+print "setting turn_location: " + str(turn_location)
 
 #TargetThread.addTarget(a_cube)
 
