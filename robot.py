@@ -182,7 +182,7 @@ print "setting turn_location: " + str(turn_location)
 
 time.sleep(10)
 
-MotionThread.setAction(TURN_TO, turn_loacation['yaw'])
+MotionThread.setAction(TURN_TO, turn_location['yaw'])
 
 time.sleep(5)
 
@@ -190,7 +190,7 @@ TargetThread.addTarget(a_cube)
 
 print "setting a_cube: " + str(a_cube)
 
-time.sleep(60)
+time.sleep(20)
 
 while (True):
     ServoThread.addSequence(TEST_SEQUENCE_90)
