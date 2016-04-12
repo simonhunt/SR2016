@@ -161,10 +161,14 @@ if (DEBUG_YAW_DRIFT == True):
 #TargetThread.setTarget(test_target)
 
 
+
+
 while (len(MapThread.a_cube_locations) == 0):
     time.sleep(1)
     
 time.sleep(10)
+
+ServoThread.setPosition(ARMS_WIDE_ZERO)
 
 while (True):
     
