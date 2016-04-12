@@ -2,11 +2,11 @@ import threading
 import time
 
 DEBUG_DEBUG = False
-DEBUG_MOTION = False
+DEBUG_MOTION = True
 DEBUG_Y = False
 DEBUG_S = False
 DEBUG_M = False
-DEBUG_MAP = True
+DEBUG_MAP = False
 DEBUG_TARGET = True
 DEBUG_SERVO = False
 
