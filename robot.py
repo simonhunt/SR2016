@@ -41,8 +41,11 @@ import debug
 import target
 import servos
 import power
+import method
 
-test_target = {'x': 1, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
+origin = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
+
+test_target = {'x': 1, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
  
 print "packages imported"
 
@@ -168,44 +171,61 @@ ServoThread.setPosition(ARMS_WIDE_ZERO)
 while (len(MapThread.a_cube_locations) == 0):
     time.sleep(1)
     
-time.sleep(10)
+time.sleep(1)
 
 
 while (True):
     
-    if (len(MapThread.a_cube_locations) != 0):
-        a_cube = MapThread.a_cube_locations[0].deepcopy()
-        turn_location = a_cube['approach'][0].deepcopy()
-        
-        power.signalGood(R.power)
-        time.sleep(10)
-        
+    if (len(MapThread.a_cube_locations) != 0):        
+        cube_to_approach = method.decideCubeToApproach(MapThread.a_cube_locations, MapThread.b_cube_locations, MapThread.c_cube_locations) 
         break
 
-TargetThread.addTarget(turn_location)
+TargetThread.addTarget(cube_to_approach['approach_location'])
+power.signalActivity(R.power)
 
-print "setting turn_location: " + str(turn_location)
+print "setting turn_location: " + str(cube_to_approach['approach_location'])
 
 time.sleep(10)
 
-MotionThread.setAction(TURN_TO, turn_location['yaw'])
+MotionThread.setAction(TURN_TO, cube_to_approach['approach_location']['yaw'])
+power.signalActivity(R.power)
 
 time.sleep(5)
 
 
-TargetThread.addTarget(a_cube)
+TargetThread.addTarget(cube_to_approach)
+power.signalActivity(R.power)
 
-print "setting a_cube: " + str(a_cube)
+print "setting cube_to_approach: " + str(cube_to_approach)
 
-time.sleep(60)
+time.sleep(10)
 
-while (True):
-    ServoThread.addSequence(TEST_SEQUENCE_90)
-    time.sleep(20)
-    ServoThread.addSequence(TEST_SEQUENCE_NEGATIVE_90)
-    time.sleep(20)
-    ServoThread.addSequence(TEST_SEQUENCE_180)
-    time.sleep(30)
+if (cube_to_approach['approach_location']['degrees'] == 90):
+    ServoThread.setSequence(TEST_SEQUENCE_90)
+
+elif (cube_to_approach['approach_location']['degrees'] == - 90):
+    ServoThread.setSequence(TEST_SEQUENCE_NEGATIVE_90)
+
+else: #  (cube_to_approach['approach_location']['degrees'] = 180)
+    ServoThread.setSequence(TEST_SEQUENCE_180)
+power.signalActivity(R.power)
+    
+print "turning with degrees = " + str(cube_to_approach['approach_location']['degrees'])
+    
+time.sleep(5)
+
+TargetThread.addTarget(origin)
+power.signalActivity(R.power)
+
+
+
+#while (True):
+#    ServoThread.addSequence(TEST_SEQUENCE_90)
+#    time.sleep(20)
+#    ServoThread.addSequence(TEST_SEQUENCE_NEGATIVE_90)
+#    time.sleep(20)
+#    ServoThread.addSequence(TEST_SEQUENCE_180)
+#    time.sleep(30)
 
 #TargetThread.setTarget(test_target)
 
