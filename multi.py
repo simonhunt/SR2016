@@ -18,7 +18,7 @@ INITIAL_ROBOT_ACTION_VALUE_2 = 0
 
 DEFAULT_ROBOT_LOCATION = None
 
-WHEEL_BASE = 0.33 #meters
+WHEEL_BASE = 0.24 #meters
 
 class MotorHandlerPlaceholder():
     
@@ -32,7 +32,7 @@ def robotDisplacementByArcApproximation(length, theta_1, theta_2):
     theta_1 = math.radians(theta_1) #convert angles into radians
     theta_2 = math.radians(theta_2)
     dtheta = theta_2 - theta_1
-    radius = (length / dtheta) - (WHEEL_BASE / 2)
+    radius = (length / dtheta) + (WHEEL_BASE / 2)
     dx = radius * (math.sin(theta_2) - math.sin(theta_1))
     dy = radius * (math.cos(theta_1) - math.cos(theta_2))
     return {'x': dx, 'y': dy}
