@@ -1,7 +1,7 @@
 import threading
 import time
 
-DEBUG_DEBUG = False
+DEBUG_DEBUG = True
 DEBUG_MOTION = True
 DEBUG_Y = False
 DEBUG_S = False
