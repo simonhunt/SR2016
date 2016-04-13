@@ -7,7 +7,7 @@ DEBUG_Y = False
 DEBUG_S = False
 DEBUG_M = False
 DEBUG_MAP = True
-DEBUG_TARGET = True
+DEBUG_TARGET = False
 DEBUG_SERVO = False
 
 
