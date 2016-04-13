@@ -205,6 +205,9 @@ if (cube_to_approach['approach_location']['degrees'] == 90):
 
 elif (cube_to_approach['approach_location']['degrees'] == - 90):
     ServoThread.setSequence(TEST_SEQUENCE_NEGATIVE_90)
+    
+elif (cube_to_approach['approach_location']['degrees'] == - 90):
+    ServoThread.setSequence(TEST_SEQUENCE_ZERO)
 
 else: #  (cube_to_approach['approach_location']['degrees'] = 180)
     ServoThread.setSequence(TEST_SEQUENCE_180)
