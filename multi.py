@@ -18,7 +18,7 @@ INITIAL_ROBOT_ACTION_VALUE_2 = 0
 
 DEFAULT_ROBOT_LOCATION = None
 
-WHEEL_BASE = 0# - 0.33 #meters
+WHEEL_BASE = 0.33 #meters
 
 class MotorHandlerPlaceholder():
     
