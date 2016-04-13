@@ -171,9 +171,15 @@ ServoThread.setPosition(ARMS_WIDE_ZERO)
 
 TargetThread.addTarget(test_target_1)
 
+time.sleep(10)
+
 TargetThread.addTarget(test_target_2)
 
+time.sleep(10)
+
 TargetThread.addTarget(test_target_3)
+
+time.sleep(10)
 
 TargetThread.addTarget(origin)
 
