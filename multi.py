@@ -197,11 +197,13 @@ class MotionThread(threading.Thread):
             theta_2 = self.yaw
             length = self.distance - self.last_distance
             
-            if (theta_2 == theta_1): #error case for arc length /0 err
-                displacement = wheelDisplacementByLineApproximation(length, theta_1, theta_2)
+            displacement = wheelDisplacementByLineApproximation(length, theta_1, theta_2)
+            
+            # if (theta_2 == theta_1): #error case for arc length /0 err
+            #     displacement = wheelDisplacementByLineApproximation(length, theta_1, theta_2)
                 
-            else:
-                displacement = robotDisplacementByArcApproximation(length, theta_1, theta_2)
+            # else:
+            #     displacement = robotDisplacementByArcApproximation(length, theta_1, theta_2)
             
             self.robot_location['x'] += displacement['x']
             self.robot_location['y'] += displacement['y']
