@@ -140,7 +140,7 @@ print "TargetThread started"
 power.signalGood(R.power)
 print "signalGood ran"
 
-MotionThread.setAction(MOVE_AND_TURN_TO_CHANGE, 1, 0)
+MotionThread.setAction(MOVE_AND_TURN_TO, 1, 0)
 
 
 
