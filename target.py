@@ -92,7 +92,7 @@ class TargetThread(threading.Thread):
         
         while ((self.checkEmergencyStop() == False) and (self.checkIfTargetReached() == False)):
             time.sleep(self.move_timeperiod) 
-            self.calculatePolar()
+            self.calculatePolar() 
             self.MotionThread.setAction(MOVE_AND_TURN_TO_CHANGE, self.polar_r, self.polar_t)
     
     def setupMoveToTarget(self):
