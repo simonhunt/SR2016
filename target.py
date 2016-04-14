@@ -7,7 +7,7 @@ from debug import DEBUG_TARGET
 
 class TargetThread(threading.Thread):
     
-    def __init__(self, MotionThread, target_timeperiod = 0.1, move_timeperiod = 0.01, target_reached_radius = 0.1): #default 10hz target, 100hz move, 10cm target radius
+    def __init__(self, MotionThread, target_timeperiod = 0.1, move_timeperiod = 0.1, target_reached_radius = 0.1): #default 10hz target, 10hz move, 10cm target radius
         threading.Thread.__init__(self)
         
         self.name = "TargetThread"
