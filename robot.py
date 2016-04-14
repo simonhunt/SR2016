@@ -129,14 +129,14 @@ print "MapThread prepared for start"
 MotionThread.start()
 print "MotionThread started" 
 
-# MapThread.start()
-# print "MapThread started"
+MapThread.start()
+print "MapThread started"
 
 TargetThread.start()
 print "TargetThread started"
 
-# ServoThread.start()
-# print "ServoThread started"
+ServoThread.start()
+print "ServoThread started"
 
 #Signal that the robot has successfully started!
 power.signalGood(R.power)
