@@ -43,6 +43,8 @@ import servos
 import power
 import method
 
+test_target = {'x': 1, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
+
 origin = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
 
 test_target_1 = {'x': 1, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
@@ -140,7 +142,7 @@ print "TargetThread started"
 power.signalGood(R.power)
 print "signalGood ran"
 
-MotionThread.setAction(MOVE_AND_TURN_TO, 1, 0)
+#MotionThread.setAction(MOVE_AND_TURN_TO, 1, 0)
 
 
 
@@ -169,7 +171,7 @@ MotionThread.setAction(MOVE_AND_TURN_TO, 1, 0)
 #ServosThread.addPosition(DOWN_CUBE_90)
 #time.sleep(10)
 
-#TargetThread.setTarget(test_target)
+TargetThread.setTarget(test_target)
 
 #ServoThread.setPosition(ARMS_WIDE_ZERO)
 
