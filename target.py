@@ -83,6 +83,7 @@ class TargetThread(threading.Thread):
         
         if (self.polar_r < self.target_reached_radius):
             reached = True
+            print 'target reached'
             
         return reached
             
