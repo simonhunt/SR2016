@@ -127,8 +127,8 @@ print "MapThread prepared for start"
 MotionThread.start()
 print "MotionThread started" 
 
-MapThread.start()
-print "MapThread started"
+#MapThread.start()
+#print "MapThread started"
 
 TargetThread.start()
 print "TargetThread started"
