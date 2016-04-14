@@ -77,109 +77,120 @@ class MotionThread(threading.Thread):
         
         self.mpu_yaw_offset = INITIAL_MPU_YAW_OFFSET
         
+        self.actions_stack = []
+        
         self.action_lock = threading.Lock()
-        self.action = INITIAL_ROBOT_ACTION
-        self.action_value_1 = INITIAL_ROBOT_ACTION_VALUE_1
-        self.action_value_2 = INITIAL_ROBOT_ACTION_VALUE_2
-        self.action_needs_processing = True
+        self.addAction(INITIAL_ROBOT_ACTION, INITIAL_ROBOT_ACTION_VALUE_1, INITIAL_ROBOT_ACTION_VALUE_2)
+        
+    def addAction(self, action, action_value_1 = 0, action_value_2 = 0):
+        
+        with self.action_lock:
+            action_bundle = [action, action_value_1, action_value_2]
+            self.action_bundle_stack.append(action_bundle)
+            
+    def clearActionBundleStack(self):
+        
+        with self.action_lock:
+            self.action_bundle_stack = []
+        
         
     def setAction(self, action, action_value_1 = 0, action_value_2 = 0):
         
-        with self.action_lock:
-            self.action = action
-            self.action_value_1 = action_value_1
-            self.action_value_2 = action_value_2
-            self.action_needs_processing = True
+        self.clearActionBundleStack()
+        self.addAction(action, action_value_1, action_value_2)
     
-    def processAction(self):
+    def processActionBundleStack(self):
         
         with self.action_lock:
             
-            if (self.action_needs_processing == True):
+            while (len(self.action_bundle_stack) != 0):
                 
-                if (self.action == STILL):
+                action_bundle = self.action_bundle_stack.pop(0)
+                action = action_bundle[0]
+                action_value_1 = action_bundle[1]
+                action_value_2 = action_bundle[2]
+                
+                if (action == STILL):
                     self.Y.stop()
                     self.S.stop()
                     print "New Action: STILL"
                 
-                elif (self.action == TURN):
+                elif (action == TURN):
                     self.Y.restart()
-                    self.desired_yaw = self.yaw + self.action_value_1
+                    self.desired_yaw = self.yaw + action_value_1
                     self.S.stop() 
-                    print "New Action: TURN, with value = " + str(self.action_value_1)
+                    print "New Action: TURN, with value = " + str(action_value_1)
                 
-                elif (self.action == TURN_CHANGE):
-                    self.desired_yaw = self.yaw + self.action_value_1
-                    print "New Action: TURN_CHANGE, with value = " + str(self.action_value_1)
+                elif (action == TURN_CHANGE):
+                    self.desired_yaw = self.yaw + action_value_1
+                    print "New Action: TURN_CHANGE, with value = " + str(action_value_1)
                 
-                elif (self.action == TURN_TO):
+                elif (action == TURN_TO):
                     self.Y.restart()
-                    self.desired_yaw = self.action_value_1
+                    self.desired_yaw = action_value_1
                     self.S.stop() 
-                    print "New Action: TURN_TO, with value = " + str(self.action_value_1)
+                    print "New Action: TURN_TO, with value = " + str(action_value_1)
                 
-                elif (self.action == TURN_TO_CHANGE):
-                    self.desired_yaw = self.action_value_1
-                    print "New Action: TURN_TO_CHANGE, with value = " + str(self.action_value_1)
+                elif (action == TURN_TO_CHANGE):
+                    self.desired_yaw = action_value_1
+                    print "New Action: TURN_TO_CHANGE, with value = " + str(action_value_1)
                 
-                elif (self.action == MOVE):
+                elif (action == MOVE):
                     self.Y.stop()
                     self.S.restart()
-                    self.desired_distance = self.distance + self.action_value_1
+                    self.desired_distance = self.distance + action_value_1
                     self.S.setSetpoint(self.desired_distance)
-                    print "New Action: MOVE, with value = " + str(self.action_value_1)
+                    print "New Action: MOVE, with value = " + str(action_value_1)
                     
-                elif (self.action == MOVE_CHANGE):
-                    self.desired_distance = self.distance + self.action_value_1
+                elif (action == MOVE_CHANGE):
+                    self.desired_distance = self.distance + action_value_1
                     self.S.setSetpoint(self.desired_distance)
-                    print "New Action: MOVE_CHANGE, with value = " + str(self.action_value_1)
+                    print "New Action: MOVE_CHANGE, with value = " + str(action_value_1)
                 
-                elif (self.action == MOVE_TO):
+                elif (action == MOVE_TO):
                     self.Y.stop()
                     self.S.restart()
-                    self.desired_distance = self.action_value_1
+                    self.desired_distance = action_value_1
                     self.S.setSetpoint(self.desired_distance)
-                    print "New Action: MOVE_TO, with value = " + str(self.action_value_1)
+                    print "New Action: MOVE_TO, with value = " + str(action_value_1)
                     
-                elif (self.action == MOVE_TO_CHANGE):
-                    self.desired_distance = self.action_value_1
+                elif (action == MOVE_TO_CHANGE):
+                    self.desired_distance = action_value_1
                     self.S.setSetpoint(self.desired_distance)
-                    print "New Action: MOVE_TO_CHANGE, with value = " + str(self.action_value_1)
+                    print "New Action: MOVE_TO_CHANGE, with value = " + str(action_value_1)
                 
-                elif (self.action == MOVE_HOLD):
+                elif (action == MOVE_HOLD):
                     self.Y.restart()
                     self.desired_yaw = self.yaw
                     self.S.restart()
-                    self.desired_distance = self.distance + self.action_value_1
+                    self.desired_distance = self.distance + action_value_1
                     self.S.setSetpoint(self.desired_distance)
-                    print "New Action: MOVE_HOLD, with value = " + str(self.action_value_1)
+                    print "New Action: MOVE_HOLD, with value = " + str(action_value_1)
                 
-                elif (self.action == MOVE_TO_HOLD):
+                elif (action == MOVE_TO_HOLD):
                     self.Y.restart()
                     self.desired_yaw = self.yaw
                     self.S.restart()
-                    self.desired_distance = self.action_value_1
+                    self.desired_distance = action_value_1
                     self.S.setSetpoint(self.desired_distance)
-                    print "New Action: MOVE_TO_HOLD, with value = " + str(self.action_value_1)
+                    print "New Action: MOVE_TO_HOLD, with value = " + str(action_value_1)
                 
-                elif (self.action == MOVE_AND_TURN_TO):
+                elif (action == MOVE_AND_TURN_TO):
                     self.Y.restart()
-                    self.desired_yaw = self.action_value_2
+                    self.desired_yaw = action_value_2
                     self.S.restart()
-                    self.desired_distance = self.distance + self.action_value_1
+                    self.desired_distance = self.distance + action_value_1
                     self.S.setSetpoint(self.desired_distance)
-                    print "New Action: MOVE_AND_TURN_TO, with value_1 = " + str(self.action_value_1) + ", value_2 = " + str(self.action_value_2)
+                    print "New Action: MOVE_AND_TURN_TO, with value_1 = " + str(action_value_1) + ", value_2 = " + str(action_value_2)
                 
-                elif (self.action == MOVE_AND_TURN_TO_CHANGE):
-                    self.desired_yaw = self.action_value_2
-                    self.desired_distance = self.distance + self.action_value_1
+                elif (action == MOVE_AND_TURN_TO_CHANGE):
+                    self.desired_yaw = action_value_2
+                    self.desired_distance = self.distance + action_value_1
                     self.S.setSetpoint(self.desired_distance)
-                    print "New Action: MOVE_AND_TURN_TO_CHANGE, with value_1 = " + str(self.action_value_1) + ", value_2 = " + str(self.action_value_2)           
+                    print "New Action: MOVE_AND_TURN_TO_CHANGE, with value_1 = " + str(action_value_1) + ", value_2 = " + str(action_value_2)           
                     
                 else:
                     print "ERROR: unknown action processed in motionThread.processAction"
-                   
-                self.action_needs_processing = False
                 
     def setRobotLocation(self, robot_location):
         
@@ -329,11 +340,10 @@ class MotionThread(threading.Thread):
             
             self.updateSensors()               
             self.updateRobotLocation()
-            self.processAction()               
+            self.processActionBundleStack()               
             new_steering = self.runYawPid()
             new_speed = self.runDistancePid()           
-            self.updateMotors(new_steering, new_speed)              
-            
+            self.updateMotors(new_steering, new_speed)                
             
         print "Exiting " + self.name
     
