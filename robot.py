@@ -143,16 +143,16 @@ print "signalGood ran"
 
 # Functions
         
-if (DEBUG_YAW_DRIFT == True):
-    print "debugging yaw drift"
-    MotionThread.setAction(STILL)
-    wake_up_time = time.time()
+# if (DEBUG_YAW_DRIFT == True):
+#     print "debugging yaw drift"
+#     MotionThread.setAction(STILL)
+#     wake_up_time = time.time()
     
-    while (True):
-        wake_up_time += DEBUG_TIMEPERIOD
-        print str(MotionThread.yaw)
-        sleep_time = mapToLimits(wake_up_time - time.time(), DEBUG_TIMEPERIOD, 0) 
-        time.sleep(DEBUG_TIMEPERIOD)
+#     while (True):
+#         wake_up_time += DEBUG_TIMEPERIOD
+#         print str(MotionThread.yaw)
+#         sleep_time = mapToLimits(wake_up_time - time.time(), DEBUG_TIMEPERIOD, 0) 
+#         time.sleep(DEBUG_TIMEPERIOD)
     
 #ServosThread.addPosition(ARMS_WIDE_90)
 #time.sleep(5)
