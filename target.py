@@ -83,7 +83,6 @@ class TargetThread(threading.Thread):
         
         if (self.polar_r < self.target_reached_radius):
             reached = True
-            print 'target reached'
             
         return reached
             
@@ -95,7 +94,6 @@ class TargetThread(threading.Thread):
             time.sleep(self.move_timeperiod) 
             self.calculatePolar()
             self.MotionThread.setAction(MOVE_AND_TURN_TO_CHANGE, self.polar_r, self.polar_t)
-        print 'while exited !!!!!!!' + str(self.checkEmergencyStop()) + str
     
     def setupMoveToTarget(self):
         
