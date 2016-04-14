@@ -199,12 +199,12 @@ power.signalActivity(R.power)
 
 print "setting turn_location: " + str(cube_to_approach['approach_location'])
 
-time.sleep(10)
+time.sleep(15)
 
 MotionThread.setAction(TURN_TO, cube_to_approach['approach_location']['yaw'])
 power.signalActivity(R.power)
 
-time.sleep(5)
+time.sleep(15)
 
 
 TargetThread.addTarget(cube_to_approach)
@@ -212,7 +212,7 @@ power.signalActivity(R.power)
 
 print "setting cube_to_approach: " + str(cube_to_approach)
 
-time.sleep(10)
+time.sleep(15)
 
 if (cube_to_approach['approach_location']['degrees'] == 90):
     ServoThread.setSequence(TEST_SEQUENCE_90)
