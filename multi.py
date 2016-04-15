@@ -77,7 +77,7 @@ class MotionThread(threading.Thread):
         
         self.mpu_yaw_offset = INITIAL_MPU_YAW_OFFSET
         
-        self.actions_stack = []
+        self.action_bundle_stack = []
         
         self.action_lock = threading.Lock()
         self.addAction(INITIAL_ROBOT_ACTION, INITIAL_ROBOT_ACTION_VALUE_1, INITIAL_ROBOT_ACTION_VALUE_2)
