@@ -176,7 +176,7 @@ print "signalGood ran"
 # TargetThread.addTarget(test_target_3)
 # TargetThread.addTarget(origin)
 
-#ServoThread.setPosition(ARMS_WIDE_ZERO)
+ServoThread.setPosition(ARMS_WIDE_ZERO)
 
 #TargetThread.addTarget(origin)
 
