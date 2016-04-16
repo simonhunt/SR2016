@@ -1,9 +1,13 @@
-import threading
 import time
 import math
+
+import threading
+import polar
+
 from limits import mapToLimits
 from actions import *
 from debug import DEBUG_TARGET
+
 
 class TargetThread(threading.Thread):
     
@@ -50,10 +54,8 @@ class TargetThread(threading.Thread):
             
     def calculatePolar(self):
         robot_location = self.MotionThread.robot_location ##needs attention
-        dx = self.target['x'] - robot_location['x']
-        dy = self.target['y'] - robot_location['y']
-        self.polar_r = (dx**2 + dy**2)**0.5
-        self.polar_t = math.degrees(math.atan2(dy, dx))
+        self.polar_r = polar.getPolarR(robot_location, self.target)
+        self.polar_t = polar.getPolarT(robot_location, self.target)
     
     def processNextTarget(self):
         
