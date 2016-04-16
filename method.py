@@ -52,7 +52,7 @@ def isLocationWithinArena(location, indent = 0):
     x = location['x']
     y = location['y']
     
-    if ((x > (8 - indent)) or (y > (8 - indent)) or (x < indent) or (y < indent):
+    if ((x > (8 - indent)) or (y > (8 - indent)) or (x < indent) or (y < indent)):
         within_arena = False
     return within_arena
         
@@ -60,13 +60,16 @@ def isLocationWithinArena(location, indent = 0):
         
 
 '''
-min dist to enemy robot
-distance to zone
-distance to bot
-distance to bot + distance to zone?
-number of enemy robots in x radius
+min dist to enemy robot*done
+distance to zone*done
+distance to bot*done
+distance to bot + distance to zone?*done
+number of enemy robots in x radius*done
+in arena *
 too near edges
 not right way up
 top face
 not on the floor
+best rotation
+something to do with turns
 '''
