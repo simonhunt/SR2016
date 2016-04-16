@@ -226,10 +226,10 @@ ServoThread.setPosition(ARMS_WIDE_ZERO)
 
 
 while (True):
-    ServoThread.addSequence(TEST_SEQUENCE_90)
-    time.sleep(20)
-    # ServoThread.addSequence(TEST_SEQUENCE_NEGATIVE_90)
+    # ServoThread.addSequence(TEST_SEQUENCE_90)
     # time.sleep(20)
+    ServoThread.addSequence(TEST_SEQUENCE_NEGATIVE_90)
+    time.sleep(20)
     # ServoThread.addSequence(TEST_SEQUENCE_180)
     # time.sleep(30)
 
