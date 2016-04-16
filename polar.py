@@ -6,4 +6,5 @@ def getPolarR(start_location, finish_location):
 def getPolarT(start_location, finish_location):
     dx = self.start_location['x'] - finish_location['x']
     dy = self.start_location['y'] - finish_location['y']
-    self.polar_t = math.degrees(math.atan2(dy, dx))
+    polar_t = math.degrees(math.atan2(dy, dx))
+    
