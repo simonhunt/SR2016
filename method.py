@@ -44,6 +44,19 @@ def getNumberOfEnemyRobotsWithinRadiusFromLocation(location, robots, current_tim
 def getDistanceFromLocationToLocation(from_location, to_location):
     distance = polar.getPolarR(from_location, to_location)
     return distance
+    
+def isLocationWithinArena(location, indent = 0):
+    
+    within_arena = True
+    
+    x = location['x']
+    y = location['y']
+    
+    if ((x > (8 - indent)) or (y > (8 - indent)) or (x < indent) or (y < indent):
+        within_arena = False
+    return within_arena
+        
+    
         
 
 '''
