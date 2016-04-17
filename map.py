@@ -8,9 +8,9 @@ ROBOT_WIDTH = 0.5
 TOKEN_WIDTH = 0.25
 
 ROBOT_TO_CAMERA_VECTOR = {'alpha': 0, 'beta': 0, 'gamma': 0} #alpha forwards, beta left to right, gamma up
-CAMERA_YAW = 0
-CAMERA_PITCH = 0
-CAMERA_ROLL = 0
+ROBOT_TO_CAMERA_YAW = 0
+ROBOT_TO_CAMERA_PITCH = 0
+ROBOT_TO_CAMERA_ROLL = 0
 
 ZONE_0_INITIAL_CAMERA_LOCATION = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
 ZONE_1_INITIAL_CAMERA_LOCATION = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
@@ -294,9 +294,9 @@ def cameraLocationFromRobotLocation(robot_location):
     camera_location['x'] += vector['x']
     camera_location['y'] += vector['y']
     camera_location['z'] += vector['z']
-    camera_location['yaw'] += CAMERA_YAW
-    camera_location['pitch'] += CAMERA_PITCH
-    camera_location['roll'] += CAMERA_ROLL
+    camera_location['yaw'] += ROBOT_TO_CAMERA_YAW
+    camera_location['pitch'] += ROBOT_TO_CAMERA_PITCH
+    camera_location['roll'] += ROBOT_TO_CAMERA_ROLL
     return camera_location
 
 def getRobotLocationToCameraLocationVector(robot_location):
@@ -305,6 +305,17 @@ def getRobotLocationToCameraLocationVector(robot_location):
     dz = ROBOT_TO_CAMERA_VECTOR['gamma']
     vector = {'x': dx, 'y': dy, 'z': dz}
     return vector
+    
+def robotLocationFromCameraLocation(camera_location):
+    robot_location = camera_location
+    robot_location['yaw'] -= ROBOT_TO_CAMERA_YAW
+    robot_location['pitch'] -= ROBOT_TO_CAMERA_PITCH
+    robot_location['roll'] -= ROBOT_TO_CAMERA_ROLL
+    vector = getRobotLocationToCameraLocationVector(robot_location)
+    robot_location['x'] -= vector['x']
+    robot_location['y'] -= vector['y']
+    robot_location['z'] -= vector['z']
+    return camera_location
 
 ## ARENA MARKER CODE ###########################################################################################
 ################################################################################################################
