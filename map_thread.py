@@ -23,7 +23,7 @@ class MapThread(threading.Thread):
     def prepareForStart(self, see, power, zone, MotionThread):
         self.zone = zone
         self.see = see
-        self.Power = Power
+        self.power = power
         self.MotionThread = MotionThread
         
         current_time = time.time()
