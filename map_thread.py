@@ -20,7 +20,7 @@ class MapThread(threading.Thread):
         self.b_cube_locations = []
         self.c_cube_locations = []
         
-    def prepareForStart(self, see, Power, zone, MotionThread):
+    def prepareForStart(self, see, power, zone, MotionThread):
         self.zone = zone
         self.see = see
         self.Power = Power
@@ -72,7 +72,7 @@ class MapThread(threading.Thread):
             
             RList = [R0, R1, R2, R3]
             
-            power.signalCamera(self.Power)
+            power.signalCamera(self.power)
             markers = self.see( res=(1280,960) )
             
             for marker in markers:
