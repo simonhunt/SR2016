@@ -1,5 +1,8 @@
 import threading
 import time
+
+import power
+
 from limits import mapToLimits
 from positions import *
 from debug import DEBUG_SERVO
@@ -32,10 +35,11 @@ RIGHT_GRAB_OFFSET = 0
 
 class ServoThread(threading.Thread):
     
-    def __init__(self, servos, position_timeperiod = 0.1, move_timeperiod = 0.01): # default 10hz postition, 100hz move    
+    def __init__(self, servos, power, position_timeperiod = 0.1, move_timeperiod = 0.01): # default 10hz postition, 100hz move    
         threading.Thread.__init__(self)
         self.name = "ServoThread"
-        self.servos = servos 
+        self.servos = servos
+        self.power = power
         self.position_timeperiod = position_timeperiod
         self.move_timeperiod = move_timeperiod
         
@@ -85,6 +89,7 @@ class ServoThread(threading.Thread):
             self.sequence.extend(new_sequence)
         
     def moveTo(self, new_position):
+        power.signalServo(self.power)
         
         start_rotate = self.position['rotate']
         start_lift = self.position['lift']
