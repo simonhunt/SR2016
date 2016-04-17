@@ -4,7 +4,7 @@ DEBUG_YAW_DRIFT = False
 DEBUG_TEST_DRIFT = 0
 DEBUG_TIMEPERIOD = 5
 DEBUG_SPEED = 0
-DEBUG_STEERING = 20
+DEBUG_STEERING = 0
 
 YAW_DRIFT = 0.00417 #degrees per second 
 YKP = 3
@@ -26,11 +26,11 @@ if (DEBUG_YAW_DRIFT == True):
 from sr.robot import *
 
 from limits import mapToLimits
-
 from actions import *
 from positions import *
 
 import time
+
 import ruggeduino
 import pid
 import motors
