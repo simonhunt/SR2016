@@ -26,7 +26,7 @@ def signalBad(power):
     power.beep(BAD_DURATION, note = BAD_NOTE)
     
 def signalAction(power):
-    power.beep(ACTION_DURATION, note = ACTIION_NOTE)
+    power.beep(ACTION_DURATION, note = ACTION_NOTE)
     
 def signalActivity(power):
     power.beep(ACTIVITY_DURATION, note = ACTIVITY_NOTE)
