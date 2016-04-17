@@ -34,7 +34,7 @@ class MapThread(threading.Thread):
         self.robot_locations = map.getStartingRobotLocations(current_time)        
         
     def setMotionThreadRobotLocation(self):
-        robot_location = self.camera_location # map.robotLocationFromCameraLocation(self.camera_location)
+        robot_location = map.robotLocationFromCameraLocation(self.camera_location) # self.camera_location
         self.MotionThread.setRobotLocation(robot_location)
         
     def filterCubesByAge(self, current_time):
@@ -55,7 +55,7 @@ class MapThread(threading.Thread):
         print "Starting " + self.name
         
         while (True):
-            self.camera_location = map.cameraLocationFromRobotLocation(self.MotionThread.robot_location) #self.camera_location = self.MotionThread.robot_location
+            self.camera_location = map.cameraLocationFromRobotLocation(self.MotionThread.robot_location) #self.MotionThread.robot_location
             current_time = time.time()
             self.filterCubesByAge(current_time)
             
