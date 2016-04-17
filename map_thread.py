@@ -1,7 +1,11 @@
 import threading
 import time
+
 from sr.robot import MARKER_ARENA, MARKER_ROBOT, NET_A, NET_B, NET_C
+
 import map 
+import power
+
 from debug import DEBUG_MAP
 
 MAX_CUBE_AGE = 5
@@ -16,9 +20,10 @@ class MapThread(threading.Thread):
         self.b_cube_locations = []
         self.c_cube_locations = []
         
-    def prepareForStart(self, see, zone, MotionThread):
+    def prepareForStart(self, see, Power, zone, MotionThread):
         self.zone = zone
         self.see = see
+        self.Power = Power
         self.MotionThread = MotionThread
         
         current_time = time.time()
@@ -50,7 +55,7 @@ class MapThread(threading.Thread):
         print "Starting " + self.name
         
         while (True):
-            self.camera_location = self.MotionThread.robot_location #map.cameraLocationFromRobotLocation(self.MotionThread.robot_location)
+            self.camera_location = map.cameraLocationFromRobotLocation(self.MotionThread.robot_location) #self.camera_location = self.MotionThread.robot_location
             current_time = time.time()
             self.filterCubesByAge(current_time)
             
@@ -67,6 +72,7 @@ class MapThread(threading.Thread):
             
             RList = [R0, R1, R2, R3]
             
+            power.signalCamera(self.Power)
             markers = self.see( res=(1280,960) )
             
             for marker in markers:
