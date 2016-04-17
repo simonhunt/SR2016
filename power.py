@@ -10,6 +10,9 @@ BAD_DURATION = 1500 #milliseconds
 ACTIVITY_NOTE = 'b'
 ACTIVITY_DURATION = 200 #milliseconds
 
+CAMERA_NOTE = 'd'
+CAMERA_DURATION = 100 #milliseconds
+
 def signalReady(Power):
     Power.beep(READY_DURATION, note = READY_NOTE)
     
@@ -21,4 +24,7 @@ def signalBad(Power):
     
 def signalActivity(Power):
     Power.beep(ACTIVITY_DURATION, note = ACTIVITY_NOTE)
+    
+def signalCamera(Power):
+    Power.beep(CAMERA_DURATION, note = CAMERA_NOTE)
     
