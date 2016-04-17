@@ -1,6 +1,6 @@
 import math
 import cmath
-from turn import getTurns, getTopSide
+from turn import getTurns, getTeamScoring
 from sr.robot import MARKER_TOKEN_SIDE, MARKER_TOKEN_BOTTOM, MARKER_TOKEN_TOP, MARKER_ARENA, MARKER_ROBOT, NET_A, NET_B, NET_C
 from limits import mapToLimits, angleMod
 
@@ -225,8 +225,8 @@ def objectLocationFromObjectMarker(object_marker, camera_location, current_time,
         net = object_marker.info.token_net
         code = object_marker.info.code
         
-        team_facing_up = getTopSide(net, roll, code)
-        object_location['top_side
+        team_scoring = getTeamScoring(net, roll, code)
+        object_location['team_scoring'] = team_scoring
         
         turns = getTurns(net, roll, code, zone)
         approach_locations = []
