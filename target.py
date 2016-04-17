@@ -3,6 +3,7 @@ import math
 
 import threading
 import polar
+import power
 
 from limits import mapToLimits
 from actions import *
@@ -11,11 +12,12 @@ from debug import DEBUG_TARGET
 
 class TargetThread(threading.Thread):
     
-    def __init__(self, MotionThread, target_timeperiod = 0.1, move_timeperiod = 0.1, target_reached_radius = 0.1): #default 10hz target, 10hz move, 10cm target radius
+    def __init__(self, MotionThread, power, target_timeperiod = 0.1, move_timeperiod = 0.1, target_reached_radius = 0.1): #default 10hz target, 10hz move, 10cm target radius
         threading.Thread.__init__(self)
         
         self.name = "TargetThread"
         self.MotionThread = MotionThread
+        self.power = power
         self.move_timeperiod = move_timeperiod
         self.target_timeperiod = target_timeperiod
         self.target_reached_radius = target_reached_radius
@@ -85,10 +87,12 @@ class TargetThread(threading.Thread):
         
         if (self.polar_r < self.target_reached_radius):
             reached = True
+            power.signalTarget(self.power)
             
         return reached
             
     def moveToTarget(self):
+        power.signalTarget(self.power)
         
         self.setupMoveToTarget()
         
@@ -96,7 +100,7 @@ class TargetThread(threading.Thread):
             time.sleep(self.move_timeperiod) 
             self.calculatePolar() 
             self.MotionThread.addAction(MOVE_AND_TURN_TO_CHANGE, self.polar_r, self.polar_t)
-    
+            
     def setupMoveToTarget(self):
         
         if (self.checkEmergencyStop() == False):
