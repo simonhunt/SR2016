@@ -5,10 +5,10 @@ GOOD_NOTE = 'g'
 GOOD_DURATION = 1000 #milliseconds
 
 BAD_NOTE = 'a'
-BAD_DURATION = 500 #milliseconds
+BAD_DURATION = 1000 #milliseconds
 
 ACTION_NOTE = 'b'
-ACTION_DURATION = 200 #milliseconds
+ACTION_DURATION = 500 #milliseconds
 
 ACTIVITY_NOTE = 'b'
 ACTIVITY_DURATION = 500 #milliseconds
@@ -18,6 +18,9 @@ CAMERA_DURATION = 100 #milliseconds
 
 SERVO_NOTE = 'e'
 SERVO_DURATION = 100 #milliseconds
+
+TARGET_NOTE = 'f'
+TARGET_DURATION = 500 #milliseconds
 
 def signalReady(power):
     power.beep(READY_DURATION, note = READY_NOTE)
@@ -39,4 +42,7 @@ def signalCamera(power):
 
 def signalServo(power):
     power.beep(SERVO_DURATION, note = SERVO_NOTE)
+
+def signalTarget(power):
+    power.beep(TARGET_DURATION, note = TARGET_NOTE)
     
