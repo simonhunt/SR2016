@@ -15,10 +15,11 @@ MAX_PITCH_FROM_LEVEL = 10 #degrees
 MAX_NUMBER_OF_ENEMY_IN_CUBE_RADIUS = 2 #inclusive (2 is ok)
 MAX_NUMBER_OF_ENEMY_IN_APPROACH_RADIUS = 1 #inclusive (2 is ok)
 MIN_ENEMY_DISTANCE_TO_CUBE = 0.75 #meters
-MIN_ENEMY_DISTANCE_TO_APPROACH = 0.75 #meters
+MIN_ENEMY_DISTANCE_TO_APPROACH = 1.5 #meters
 
 MOVING_SPEED = 1 #meter/sec
 ANGULAR_SPEED = 90 #deg/sec
+
 TURN_ZERO_TIME = 0.5 #sec
 TURN_90_TIME = 1 #sec
 TURN_180_TIME = 5 #sec
@@ -37,7 +38,7 @@ def decideCubeToApproach(a_cube_locations, b_cube_locations, c_cube_locations, r
     
     return cube_approach
     
-def decideCubeToApproach2(a_cube_locations, b_cube_locations, c_cube_locations, return_location = 0, robot_location = 0, robots = 0, current_time = 0):
+def decideCubeToApproach2(a_cube_locations, b_cube_locations, c_cube_locations, return_location = 0, robot_location = 0, zone = 0, robots = 0, current_time = 0):
     
     cube_approach_paths = []
     
@@ -86,9 +87,20 @@ def decideCubeToApproach2(a_cube_locations, b_cube_locations, c_cube_locations, 
                     cube_approach_path['net'] = cube_net
                     cube_approach_paths.append(cube_approach_path)
     
+    best_info = {'score': 0}
+    best_cube_approach_path = None
+    
     for cube_approach_path in cube_approach_paths:
-        pass
-
+        cube_approach_path_info = getCubeApproachPathInfo(cube_approach_path, return_location, robot_location, zone, robots, current_time)
+        
+        if (cube_approach_path_info['score'] > best_info['score']):
+            best_info = cube_approach_path_info
+            best_cube_approach_path = cube_approach_path
+    
+    best_cube_approach_path['info'] = best_info
+    
+    return best_cube_approach_path
+        
 def isCubeLocationOk(cube_location, robots, current_time):
     ok = True
     
@@ -130,16 +142,48 @@ def isApproachLocationOk(approach_location, robots, current_time):
     
     return ok
 
-def getCubeApproachPathScore(cube_approach_path, return_location, robot_location, robots, current_time):
+def getCubeApproachPathInfo(cube_approach_path, return_location, robot_location, zone, robots, current_time):
     cube_location = cube_approach_path['cube_location']
     approach_location = cube_approach_path['approach_location']
+    
     round_trip_time = estimateRoundTripTime(cube_location, approach_location, robot_location, return_location)
     risk = estimateRisk(cube_approach_path, robot_location, robots, current_time)
-    score = 
+    points_increase = getPointsIncrease(cube_location, zone)
+    
+    points_per_second = points_increase / round_trip_time
+    
+    score = points_per_second / risk
+    
+    info =  {'score': score, 'points_increase': points_increase, 'round_trip_time': round_trip_time}
+    
+    return info
     
 def getPointsIncrease(cube_location, zone):
+    start_points = 0
+    finish_points = 2
     current_team_scoring = cube_location['team_scoring']
     current_corner = getCorner(cube_location)
+    
+    if (current_team_scoring == zone):
+        
+        if (current_corner == zone):
+            start_points = 2
+        
+        else: 
+            start_points = 1
+    
+    elif (current_team_scoring != None):
+        
+        if (current_corner == current_team_scoring):
+            start_points = (- 2 / 3)
+            
+        else:
+            start_points = (- 1 / 3)
+    
+    points_increase = finish_points - start_points
+    
+    return points_increase
+        
 
 def getCorner(cube_location): #https://www.studentrobotics.org/resources/2016/rulebook.pdf
     x = cube_location['x']
@@ -159,6 +203,7 @@ def getCorner(cube_location): #https://www.studentrobotics.org/resources/2016/ru
     elif (y < (2.125 - x)):
         corner = 3
         
+    return corner 
     
 def estimateRoundTripTime(cube_location, approach_location, robot_location, return_location):
     distance_to_approach_location = getDistanceFromLocationToLocation(robot_location, approach_location)    
@@ -216,7 +261,7 @@ def getNumberOfEnemyRobotsWithinRadiusFromLocation(location, robots, current_tim
         distance = polar.getPolarR(location, enemy_robot)
         time_since_seen = current_time - enemy_robot['time']
         
-        if ((distance < radius) and (time_since_seen < MAX_TIME_SINCE_ENEMY_SEEN)):
+        if ((time_since_seen < MAX_TIME_SINCE_ENEMY_SEEN) and (distance < radius)):
             number += 1
     return number
     
