@@ -137,6 +137,29 @@ def getCubeApproachPathScore(cube_approach_path, return_location, robot_location
     risk = estimateRisk(cube_approach_path, robot_location, robots, current_time)
     score = 
     
+def getPointsIncrease(cube_location, zone):
+    current_team_scoring = cube_location['team_scoring']
+    current_corner = getCorner(cube_location)
+
+def getCorner(cube_location): #https://www.studentrobotics.org/resources/2016/rulebook.pdf
+    x = cube_location['x']
+    y = cube_location['y']
+    
+    corner = None
+    
+    if (y > (5.875 + x)):
+        corner = 0
+    
+    elif (y > (13.875 - x)):
+        corner = 1
+    
+    elif (y < (-5.875 + x)):
+        corner = 2
+        
+    elif (y < (2.125 - x)):
+        corner = 3
+        
+    
 def estimateRoundTripTime(cube_location, approach_location, robot_location, return_location):
     distance_to_approach_location = getDistanceFromLocationToLocation(robot_location, approach_location)    
     distance_to_cube_location = getDistanceFromLocationToLocation(approach_location, cube_location)
