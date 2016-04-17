@@ -171,58 +171,60 @@ ServoThread.setPosition(ARMS_WIDE_ZERO)
 #TargetThread.addTarget(origin)
 
 
-
-
-# while (len(MapThread.a_cube_locations) == 0):
-#     time.sleep(1)
+def getCubeDemo():
+    return_location = origin
+    current_time = time.time()
     
-# time.sleep(1)
-
-# while (True):
+    while ((len(MapThread.a_cube_locations) == 0) and (len(MapThread.b_cube_locations) == 0) and (len(MapThread.c_cube_locations) == 0)):
+        time.sleep(1)
     
-#     if (len(MapThread.a_cube_locations) != 0):        
-#         cube_to_approach = method.decideCubeToApproach(MapThread.a_cube_locations, MapThread.b_cube_locations, MapThread.c_cube_locations) 
-#         break
-
-# TargetThread.addTarget(cube_to_approach['approach_location'])
-# power.signalActivity(R.power)
-
-# print "setting turn_location: " + str(cube_to_approach['approach_location'])
-
-# time.sleep(15)
-
-# MotionThread.setAction(TURN_TO, cube_to_approach['approach_location']['yaw'])
-# power.signalActivity(R.power)
-
-# time.sleep(15)
-
-
-# TargetThread.addTarget(cube_to_approach)
-# power.signalActivity(R.power)
-
-# print "setting cube_to_approach: " + str(cube_to_approach)
-
-# time.sleep(15)
-
-# if (cube_to_approach['approach_location']['degrees'] == 90):
-#     ServoThread.setSequence(TEST_SEQUENCE_90)
-
-# elif (cube_to_approach['approach_location']['degrees'] == - 90):
-#     ServoThread.setSequence(TEST_SEQUENCE_NEGATIVE_90)
+    time.sleep(1)
     
-# elif (cube_to_approach['approach_location']['degrees'] == 0):
-#     ServoThread.setSequence(TEST_SEQUENCE_ZERO)
-
-# else: #  (cube_to_approach['approach_location']['degrees'] = 180)
-#     ServoThread.setSequence(TEST_SEQUENCE_180)
-# power.signalActivity(R.power)
+    while (True):
+        
+        if ((len(MapThread.a_cube_locations) != 0) or (len(MapThread.b_cube_locations) != 0) or (len(MapThread.c_cube_locations) != 0)):        
+            cube_approach_path = method.decideCubeApproachPath(MapThread.a_cube_locations, MapThread.b_cube_locations, MapThread.c_cube_locations, return_location, MotionThread.robot_location, R.zone, MapThread.robot_locations, current_time) 
+            break
     
-# print "turning with degrees = " + str(cube_to_approach['approach_location']['degrees'])
+    TargetThread.addTarget(cube_approach_path['approach_location'])
+    power.signalActivity(R.power)
     
-# time.sleep(5)
-# TargetThread.addTarget(origin)
-# power.signalActivity(R.power)
-
+    print "setting turn_location: " + str(cube_approach_path['approach_location'])
+    
+    time.sleep(15)
+    
+    MotionThread.setAction(TURN_TO, cube_approach_path['approach_location']['yaw'])
+    power.signalActivity(R.power)
+    
+    time.sleep(15)
+    
+    
+    TargetThread.addTarget(cube_approach_path)
+    power.signalActivity(R.power)
+    
+    print "setting cube_to_approach: " + str(cube_approach_path)
+        
+    time.sleep(15)
+    
+    if (cube_approach_path['approach_location']['degrees'] == 90):
+        ServoThread.setSequence(TEST_SEQUENCE_90)
+    
+    elif (cube_approach_path['approach_location']['degrees'] == - 90):
+        ServoThread.setSequence(TEST_SEQUENCE_NEGATIVE_90)
+        
+    elif (cube_approach_path['approach_location']['degrees'] == 0):
+        ServoThread.setSequence(TEST_SEQUENCE_ZERO)
+    
+    else: #  (cube_to_approach['approach_location']['degrees'] = 180)
+        ServoThread.setSequence(TEST_SEQUENCE_180)
+    power.signalActivity(R.power)
+        
+    print "turning with degrees = " + str(cube_approach_path['approach_location']['degrees'])
+        
+    time.sleep(5)
+    TargetThread.addTarget(origin)
+    power.signalActivity(R.power)
+    
 
 
 while (True):
