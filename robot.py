@@ -74,21 +74,21 @@ S = pid.PidController("DistancePID", SKP, SKI, SKD, MAX_SPEED, MIN_SPEED, S_I_LI
 print "DistancePID setup"
 
 # Setup Servo Thread
-ServoThread = servos.ServoThread(R.servos)
+ServoThread = servos.ServoThread(R.servos, R.power)
 print "ServoThread setup"
 
 # Setup Motion Thread
-MotionThread = multi.MotionThread(D, Y, S, E)
+MotionThread = multi.MotionThread(R.power, D, Y, S, E)
 print "MotionThread setup"
 
 MotionThread.calibrationCheck()
 
 # Setup Map Thread
-MapThread = map_thread.MapThread()
+MapThread = map_thread.MapThread(R.power)
 print "MapThread setup"
 
 # Setup Target Thread
-TargetThread = target.TargetThread(MotionThread)
+TargetThread = target.TargetThread(MotionThread, R.power)
 print "TargetThread setup"
 
 # Setup Debug Thread
