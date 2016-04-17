@@ -32,7 +32,7 @@ class MapThread(threading.Thread):
         robot_location = self.camera_location # map.robotLocationFromCameraLocation(self.camera_location)
         self.MotionThread.setRobotLocation(robot_location)
         
-    def filterCubes(self, current_time):
+    def filterCubesByAge(self, current_time):
          
         for A in self.a_cube_locations:
              if ((current_time - A['time']) > MAX_CUBE_AGE):
@@ -52,7 +52,7 @@ class MapThread(threading.Thread):
         while (True):
             self.camera_location = self.MotionThread.robot_location #map.cameraLocationFromRobotLocation(self.MotionThread.robot_location)
             current_time = time.time()
-            self.filterCubes(current_time)
+            self.filterCubesByAge(current_time)
             
             A = map.ArenaMarkerHandler(current_time)
             
