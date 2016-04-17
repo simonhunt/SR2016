@@ -1,6 +1,9 @@
 import threading
 import time
 import math
+
+import power
+
 from limits import angleMod, mapToLimits
 from actions import *
 from debug import DEBUG_MOTION, DEBUG_Y, DEBUG_S, DEBUG_M
@@ -47,7 +50,7 @@ def wheelDisplacementByLineApproximation(length, theta_1, theta_2):
 
 class MotionThread(threading.Thread):
     
-    def __init__(self, MpuHandler, YawPid, DistancePid, EncoderHandler, time_period = 0.02): #50hz default
+    def __init__(self, power, MpuHandler, YawPid, DistancePid, EncoderHandler, time_period = 0.02): #50hz default
         threading.Thread.__init__(self)
         
         self.name = "MotionThread"
@@ -65,6 +68,8 @@ class MotionThread(threading.Thread):
         
         self.location_update_lock = threading.Lock()
         self.robot_location = DEFAULT_ROBOT_LOCATION
+        
+        self.power = power
         
         self.D = MpuHandler
         self.Y = YawPid
@@ -109,6 +114,8 @@ class MotionThread(threading.Thread):
                 action = action_bundle[0]
                 action_value_1 = action_bundle[1]
                 action_value_2 = action_bundle[2]
+                
+                power.signalAction(self.power)
                 
                 if (action == STILL):
                     self.Y.stop()
@@ -191,6 +198,7 @@ class MotionThread(threading.Thread):
                     
                 else:
                     print "ERROR: unknown action processed in motionThread.processAction"
+                    power.signalBad(self.power)
                 
     def setRobotLocation(self, robot_location):
         
@@ -234,6 +242,7 @@ class MotionThread(threading.Thread):
               
         else: #self.D.update() == False
             print "ERROR: D returned false in Motion Thread"
+            power.signalBad(self.power)
     
     def updateDistance(self):
         
@@ -244,6 +253,7 @@ class MotionThread(threading.Thread):
         
         else: #self.E.update() == False
                 print "ERROR: E returned false in Motion Thread"
+                power.signalBad(self.power)
     
     def updateSensors(self):
         self.updateDistance()
@@ -259,6 +269,7 @@ class MotionThread(threading.Thread):
             
         else:
             print "ERROR: Y returned false in Motion Thread"
+            power.signalBad(self.power)
         return new_steering
     
     def runDistancePid(self):
@@ -271,6 +282,7 @@ class MotionThread(threading.Thread):
             
         else:
             print "ERROR: S returned false in Motion Thread"
+            power.signalBad(self.power)
         return new_speed
         
     def updateMotors(self, new_steering, new_speed):
@@ -279,9 +291,11 @@ class MotionThread(threading.Thread):
             
             if (self.M.setDesiredSpeedAndSteering(self.speed, self.steering) == False):
                 print "ERROR: speed and steering not set in MotorHandler"
+                power.signalBad(self.power)
             
         else:
             print "ERROR: speed and steering not set in Motion Thread"
+            power.signalBad(self.power)
         
     def calibrationCheck(self):
         
@@ -321,9 +335,11 @@ class MotionThread(threading.Thread):
         
         while (check() == False):
             print "Test failed, trying again attempts = " +str(attempts)
+            power.signalBad(self.power)
             attempts += 1
             
         print "Test passed with attempts = " +str(attempts)
+        power.signalGood(self.power)
         
     def prepareForStart(self, MotorHandler): #def prepareForStart(self, MotorHandler, start_robot_location):
         self.M = MotorHandler
