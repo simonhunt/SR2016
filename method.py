@@ -38,7 +38,7 @@ def decideCubeToApproach(a_cube_locations, b_cube_locations, c_cube_locations):
     
     return cube_approach
     
-def decideCubeApproachPath(a_cube_locations, b_cube_locations, c_cube_locations, return_location, robot_location, zone, robots, current_time):
+def decideCubeApproachPath(a_cube_locations, b_cube_locations, c_cube_locations, return_location, robot_location, zone, robot_locations, current_time):
     
     cube_approach_paths = []
     
@@ -46,11 +46,11 @@ def decideCubeApproachPath(a_cube_locations, b_cube_locations, c_cube_locations,
     
     for cube_location in a_cube_locations:
         
-        if (isCubeLocationOk(cube_location, robots, zone, current_time) == True):
+        if (isCubeLocationOk(cube_location, robot_locations, zone, current_time) == True):
             
             for cube_approach_location in cube_location['approach']:
                 
-                if (isApproachLocationOk(cube_approach_location, robots, current_time) == True):
+                if (isApproachLocationOk(cube_approach_location, robot_locations, current_time) == True):
                     cube_approach_path = {}
                     cube_approach_path['cube_location'] = cube_location
                     cube_approach_path['approach_location'] = cube_approach_location
@@ -61,11 +61,11 @@ def decideCubeApproachPath(a_cube_locations, b_cube_locations, c_cube_locations,
     
     for cube_location in b_cube_locations:
         
-        if (isCubeLocationOk(cube_location, robots, zone, current_time) == True):
+        if (isCubeLocationOk(cube_location, robot_locations, zone, current_time) == True):
             
             for cube_approach_location in cube_location['approach']:
                 
-                if (isApproachLocationOk(cube_approach_location, robots, current_time) == True):
+                if (isApproachLocationOk(cube_approach_location, robot_locations, current_time) == True):
                     cube_approach_path = {}
                     cube_approach_path['cube_location'] = cube_location
                     cube_approach_path['approach_location'] = cube_approach_location
@@ -76,11 +76,11 @@ def decideCubeApproachPath(a_cube_locations, b_cube_locations, c_cube_locations,
     
     for cube_location in c_cube_locations:
         
-        if (isCubeLocationOk(cube_location, robots, zone, current_time) == True):
+        if (isCubeLocationOk(cube_location, robot_locations, zone, current_time) == True):
             
             for cube_approach_location in cube_location['approach']:
                 
-                if (isApproachLocationOk(cube_approach_location, robots, current_time) == True):
+                if (isApproachLocationOk(cube_approach_location, robot_locations, current_time) == True):
                     cube_approach_path = {}
                     cube_approach_path['cube_location'] = cube_location
                     cube_approach_path['approach_location'] = cube_approach_location
@@ -93,7 +93,7 @@ def decideCubeApproachPath(a_cube_locations, b_cube_locations, c_cube_locations,
     best_cube_approach_path = None
     
     for cube_approach_path in cube_approach_paths:
-        cube_approach_path_info = getCubeApproachPathInfo(cube_approach_path, return_location, robot_location, zone, robots, current_time)
+        cube_approach_path_info = getCubeApproachPathInfo(cube_approach_path, return_location, robot_location, zone, robot_locations, current_time)
         
         if (cube_approach_path_info['score'] > best_info['score']):
             
@@ -108,7 +108,7 @@ def decideCubeApproachPath(a_cube_locations, b_cube_locations, c_cube_locations,
     
     return best_cube_approach_path
         
-def isCubeLocationOk(cube_location, robots, zone, current_time):
+def isCubeLocationOk(cube_location, robot_locations, zone, current_time):
     ok = True
     
     z = cube_location['x']
@@ -141,13 +141,13 @@ def isCubeLocationOk(cube_location, robots, zone, current_time):
         ok = False
         print "rejecting cube due to points_increase = " + str(points_increase) + ", cube_location = " + str(cube_location)
         
-        nearest_enemy_distance = getNearestEnemyRobotDistanceToLocation(cube_location, robots, current_time)
+        nearest_enemy_distance = getNearestEnemyRobotDistanceToLocation(cube_location, robot_locations, current_time)
         
     elif (nearest_enemy_distance < MIN_ENEMY_DISTANCE_TO_CUBE):
         ok = False
         print "rejecting cube due to nearest_enemy_distance = " + str(nearest_enemy_distance) + ", cube_location = " + str(cube_location)
         
-        number_of_enemy_within_radius = getNumberOfEnemyRobotsWithinRadiusFromLocation(cube_location, robots, current_time)
+        number_of_enemy_within_radius = getNumberOfEnemyRobotsWithinRadiusFromLocation(cube_location, robot_locations, current_time)
         
     elif (number_of_enemy_within_radius > MAX_NUMBER_OF_ENEMY_IN_CUBE_RADIUS):
         ok = False
@@ -155,7 +155,7 @@ def isCubeLocationOk(cube_location, robots, zone, current_time):
     
     return ok
 
-def isApproachLocationOk(approach_location, robots, current_time):
+def isApproachLocationOk(approach_location, robot_locations, current_time):
     ok = True
     
     approach_location_within_arena = isLocationWithinArena(approach_location, APPROACH_LOCATION_INDENT)
@@ -164,13 +164,13 @@ def isApproachLocationOk(approach_location, robots, current_time):
         ok = False
         print "rejecting approach_location due to approach_location_within_arena = " + str(approach_location_within_arena) + ", cube_location = " + str(approach_location)
         
-        nearest_enemy_distance = getNearestEnemyRobotDistanceToLocation(approach_location, robots, current_time)
+        nearest_enemy_distance = getNearestEnemyRobotDistanceToLocation(approach_location, robot_locations, current_time)
         
     elif (nearest_enemy_distance < MIN_ENEMY_DISTANCE_TO_APPROACH):
         ok = False
         print "rejecting approach_location due to nearest_enemy_distance = " + str(nearest_enemy_distance) + ", cube_location = " + str(approach_location)
         
-        number_of_enemy_within_radius = getNumberOfEnemyRobotsWithinRadiusFromLocation(approach_location, robots, current_time)
+        number_of_enemy_within_radius = getNumberOfEnemyRobotsWithinRadiusFromLocation(approach_location, robot_locations, current_time)
         
     elif (number_of_enemy_within_radius > MAX_NUMBER_OF_ENEMY_IN_APPROACH_RADIUS):
         ok = False
@@ -178,12 +178,12 @@ def isApproachLocationOk(approach_location, robots, current_time):
     
     return ok
 
-def getCubeApproachPathInfo(cube_approach_path, return_location, robot_location, zone, robots, current_time):
+def getCubeApproachPathInfo(cube_approach_path, return_location, robot_location, zone, robot_locations, current_time):
     cube_location = cube_approach_path['cube_location']
     approach_location = cube_approach_path['approach_location']
     
     round_trip_time = estimateRoundTripTime(cube_location, approach_location, robot_location, return_location)
-    risk = estimateRisk(cube_approach_path, robot_location, robots, current_time)
+    risk = estimateRisk(cube_approach_path, robot_location, robot_locations, current_time)
     points_increase = getPointsIncrease(cube_location, zone)
     
     points_per_second = points_increase / round_trip_time
@@ -264,7 +264,7 @@ def estimateRoundTripTime(cube_location, approach_location, robot_location, retu
     total_time = distance_time + turn_time + degrees_time
     return total_time
 
-def estimateRisk(cube_approach_path, robot_location, robots, current_time):
+def estimateRisk(cube_approach_path, robot_location, robot_locations, current_time):
     return 1
     
 def isLocationWithinArena(location, indent = (CUBE_WIDTH / 2)):
@@ -279,23 +279,23 @@ def isLocationWithinArena(location, indent = (CUBE_WIDTH / 2)):
     return within_arena
     
     
-def getNearestEnemyRobotDistanceToLocation(location, robots, current_time):
+def getNearestEnemyRobotDistanceToLocation(location, robot_locations, current_time):
     smallest_distance = STARTING_SMALLEST_DISTANCE
     
-    for enemy_robot in robots:
-        distance = polar.getPolarR(location, enemy_robot)
-        time_since_seen = current_time - enemy_robot['time']
+    for enemy_robot_location in robot_locations:
+        distance = polar.getPolarR(location, enemy_robot_location)
+        time_since_seen = current_time - enemy_robot_location['time']
         
         if ((distance < smallest_distance) and (time_since_seen < MAX_TIME_SINCE_ENEMY_SEEN)):
             smallest_distance = distance
     return smallest_distance
             
-def getNumberOfEnemyRobotsWithinRadiusFromLocation(location, robots, current_time, radius = ENEMY_ROBOT_RADIUS):
+def getNumberOfEnemyRobotsWithinRadiusFromLocation(location, robot_locations, current_time, radius = ENEMY_ROBOT_RADIUS):
     number = 0
     
-    for enemy_robot in robots:
-        distance = polar.getPolarR(location, enemy_robot)
-        time_since_seen = current_time - enemy_robot['time']
+    for enemy_robot_location in robot_locations:
+        distance = polar.getPolarR(location, enemy_robot_location)
+        time_since_seen = current_time - enemy_robot_location['time']
         
         if ((time_since_seen < MAX_TIME_SINCE_ENEMY_SEEN) and (distance < radius)):
             number += 1
