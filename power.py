@@ -13,18 +13,18 @@ ACTIVITY_DURATION = 200 #milliseconds
 CAMERA_NOTE = 'd'
 CAMERA_DURATION = 100 #milliseconds
 
-def signalReady(Power):
-    Power.beep(READY_DURATION, note = READY_NOTE)
+def signalReady(power):
+    power.beep(READY_DURATION, note = READY_NOTE)
     
-def signalGood(Power):
-    Power.beep(GOOD_DURATION, note = GOOD_NOTE)
+def signalGood(power):
+    power.beep(GOOD_DURATION, note = GOOD_NOTE)
 
-def signalBad(Power):
-    Power.beep(BAD_DURATION, note = BAD_NOTE)
+def signalBad(power):
+    power.beep(BAD_DURATION, note = BAD_NOTE)
     
-def signalActivity(Power):
-    Power.beep(ACTIVITY_DURATION, note = ACTIVITY_NOTE)
+def signalActivity(power):
+    power.beep(ACTIVITY_DURATION, note = ACTIVITY_NOTE)
     
-def signalCamera(Power):
-    Power.beep(CAMERA_DURATION, note = CAMERA_NOTE)
+def signalCamera(power):
+    power.beep(CAMERA_DURATION, note = CAMERA_NOTE)
     
