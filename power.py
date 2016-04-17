@@ -5,7 +5,7 @@ GOOD_NOTE = 'g'
 GOOD_DURATION = 1000 #milliseconds
 
 BAD_NOTE = 'a'
-BAD_DURATION = 1500 #milliseconds
+BAD_DURATION = 500 #milliseconds
 
 ACTIVITY_NOTE = 'b'
 ACTIVITY_DURATION = 500 #milliseconds
