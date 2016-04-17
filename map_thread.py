@@ -13,17 +13,17 @@ MAX_BLIND_TIME = 1000 #seconds
 
 class MapThread(threading.Thread):
     
-    def __init__(self):        
+    def __init__(self, power):        
         threading.Thread.__init__(self)
         self.name = "MapThread"
+        self.power = power
         self.a_cube_locations = []
         self.b_cube_locations = []
         self.c_cube_locations = []
         
-    def prepareForStart(self, see, power, zone, MotionThread):
+    def prepareForStart(self, see, zone, MotionThread):
         self.zone = zone
         self.see = see
-        self.power = power
         self.MotionThread = MotionThread
         
         current_time = time.time()
