@@ -26,7 +26,7 @@ TURN_180_TIME = 5 #sec
 TURN_NEGATIVE_90_TIME = 1 #sec
 TURN_TIMES = {0: TURN_ZERO_TIME, 90: TURN_90_TIME, 180: TURN_180_TIME, - 90: TURN_NEGATIVE_90_TIME}
 
-def decideCubeToApproach(a_cube_locations, b_cube_locations, c_cube_locations, return_location = 0, robot_location = 0, robots = 0, current_time = 0):
+def decideCubeToApproach(a_cube_locations, b_cube_locations, c_cube_locations):
     
     selected_cube = copy.deepcopy(a_cube_locations[0])
     selected_approach_location = copy.deepcopy(selected_cube['approach'][1])
@@ -38,7 +38,7 @@ def decideCubeToApproach(a_cube_locations, b_cube_locations, c_cube_locations, r
     
     return cube_approach
     
-def decideCubeToApproach2(a_cube_locations, b_cube_locations, c_cube_locations, return_location = 0, robot_location = 0, zone = 0, robots = 0, current_time = 0):
+def decideCubeApproachPath(a_cube_locations, b_cube_locations, c_cube_locations, return_location, robot_location, zone, robots, current_time):
     
     cube_approach_paths = []
     
