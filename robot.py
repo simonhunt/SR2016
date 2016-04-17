@@ -43,15 +43,7 @@ import servos
 import power
 import method
 
-test_target = {'x': 1, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
-
 origin = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
-
-test_target_1 = {'x': 1, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
-
-test_target_2 = {'x': 1, 'y': 1, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
-
-test_target_3 = {'x': 0, 'y': 1, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
  
 print "packages imported"
 
@@ -142,34 +134,29 @@ print "ServoThread started"
 power.signalGood(R.power)
 print "signalGood ran"
 
-#MotionThread.setAction(MOVE_AND_TURN_TO, 1, 0)
-
-
-
-
 # Functions
-        
-# if (DEBUG_YAW_DRIFT == True):
-#     print "debugging yaw drift"
-#     MotionThread.setAction(STILL)
-#     wake_up_time = time.time()
+
+def debugYawDrift():
     
-#     while (True):
-#         wake_up_time += DEBUG_TIMEPERIOD
-#         print str(MotionThread.yaw)
-#         sleep_time = mapToLimits(wake_up_time - time.time(), DEBUG_TIMEPERIOD, 0) 
-#         time.sleep(DEBUG_TIMEPERIOD)
-
-
-# TargetThread.addTarget(test_target_1)
-# TargetThread.addTarget(test_target_2)
-# TargetThread.addTarget(test_target_3)
-# TargetThread.addTarget(origin)
-
-ServoThread.setPosition(ARMS_WIDE_ZERO)
-
-#TargetThread.addTarget(origin)
-
+    if (DEBUG_YAW_DRIFT == True):
+        print "debugging yaw drift"
+        MotionThread.setAction(STILL)
+        wake_up_time = time.time()
+    
+        while (True):
+            wake_up_time += DEBUG_TIMEPERIOD
+            print str(MotionThread.yaw)
+            sleep_time = mapToLimits(wake_up_time - time.time(), DEBUG_TIMEPERIOD, 0) 
+            time.sleep(DEBUG_TIMEPERIOD)
+            
+def squareDemo():
+    test_target_1 = {'x': 1, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
+    test_target_2 = {'x': 1, 'y': 1, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
+    test_target_3 = {'x': 0, 'y': 1, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
+    TargetThread.addTarget(test_target_1)
+    TargetThread.addTarget(test_target_2)
+    TargetThread.addTarget(test_target_3)
+    TargetThread.addTarget(origin)
 
 def getCubeDemo():
     return_location = origin
@@ -198,8 +185,8 @@ def getCubeDemo():
     
     time.sleep(15)
     
-    
-    TargetThread.addTarget(cube_approach_path)
+    ServoThread.setPosition(ARMS_WIDE_ZERO)
+    TargetThread.addTarget(cube_approach_path['cube_location'])
     power.signalActivity(R.power)
     
     print "setting cube_to_approach: " + str(cube_approach_path)
@@ -224,74 +211,17 @@ def getCubeDemo():
     time.sleep(5)
     TargetThread.addTarget(origin)
     power.signalActivity(R.power)
-    
 
+def testArms():
+    while (True):
+        ServoThread.addSequence(TEST_SEQUENCE_90)
+        time.sleep(20)
+        ServoThread.addSequence(TEST_SEQUENCE_NEGATIVE_90)
+        time.sleep(20)
+        ServoThread.addSequence(TEST_SEQUENCE_180)
+        time.sleep(30)
 
-while (True):
-    # ServoThread.addSequence(TEST_SEQUENCE_90)
-    # time.sleep(20)
-    ServoThread.addSequence(TEST_SEQUENCE_NEGATIVE_90)
-    time.sleep(20)
-    # ServoThread.addSequence(TEST_SEQUENCE_180)
-    # time.sleep(30)
-
-#TargetThread.setTarget(test_target)
-
-        
-#i = 0
-#while (i < 20):
-#    i += 1
-#    time.sleep(1)
-#    MotionThread.debug()
-#
-#MotionThread.setRobotLocation(test_location)
-#squareDemo()
-
-
-#while True:
-    
-    
-    #if (D.updateAll() == True):
-    #    
-    #    if (P.run(D.yawWithoutDrift) == True):
-    #        steering = P.output
-    #        
-    #        if (S.setSpeedAndSteering(speed, steering) == True):
-    #            print "yaw: ", D.yaw, " yaw without drift: ", D.yaw_without_drift, " pitch:", D.pitch, " roll: ", D.roll, " error: ", D.error, " speed: ", S.speed, " steering: ", S.steering
-    #
-    #if ((S.steering < 2) and (S.steering > -2)):
-    #    current_time = time.time()
-    #    markers = R.see( res=(1280,960) )         ## Takes a picture and analyses it at a resolution. For information on which resolutions can vbe used: https://www.studentrobotics.org/docs/programming/sr/vision/#ChoosingResolution
-    #    print "I can see", len(markers), "markers:"       ## Prints out how many markers by taking the length of the markers array
-    #    print " "       ##line clear
-    #     
-    #    M.update(markers, current_time, zone)
-    #    M.filterCubes(current_time)
-    #     
-    #    print "camera location: ", M.camera_location
-    #    print "a cube locations: ", M.a_cube_locations
-    #    print "b cube locations: ", M.b_cube_locations
-    #    print "c cube locations: ", M.c_cube_locations
-    #    print "robot locations: ", M.robot_locations
-    #    print " "       ##line clear
-    
-    #current_time = time.time()
-    #markers = R.see( res=(1280,960) )         ## Takes a picture and analyses it at a resolution. For information on which resolutions can vbe used: https://www.studentrobotics.org/docs/programming/sr/vision/#ChoosingResolution
-    #print "I can see", len(markers), "markers:"       ## Prints out how many markers by taking the length of the markers array
-    #print " "       ##line clear
-    #
-    #M.update(markers, current_time, zone)
-    #M.filterCubes(current_time)
-    #print "aCubeLocations: ", M.a_cube_locations
-    #print "bCubeLocations: ", M.b_cube_locations
-    #print "cCubeLocations: ", M.c_cube_locations
-         
-    #print "Cameralocation: ", M.cameraLocation
-    #print "aCubeLocations: ", M.aCubeLocations
-    #print "bCubeLocations: ", M.bCubeLocations
-    #print "cCubeLocations: ", M.cCubeLocations
-    #print "robotLocations: ", M.robotLocations
-    #print " "       ##line clear    
+getCubeDemo()
     
 print "Main thread exited"
 
