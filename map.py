@@ -7,6 +7,11 @@ from limits import mapToLimits, angleMod
 ROBOT_WIDTH = 0.5
 TOKEN_WIDTH = 0.25
 
+ROBOT_TO_CAMERA_VECTOR = {'alpha': 0, 'beta': 0, 'gamma': 0} #alpha forwards, beta left to right, gamma up
+CAMERA_YAW = 0
+CAMERA_PITCH = 0
+CAMERA_ROLL = 0
+
 ZONE_0_INITIAL_CAMERA_LOCATION = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
 ZONE_1_INITIAL_CAMERA_LOCATION = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
 ZONE_2_INITIAL_CAMERA_LOCATION = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
@@ -71,6 +76,11 @@ def getStartingRobotLocations(current_time):
     starting_robot_locations = [robot_0, robot_1, robot_2, robot_3]
     return starting_robot_locations
     
+## MARKER HANDLER CODE #########################################################################################
+################################################################################################################
+################################################################################################################
+################################################################################################################    
+    
 class MarkerHandler():
     
     def __init__(self, current_time):
@@ -119,11 +129,10 @@ class TokenMarkerHandler(MarkerHandler):
         
         return token_locations
         
-## CAMERA LOCATION CODE ########################################################################################
+## AVERAGE LOCATION CODE #######################################################################################
 ################################################################################################################
 ################################################################################################################
 ################################################################################################################
-
 
 def getAverageLocation(locations):
     ## Returns the average of the camera_location from the arenaMarker
@@ -273,13 +282,34 @@ def objectLocationFromObjectMarker(object_marker, camera_location, current_time,
         object_location['approach'] = approach_locations
         
     return object_location 
+    
+## CAMERA LOCATION CODE ########################################################################################
+################################################################################################################
+################################################################################################################
+################################################################################################################
  
+def cameraLocationFromRobotLocation(robot_location):
+    camera_location = robot_location
+    vector = getRobotLocationToCameraLocationVector(robot_location)
+    camera_location['x'] += vector['x']
+    camera_location['y'] += vector['y']
+    camera_location['z'] += vector['z']
+    camera_location['yaw'] += CAMERA_YAW
+    camera_location['pitch'] += CAMERA_PITCH
+    camera_location['roll'] += CAMERA_ROLL
+    return camera_location
+
+def getRobotLocationToCameraLocationVector(robot_location):
+    dx = math.cos(math.radians(robot_location['yaw'])) * ROBOT_TO_CAMERA_VECTOR['alpha'] + math.sin(math.radians(robot_location['yaw'])) * ROBOT_TO_CAMERA_VECTOR['beta']
+    dy = math.sin(math.radians(robot_location['yaw'])) * ROBOT_TO_CAMERA_VECTOR['alpha'] - math.cos(math.radians(robot_location['yaw'])) * ROBOT_TO_CAMERA_VECTOR['beta']
+    dz = ROBOT_TO_CAMERA_VECTOR['gamma']
+    vector = {'x': dx, 'y': dy, 'z': dz}
+    return vector
 
 ## ARENA MARKER CODE ###########################################################################################
 ################################################################################################################
 ################################################################################################################
 ################################################################################################################
-
 
 def cameraLocationFromArenaMarker(arenaMarker, current_time):
     ## Returns the co-ordinates of the camera according to an arena marker by adding the arean marker vector to the arena marker location, in a direction depending on which wall it is on.
