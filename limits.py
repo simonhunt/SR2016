@@ -30,4 +30,15 @@ def mod4(number):
         
     return output
     
+def rightAngleMod(angle):
+    output = angle
+    
+    while (output > 45):
+        output -= 90
+        
+    while (output <= -45):
+        output += 90
+        
+    return output
+    
     
