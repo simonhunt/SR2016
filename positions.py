@@ -11,8 +11,8 @@ ARMS_UP_OUT_THE_WAY = {'rotate': 0, 'lift': 100, 'grab': - 75, 'time': 1}
 
 ARMS_WIDE_ZERO = {'rotate': 0, 'lift': - 100, 'grab': - 70, 'time': 1}
 ARMS_ON_CUBE_ZERO = {'rotate': 0, 'lift': - 100, 'grab': 35, 'time': 2}
-LIFT_CUBE_ZERO = {'rotate': 80, 'lift': 0, 'grab': 35, 'time': 1}
-RELEASE_CUBE_ZERO = {'rotate': 80, 'lift': 0, 'grab': -20, 'time': 0.5}
+LIFT_CUBE_ZERO = {'rotate': 60, 'lift': 0, 'grab': 35, 'time': 1}
+RELEASE_CUBE_ZERO = {'rotate': 60, 'lift': 0, 'grab': -20, 'time': 0.5}
 
 ARMS_WIDE_POSTIVE = {'rotate': - 100, 'lift': - 60, 'grab': - 70, 'time': 1}
 ARMS_ON_CUBE_90 = {'rotate': - 100, 'lift': - 60, 'grab': 35, 'time': 2}
