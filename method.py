@@ -111,7 +111,7 @@ def decideCubeApproachPath(a_cube_locations, b_cube_locations, c_cube_locations,
 def isCubeLocationOk(cube_location, robot_locations, zone, current_time):
     ok = True
     
-    z = cube_location['x']
+    z = cube_location['z']
     
     if (z > MAX_CUBE_Z):
         ok = False
