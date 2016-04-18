@@ -113,41 +113,36 @@ def isCubeLocationOk(cube_location, robot_locations, zone, current_time):
     
     z = cube_location['z']
     
+    roll_from_level = abs(limits.rightAngleMod(cube_location['roll']))
+    pitch_from_level = abs(cube_location['pitch'])
+    cube_location_within_arena = isLocationWithinArena(cube_location)
+    points_increase = getPointsIncrease(cube_location, zone)
+    nearest_enemy_distance = getNearestEnemyRobotDistanceToLocation(cube_location, robot_locations, current_time)
+    number_of_enemy_within_radius = getNumberOfEnemyRobotsWithinRadiusFromLocation(cube_location, robot_locations, current_time)
+    
     if (z > MAX_CUBE_Z):
         ok = False
-        print "rejecting cube due to z = " + str(z) + ", cube_location = " + str(cube_location)
-        
-        roll_from_level = abs(limits.rightAngleMod(cube_location['roll']))
+        print "rejecting cube due to z = " + str(z) + ", cube_location = " + str(cube_location)            
     
     elif (roll_from_level > MAX_ROLL_FROM_LEVEL):
         ok = False
-        print "rejecting cube due to roll_from_level = " + str(roll_from_level) + ", cube_location = " + str(cube_location)
-        
-        pitch_from_level = abs(cube_location['pitch'])
+        print "rejecting cube due to roll_from_level = " + str(roll_from_level) + ", cube_location = " + str(cube_location)        
     
     elif (pitch_from_level > MAX_PITCH_FROM_LEVEL): #this should eliminate any facing up cubes NEEEEEEEDSS A LOT OF TESTING THIS IS A BIG VULNERABILITY
         ok = False
         print "rejecting cube due to pitch_from_level = " + str(pitch_from_level) + ", cube_location = " + str(cube_location)
     
-        cube_location_within_arena = isLocationWithinArena(cube_location)
-    
     elif (cube_location_within_arena == False):
         ok = False
         print "rejecting cube due to cube_location_within_arena = " + str(cube_location_within_arena) + ", cube_location = " + str(cube_location)
         
-        points_increase = getPointsIncrease(cube_location, zone)
-    
     elif (points_increase == 0):
         ok = False
         print "rejecting cube due to points_increase = " + str(points_increase) + ", cube_location = " + str(cube_location)
         
-        nearest_enemy_distance = getNearestEnemyRobotDistanceToLocation(cube_location, robot_locations, current_time)
-        
     elif (nearest_enemy_distance < MIN_ENEMY_DISTANCE_TO_CUBE):
         ok = False
         print "rejecting cube due to nearest_enemy_distance = " + str(nearest_enemy_distance) + ", cube_location = " + str(cube_location)
-        
-        number_of_enemy_within_radius = getNumberOfEnemyRobotsWithinRadiusFromLocation(cube_location, robot_locations, current_time)
         
     elif (number_of_enemy_within_radius > MAX_NUMBER_OF_ENEMY_IN_CUBE_RADIUS):
         ok = False
@@ -159,19 +154,19 @@ def isApproachLocationOk(approach_location, robot_locations, current_time):
     ok = True
     
     approach_location_within_arena = isLocationWithinArena(approach_location, APPROACH_LOCATION_INDENT)
+    nearest_enemy_distance = getNearestEnemyRobotDistanceToLocation(approach_location, robot_locations, current_time)
+    number_of_enemy_within_radius = getNumberOfEnemyRobotsWithinRadiusFromLocation(approach_location, robot_locations, current_time)
+       
     
     if (approach_location_within_arena == False):
         ok = False
         print "rejecting approach_location due to approach_location_within_arena = " + str(approach_location_within_arena) + ", cube_location = " + str(approach_location)
         
-        nearest_enemy_distance = getNearestEnemyRobotDistanceToLocation(approach_location, robot_locations, current_time)
         
     elif (nearest_enemy_distance < MIN_ENEMY_DISTANCE_TO_APPROACH):
         ok = False
-        print "rejecting approach_location due to nearest_enemy_distance = " + str(nearest_enemy_distance) + ", cube_location = " + str(approach_location)
-        
-        number_of_enemy_within_radius = getNumberOfEnemyRobotsWithinRadiusFromLocation(approach_location, robot_locations, current_time)
-        
+        print "rejecting approach_location due to nearest_enemy_distance = " + str(nearest_enemy_distance) + ", cube_location = " + str(approach_location)   
+     
     elif (number_of_enemy_within_radius > MAX_NUMBER_OF_ENEMY_IN_APPROACH_RADIUS):
         ok = False
         print "rejecting approach_location due to number_of_enemy_within_radius = " + str(number_of_enemy_within_radius) + ", cube_location = " + str(approach_location)
