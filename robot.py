@@ -223,7 +223,7 @@ def testArms():
         ServoThread.addSequence(TEST_SEQUENCE_180)
         time.sleep(30)
 
-getCubeDemo()
+#getCubeDemo()
     
 print "Main thread exited"
 
