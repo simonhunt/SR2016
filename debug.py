@@ -36,4 +36,5 @@ class DebugThread(threading.Thread):
         
         if (DEBUG_DEBUG == True):
             self.debug_counter += 1
+            print " " #line clear
             print self.name + ", debug_counter = " + str(self.debug_counter) + ", time = " + str(time.time())
