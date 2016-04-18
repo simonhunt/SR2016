@@ -7,7 +7,7 @@
 
 
 INITIALISATION = {'rotate': 0, 'lift': 0, 'grab': 0, 'time': 1}
-ARMS_UP_OUT_THE_WAY = {'rotate': 0, 'lift': 100, 'grab': - 70, 'time': 1}
+ARMS_UP_OUT_THE_WAY = {'rotate': 0, 'lift': 100, 'grab': - 75, 'time': 1}
 
 ARMS_WIDE_ZERO = {'rotate': 0, 'lift': - 100, 'grab': - 70, 'time': 1}
 ARMS_ON_CUBE_ZERO = {'rotate': 0, 'lift': - 100, 'grab': 30, 'time': 2}
