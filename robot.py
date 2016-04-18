@@ -214,6 +214,8 @@ def getCubeDemo():
 
 def testArms():
     while (True):
+        ServoThread.addSequence(TEST_SEQUENCE_ZERO)
+        time.sleep(10)
         ServoThread.addSequence(TEST_SEQUENCE_90)
         time.sleep(20)
         ServoThread.addSequence(TEST_SEQUENCE_NEGATIVE_90)
