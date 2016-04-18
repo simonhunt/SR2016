@@ -115,18 +115,19 @@ class MotionThread(threading.Thread):
                 action_value_1 = action_bundle[1]
                 action_value_2 = action_bundle[2]
                 
-                power.signalAction(self.power)
                 
                 if (action == STILL):
                     self.Y.stop()
                     self.S.stop()
                     print "New Action: STILL"
+                    power.signalAction(self.power)
                 
                 elif (action == TURN):
                     self.Y.restart()
                     self.desired_yaw = self.yaw + action_value_1
                     self.S.stop() 
                     print "New Action: TURN, with value = " + str(action_value_1)
+                    power.signalAction(self.power)
                 
                 elif (action == TURN_CHANGE):
                     self.desired_yaw = self.yaw + action_value_1
@@ -137,6 +138,7 @@ class MotionThread(threading.Thread):
                     self.desired_yaw = action_value_1
                     self.S.stop() 
                     print "New Action: TURN_TO, with value = " + str(action_value_1)
+                    power.signalAction(self.power)
                 
                 elif (action == TURN_TO_CHANGE):
                     self.desired_yaw = action_value_1
@@ -148,6 +150,7 @@ class MotionThread(threading.Thread):
                     self.desired_distance = self.distance + action_value_1
                     self.S.setSetpoint(self.desired_distance)
                     print "New Action: MOVE, with value = " + str(action_value_1)
+                    power.signalAction(self.power)
                     
                 elif (action == MOVE_CHANGE):
                     self.desired_distance = self.distance + action_value_1
@@ -160,6 +163,7 @@ class MotionThread(threading.Thread):
                     self.desired_distance = action_value_1
                     self.S.setSetpoint(self.desired_distance)
                     print "New Action: MOVE_TO, with value = " + str(action_value_1)
+                    power.signalAction(self.power)
                     
                 elif (action == MOVE_TO_CHANGE):
                     self.desired_distance = action_value_1
@@ -173,6 +177,7 @@ class MotionThread(threading.Thread):
                     self.desired_distance = self.distance + action_value_1
                     self.S.setSetpoint(self.desired_distance)
                     print "New Action: MOVE_HOLD, with value = " + str(action_value_1)
+                    power.signalAction(self.power)
                 
                 elif (action == MOVE_TO_HOLD):
                     self.Y.restart()
@@ -181,6 +186,7 @@ class MotionThread(threading.Thread):
                     self.desired_distance = action_value_1
                     self.S.setSetpoint(self.desired_distance)
                     print "New Action: MOVE_TO_HOLD, with value = " + str(action_value_1)
+                    power.signalAction(self.power)
                 
                 elif (action == MOVE_AND_TURN_TO):
                     self.Y.restart()
@@ -189,6 +195,7 @@ class MotionThread(threading.Thread):
                     self.desired_distance = self.distance + action_value_1
                     self.S.setSetpoint(self.desired_distance)
                     print "New Action: MOVE_AND_TURN_TO, with value_1 = " + str(action_value_1) + ", value_2 = " + str(action_value_2)
+                    power.signalAction(self.power)
                 
                 elif (action == MOVE_AND_TURN_TO_CHANGE):
                     self.desired_yaw = action_value_2
