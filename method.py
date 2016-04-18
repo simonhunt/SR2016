@@ -156,7 +156,6 @@ def isApproachLocationOk(approach_location, robot_locations, current_time):
     approach_location_within_arena = isLocationWithinArena(approach_location, APPROACH_LOCATION_INDENT)
     nearest_enemy_distance = getNearestEnemyRobotDistanceToLocation(approach_location, robot_locations, current_time)
     number_of_enemy_within_radius = getNumberOfEnemyRobotsWithinRadiusFromLocation(approach_location, robot_locations, current_time)
-       
     
     if (approach_location_within_arena == False):
         ok = False
