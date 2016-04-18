@@ -14,10 +14,10 @@ ARMS_ON_CUBE_ZERO = {'rotate': 0, 'lift': - 100, 'grab': 30, 'time': 2}
 LIFT_CUBE_ZERO = {'rotate': 80, 'lift': 0, 'grab': 30, 'time': 1}
 RELEASE_CUBE_ZERO = {'rotate': 80, 'lift': 0, 'grab': -20, 'time': 0.5}
 
-ARMS_WIDE_90= {'rotate': - 100, 'lift': - 100, 'grab': - 70, 'time': 1}
-ARMS_ON_CUBE_90 = {'rotate': - 100, 'lift': - 100, 'grab': 30, 'time': 2}
-LIFT_CUBE_90 = {'rotate': - 100, 'lift': 10, 'grab': 30, 'time': 2}
-TURN_CUBE_90 = {'rotate': 100, 'lift': 10, 'grab': 30, 'time': 2}
+ARMS_WIDE_90 = {'rotate': - 100, 'lift': - 50, 'grab': - 70, 'time': 1}
+ARMS_ON_CUBE_90 = {'rotate': - 100, 'lift': - 50, 'grab': 30, 'time': 2}
+LIFT_CUBE_90 = {'rotate': - 100, 'lift': 60, 'grab': 30, 'time': 2}
+TURN_CUBE_90 = {'rotate': 100, 'lift': 60, 'grab': 30, 'time': 2}
 DOWN_CUBE_90 = {'rotate': 100, 'lift': -70, 'grab': 30, 'time': 1}
 RELEASE_CUBE_90 = {'rotate': 100, 'lift': -70, 'grab': -20, 'time': 0.5}
 
