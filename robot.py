@@ -44,6 +44,7 @@ import power
 import method
 
 origin = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
+return_location_0 = {'x': 1, 'y': 7, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
  
 print "packages imported"
 
@@ -213,7 +214,7 @@ def getCubeDemo():
     print "turning with degrees = " + str(cube_approach_path['approach_location']['degrees'])
         
     time.sleep(5)
-    TargetThread.addTarget(origin)
+    TargetThread.addTarget(return_location_0)
     power.signalActivity(R.power)
 
 def testArms():
@@ -231,7 +232,7 @@ time.sleep(30)
 
 power.signalGood(R.power)
 
-targetDemo()
+getCubeDemo()
     
 print "Main thread exited"
 
