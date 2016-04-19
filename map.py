@@ -12,10 +12,10 @@ ROBOT_TO_CAMERA_YAW = 0
 ROBOT_TO_CAMERA_PITCH = 0
 ROBOT_TO_CAMERA_ROLL = 0
 
-ZONE_0_INITIAL_CAMERA_LOCATION = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
-ZONE_1_INITIAL_CAMERA_LOCATION = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
-ZONE_2_INITIAL_CAMERA_LOCATION = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
-ZONE_3_INITIAL_CAMERA_LOCATION = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
+ZONE_0_INITIAL_CAMERA_LOCATION = {'x': 1, 'y': 7, 'z': 0.125, 'yaw': -45, 'pitch': 0, 'roll': 0, 'time': None}
+ZONE_1_INITIAL_CAMERA_LOCATION = {'x': 7, 'y': 7, 'z': 0.125, 'yaw': -135, 'pitch': 0, 'roll': 0, 'time': None}
+ZONE_2_INITIAL_CAMERA_LOCATION = {'x': 7, 'y': 1, 'z': 0.125, 'yaw': 135, 'pitch': 0, 'roll': 0, 'time': None}
+ZONE_3_INITIAL_CAMERA_LOCATION = {'x': 1, 'y': 1, 'z': 0.125, 'yaw': 45, 'pitch': 0, 'roll': 0, 'time': None}
 
 STARTING_CUBE_0 = {'x': 2.5, 'y': 2.5, 'z': 0.125, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
 STARTING_CUBE_1 = {'x': 4, 'y': 2.5, 'z': 0.125, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
@@ -27,10 +27,10 @@ STARTING_CUBE_6 = {'x': 2.5, 'y': 5.5, 'z': 0.125, 'yaw': 0, 'pitch': 0, 'roll':
 STARTING_CUBE_7 = {'x': 4, 'y': 5.5, 'z': 0.125, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
 STARTING_CUBE_8 = {'x': 5.5, 'y': 5.5, 'z': 0.125, 'yaw': 0, 'pitch': 0, 'roll': 0, 'time': None}
 
-STARTING__ROBOT_0 = {'x': 1, 'y': 7, 'z': 0.25, 'yaw': -45, 'pitch': 0, 'roll': 0, 'time': None}
-STARTING__ROBOT_1 = {'x': 7, 'y': 7, 'z': 0.25, 'yaw': -135, 'pitch': 0, 'roll': 0, 'time': None}
-STARTING__ROBOT_2 = {'x': 7, 'y': 1, 'z': 0.25, 'yaw': 135, 'pitch': 0, 'roll': 0, 'time': None}
-STARTING__ROBOT_3 = {'x': 1, 'y': 1, 'z': 0.25, 'yaw': 45, 'pitch': 0, 'roll': 0, 'time': None}
+STARTING__ROBOT_0 = {'x': 1, 'y': 7, 'z': 0.125, 'yaw': -45, 'pitch': 0, 'roll': 0, 'time': None}
+STARTING__ROBOT_1 = {'x': 7, 'y': 7, 'z': 0.125, 'yaw': -135, 'pitch': 0, 'roll': 0, 'time': None}
+STARTING__ROBOT_2 = {'x': 7, 'y': 1, 'z': 0.125, 'yaw': 135, 'pitch': 0, 'roll': 0, 'time': None}
+STARTING__ROBOT_3 = {'x': 1, 'y': 1, 'z': 0.125, 'yaw': 45, 'pitch': 0, 'roll': 0, 'time': None}
 
 ###########
 
