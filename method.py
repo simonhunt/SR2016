@@ -166,7 +166,6 @@ def isApproachLocationOk(approach_location, robot_locations, current_time):
         ok = False
         print "rejecting approach_location due to approach_location_within_arena = " + str(approach_location_within_arena) + ", approach_location = " + str(approach_location)
         
-        
     elif (nearest_enemy_distance < MIN_ENEMY_DISTANCE_TO_APPROACH):
         ok = False
         print "rejecting approach_location due to nearest_enemy_distance = " + str(nearest_enemy_distance) + ", approach_location = " + str(approach_location)   
@@ -217,8 +216,7 @@ def getPointsIncrease(cube_location, zone):
     
     points_increase = finish_points - start_points
     
-    return points_increase
-        
+    return points_increase    
 
 def getCorner(cube_location): #https://www.studentrobotics.org/resources/2016/rulebook.pdf
     x = cube_location['x']
@@ -277,7 +275,6 @@ def isLocationWithinArena(location, indent = (CUBE_WIDTH / 2)):
         within_arena = False
     return within_arena
     
-    
 def getNearestEnemyRobotDistanceToLocation(location, robot_locations, current_time):
     smallest_distance = STARTING_SMALLEST_DISTANCE
     
@@ -288,7 +285,7 @@ def getNearestEnemyRobotDistanceToLocation(location, robot_locations, current_ti
         if ((distance < smallest_distance) and (time_since_seen < MAX_TIME_SINCE_ENEMY_SEEN)):
             smallest_distance = distance
     return smallest_distance
-            
+    
 def getNumberOfEnemyRobotsWithinRadiusFromLocation(location, robot_locations, current_time, radius = ENEMY_ROBOT_RADIUS):
     number = 0
     
@@ -306,8 +303,7 @@ def getDistanceFromLocationToLocation(from_location, to_location):
 
 def getPolarTFromLocationToLocation(from_location, to_location):
     theta = polar.getPolarT(from_location, to_location)
-    return theta
-    
+    return theta    
     
 def getDistanceToEdge(location):
     
@@ -324,7 +320,7 @@ def getDistanceToEdge(location):
             smallest_distance = distance
     return smallest_distance
     
-        
+
 
 '''
 min dist to enemy robot*done
