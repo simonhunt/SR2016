@@ -97,7 +97,7 @@ def getTurns(net, roll, code, zone):
     
     zone_index = zone
     
-    table_output = TURN_TABLE[net_index][zone_index][roll_index][side_index]
+    table_output = TURN_TABLE[net_index][side_index][roll_index][zone_index]
     
     turns = [[False, None], [False, None], [False, None], [False, None]]
     
