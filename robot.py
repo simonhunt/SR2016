@@ -41,13 +41,13 @@ DEBUG_STEERING = 0
 # MAX_SPEED = 80
 # MIN_SPEED = 0
 
-ORIGIN = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
+ORIGIN = {'x': 0, 'y': 0, 'z': 0}
 
 if (DEBUG_YAW_DRIFT == True):
     YAW_DRIFT = DEBUG_TEST_DRIFT
     MAX_STEERING = DEBUG_STEERING
 
-return_location_0 = {'x': 1, 'y': 7, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
+return_location_0 = {'x': 1, 'y': 7}
  
 print "packages imported"
 
@@ -154,16 +154,16 @@ def debugYawDrift():
             time.sleep(DEBUG_TIMEPERIOD)
             
 def squareDemo():
-    square_target_1 = {'x': 1, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
-    square_target_2 = {'x': 1, 'y': 1, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
-    square_target_3 = {'x': 0, 'y': 1, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
+    square_target_1 = {'x': 1, 'y': 0}
+    square_target_2 = {'x': 1, 'y': 1}
+    square_target_3 = {'x': 0, 'y': 1}
     TargetThread.addTarget(square_target_1)
     TargetThread.addTarget(square_target_2)
     TargetThread.addTarget(square_target_3)
     TargetThread.addTarget(ORIGIN)
     
 def targetDemo():
-    test_target_1 = {'x': 2, 'y': 7, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
+    test_target_1 = {'x': 2, 'y': 7}
     TargetThread.addTarget(test_target_1)
 
 def getCubeDemo():
