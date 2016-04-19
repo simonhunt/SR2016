@@ -13,6 +13,7 @@ import target
 import servos
 import power
 import method
+import store
 
 from limits import mapToLimits
 from actions import *
@@ -133,6 +134,9 @@ print "TargetThread started"
 
 ServoThread.start()
 print "ServoThread started"
+
+Store = store.StoreManager(R.zone)
+print "StoreManager setup"
 
 #Signal that the robot has successfully started!
 power.signalGood(R.power)
