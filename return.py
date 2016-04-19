@@ -1,3 +1,5 @@
+MAX_CUBES_STORED = 4
+
 ZONE_0_STORE_LOCATION_0 = {'x': 0.5, 'y': 7.5}
 ZONE_0_STORE_LOCATION_1 = {'x': 1, 'y': 7.5}
 ZONE_0_STORE_LOCATION_2 = {'x': 0.5, 'y': 7}
@@ -40,6 +42,25 @@ RETURN_LOCATIONS = [ZONE_0_RETURN_LOCATIONS, ZONE_1_RETURN_LOCATIONS, ZONE_2_RET
 class ReturnManager():
     
     def __innit__(self, zone):
-        self.return_locations =
+        self.store_locations = STORE_LOCATIONS[zone]
+        self.return_locations = RETURN_LOCATIONS[zone]
+        self.cubes_stored = 0
         
+    def getReturnLocation():
+        
+        if (self.cubes_stored == MAX_CUBES_STORED):
+            return None
+        
+        else:
+            return_location = self.return_locations[self.cubes_stored]
+            return return_location
+        
+    def getStoreLocations():
+        if (self.cubes_stored == MAX_CUBES_STORED):
+            return None
+        
+        else:
+            store_location = self.store_locations[self.cubes_stored]
+            self.cubes_stored += 1
+            return store_location
         
