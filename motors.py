@@ -97,5 +97,5 @@ class MotorHandler():
         return self.update()
         
     def debug(self):
-        print self.name + ": desired_speed = " + str(self.desired_speed) + ", speed = " + str(self.speed) + ", desired_steering = " + str(self.desired_steering) + ", steering = " + str(self.steering) + ", left_power = " + str(self.left_power) + ", right_power = " + str(self.right_power)
+        print self.name + ": desired_speed = " + str(self.desired_speed) + ", speed = " + str(self.speed) + ", desired_steering = " + str(self.desired_steering) + ", steering = " + str(self.steering) + ", LeftMotor.power = " + str(self.LeftMotor.power) + ", RightMotor.power = " + str(self.RightMotor.power)
         
