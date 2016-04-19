@@ -228,7 +228,11 @@ def testArms():
         ServoThread.addSequence(TEST_SEQUENCE_180)
         time.sleep(30)
 
-time.sleep(30)
+time.sleep(10)
+
+MotionThread.setAction(TURN_TO, - 45)
+
+time.sleep(10)
 
 power.signalGood(R.power)
 
