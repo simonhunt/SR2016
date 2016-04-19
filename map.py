@@ -11,8 +11,8 @@ TOKEN_WIDTH = 0.25
 
 ROBOT_TO_CAMERA_VECTOR = {'alpha': 0, 'beta': 0, 'gamma': 0} #alpha forwards, beta left to right, gamma up
 ROBOT_TO_CAMERA_YAW = 0
-ROBOT_TO_CAMERA_PITCH = 0 # -15.6 #deg
-ROBOT_TO_CAMERA_ROLL = 0 #1.4 #deg
+ROBOT_TO_CAMERA_PITCH = -15.6 #deg
+ROBOT_TO_CAMERA_ROLL = 1.4 #deg
 
 ZONE_0_INITIAL_CAMERA_LOCATION = {'x': 1, 'y': 7, 'z': 0.125, 'yaw': -45, 'pitch': 0, 'roll': 0, 'time': None}
 ZONE_1_INITIAL_CAMERA_LOCATION = {'x': 7, 'y': 7, 'z': 0.125, 'yaw': -135, 'pitch': 0, 'roll': 0, 'time': None}
