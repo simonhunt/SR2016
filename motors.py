@@ -65,14 +65,11 @@ class MotorHandler():
             self.speed = accelerationRestrictor(dt, self.last_speed, self.desired_speed, MAX_SPEED_ACCEL)
             self.steering = accelerationRestrictor(dt, self.last_steering, self.desired_steering, MAX_STEERING_ACCEL)
             
-            left_power = mapToLimits((self.speed - self.steering), MAX_OUTPUT, MIN_OUTPUT)
-            right_power = mapToLimits((self.speed + self.steering), MAX_OUTPUT, MIN_OUTPUT)
+            left_power = powerDeadzoneHandler(self.speed - self.steering)
+            right_power = powerDeadzoneHandler(self.speed + self.steering)
             
-            self.left_power = powerDeadzoneHandler(left_power)
-            self.right_power = powerDeadzoneHandler(right_power)
-            
-            self.LeftMotor.power = int(self.left_power)
-            self.RightMotor.power = int(self.right_power)
+            self.LeftMotor.power = int(mapToLimits(left_power, MAX_OUTPUT, MIN_OUTPUT))
+            self.RightMotor.power = int(mapToLimits(right_power, MAX_OUTPUT, MIN_OUTPUT))
             
             self.last_speed = self.speed
             self.last_steering = self.steering
