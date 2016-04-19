@@ -41,11 +41,12 @@ DEBUG_STEERING = 0
 # MAX_SPEED = 80
 # MIN_SPEED = 0
 
+ORIGIN = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
+
 if (DEBUG_YAW_DRIFT == True):
     YAW_DRIFT = DEBUG_TEST_DRIFT
     MAX_STEERING = DEBUG_STEERING
 
-ORIGIN = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
 return_location_0 = {'x': 1, 'y': 7, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
  
 print "packages imported"
