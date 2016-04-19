@@ -1,5 +1,7 @@
 import math
 import cmath
+import copy
+
 from turn import getTurns, getTeamScoring
 from sr.robot import MARKER_TOKEN_SIDE, MARKER_TOKEN_BOTTOM, MARKER_TOKEN_TOP, MARKER_ARENA, MARKER_ROBOT, NET_A, NET_B, NET_C
 from limits import mapToLimits, angleMod
@@ -289,7 +291,7 @@ def objectLocationFromObjectMarker(object_marker, camera_location, current_time,
 ################################################################################################################
  
 def cameraLocationFromRobotLocation(robot_location):
-    camera_location = robot_location
+    camera_location = copy.deepcopy(robot_location)
     vector = getRobotLocationToCameraLocationVector(robot_location)
     camera_location['x'] += vector['x']
     camera_location['y'] += vector['y']
@@ -307,7 +309,7 @@ def getRobotLocationToCameraLocationVector(robot_location):
     return vector
     
 def robotLocationFromCameraLocation(camera_location):
-    robot_location = camera_location
+    robot_location = copy.deepcopy(camera_location)
     robot_location['yaw'] -= ROBOT_TO_CAMERA_YAW
     robot_location['pitch'] -= ROBOT_TO_CAMERA_PITCH
     robot_location['roll'] -= ROBOT_TO_CAMERA_ROLL
