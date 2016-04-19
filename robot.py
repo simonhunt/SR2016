@@ -157,6 +157,11 @@ def squareDemo():
     TargetThread.addTarget(square_target_2)
     TargetThread.addTarget(square_target_3)
     TargetThread.addTarget(origin)
+    
+def targetDemo():
+    test_target_1 = {'x': 2, 'y': 7, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
+    TargetThread.addTarget(square_target_1)
+    TargetThread.addTarget(origin)
 
 def getCubeDemo():
     return_location = origin
