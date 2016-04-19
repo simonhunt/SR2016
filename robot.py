@@ -1,34 +1,5 @@
 print "Main thread started"
 
-DEBUG_YAW_DRIFT = False
-DEBUG_TEST_DRIFT = 0
-DEBUG_TIMEPERIOD = 5
-DEBUG_SPEED = 0
-DEBUG_STEERING = 0
-
-YAW_DRIFT = 0.00417 #degrees per second 
-YKP = 3
-YKI = 2
-YKD = 3
-Y_I_LIMIT = 10
-SKP = 250
-SKI = 0
-SKD = 0
-S_I_LIMIT = 0
-MAX_STEERING = 80
-MAX_SPEED = 80
-MIN_SPEED = 0
-
-if (DEBUG_YAW_DRIFT == True):
-    YAW_DRIFT = DEBUG_TEST_DRIFT
-    MAX_STEERING = DEBUG_STEERING
-
-from sr.robot import *
-
-from limits import mapToLimits
-from actions import *
-from positions import *
-
 import time
 
 import ruggeduino
@@ -43,7 +14,38 @@ import servos
 import power
 import method
 
-origin = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
+from limits import mapToLimits
+from actions import *
+from positions import *
+
+from robot_1 import YAW_DRIFT, YKP, YKI, YKD, Y_I_LIMIT, SKP, SKI, SKD, S_I_LIMIT, MAX_STEERING, MAX_SPEED, MIN_SPEED
+
+from sr.robot import *
+
+DEBUG_YAW_DRIFT = False
+DEBUG_TEST_DRIFT = 0
+DEBUG_TIMEPERIOD = 5
+DEBUG_SPEED = 0
+DEBUG_STEERING = 0
+
+# YAW_DRIFT = 0.00417 #degrees per second 
+# YKP = 3
+# YKI = 2
+# YKD = 3
+# Y_I_LIMIT = 10
+# SKP = 250
+# SKI = 0
+# SKD = 0
+# S_I_LIMIT = 0
+# MAX_STEERING = 80
+# MAX_SPEED = 80
+# MIN_SPEED = 0
+
+if (DEBUG_YAW_DRIFT == True):
+    YAW_DRIFT = DEBUG_TEST_DRIFT
+    MAX_STEERING = DEBUG_STEERING
+
+ORIGIN = {'x': 0, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
 return_location_0 = {'x': 1, 'y': 7, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
  
 print "packages imported"
@@ -157,14 +159,14 @@ def squareDemo():
     TargetThread.addTarget(square_target_1)
     TargetThread.addTarget(square_target_2)
     TargetThread.addTarget(square_target_3)
-    TargetThread.addTarget(origin)
+    TargetThread.addTarget(ORIGIN)
     
 def targetDemo():
     test_target_1 = {'x': 2, 'y': 7, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
     TargetThread.addTarget(test_target_1)
 
 def getCubeDemo():
-    return_location = origin
+    return_location = ORIGIN
     current_time = time.time()
     
     while ((len(MapThread.a_cube_locations) == 0) and (len(MapThread.b_cube_locations) == 0) and (len(MapThread.c_cube_locations) == 0)):
