@@ -231,7 +231,7 @@ time.sleep(30)
 
 power.signalGood(R.power)
 
-#getCubeDemo()
+targetDemo()
     
 print "Main thread exited"
 
