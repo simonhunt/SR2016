@@ -234,6 +234,10 @@ MotionThread.setAction(TURN_TO, - 45)
 
 time.sleep(10)
 
+MotionThread.setAction(STILL)
+
+time.sleep(5)
+
 power.signalGood(R.power)
 
 getCubeDemo()
