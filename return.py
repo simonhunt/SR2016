@@ -46,7 +46,7 @@ class ReturnManager():
         self.return_locations = RETURN_LOCATIONS[zone]
         self.cubes_stored = 0
         
-    def getReturnLocation():
+    def getReturnLocation(self):
         
         if (self.cubes_stored == MAX_CUBES_STORED):
             return None
@@ -55,7 +55,7 @@ class ReturnManager():
             return_location = self.return_locations[self.cubes_stored]
             return return_location
         
-    def getStoreLocations():
+    def getStoreLocations(self):
         if (self.cubes_stored == MAX_CUBES_STORED):
             return None
         
