@@ -8,20 +8,20 @@ from limits import angleMod, mapToLimits
 from actions import *
 from debug import DEBUG_MOTION, DEBUG_Y, DEBUG_S, DEBUG_M
 
-MOVE_CHANGE = 5
+from robot_1 import INITIAL_MPU_YAW_OFFSET, WHEEL_BASE
 
 SAMPLE_SIZE = 40
 SAMPLE_TIMEPERIOD = 0.1 #seconds
 MAX_YAW_SAMPLE_RANGE = 0.05 #degrees
 
-INITIAL_MPU_YAW_OFFSET = 9 #degrees   
+# INITIAL_MPU_YAW_OFFSET = 9 #degrees   
 INITIAL_ROBOT_ACTION = STILL
 INITIAL_ROBOT_ACTION_VALUE_1 = 0
 INITIAL_ROBOT_ACTION_VALUE_2 = 0
 
 DEFAULT_ROBOT_LOCATION = None
 
-WHEEL_BASE = 0.33 #meters
+# WHEEL_BASE = 0.33 #meters
 
 class MotorHandlerPlaceholder():
     
