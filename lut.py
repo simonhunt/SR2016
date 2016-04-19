@@ -90,6 +90,8 @@ C0 = [C0a, C0b, C0c, C0d]
 C1 = [C1a, C1b, C1c, C1d]
 C2 = [C2a, C2b, C2c, C2d]
 C3 = [C3a, C3b, C3c, C3d]
+C4 = [C4a, C4b, C4c, C4d]
+C5 = [C5a, C5b, C5c, C5d]
 C = [C0, C1, C2, C3]
 
 TURN_TABLE = [A, B, C]
