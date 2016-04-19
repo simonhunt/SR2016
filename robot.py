@@ -170,8 +170,6 @@ def getCubeDemo():
     while ((len(MapThread.a_cube_locations) == 0) and (len(MapThread.b_cube_locations) == 0) and (len(MapThread.c_cube_locations) == 0)):
         time.sleep(1)
     
-    time.sleep(1)
-    
     while (True):
         
         if ((len(MapThread.a_cube_locations) != 0) or (len(MapThread.b_cube_locations) != 0) or (len(MapThread.c_cube_locations) != 0)):        
@@ -183,12 +181,12 @@ def getCubeDemo():
     
     print "setting turn_location: " + str(cube_approach_path['approach_location'])
     
-    time.sleep(15)
+    time.sleep(5)
     
     MotionThread.setAction(TURN_TO, cube_approach_path['approach_location']['yaw'])
     power.signalActivity(R.power)
     
-    time.sleep(15)
+    time.sleep(5)
     
     ServoThread.setPosition(ARMS_WIDE_ZERO)
     TargetThread.addTarget(cube_approach_path['cube_location'])
@@ -196,7 +194,7 @@ def getCubeDemo():
     
     print "setting cube_to_approach: " + str(cube_approach_path)
         
-    time.sleep(15)
+    time.sleep(5)
     
     if (cube_approach_path['approach_location']['degrees'] == 90):
         ServoThread.setSequence(TEST_SEQUENCE_90)
@@ -228,13 +226,9 @@ def testArms():
         ServoThread.addSequence(TEST_SEQUENCE_180)
         time.sleep(30)
 
-time.sleep(10)
+time.sleep(5)
 
 MotionThread.setAction(TURN_TO, - 45)
-
-time.sleep(10)
-
-MotionThread.setAction(STILL)
 
 time.sleep(5)
 
