@@ -279,7 +279,7 @@ def objectLocationFromObjectMarker(object_marker, camera_location, current_time,
                 approach_locations.append(approach_location) 
             i += 1
         
-        print "approach locations: " + str(approach_locations) + ", with (net, roll, code, zone) = " + str(net, roll, code, zone) 
+        print "approach locations: " + str(approach_locations) + ", with (net, roll, code, zone) = (" + str(net) + ", " + str(roll) + ", "+ str(code) + ", " + str(zone) + ")" 
         
         object_location['approach'] = approach_locations
         
