@@ -1,18 +1,21 @@
-MOTOR_BOARD = 0
+# MOTOR_BOARD = 0
 
-MAX_STEERING = 160
-MIN_STEERING = - 160
-MAX_SPEED = 80
-MIN_SPEED = - 80
-MAX_OUTPUT = 80
-MIN_OUTPUT = - 80
-MAX_STEERING_ACCEL = 50 #units %/sec
-MAX_SPEED_ACCEL = 100 #units %/sec
-LINEAR_POWER_POINT = 20
-MIN_LINEAR_POWER = 20
+# MAX_STEERING = 160
+# MIN_STEERING = - 160
+# MAX_SPEED = 80
+# MIN_SPEED = - 80
+# MAX_OUTPUT = 100
+# MIN_OUTPUT = - 100
+# MAX_STEERING_ACCEL = 50 #units %/sec
+# MAX_SPEED_ACCEL = 100 #units %/sec
+# LINEAR_POWER_POINT = 20
+# MIN_LINEAR_POWER = 20
 
 import time
+
 from limits import mapToLimits
+
+from robot_1 import MOTOR_BOARD, MAX_STEERING, MIN_STEERING, MAX_SPEED, MIN_SPEED, MAX_OUTPUT, MIN_OUTPUT, MAX_STEERING_ACCEL, MAX_SPEED_ACCEL, LINEAR_POWER_POINT, MIN_LINEAR_POWER
 
 def accelerationRestrictor(dt, last_value, desired_value, max_accel):
     max_change = dt * max_accel
