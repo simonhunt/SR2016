@@ -92,6 +92,8 @@ def getTurns(net, roll, code, zone):
         net_index = 0 
         side_index = code - 34 
     
+    if (side_index < 0):
+        side_index += 6
     
     zone_index = zone
     
