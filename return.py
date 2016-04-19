@@ -56,6 +56,7 @@ class ReturnManager():
             return return_location
         
     def getStoreLocations(self):
+        
         if (self.cubes_stored == MAX_CUBES_STORED):
             return None
         
