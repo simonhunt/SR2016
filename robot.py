@@ -150,12 +150,12 @@ def debugYawDrift():
             time.sleep(DEBUG_TIMEPERIOD)
             
 def squareDemo():
-    test_target_1 = {'x': 1, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
-    test_target_2 = {'x': 1, 'y': 1, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
-    test_target_3 = {'x': 0, 'y': 1, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
-    TargetThread.addTarget(test_target_1)
-    TargetThread.addTarget(test_target_2)
-    TargetThread.addTarget(test_target_3)
+    square_target_1 = {'x': 1, 'y': 0, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
+    square_target_2 = {'x': 1, 'y': 1, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
+    square_target_3 = {'x': 0, 'y': 1, 'z': 0, 'yaw': 0, 'pitch': 0, 'roll': 0}
+    TargetThread.addTarget(square_target_1)
+    TargetThread.addTarget(square_target_2)
+    TargetThread.addTarget(square_target_3)
     TargetThread.addTarget(origin)
 
 def getCubeDemo():
@@ -227,7 +227,7 @@ time.sleep(30)
 
 power.signalGood(R.power)
 
-getCubeDemo()
+#getCubeDemo()
     
 print "Main thread exited"
 
