@@ -1,5 +1,10 @@
 #actions
 
+#custom_ruggeduino
+
+WHEEL_RADIUS = 0.04875 #0.04826 #0.05134
+ENCODER_RESOLUTION = 96
+
 #debug
 
 #limits
@@ -76,11 +81,6 @@ S_I_LIMIT = 0
 #MAX_STEERING = 80
 #MAX_SPEED = 80
 #MIN_SPEED = 0
-
-#ruggeduino
-
-WHEEL_RADIUS = 0.04875 #0.04826 #0.05134
-ENCODER_RESOLUTION = 96
 
 #servos
 
