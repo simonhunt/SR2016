@@ -1,7 +1,7 @@
 import threading
 import time
 
-import power
+import noise
 
 from limits import mapToLimits
 from positions import *
@@ -37,11 +37,11 @@ from robot_1 import SERVO_BOARD, LEFT_ROTATE_PIN, LEFT_ROTATE_DIRECTION, LEFT_RO
 
 class ServoThread(threading.Thread):
     
-    def __init__(self, servos, power, position_timeperiod = 0.1, move_timeperiod = 0.01): # default 10hz postition, 100hz move    
+    def __init__(self, servos, noise, position_timeperiod = 0.1, move_timeperiod = 0.01): # default 10hz postition, 100hz move    
         threading.Thread.__init__(self)
         self.name = "ServoThread"
         self.servos = servos
-        self.power = power
+        self.noise = noise
         self.position_timeperiod = position_timeperiod
         self.move_timeperiod = move_timeperiod
         
@@ -91,7 +91,7 @@ class ServoThread(threading.Thread):
             self.sequence.extend(new_sequence)
         
     def moveTo(self, new_position):
-        power.signalServo(self.power)
+        noise.signalServo(self.noise)
         
         start_rotate = self.position['rotate']
         start_lift = self.position['lift']
