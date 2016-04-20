@@ -65,7 +65,7 @@ class TargetThread(threading.Thread):
         with self.path_lock:
             
             if (len(self.path) != 0):
-                self.target = self.path.pop(0)
+                self.target = self.path.pop(0)  #return first item in array and remove it from array
             
         if (self.target != None):
             
