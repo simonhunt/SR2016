@@ -2,7 +2,7 @@ print "Main thread started"
 
 import time
 
-import ruggeduino
+import custom_ruggeduino
 import pid
 import motors
 import map
@@ -56,18 +56,18 @@ R = Robot.setup()
 print "Robot.setup ran"
 
 # Register the custom class with the Robot object
-R.ruggeduino_set_handler_by_fwver("SRcustom", ruggeduino.MpuSonarEncoderRuggeduino)
+R.ruggeduino_set_handler_by_fwver("SRcustom", custom_ruggeduino.MpuSonarEncoderRuggeduino)
 print "Ruggeduino handler ran"
 
 R.init()
 print "R.init ran"
 
 # MPU Handler
-D = ruggeduino.MpuHandler(R.ruggeduinos[0], YAW_DRIFT)
+D = custom_ruggeduino.MpuHandler(R.ruggeduinos[0], YAW_DRIFT)
 print "MpuHandler initialised"
 
 # Encoder Handler
-E = ruggeduino.EncoderHandler(R.ruggeduinos[0])
+E = custom_ruggeduino.EncoderHandler(R.ruggeduinos[0])
 print "EncoderHandler initialised"
 
 # Yaw PID
