@@ -63,9 +63,13 @@ INITIAL_MPU_YAW_OFFSET = 9 #degrees
 
 WHEEL_BASE = 0.33 #meters
 
+#noise
+
 #pid
 
 #polar
+
+#positions
 
 #robot
 
