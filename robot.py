@@ -169,6 +169,18 @@ def squareDemo():
 def targetDemo():
     test_target_1 = {'x': 2, 'y': 7}
     TargetThread.addTarget(test_target_1)
+    
+def storeCubeDemo(cubes_stored = 0):
+    store_target_1 = {'x': 2, 'y': 7}
+    i = 0
+    while (i <= cubes_stored):
+        i++
+        return_location = StoreManager.getReturnLocation()
+        store_location = StoreManager.getStoreLocation()
+    TargetThread.addTarget(store_target_1) 
+    TargetThread.addTarget(return_location)
+    TargetThread.addTarget(store_location)
+    
 
 def getCubeDemo():
     return_location = StoreManager.getReturnLocation()
