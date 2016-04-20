@@ -5,7 +5,7 @@ import threading
 import polar
 import noise
 
-from limits import mapToLimits
+from limits import mapToLimits, angleMod
 from actions import *
 from debug import DEBUG_TARGET
 
@@ -25,6 +25,7 @@ class TargetThread(threading.Thread):
         self.path = []
         self.target = None
         self.polar_r = None
+        self.scaled_polar_r = None
         self.polar_t = None
         self.emergency_stop = False 
         
@@ -57,6 +58,8 @@ class TargetThread(threading.Thread):
         robot_location = self.MotionThread.robot_location ##needs attention
         self.polar_r = polar.getPolarR(robot_location, self.target)
         self.polar_t = polar.getPolarT(robot_location, self.target)
+        d_theta = angleMod(self.polar_t - robot_location['yaw'])
+        self.scaled_polar_r = math.cos(math.radians(d_theta)) * self.polar_r
     
     def processNextTarget(self):
         
@@ -98,14 +101,13 @@ class TargetThread(threading.Thread):
         while ((self.checkEmergencyStop() == False) and (self.checkIfTargetReached() == False)):
             time.sleep(self.move_timeperiod) 
             self.calculatePolar() 
-            self.MotionThread.addAction(MOVE_AND_TURN_TO_CHANGE, self.polar_r, self.polar_t)
+            self.MotionThread.addAction(MOVE_AND_TURN_TO_CHANGE, self.scaled_polar_r, self.polar_t)
             
     def setupMoveToTarget(self):
         
         if (self.checkEmergencyStop() == False):
             self.calculatePolar()
-            self.MotionThread.setAction(MOVE_AND_TURN_TO, self.polar_r, self.polar_t)
-            
+            self.MotionThread.setAction(MOVE_AND_TURN_TO, self.scaled_polar_r, self.polar_t)
             
     def run(self):
         print "Starting " + self.name
@@ -151,5 +153,5 @@ class TargetThread(threading.Thread):
             print self.name
             print "target = " + str(self.target)
             print "len(path) = " + str(len(self.path))
-            print "polar_r = " + str(self.polar_r) + ", polar_t = " + str(self.polar_t)
+            print "polar_r = " + str(self.polar_r) + ", polar_t = " + str(self.polar_t) + ", scaled_polar_r = " + str(self.scaled_polar_r)
             
