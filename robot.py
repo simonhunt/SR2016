@@ -173,8 +173,9 @@ def targetDemo():
 def storeCubeDemo(cubes_stored = 0):
     store_target_1 = {'x': 2, 'y': 7}
     i = 0
+    
     while (i <= cubes_stored):
-        i++
+        i += 1
         return_location = StoreManager.getReturnLocation()
         store_location = StoreManager.getStoreLocation()
     TargetThread.addTarget(store_target_1) 
