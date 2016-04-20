@@ -224,16 +224,16 @@ def getCorner(cube_location): #https://www.studentrobotics.org/resources/2016/ru
     
     corner = None
     
-    if (y > (5.875 + x)):
+    if (y > (6 - (CUBE_WIDTH / 2) + x)):
         corner = 0
     
-    elif (y > (13.875 - x)):
+    elif (y > (14 - (CUBE_WIDTH / 2) - x)):
         corner = 1
     
-    elif (y < (-5.875 + x)):
+    elif (y < (- 6 + (CUBE_WIDTH / 2) + x)):
         corner = 2
         
-    elif (y < (2.125 - x)):
+    elif (y < (2 + (CUBE_WIDTH / 2) - x)):
         corner = 3
         
     return corner 
