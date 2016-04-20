@@ -11,7 +11,7 @@ import map_thread
 import debug
 import target
 import servos
-import power
+import noise
 import method
 import store
 
@@ -101,7 +101,7 @@ DebugThread = debug.DebugThread((MotionThread, MapThread, TargetThread, ServoThr
 print "DebugThread setup"
 
 #Signal that the start button is ready to be pressed by making a sound
-power.signalReady(R.power)
+noise.signalReady(R.power)
 print "signalReady ran"
 
 # Wait for start button press
@@ -139,7 +139,7 @@ Store = store.StoreManager(R.zone)
 print "StoreManager setup"
 
 #Signal that the robot has successfully started!
-power.signalGood(R.power)
+noise.signalGood(R.power)
 print "signalGood ran"
 
 # Functions
@@ -184,20 +184,20 @@ def getCubeDemo():
             break
     
     TargetThread.addTarget(cube_approach_path['approach_location'])
-    power.signalActivity(R.power)
+    noise.signalActivity(R.power)
     
     print "setting turn_location: " + str(cube_approach_path['approach_location'])
     
     time.sleep(5)
     
     MotionThread.setAction(TURN_TO, cube_approach_path['approach_location']['yaw'])
-    power.signalActivity(R.power)
+    noise.signalActivity(R.power)
     
     time.sleep(5)
     
     ServoThread.setPosition(ARMS_WIDE_ZERO)
     TargetThread.addTarget(cube_approach_path['cube_location'])
-    power.signalActivity(R.power)
+    noise.signalActivity(R.power)
     
     print "setting cube_to_approach: " + str(cube_approach_path)
         
@@ -214,13 +214,13 @@ def getCubeDemo():
     
     else: #  (cube_to_approach['approach_location']['degrees'] = 180)
         ServoThread.setSequence(TEST_SEQUENCE_180)
-    power.signalActivity(R.power)
+    noise.signalActivity(R.power)
         
     print "turning with degrees = " + str(cube_approach_path['approach_location']['degrees'])
         
     time.sleep(5)
     TargetThread.addTarget(return_location_0)
-    power.signalActivity(R.power)
+    noise.signalActivity(R.power)
 
 def testArms():
     while (True):
@@ -239,7 +239,7 @@ MotionThread.setAction(TURN_TO, - 45)
 
 time.sleep(5)
 
-power.signalGood(R.power)
+noise.signalGood(R.power)
 
 getCubeDemo()
     
