@@ -2,7 +2,7 @@ import threading
 import time
 import math
 
-import power
+import noise
 
 from limits import angleMod, mapToLimits
 from actions import *
@@ -120,14 +120,14 @@ class MotionThread(threading.Thread):
                     self.Y.stop()
                     self.S.stop()
                     print "New Action: STILL"
-                    power.signalAction(self.power)
+                    noise.signalAction(self.power)
                 
                 elif (action == TURN):
                     self.Y.restart()
                     self.desired_yaw = self.yaw + action_value_1
                     self.S.stop() 
                     print "New Action: TURN, with value = " + str(action_value_1)
-                    power.signalAction(self.power)
+                    noise.signalAction(self.power)
                 
                 elif (action == TURN_CHANGE):
                     self.desired_yaw = self.yaw + action_value_1
@@ -138,7 +138,7 @@ class MotionThread(threading.Thread):
                     self.desired_yaw = action_value_1
                     self.S.stop() 
                     print "New Action: TURN_TO, with value = " + str(action_value_1)
-                    power.signalAction(self.power)
+                    noise.signalAction(self.power)
                 
                 elif (action == TURN_TO_CHANGE):
                     self.desired_yaw = action_value_1
@@ -150,7 +150,7 @@ class MotionThread(threading.Thread):
                     self.desired_distance = self.distance + action_value_1
                     self.S.setSetpoint(self.desired_distance)
                     print "New Action: MOVE, with value = " + str(action_value_1)
-                    power.signalAction(self.power)
+                    noise.signalAction(self.power)
                     
                 elif (action == MOVE_CHANGE):
                     self.desired_distance = self.distance + action_value_1
@@ -163,7 +163,7 @@ class MotionThread(threading.Thread):
                     self.desired_distance = action_value_1
                     self.S.setSetpoint(self.desired_distance)
                     print "New Action: MOVE_TO, with value = " + str(action_value_1)
-                    power.signalAction(self.power)
+                    noise.signalAction(self.power)
                     
                 elif (action == MOVE_TO_CHANGE):
                     self.desired_distance = action_value_1
@@ -177,7 +177,7 @@ class MotionThread(threading.Thread):
                     self.desired_distance = self.distance + action_value_1
                     self.S.setSetpoint(self.desired_distance)
                     print "New Action: MOVE_HOLD, with value = " + str(action_value_1)
-                    power.signalAction(self.power)
+                    noise.signalAction(self.power)
                 
                 elif (action == MOVE_TO_HOLD):
                     self.Y.restart()
@@ -186,7 +186,7 @@ class MotionThread(threading.Thread):
                     self.desired_distance = action_value_1
                     self.S.setSetpoint(self.desired_distance)
                     print "New Action: MOVE_TO_HOLD, with value = " + str(action_value_1)
-                    power.signalAction(self.power)
+                    noise.signalAction(self.power)
                 
                 elif (action == MOVE_AND_TURN_TO):
                     self.Y.restart()
@@ -195,7 +195,7 @@ class MotionThread(threading.Thread):
                     self.desired_distance = self.distance + action_value_1
                     self.S.setSetpoint(self.desired_distance)
                     print "New Action: MOVE_AND_TURN_TO, with value_1 = " + str(action_value_1) + ", value_2 = " + str(action_value_2)
-                    power.signalAction(self.power)
+                    noise.signalAction(self.power)
                 
                 elif (action == MOVE_AND_TURN_TO_CHANGE):
                     self.desired_yaw = action_value_2
@@ -205,7 +205,7 @@ class MotionThread(threading.Thread):
                     
                 else:
                     print "ERROR: unknown action processed in motionThread.processAction"
-                    power.signalBad(self.power)
+                    noise.signalBad(self.power)
                 
     def setRobotLocation(self, robot_location):
         
@@ -249,7 +249,7 @@ class MotionThread(threading.Thread):
               
         else: #self.D.update() == False
             print "ERROR: D returned false in Motion Thread"
-            power.signalBad(self.power)
+            noise.signalBad(self.power)
     
     def updateDistance(self):
         
@@ -260,7 +260,7 @@ class MotionThread(threading.Thread):
         
         else: #self.E.update() == False
                 print "ERROR: E returned false in Motion Thread"
-                power.signalBad(self.power)
+                noise.signalBad(self.power)
     
     def updateSensors(self):
         self.updateDistance()
@@ -276,7 +276,7 @@ class MotionThread(threading.Thread):
             
         else:
             print "ERROR: Y returned false in Motion Thread"
-            power.signalBad(self.power)
+            noise.signalBad(self.power)
         return new_steering
     
     def runDistancePid(self):
@@ -289,7 +289,7 @@ class MotionThread(threading.Thread):
             
         else:
             print "ERROR: S returned false in Motion Thread"
-            power.signalBad(self.power)
+            noise.signalBad(self.power)
         return new_speed
         
     def updateMotors(self, new_steering, new_speed):
@@ -298,11 +298,11 @@ class MotionThread(threading.Thread):
             
             if (self.M.setDesiredSpeedAndSteering(self.speed, self.steering) == False):
                 print "ERROR: speed and steering not set in MotorHandler"
-                power.signalBad(self.power)
+                noise.signalBad(self.power)
             
         else:
             print "ERROR: speed and steering not set in Motion Thread"
-            power.signalBad(self.power)
+            noise.signalBad(self.power)
         
     def calibrationCheck(self):
         
@@ -342,11 +342,11 @@ class MotionThread(threading.Thread):
         
         while (check() == False):
             print "Test failed, trying again attempts = " +str(attempts)
-            power.signalBad(self.power)
+            noise.signalBad(self.power)
             attempts += 1
             
         print "Test passed with attempts = " +str(attempts)
-        power.signalGood(self.power)
+        noise.signalGood(self.power)
         
     def prepareForStart(self, MotorHandler): #def prepareForStart(self, MotorHandler, start_robot_location):
         self.M = MotorHandler
