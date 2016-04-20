@@ -135,7 +135,7 @@ print "TargetThread started"
 ServoThread.start()
 print "ServoThread started"
 
-Store = store.StoreManager(R.zone)
+StoreManager = store.StoreManager(R.zone)
 print "StoreManager setup"
 
 #Signal that the robot has successfully started!
@@ -171,7 +171,8 @@ def targetDemo():
     TargetThread.addTarget(test_target_1)
 
 def getCubeDemo():
-    return_location = ORIGIN
+    return_location = StoreManager.getReturnLocation()
+    store_location = StoreManager.getStoreLocation()
     current_time = time.time()
     
     while ((len(MapThread.a_cube_locations) == 0) and (len(MapThread.b_cube_locations) == 0) and (len(MapThread.c_cube_locations) == 0)):
@@ -219,7 +220,8 @@ def getCubeDemo():
     print "turning with degrees = " + str(cube_approach_path['approach_location']['degrees'])
         
     time.sleep(5)
-    TargetThread.addTarget(return_location_0)
+    TargetThread.addTarget(return_location)
+    TargetThread.addTarget(store_location)
     noise.signalActivity(R.power)
 
 def testArms():
