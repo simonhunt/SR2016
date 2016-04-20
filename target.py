@@ -3,7 +3,7 @@ import math
 
 import threading
 import polar
-import power
+import noise
 
 from limits import mapToLimits
 from actions import *
@@ -86,12 +86,12 @@ class TargetThread(threading.Thread):
         
         if (self.polar_r < self.target_reached_radius):
             reached = True
-            power.signalTarget(self.power)
+            noise.signalTarget(self.power)
             
         return reached
             
     def moveToTarget(self):
-        power.signalTarget(self.power)
+        noise.signalTarget(self.power)
         
         self.setupMoveToTarget()
         
