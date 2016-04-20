@@ -58,8 +58,8 @@ class TargetThread(threading.Thread):
         robot_location = self.MotionThread.robot_location ##needs attention
         self.polar_r = polar.getPolarR(robot_location, self.target)
         self.polar_t = polar.getPolarT(robot_location, self.target)
-        d_theta = angleMod(self.polar_t - robot_location['yaw'])
-        self.scaled_polar_r = math.cos(math.radians(d_theta)) * self.polar_r
+        self.d_theta = angleMod(self.polar_t - robot_location['yaw'])
+        self.scaled_polar_r = math.cos(math.radians(self.d_theta)) * self.polar_r
     
     def processNextTarget(self):
         
@@ -69,9 +69,8 @@ class TargetThread(threading.Thread):
             
             if (len(self.path) != 0):
                 self.target = self.path.pop(0)  #return first item in array and remove it from array
-            
-        if (self.target != None):
-            
+
+        if (self.target != None):            
             self.moveToTarget()
             
     def setEmergencyStop(self, new_emergency_stop):
@@ -95,6 +94,10 @@ class TargetThread(threading.Thread):
             
     def moveToTarget(self):
         noise.signalTarget(self.power)
+        
+        self.target.get('max_d_theta', default = 180) = max_d_theta  
+        
+        self.setupTurnToTarget()
         
         self.setupMoveToTarget()
         
@@ -153,5 +156,5 @@ class TargetThread(threading.Thread):
             print self.name
             print "target = " + str(self.target)
             print "len(path) = " + str(len(self.path))
-            print "polar_r = " + str(self.polar_r) + ", polar_t = " + str(self.polar_t) + ", scaled_polar_r = " + str(self.scaled_polar_r)
+            print "polar_r = " + str(self.polar_r) + ", polar_t = " + str(self.polar_t) + ", scaled_polar_r = " + str(self.scaled_polar_r) + ", d_theta = " + str(self.d_theta)
             
