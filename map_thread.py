@@ -4,7 +4,7 @@ import time
 from sr.robot import MARKER_ARENA, MARKER_ROBOT, NET_A, NET_B, NET_C
 
 import map 
-import power
+import noise
 
 from debug import DEBUG_MAP
 
@@ -72,7 +72,7 @@ class MapThread(threading.Thread):
             
             RList = [R0, R1, R2, R3]
             
-            power.signalCamera(self.power)
+            noise.signalCamera(self.power)
             markers = self.see( res=(1280,960) )
             
             for marker in markers:
