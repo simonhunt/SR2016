@@ -41,7 +41,7 @@ RETURN_LOCATIONS = [ZONE_0_RETURN_LOCATIONS, ZONE_1_RETURN_LOCATIONS, ZONE_2_RET
 
 class StoreManager():
     
-    def __innit__(self, zone):
+    def __init__(self, zone):
         self.store_locations = STORE_LOCATIONS[zone]
         self.return_locations = RETURN_LOCATIONS[zone]
         self.cubes_stored = 0
