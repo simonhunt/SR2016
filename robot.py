@@ -171,7 +171,7 @@ def targetDemo():
     TargetThread.addTarget(test_target_1)
     
 def storeCubeDemo(cubes_stored = 0):
-    store_target_1 = {'x': 2, 'y': 7}
+    store_target_1 = {'x': 2, 'y': 6}
     i = 0
     
     while (i <= cubes_stored):
