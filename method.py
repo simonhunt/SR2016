@@ -73,6 +73,7 @@ def decideCubeApproachPath(a_cube_locations, b_cube_locations, c_cube_locations,
                 if (isApproachLocationOk(cube_approach_location, robot_locations, current_time) == True):
                     cube_approach_path = {}
                     cube_approach_path['cube_location'] = cube_location
+                    cube_approach_path['cube_location']['max_d_theta'] = CUBE_MAX_D_THETA
                     cube_approach_path['approach_location'] = cube_approach_location
                     cube_approach_path['net'] = cube_net
                     cube_approach_paths.append(cube_approach_path)
@@ -88,6 +89,7 @@ def decideCubeApproachPath(a_cube_locations, b_cube_locations, c_cube_locations,
                 if (isApproachLocationOk(cube_approach_location, robot_locations, current_time) == True):
                     cube_approach_path = {}
                     cube_approach_path['cube_location'] = cube_location
+                    cube_approach_path['cube_location']['max_d_theta'] = CUBE_MAX_D_THETA
                     cube_approach_path['approach_location'] = cube_approach_location
                     cube_approach_path['net'] = cube_net
                     cube_approach_paths.append(cube_approach_path)
