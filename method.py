@@ -28,6 +28,8 @@ MAX_PITCH_FROM_LEVEL = 10 #degrees
 # TURN_NEGATIVE_90_TIME = 1 #sec
 # TURN_TIMES = {0: TURN_ZERO_TIME, 90: TURN_90_TIME, 180: TURN_180_TIME, - 90: TURN_NEGATIVE_90_TIME}
 
+CUBE_MAX_D_THETA = 10
+
 def decideCubeToApproach(a_cube_locations, b_cube_locations, c_cube_locations):
     
     selected_cube = copy.deepcopy(a_cube_locations[0])
@@ -55,6 +57,7 @@ def decideCubeApproachPath(a_cube_locations, b_cube_locations, c_cube_locations,
                 if (isApproachLocationOk(cube_approach_location, robot_locations, current_time) == True):
                     cube_approach_path = {}
                     cube_approach_path['cube_location'] = cube_location
+                    cube_approach_path['cube_location']['max_d_theta'] = CUBE_MAX_D_THETA
                     cube_approach_path['approach_location'] = cube_approach_location
                     cube_approach_path['net'] = cube_net
                     cube_approach_paths.append(cube_approach_path)
