@@ -27,6 +27,7 @@ class TargetThread(threading.Thread):
         self.polar_r = None
         self.scaled_polar_r = None
         self.polar_t = None
+        self.d_theta = None
         self.emergency_stop = False 
         
     def clearPath(self):
