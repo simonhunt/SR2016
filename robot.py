@@ -207,6 +207,9 @@ def getCubeDemo():
     
     print "setting cube_to_approach: " + str(cube_approach_path)
     
+    while(TargetThread.target != cube_approach_path['cube_location']):
+        time.sleep(0.1)
+        
     while(TargetThread.target != None):
         time.sleep(0.1)
     
