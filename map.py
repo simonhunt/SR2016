@@ -90,6 +90,7 @@ class MarkerHandler():
     def __init__(self, current_time):
         self.current_time = current_time
         self.marker_seen = False
+        self.marker_in_range_seen = False
         self.markers = []
     
     def addMarker(self, marker):
@@ -101,6 +102,9 @@ class MarkerHandler():
         for marker in self.markers:
              if (marker.centre.polar.length > max_distance):
                  self.markers.remove(marker)
+        
+        if (len(self.markers) != 0):
+            self.marker_in_range_seen = True
 
 class ArenaMarkerHandler(MarkerHandler):
             
