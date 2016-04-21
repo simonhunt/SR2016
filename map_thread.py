@@ -8,8 +8,9 @@ import noise
 
 from debug import DEBUG_MAP
 
-MAX_CUBE_AGE = 5
+MAX_CUBE_AGE = 5 #seconds
 MAX_BLIND_TIME = 1000 #seconds
+MAX_ARENA_MARKER_DISTANCE = 3 #meters
 
 class MapThread(threading.Thread):
     
