@@ -201,38 +201,29 @@ def getCubeDemo():
     noise.signalActivity(R.power)
     
     print "setting turn_location: " + str(cube_approach_path['approach_location'])
-    
-    time.sleep(5)
-    
-    MotionThread.setAction(TURN_TO, cube_approach_path['approach_location']['yaw'])
-    noise.signalActivity(R.power)
-    
-    time.sleep(5)
-    
-    ServoThread.setPosition(ARMS_WIDE_ZERO)
+
     TargetThread.addTarget(cube_approach_path['cube_location'])
     noise.signalActivity(R.power)
     
     print "setting cube_to_approach: " + str(cube_approach_path)
         
-    time.sleep(5)
+    # time.sleep(5)
     
-    if (cube_approach_path['approach_location']['degrees'] == 90):
-        ServoThread.setSequence(TEST_SEQUENCE_90)
+    # if (cube_approach_path['approach_location']['degrees'] == 90):
+    #     ServoThread.setSequence(TEST_SEQUENCE_90)
     
-    elif (cube_approach_path['approach_location']['degrees'] == - 90):
-        ServoThread.setSequence(TEST_SEQUENCE_NEGATIVE_90)
+    # elif (cube_approach_path['approach_location']['degrees'] == - 90):
+    #     ServoThread.setSequence(TEST_SEQUENCE_NEGATIVE_90)
         
-    elif (cube_approach_path['approach_location']['degrees'] == 0):
-        ServoThread.setSequence(TEST_SEQUENCE_ZERO)
+    # elif (cube_approach_path['approach_location']['degrees'] == 0):
+    #     ServoThread.setSequence(TEST_SEQUENCE_ZERO)
     
-    else: #  (cube_to_approach['approach_location']['degrees'] = 180)
-        ServoThread.setSequence(TEST_SEQUENCE_180)
-    noise.signalActivity(R.power)
+    # else: #  (cube_to_approach['approach_location']['degrees'] = 180)
+    #     ServoThread.setSequence(TEST_SEQUENCE_180)
+    # noise.signalActivity(R.power)
         
-    print "turning with degrees = " + str(cube_approach_path['approach_location']['degrees'])
-        
-    time.sleep(5)
+    # print "turning with degrees = " + str(cube_approach_path['approach_location']['degrees'])
+    
     TargetThread.addTarget(return_location)
     TargetThread.addTarget(store_location)
     noise.signalActivity(R.power)
