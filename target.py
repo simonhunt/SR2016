@@ -70,7 +70,8 @@ class TargetThread(threading.Thread):
             if (len(self.path) != 0):
                 self.target = self.path.pop(0)  #return first item in array and remove it from array
 
-        if (self.target != None):            
+        if (self.target != None):    
+            self.turnToTarget()
             self.moveToTarget()
             
     def setEmergencyStop(self, new_emergency_stop):
@@ -83,6 +84,28 @@ class TargetThread(threading.Thread):
         with self.emergency_lock:
             return self.emergency_stop
             
+    def checkIfTurnedToTarget(self):
+        turned = False
+        
+        max_d_theta = self.target.get('max_d_theta', default = 180)
+        
+        if (abs(self.d_theta) <= max_d_theta):
+            turned = True
+            noise.signalTarget(self.power)
+            
+        return turned
+        
+    def turnToTarget(self):        
+        self.calculatePolar()
+        
+        if ((self.checkEmergencyStop() == False) and (self.checkIfTurnedToTarget() == False)):
+            self.MotionThread.setAction(TURN_TO, self.polar_t)
+            time.sleep(self.move_timeperiod)
+            
+            while ((self.checkEmergencyStop() == False) and (self.checkIfTurnedToTarget() == False)):
+                self.calculatePolar() 
+                self.MotionThread.addAction(TURN_TO_CHANGE, self.polar_t)
+            
     def checkIfTargetReached(self):
         reached = False
         
@@ -91,26 +114,19 @@ class TargetThread(threading.Thread):
             noise.signalTarget(self.power)
             
         return reached
+        
             
-    def moveToTarget(self):
-        noise.signalTarget(self.power)
+    def moveToTarget(self):        
+        self.calculatePolar()
         
-        self.target.get('max_d_theta', default = 180) = max_d_theta  
-        
-        self.setupTurnToTarget()
-        
-        self.setupMoveToTarget()
-        
-        while ((self.checkEmergencyStop() == False) and (self.checkIfTargetReached() == False)):
-            time.sleep(self.move_timeperiod) 
-            self.calculatePolar() 
-            self.MotionThread.addAction(MOVE_AND_TURN_TO_CHANGE, self.scaled_polar_r, self.polar_t)
-            
-    def setupMoveToTarget(self):
-        
-        if (self.checkEmergencyStop() == False):
-            self.calculatePolar()
+        if ((self.checkEmergencyStop() == False) and (self.checkIfTargetReached() == False)):
             self.MotionThread.setAction(MOVE_AND_TURN_TO, self.scaled_polar_r, self.polar_t)
+            time.sleep(self.move_timeperiod)
+            
+            while ((self.checkEmergencyStop() == False) and (self.checkIfTargetReached() == False)):
+                self.calculatePolar() 
+                self.MotionThread.addAction(MOVE_AND_TURN_TO_CHANGE, self.scaled_polar_r, self.polar_t)
+                time.sleep(self.move_timeperiod) 
             
     def run(self):
         print "Starting " + self.name
