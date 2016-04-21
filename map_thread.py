@@ -10,7 +10,7 @@ from debug import DEBUG_MAP
 
 MAX_CUBE_AGE = 5 #seconds
 MAX_BLIND_TIME = 1000 #seconds
-MAX_ARENA_MARKER_DISTANCE = 3 #meters
+MAX_ARENA_MARKER_DISTANCE = 2.5 #meters
 
 class MapThread(threading.Thread):
     
@@ -21,6 +21,7 @@ class MapThread(threading.Thread):
         self.a_cube_locations = []
         self.b_cube_locations = []
         self.c_cube_locations = []
+        self.ignore_arena_markers = False
         
     def prepareForStart(self, see, zone, MotionThread):
         self.zone = zone
@@ -113,9 +114,12 @@ class MapThread(threading.Thread):
                     else:
                         print "error: marker with undefined NET handled as token"
             
-            if (A.marker_seen == True):
-                self.camera_location = A.processMarkers()
-                self.setMotionThreadRobotLocation()
+            if ((A.marker_seen == True) and (self.ignore_arena_markers == False)):
+                A.filterMarkersByDistance(MAX_ARENA_MARKER_DISTANCE)
+                
+                if (A.marker_in_range_seen == True):
+                    self.camera_location = A.processMarkers()
+                    self.setMotionThreadRobotLocation()
             
             if (current_time - self.camera_location['time'] < MAX_BLIND_TIME):
                 
