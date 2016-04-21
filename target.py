@@ -87,7 +87,7 @@ class TargetThread(threading.Thread):
     def checkIfTurnedToTarget(self):
         turned = False
         
-        max_d_theta = self.target.get( key = 'max_d_theta', default = 180)
+        max_d_theta = self.target.get('max_d_theta', 180)
         
         if (abs(self.d_theta) <= max_d_theta):
             turned = True
