@@ -95,6 +95,12 @@ class MarkerHandler():
     def addMarker(self, marker):
         self.marker_seen = True
         self.markers.append(marker)
+    
+    def filterMarkersByDistance(self, max_distance):
+        
+        for marker in self.markers:
+             if (marker.centre.polar.length > max_distance):
+                 self.markers.remove(marker)
 
 class ArenaMarkerHandler(MarkerHandler):
             
