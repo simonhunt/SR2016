@@ -11,13 +11,14 @@ import map_thread
 import debug
 import target
 import servos
+import positions
 import noise
 import method
 import store
 
 from limits import mapToLimits
 from actions import *
-from positions import *
+
 
 from robot_1 import YAW_DRIFT, YKP, YKI, YKD, Y_I_LIMIT, SKP, SKI, SKD, S_I_LIMIT, MAX_STEERING, MAX_SPEED, MIN_SPEED
 
@@ -197,14 +198,16 @@ def getCubeDemo():
             cube_approach_path = method.decideCubeApproachPath(MapThread.a_cube_locations, MapThread.b_cube_locations, MapThread.c_cube_locations, return_location, MotionThread.robot_location, R.zone, MapThread.robot_locations, current_time) 
             break
     
-    arm_phases = PHASES[cube_approach_path['approach_location']['degrees']]
+    arm_phases = positions.PHASES[cube_approach_path['approach_location']['degrees']]
+    lift_time = positions.LIFT_TIMES[cube_approach_path['approach_location']['degrees']]
+    down_time = positions.DOWN_TIMES[cube_approach_path['approach_location']['degrees']]
     
-    TargetThread.addTarget(cube_approach_path['approach_location'])
+    TargetThread.setTarget(cube_approach_path['approach_location'])
     noise.signalActivity(R.power)
     
     print "setting turn_location: " + str(cube_approach_path['approach_location'])
 
-    TargetThread.addTarget(cube_approach_path['cube_location'])
+    TargetThread.setTarget(cube_approach_path['cube_location'])
     noise.signalActivity(R.power)
     
     print "setting cube_to_approach: " + str(cube_approach_path)
@@ -212,42 +215,54 @@ def getCubeDemo():
     while(TargetThread.target != cube_approach_path['cube_location']):
         time.sleep(0.1)
         
+    ServoThread.setSequence(arm_phases[0])
+        
     while(TargetThread.target != None):
         time.sleep(0.1)
     
-    arm_phases
-    
-    # if (cube_approach_path['approach_location']['degrees'] == 90):
-    #     ServoThread.setSequence(TEST_SEQUENCE_90)
-    
-    # elif (cube_approach_path['approach_location']['degrees'] == - 90):
-    #     ServoThread.setSequence(TEST_SEQUENCE_NEGATIVE_90)
-        
-    # elif (cube_approach_path['approach_location']['degrees'] == 0):
-    #     ServoThread.setSequence(TEST_SEQUENCE_ZERO)
-    
-    # else: #  (cube_to_approach['approach_location']['degrees'] = 180)
-    #     ServoThread.setSequence(TEST_SEQUENCE_180)
-    noise.signalActivity(R.power)
-    
+    ServoThread.setSequence(arm_phases[1])
+    ServoThread.addSequence(arm_phases[2])  
     print "turning with degrees = " + str(cube_approach_path['approach_location']['degrees'])
+    time.sleep(lift_time)
     
-    time.sleep(3)
+    TargetThread.setTarget(return_location)
+    print "setting return_location: " + str(return_location)
     
-    TargetThread.addTarget(return_location)
     TargetThread.addTarget(store_location)
-    noise.signalActivity(R.power)
+    print "adding store_location: " + str(store_location)
+    
+    while(TargetThread.target != store_location):
+        time.sleep(0.1)
+    
+    ServoThread.setSequence(arm_phases[3])
+    ServoThread.addSequence(arm_phases[4])
+    
+    time.sleep(down_time)
+    
+    MotionThread.setAction(MOVE_HOLD, - 1)
+    
 
 def testArms():
+    
     while (True):
-        ServoThread.addSequence(TEST_SEQUENCE_ZERO)
+        ServoThread.addSequence(positions.TEST_SEQUENCE_ZERO)
         time.sleep(10)
-        ServoThread.addSequence(TEST_SEQUENCE_90)
+        ServoThread.addSequence(positions.TEST_SEQUENCE_90)
         time.sleep(20)
-        ServoThread.addSequence(TEST_SEQUENCE_NEGATIVE_90)
+        ServoThread.addSequence(positions.TEST_SEQUENCE_NEGATIVE_90)
         time.sleep(20)
-        ServoThread.addSequence(TEST_SEQUENCE_180)
+        ServoThread.addSequence(positions.TEST_SEQUENCE_180)
         time.sleep(30)
+
+time.sleep(5)
+
+MotionThread.setAction(TURN_TO, - 45)
+
+time.sleep(10)
+
+noise.signalGood(R.power)
+
+getCubeDemo()
 
 time.sleep(5)
 
