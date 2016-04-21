@@ -69,7 +69,7 @@ class MapThread(threading.Thread):
         self.camera_angle = new_camera_angle
         
     def setMotionThreadRobotLocation(self):
-        robot_location = map.robotLocationFromCameraLocation(self.camera_location) # self.camera_location
+        robot_location = map.robotLocationFromCameraLocation(self.camera_location, self.camera_angle) # self.camera_location
         self.MotionThread.setRobotLocation(robot_location)
         
     def filterCubesByAge(self, current_time):
@@ -92,7 +92,7 @@ class MapThread(threading.Thread):
         self.changeCameraAngle()
         
         while (True):
-            self.camera_location = map.cameraLocationFromRobotLocation(self.MotionThread.robot_location) #self.MotionThread.robot_location
+            self.camera_location = map.cameraLocationFromRobotLocation(self.MotionThread.robot_location, self.camera_angle) #self.MotionThread.robot_location
             current_time = time.time()
             self.filterCubesByAge(current_time)
             
