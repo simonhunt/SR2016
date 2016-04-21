@@ -89,9 +89,10 @@ class MapThread(threading.Thread):
     def run(self):
         print "Starting " + self.name
         
-        self.changeCameraAngle()
-        
         while (True):
+            
+            self.changeCameraAngle()
+            
             self.camera_location = map.cameraLocationFromRobotLocation(self.MotionThread.robot_location, self.camera_angle) #self.MotionThread.robot_location
             current_time = time.time()
             self.filterCubesByAge(current_time)
