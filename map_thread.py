@@ -6,22 +6,34 @@ from sr.robot import MARKER_ARENA, MARKER_ROBOT, NET_A, NET_B, NET_C
 import map 
 import noise
 
+from limits import mapToLimits
 from debug import DEBUG_MAP
 
 MAX_CUBE_AGE = 5 #seconds
 MAX_BLIND_TIME = 1000 #seconds
 MAX_ARENA_MARKER_DISTANCE = 2.5 #meters
 
+#temp consts
+MAX_CAMERA_OUTPUT = 100
+MIN_CAMERA_OUTPUT = 100
+MAX_CAMERA_ANGLE = 45 #deg
+MIN_CAMERA_ANGLE = -45 #deg
+CAMERA_TURN_RATE = 200 #/sec
+
 class MapThread(threading.Thread):
     
-    def __init__(self, power):        
+    def __init__(self, camera_servo, power):        
         threading.Thread.__init__(self)
         self.name = "MapThread"
+        self.camera_servo = camera_servo
+        self.camera_angle = 0
         self.power = power
         self.a_cube_locations = []
         self.b_cube_locations = []
         self.c_cube_locations = []
         self.ignore_arena_markers = False
+        
+        self.moveCameraServo(0)
         
     def prepareForStart(self, see, zone, MotionThread):
         self.zone = zone
@@ -33,7 +45,28 @@ class MapThread(threading.Thread):
         self.camera_location = map.getInitialCameraLocation(zone, current_time)
         self.setMotionThreadRobotLocation()
         self.starting_cube_locations = map.getStartingCubeLocations(current_time)
-        self.robot_locations = map.getStartingRobotLocations(current_time)        
+        self.robot_locations = map.getStartingRobotLocations(current_time)
+        
+    def changeCameraAngle(self):
+        
+        if (self.camera_angle == 0):
+            self.moveCameraServo(45)
+        
+        elif (self.camera_angle == 45):
+            self.moveCameraServo(- 45)
+        
+        elif (self.camera_angle == - 45):
+            self.moveCameraServo(0)
+            
+        
+    def moveCameraServo(self, new_camera_angle):
+        start_output = self.camera_servo
+        new_camera_angle = mapToLimits(new_camera_angle, MAX_CAMERA_ANGLE, MIN_CAMERA_ANGLE)
+        finish_output = int(mapToLimits((new_camera_angle - MIN_CAMERA_ANGLE) * (MAX_CAMERA_OUTPUT - MIN_CAMERA_OUTPUT) / (MAX_CAMERA_ANGLE - MIN_CAMERA_ANGLE)))
+        self.camera_servo = finish_output
+        time_to_sleep = (abs(finish_output - start_output) / CAMERA_TURN_RATE)
+        time.sleep(time_to_sleep)
+        self.camera_angle = new_camera_angle
         
     def setMotionThreadRobotLocation(self):
         robot_location = map.robotLocationFromCameraLocation(self.camera_location) # self.camera_location
@@ -55,6 +88,8 @@ class MapThread(threading.Thread):
     
     def run(self):
         print "Starting " + self.name
+        
+        self.changeCameraAngle()
         
         while (True):
             self.camera_location = map.cameraLocationFromRobotLocation(self.MotionThread.robot_location) #self.MotionThread.robot_location
