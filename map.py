@@ -6,7 +6,7 @@ from turn import getTurns, getTeamScoring
 from sr.robot import MARKER_TOKEN_SIDE, MARKER_TOKEN_BOTTOM, MARKER_TOKEN_TOP, MARKER_ARENA, MARKER_ROBOT, NET_A, NET_B, NET_C
 from limits import mapToLimits, angleMod
 
-from robot_1 import ZONE_0_INITIAL_CAMERA_LOCATION, ZONE_1_INITIAL_CAMERA_LOCATION, ZONE_2_INITIAL_CAMERA_LOCATION, ZONE_3_INITIAL_CAMERA_LOCATION, ROBOT_TO_CAMERA_VECTOR, ROBOT_TO_CAMERA_YAW, ROBOT_TO_CAMERA_PITCH, ROBOT_TO_CAMERA_ROLL
+from robot_1 import ZONE_0_INITIAL_CAMERA_LOCATION, ZONE_1_INITIAL_CAMERA_LOCATION, ZONE_2_INITIAL_CAMERA_LOCATION, ZONE_3_INITIAL_CAMERA_LOCATION, ROBOT_TO_CAMERA_VECTOR, ROBOT_TO_DEFAULT_CAMERA_YAW, ROBOT_TO_CAMERA_PITCH, ROBOT_TO_CAMERA_ROLL
 
 ROBOT_WIDTH = 0.5
 TOKEN_WIDTH = 0.25
@@ -302,13 +302,14 @@ def objectLocationFromObjectMarker(object_marker, camera_location, current_time,
 ################################################################################################################
 ################################################################################################################
  
-def cameraLocationFromRobotLocation(robot_location):
+def cameraLocationFromRobotLocation(robot_location, camera_rotation = 0):
+    robot_to_camera_yaw = ROBOT_TO_DEFAULT_CAMERA_YAW + camera_rotation
     camera_location = copy.deepcopy(robot_location)
     vector = getRobotLocationToCameraLocationVector(robot_location)
     camera_location['x'] += vector['x']
     camera_location['y'] += vector['y']
     camera_location['z'] += vector['z']
-    camera_location['yaw'] += ROBOT_TO_CAMERA_YAW
+    camera_location['yaw'] += robot_to_camera_yaw
     camera_location['pitch'] += ROBOT_TO_CAMERA_PITCH
     camera_location['roll'] += ROBOT_TO_CAMERA_ROLL
     return camera_location
@@ -320,9 +321,10 @@ def getRobotLocationToCameraLocationVector(robot_location):
     vector = {'x': dx, 'y': dy, 'z': dz}
     return vector
     
-def robotLocationFromCameraLocation(camera_location):
+def robotLocationFromCameraLocation(camera_location, camera_rotation = 0):
+    robot_to_camera_yaw = ROBOT_TO_DEFAULT_CAMERA_YAW + camera_rotation
     robot_location = copy.deepcopy(camera_location)
-    robot_location['yaw'] -= ROBOT_TO_CAMERA_YAW
+    robot_location['yaw'] -= robot_to_camera_yaw
     robot_location['pitch'] -= ROBOT_TO_CAMERA_PITCH
     robot_location['roll'] -= ROBOT_TO_CAMERA_ROLL
     vector = getRobotLocationToCameraLocationVector(robot_location)
