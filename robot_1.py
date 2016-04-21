@@ -75,20 +75,20 @@ INITIALISATION = {'rotate': 0, 'lift': 0, 'grab': 0, 'time': 1}
 ARMS_UP_OUT_THE_WAY = {'rotate': 0, 'lift': 100, 'grab': - 75, 'time': 1}
 
 ARMS_WIDE_ZERO = {'rotate': 0, 'lift': - 100, 'grab': - 70, 'time': 1}
-ARMS_ON_CUBE_ZERO = {'rotate': 0, 'lift': - 100, 'grab': 35, 'time': 2}
+ARMS_ON_CUBE_ZERO = {'rotate': 0, 'lift': - 100, 'grab': 35, 'time': 1}
 LIFT_CUBE_ZERO = {'rotate': 60, 'lift': 0, 'grab': 35, 'time': 1}
 RELEASE_CUBE_ZERO = {'rotate': 60, 'lift': 0, 'grab': -20, 'time': 0.5}
 
 ARMS_WIDE_POSTIVE = {'rotate': - 100, 'lift': - 60, 'grab': - 70, 'time': 1}
-ARMS_ON_CUBE_90 = {'rotate': - 100, 'lift': - 60, 'grab': 35, 'time': 2}
-LIFT_CUBE_90 = {'rotate': - 100, 'lift': 80, 'grab': 35, 'time': 2}
+ARMS_ON_CUBE_90 = {'rotate': - 100, 'lift': - 60, 'grab': 35, 'time': 1}
+LIFT_CUBE_90 = {'rotate': - 100, 'lift': 80, 'grab': 35, 'time': 1}
 TURN_CUBE_90 = {'rotate': 100, 'lift': 80, 'grab': 35, 'time': 2}
 DOWN_CUBE_90 = {'rotate': 100, 'lift': -20, 'grab': 35, 'time': 1}
 RELEASE_CUBE_90 = {'rotate': 100, 'lift': -20, 'grab': -20, 'time': 0.5}
 
 ARMS_WIDE_NEGATIVE= {'rotate': 100, 'lift': - 50, 'grab': - 70, 'time': 1}
-ARMS_ON_CUBE_NEGATIVE_90 = {'rotate': 100, 'lift': - 50, 'grab': 35, 'time': 2}
-LIFT_CUBE_NEGATIVE_90 = {'rotate': 100, 'lift': 60, 'grab': 35, 'time': 2}
+ARMS_ON_CUBE_NEGATIVE_90 = {'rotate': 100, 'lift': - 50, 'grab': 35, 'time': 1}
+LIFT_CUBE_NEGATIVE_90 = {'rotate': 100, 'lift': 60, 'grab': 35, 'time': 1}
 TURN_CUBE_NEGATIVE_90 = {'rotate': 10, 'lift': 60, 'grab': 35, 'time': 2}
 DOWN_CUBE_NEGATIVE_90 = {'rotate': -80, 'lift': -10, 'grab': 35, 'time': 1}
 RELEASE_CUBE_NEGATIVE_90 = {'rotate': -80, 'lift': -10, 'grab': -20, 'time': 0.5}
@@ -104,7 +104,7 @@ RELEASE_CUBE_NEGATIVE_180 = {'rotate': - 100, 'lift': 0, 'grab': -20, 'time': 0.
 PREPARE_SECOND_ROTATE_NEGATIVE_180 = {'rotate': 100, 'lift': - 40, 'grab': -20, 'time': 0.5}
 ARMS_ON_CUBE_NEGATIVE_180_FAST = {'rotate': 100, 'lift': - 50, 'grab': 35, 'time': 0.5}
 
-LIFT_TIME = 3
+LIFT_TIME_INDENT = 0.5
 
 #robot
 
