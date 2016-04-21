@@ -73,6 +73,7 @@ WHEEL_BASE = 0.33 #meters
 
 INITIALISATION = {'rotate': 0, 'lift': 0, 'grab': 0, 'time': 1}
 ARMS_UP_OUT_THE_WAY = {'rotate': 0, 'lift': 100, 'grab': - 75, 'time': 1}
+ARMS_UP_OUT_THE_WAY_WAIT = {'rotate': 0, 'lift': 100, 'grab': - 75, 'time': 2}
 ARMS_CLOSED_PROTECTED = {'rotate': 0, 'lift': 100, 'grab': 40, 'time': 2}
 
 ARMS_WIDE_ZERO = {'rotate': 0, 'lift': - 100, 'grab': - 70, 'time': 1}
