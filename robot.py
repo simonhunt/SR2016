@@ -247,7 +247,7 @@ time.sleep(5)
 
 noise.signalGood(R.power)
 
-storeCubeDemo(2)
+getCubeDemo(2)
     
 print "Main thread exited"
 
