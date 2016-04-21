@@ -7,7 +7,7 @@ from limits import mapToLimits
 from positions import *
 from debug import DEBUG_SERVO
 
-from robot_1 import SERVO_BOARD, LEFT_ROTATE_PIN, LEFT_ROTATE_DIRECTION, LEFT_ROTATE_OFFSET, LEFT_LIFT_PIN, LEFT_LIFT_DIRECTION, LEFT_LIFT_OFFSET, LEFT_GRAB_PIN, LEFT_GRAB_DIRECTION, LEFT_GRAB_OFFSET, RIGHT_ROTATE_PIN, RIGHT_ROTATE_DIRECTION, RIGHT_ROTATE_OFFSET, RIGHT_LIFT_PIN, RIGHT_LIFT_DIRECTION, RIGHT_LIFT_OFFSET, RIGHT_GRAB_PIN, RIGHT_GRAB_DIRECTION, RIGHT_GRAB_OFFSET
+from robot_1 import ARMS_SERVO_BOARD, LEFT_ROTATE_PIN, LEFT_ROTATE_DIRECTION, LEFT_ROTATE_OFFSET, LEFT_LIFT_PIN, LEFT_LIFT_DIRECTION, LEFT_LIFT_OFFSET, LEFT_GRAB_PIN, LEFT_GRAB_DIRECTION, LEFT_GRAB_OFFSET, RIGHT_ROTATE_PIN, RIGHT_ROTATE_DIRECTION, RIGHT_ROTATE_OFFSET, RIGHT_LIFT_PIN, RIGHT_LIFT_DIRECTION, RIGHT_LIFT_OFFSET, RIGHT_GRAB_PIN, RIGHT_GRAB_DIRECTION, RIGHT_GRAB_OFFSET
 
 # SERVO_BOARD = 0
 
@@ -144,18 +144,18 @@ class ServoThread(threading.Thread):
     
     def setRotate(self, rotate):
         self.position['rotate'] = rotate
-        self.servos[SERVO_BOARD][LEFT_ROTATE_PIN] = int(mapToLimits((self.position['rotate'] + LEFT_ROTATE_OFFSET)  * LEFT_ROTATE_DIRECTION))
-        self.servos[SERVO_BOARD][RIGHT_ROTATE_PIN] = int(mapToLimits((self.position['rotate'] + RIGHT_ROTATE_OFFSET) * RIGHT_ROTATE_DIRECTION))
+        self.servos[ARMS_SERVO_BOARD][LEFT_ROTATE_PIN] = int(mapToLimits((self.position['rotate'] + LEFT_ROTATE_OFFSET)  * LEFT_ROTATE_DIRECTION))
+        self.servos[ARMS_SERVO_BOARD][RIGHT_ROTATE_PIN] = int(mapToLimits((self.position['rotate'] + RIGHT_ROTATE_OFFSET) * RIGHT_ROTATE_DIRECTION))
     
     def setLift(self, lift):
         self.position['lift'] = lift
-        self.servos[SERVO_BOARD][LEFT_LIFT_PIN] = int(mapToLimits((self.position['lift'] + LEFT_LIFT_OFFSET)  * LEFT_LIFT_DIRECTION))
-        self.servos[SERVO_BOARD][RIGHT_LIFT_PIN] = int(mapToLimits((self.position['lift'] + RIGHT_LIFT_OFFSET) * RIGHT_LIFT_DIRECTION))
+        self.servos[ARMS_SERVO_BOARD][LEFT_LIFT_PIN] = int(mapToLimits((self.position['lift'] + LEFT_LIFT_OFFSET)  * LEFT_LIFT_DIRECTION))
+        self.servos[ARMS_SERVO_BOARD][RIGHT_LIFT_PIN] = int(mapToLimits((self.position['lift'] + RIGHT_LIFT_OFFSET) * RIGHT_LIFT_DIRECTION))
         
     def setGrab(self, grab):
         self.position['grab'] = grab
-        self.servos[SERVO_BOARD][LEFT_GRAB_PIN] = int(mapToLimits((self.position['grab'] + LEFT_GRAB_OFFSET)  * LEFT_GRAB_DIRECTION))
-        self.servos[SERVO_BOARD][RIGHT_GRAB_PIN] = int(mapToLimits((self.position['grab'] + RIGHT_GRAB_OFFSET) * RIGHT_GRAB_DIRECTION))
+        self.servos[ARMS_SERVO_BOARD][LEFT_GRAB_PIN] = int(mapToLimits((self.position['grab'] + LEFT_GRAB_OFFSET)  * LEFT_GRAB_DIRECTION))
+        self.servos[ARMS_SERVO_BOARD][RIGHT_GRAB_PIN] = int(mapToLimits((self.position['grab'] + RIGHT_GRAB_OFFSET) * RIGHT_GRAB_DIRECTION))
     
     def run(self):
         print "Starting " + self.name
