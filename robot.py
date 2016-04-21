@@ -206,23 +206,26 @@ def getCubeDemo():
     noise.signalActivity(R.power)
     
     print "setting cube_to_approach: " + str(cube_approach_path)
-        
-    # time.sleep(5)
     
-    # if (cube_approach_path['approach_location']['degrees'] == 90):
-    #     ServoThread.setSequence(TEST_SEQUENCE_90)
+    while(TargetThread.target != None):
+        time.sleep(0.1)
     
-    # elif (cube_approach_path['approach_location']['degrees'] == - 90):
-    #     ServoThread.setSequence(TEST_SEQUENCE_NEGATIVE_90)
-        
-    # elif (cube_approach_path['approach_location']['degrees'] == 0):
-    #     ServoThread.setSequence(TEST_SEQUENCE_ZERO)
+    if (cube_approach_path['approach_location']['degrees'] == 90):
+        ServoThread.setSequence(TEST_SEQUENCE_90)
     
-    # else: #  (cube_to_approach['approach_location']['degrees'] = 180)
-    #     ServoThread.setSequence(TEST_SEQUENCE_180)
-    # noise.signalActivity(R.power)
+    elif (cube_approach_path['approach_location']['degrees'] == - 90):
+        ServoThread.setSequence(TEST_SEQUENCE_NEGATIVE_90)
         
-    # print "turning with degrees = " + str(cube_approach_path['approach_location']['degrees'])
+    elif (cube_approach_path['approach_location']['degrees'] == 0):
+        ServoThread.setSequence(TEST_SEQUENCE_ZERO)
+    
+    else: #  (cube_to_approach['approach_location']['degrees'] = 180)
+        ServoThread.setSequence(TEST_SEQUENCE_180)
+    noise.signalActivity(R.power)
+    
+    print "turning with degrees = " + str(cube_approach_path['approach_location']['degrees'])
+    
+    time.sleep(3)
     
     TargetThread.addTarget(return_location)
     TargetThread.addTarget(store_location)
