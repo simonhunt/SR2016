@@ -40,6 +40,13 @@ from robot_1 import INITIALISATION, ARMS_UP_OUT_THE_WAY, ARMS_WIDE_ZERO, ARMS_ON
 # PREPARE_SECOND_ROTATE_NEGATIVE_180 = {'rotate': 100, 'lift': - 40, 'grab': -20, 'time': 0.5}
 # ARMS_ON_CUBE_NEGATIVE_180_FAST = {'rotate': 100, 'lift': - 50, 'grab': 35, 'time': 0.5}
 
+def getSequenceTime(sequence):
+    time = 0
+    
+    for position in sequence:
+        time += position['time']
+    return time
+
 TEST_SEQUENCE_ZERO = [ARMS_WIDE_ZERO, ARMS_ON_CUBE_ZERO, LIFT_CUBE_ZERO, RELEASE_CUBE_ZERO]
 TEST_SEQUENCE_90 = [ARMS_WIDE_POSTIVE, ARMS_ON_CUBE_90, LIFT_CUBE_90, TURN_CUBE_90, DOWN_CUBE_90, RELEASE_CUBE_90, ARMS_UP_OUT_THE_WAY]
 TEST_SEQUENCE_180 = [ARMS_WIDE_POSTIVE, ARMS_ON_CUBE_90, LIFT_CUBE_90, TURN_CUBE_90, DOWN_CUBE_90, RELEASE_CUBE_90, PREPARE_SECOND_ROTATE_180, ARMS_ON_CUBE_180_FAST, LIFT_CUBE_90, TURN_CUBE_90, DOWN_CUBE_90, RELEASE_CUBE_90, ARMS_UP_OUT_THE_WAY]
@@ -89,12 +96,5 @@ DOWN_NEGATIVE_90_TIME = getSequenceTime(PHASE_3_NEGATIVE_90)
 DOWN_180_TIME = getSequenceTime(PHASE_3_180)
 
 DOWN_TIMES = {0: DOWN_ZERO_TIME, 90: DOWN_90_TIME, 180: DOWN_180_TIME, - 90: DOWN_NEGATIVE_90_TIME}
-
-def getSequenceTime(sequence):
-    time = 0
-    
-    for position in sequence:
-        time += position['time']
-    return time
     
 
