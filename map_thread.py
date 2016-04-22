@@ -36,6 +36,8 @@ class MapThread(threading.Thread):
         self.ignore_arena_markers = False
         
         self.changeCameraAngle()
+        self.changeCameraAngle()
+        self.changeCameraAngle()
         
         
     def prepareForStart(self, see, zone, MotionThread):
