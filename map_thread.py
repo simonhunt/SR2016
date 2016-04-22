@@ -16,7 +16,7 @@ MAX_ARENA_MARKER_DISTANCE = 2.5 #meters
 
 class MapThread(threading.Thread):
     
-    def __init__(self, power):        
+    def __init__(self, SteadycamThread, power):        
         threading.Thread.__init__(self)
         self.name = "MapThread"
         self.power = power
@@ -59,8 +59,6 @@ class MapThread(threading.Thread):
         print "Starting " + self.name
         
         while (True):
-            
-            self.changeCameraAngle()
             
             self.camera_location = map.cameraLocationFromRobotLocation(self.MotionThread.robot_location, self.camera_angle) #self.MotionThread.robot_location
             current_time = time.time()
