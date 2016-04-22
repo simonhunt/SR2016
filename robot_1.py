@@ -23,7 +23,6 @@ ROBOT_TO_DEFAULT_CAMERA_YAW = - 90
 ROBOT_TO_CAMERA_PITCH = - 13.6# -11 #deg
 ROBOT_TO_CAMERA_ROLL = 2 #1.7 #deg
 
-
 #map_thread
 
 #method
