@@ -52,6 +52,20 @@ class MpuSonarEncoderRuggeduino(Ruggeduino):
         with self.lock:
             steps = int(self.command('e'))
         return steps
+        
+    def setCameraServoAngle(self, desired_angle):
+        
+        units = int(desired_angle % 10)
+        tens = int((desired_angle % 100 - units) / 10)
+        hundreds = int((desired_angle - tens - units) / 100)
+        
+        hundreds_char = chr(hundreds + 97)
+        tens_char = chr(tens + 97)
+        units_char = chr(units + 97)
+        
+        with self.lock:
+            new_angle = int(self.command('t' + hundreds_char + tens_char + units_char))
+        return new_angle
 
 class EncoderHandler():
     
