@@ -18,6 +18,7 @@ MAX_ARENA_MARKER_DISTANCE = 2.5 #meters
 #temp consts
 MAX_CAMERA_OUTPUT = 100
 MIN_CAMERA_OUTPUT = 100
+MID_CAMERA_ANGLE = 6
 MAX_CAMERA_ANGLE = 60 #deg
 MIN_CAMERA_ANGLE = -43 #deg
 CAMERA_TURN_RATE = 200 #/sec
@@ -38,7 +39,9 @@ class MapThread(threading.Thread):
         self.changeCameraAngle()
         self.changeCameraAngle()
         self.changeCameraAngle()
-        
+        self.changeCameraAngle()
+        self.changeCameraAngle()
+        self.changeCameraAngle()
         
     def prepareForStart(self, see, zone, MotionThread):
         self.zone = zone
@@ -54,7 +57,7 @@ class MapThread(threading.Thread):
         
     def changeCameraAngle(self):
         
-        if (self.camera_angle == 0):
+        if (self.camera_angle == MID_CAMERA_ANGLE):
             self.servos[CAMERA_SERVO_BOARD][CAMERA_SERVO_PIN] = 100
             time.sleep(1)
             self.camera_angle = MAX_CAMERA_ANGLE
@@ -69,7 +72,7 @@ class MapThread(threading.Thread):
         elif (self.camera_angle == MIN_CAMERA_ANGLE):
             self.servos[CAMERA_SERVO_BOARD][CAMERA_SERVO_PIN] = 0
             time.sleep(1)
-            self.camera_angle = 6
+            self.camera_angle = MID_CAMERA_ANGLE
             print "changed to 0"
             
         
