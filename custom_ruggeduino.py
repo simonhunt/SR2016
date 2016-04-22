@@ -68,8 +68,9 @@ class MpuSonarEncoderRuggeduino(Ruggeduino):
         print "hundreds = " + str(hundreds) + str(hundreds_char)
         
         with self.lock:
-            new_angle = int(self.command('t' + hundreds_char + tens_char + units_char))
-        return new_angle
+            #new_angle = int(self.command('t' + hundreds_char + tens_char + units_char))
+            self.command('t' + hundreds_char + tens_char + units_char)
+        #return new_angle
 
 class EncoderHandler():
     
