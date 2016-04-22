@@ -126,9 +126,7 @@ SKP = 250
 SKI = 0
 SKD = 0
 S_I_LIMIT = 0
-#MAX_STEERING = 80
-#MAX_SPEED = 80
-#MIN_SPEED = 0
+
 
 #servos
 
