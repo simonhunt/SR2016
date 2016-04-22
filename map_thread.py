@@ -63,9 +63,11 @@ class MapThread(threading.Thread):
             
         
     def moveCameraServo(self, new_camera_angle):
+        
         start_output = self.servos[CAMERA_SERVO_BOARD][CAMERA_SERVO_PIN]
+        
         new_camera_angle = mapToLimits(new_camera_angle, MAX_CAMERA_ANGLE, MIN_CAMERA_ANGLE)
-        finish_output = int(mapToLimits((new_camera_angle - MIN_CAMERA_ANGLE) * (MAX_CAMERA_OUTPUT - MIN_CAMERA_OUTPUT) / (MAX_CAMERA_ANGLE - MIN_CAMERA_ANGLE)))
+        finish_output = int(mapToLimits((new_camera_angle - MIN_CAMERA_ANGLE) * (MAX_CAMERA_OUTPUT - MIN_CAMERA_OUTPUT) / (MAX_CAMERA_ANGLE - MIN_CAMERA_ANGLE) + MIN_CAMERA_OUTPUT))
         self.servos[CAMERA_SERVO_BOARD][CAMERA_SERVO_PIN] = finish_output
         time_to_sleep = (abs(finish_output - start_output) / CAMERA_TURN_RATE)
         time.sleep(time_to_sleep)
