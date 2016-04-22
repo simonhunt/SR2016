@@ -9,40 +9,21 @@ import noise
 from limits import mapToLimits
 from debug import DEBUG_MAP
 
-from robot_1 import CAMERA_SERVO_BOARD, CAMERA_SERVO_PIN
-
 MAX_CUBE_AGE = 5 #seconds 
 MAX_BLIND_TIME = 1000 #seconds
 MAX_ARENA_MARKER_DISTANCE = 2.5 #meters
 
-#temp consts
-MAX_CAMERA_OUTPUT = 100
-MIN_CAMERA_OUTPUT = 100
-MID_CAMERA_ANGLE = 6
-MAX_CAMERA_ANGLE = 60 #deg
-MIN_CAMERA_ANGLE = -43 #deg
-CAMERA_TURN_RATE = 200 #/sec
 
 class MapThread(threading.Thread):
     
-    def __init__(self, servos, ruggeduino, power):        
+    def __init__(self, power):        
         threading.Thread.__init__(self)
         self.name = "MapThread"
-        self.servos = servos
-        self.ruggeduino = ruggeduino
-        self.camera_angle = MID_CAMERA_ANGLE
         self.power = power
         self.a_cube_locations = []
         self.b_cube_locations = []
         self.c_cube_locations = []
         self.ignore_arena_markers = False
-        
-        self.changeCameraAngle()
-        self.changeCameraAngle()
-        self.changeCameraAngle()
-        self.changeCameraAngle()
-        self.changeCameraAngle()
-        self.changeCameraAngle()
         
     def prepareForStart(self, see, zone, MotionThread):
         self.zone = zone
@@ -55,41 +36,6 @@ class MapThread(threading.Thread):
         self.setMotionThreadRobotLocation()
         self.starting_cube_locations = map.getStartingCubeLocations(current_time)
         self.robot_locations = map.getStartingRobotLocations(current_time)
-        
-    def changeCameraAngle(self):
-        
-        if (self.camera_angle == MID_CAMERA_ANGLE):
-            self.servos[CAMERA_SERVO_BOARD][CAMERA_SERVO_PIN] = 100
-            self.ruggeduino.setCameraServoAngle(180)
-            time.sleep(0.5)
-            self.camera_angle = MAX_CAMERA_ANGLE
-            print "changed to 100"
-        
-        elif (self.camera_angle == MAX_CAMERA_ANGLE):
-            self.servos[CAMERA_SERVO_BOARD][CAMERA_SERVO_PIN] = -100
-            self.ruggeduino.setCameraServoAngle(0)
-            time.sleep(1)
-            self.camera_angle = MIN_CAMERA_ANGLE
-            print "changed to -100"
-        
-        elif (self.camera_angle == MIN_CAMERA_ANGLE):
-            self.servos[CAMERA_SERVO_BOARD][CAMERA_SERVO_PIN] = 0
-            self.ruggeduino.setCameraServoAngle(90)
-            time.sleep(0.5)
-            self.camera_angle = MID_CAMERA_ANGLE
-            print "changed to 0"
-            
-        
-    def moveCameraServo(self, new_camera_angle):
-        
-        start_output = self.servos[CAMERA_SERVO_BOARD][CAMERA_SERVO_PIN]
-        
-        new_camera_angle = mapToLimits(new_camera_angle, MAX_CAMERA_ANGLE, MIN_CAMERA_ANGLE)
-        finish_output = int(mapToLimits((new_camera_angle - MIN_CAMERA_ANGLE) * (MAX_CAMERA_OUTPUT - MIN_CAMERA_OUTPUT) / (MAX_CAMERA_ANGLE - MIN_CAMERA_ANGLE) + MIN_CAMERA_OUTPUT))
-        self.servos[CAMERA_SERVO_BOARD][CAMERA_SERVO_PIN] = finish_output
-        time_to_sleep = (abs(finish_output - start_output) / CAMERA_TURN_RATE)
-        time.sleep(time_to_sleep)
-        self.camera_angle = new_camera_angle
         
     def setMotionThreadRobotLocation(self):
         robot_location = map.robotLocationFromCameraLocation(self.camera_location, self.camera_angle) # self.camera_location
