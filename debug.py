@@ -9,7 +9,7 @@ DEBUG_M = False
 DEBUG_MAP = False
 DEBUG_TARGET = True
 DEBUG_SERVO = False
-DEBUG_STEADY_CAM = True
+DEBUG_STEADYCAM = True
 
 
 class DebugThread(threading.Thread):
