@@ -35,9 +35,7 @@ class MapThread(threading.Thread):
         self.c_cube_locations = []
         self.ignore_arena_markers = False
         
-        
-        self.servos[CAMERA_SERVO_BOARD][CAMERA_SERVO_PIN] = 100
-        print "camera_servo"
+        self.changeCameraAngle()
         
         
     def prepareForStart(self, see, zone, MotionThread):
