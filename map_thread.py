@@ -9,7 +9,7 @@ import noise
 from limits import mapToLimits
 from debug import DEBUG_MAP
 
-MAX_CUBE_AGE = 5 #seconds
+MAX_CUBE_AGE = 5 #seconds #
 MAX_BLIND_TIME = 1000 #seconds
 MAX_ARENA_MARKER_DISTANCE = 2.5 #meters
 
