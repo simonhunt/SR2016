@@ -29,7 +29,7 @@ class MapThread(threading.Thread):
         threading.Thread.__init__(self)
         self.name = "MapThread"
         self.servos = servos
-        self.camera_angle = 6
+        self.camera_angle = MID_CAMERA_ANGLE
         self.power = power
         self.a_cube_locations = []
         self.b_cube_locations = []
