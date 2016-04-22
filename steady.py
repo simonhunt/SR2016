@@ -33,7 +33,15 @@ class SteadycamThread(threading.Thread):
         self.current_pan_index = START_PAN_INDEX
         self.camera_moving_lock = threading.Lock()
         
+        self.testServo()
+        
         self.setPan()
+        
+    def testServo(self):
+        self.moveCameraServo(MAX_CAMERA_ANGLE)
+        time.sleep(1)
+        self.moveCameraServo(MIN_CAMERA_ANGLE)
+        time.sleep(1)
         
     def nextPan(self):
         self.steady_targets = None
