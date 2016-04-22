@@ -33,7 +33,7 @@ class MapThread(threading.Thread):
         self.c_cube_locations = []
         self.ignore_arena_markers = False
         
-        self.moveCameraServo(0)
+        self.moveCameraServo(45)
         
     def prepareForStart(self, see, zone, MotionThread):
         self.zone = zone
