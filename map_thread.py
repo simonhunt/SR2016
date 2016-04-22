@@ -55,13 +55,19 @@ class MapThread(threading.Thread):
     def changeCameraAngle(self):
         
         if (self.camera_angle == 0):
-            self.moveCameraServo(MAX_CAMERA_ANGLE)
+            self.servos[CAMERA_SERVO_BOARD][CAMERA_SERVO_PIN] = 100
+            time.sleep(1)
+            self.camera_angle = MAX_CAMERA_ANGLE
         
         elif (self.camera_angle == MAX_CAMERA_ANGLE):
-            self.moveCameraServo(- MIN_CAMERA_ANGLE)
+            self.servos[CAMERA_SERVO_BOARD][CAMERA_SERVO_PIN] = -100
+            time.sleep(1)
+            self.camera_angle = MIN_CAMERA_ANGLE
         
         elif (self.camera_angle == - MIN_CAMERA_ANGLE):
-            self.moveCameraServo(0)
+            self.servos[CAMERA_SERVO_BOARD][CAMERA_SERVO_PIN] = 0
+            time.sleep(1)
+            self.camera_angle = 0
             
         
     def moveCameraServo(self, new_camera_angle):
