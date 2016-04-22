@@ -35,6 +35,12 @@ class MapThread(threading.Thread):
         
         self.moveCameraServo(45)
         
+        time.sleep(1)
+        
+        self.camera_servo = 0
+        
+        
+        
     def prepareForStart(self, see, zone, MotionThread):
         self.zone = zone
         self.see = see
