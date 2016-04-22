@@ -9,6 +9,8 @@ import noise
 from limits import mapToLimits
 from debug import DEBUG_MAP
 
+from robot_1 import CAMERA_SERVO_BOARD, CAMERA_SERVO_PIN
+
 MAX_CUBE_AGE = 5 #seconds 
 MAX_BLIND_TIME = 1000 #seconds
 MAX_ARENA_MARKER_DISTANCE = 2.5 #meters
@@ -22,7 +24,7 @@ CAMERA_TURN_RATE = 200 #/sec
 
 class MapThread(threading.Thread):
     
-    def __init__(self, camera_servo, power):        
+    def __init__(self, servos, power):        
         threading.Thread.__init__(self)
         self.name = "MapThread"
         self.camera_servo = camera_servo
@@ -34,7 +36,8 @@ class MapThread(threading.Thread):
         self.ignore_arena_markers = False
         
         
-        self.camera_servo = 100
+        self.servos[CAMERA_SERVO_BOARD][CAMERA_SERVO_PIN] = 100
+        print "camera_servo"
         
         
     def prepareForStart(self, see, zone, MotionThread):
@@ -62,10 +65,10 @@ class MapThread(threading.Thread):
             
         
     def moveCameraServo(self, new_camera_angle):
-        start_output = self.camera_servo
+        start_output = self.servos[CAMERA_SERVO_BOARD][CAMERA_SERVO_PIN]
         new_camera_angle = mapToLimits(new_camera_angle, MAX_CAMERA_ANGLE, MIN_CAMERA_ANGLE)
         finish_output = int(mapToLimits((new_camera_angle - MIN_CAMERA_ANGLE) * (MAX_CAMERA_OUTPUT - MIN_CAMERA_OUTPUT) / (MAX_CAMERA_ANGLE - MIN_CAMERA_ANGLE)))
-        self.camera_servo = finish_output
+        self.servos[CAMERA_SERVO_BOARD][CAMERA_SERVO_PIN] = finish_output
         time_to_sleep = (abs(finish_output - start_output) / CAMERA_TURN_RATE)
         time.sleep(time_to_sleep)
         self.camera_angle = new_camera_angle
