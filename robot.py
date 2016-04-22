@@ -238,6 +238,9 @@ def getCubeDemo():
     
     time.sleep(down_time)
     
+    while(TargetThread.target != None):
+        time.sleep(0.1)
+    
     MotionThread.setAction(MOVE_HOLD, - 1)
     
 
