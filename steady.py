@@ -44,7 +44,7 @@ class SteadycamThread(threading.Thread):
         time.sleep(1)
         
     def nextPan(self):
-        self.steady_targets = None
+        self.steady_target = None
         self.next_pan = True
         
     def moveCameraServo(self, new_camera_angle):
