@@ -90,7 +90,7 @@ print "MotionThread setup"
 MotionThread.calibrationCheck()
 
 # Setup Map Thread
-MapThread = map_thread.MapThread(R.servos[CAMERA_SERVO_BOARD][CAMERA_SERVO_PIN], R.power)
+MapThread = map_thread.MapThread(R.servos, R.power)
 print "MapThread setup"
 
 # Setup Target Thread
