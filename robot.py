@@ -89,7 +89,7 @@ print "MotionThread setup"
 MotionThread.calibrationCheck()
 
 # Setup Map Thread
-MapThread = map_thread.MapThread(R.servos, R.power)
+MapThread = map_thread.MapThread(R.servos, R.ruggeduinos[0], R.power)
 print "MapThread setup"
 
 # Setup Target Thread
