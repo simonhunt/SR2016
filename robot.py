@@ -17,6 +17,7 @@ import positions
 import noise
 import method
 import store
+import steady
 
 from limits import mapToLimits
 from actions import *
@@ -82,6 +83,10 @@ print "DistancePID setup"
 ServoThread = servos.ServoThread(R.servos, R.power)
 print "ServoThread setup"
 
+# Setup Steadycam Thread
+SteadyThread = steady.SteadycamThread(R.ruggeduinos[0], R.power)
+print "SteadycamThread setup"
+
 # Setup Motion Thread
 MotionThread = multi.MotionThread(R.power, D, Y, S, E)
 print "MotionThread setup"
@@ -89,7 +94,7 @@ print "MotionThread setup"
 MotionThread.calibrationCheck()
 
 # Setup Map Thread
-MapThread = map_thread.MapThread(R.servos, R.ruggeduinos[0], R.power)
+MapThread = map_thread.MapThread(SteadyThread, R.power)
 print "MapThread setup"
 
 # Setup Target Thread
