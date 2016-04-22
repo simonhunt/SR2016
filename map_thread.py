@@ -18,8 +18,8 @@ MAX_ARENA_MARKER_DISTANCE = 2.5 #meters
 #temp consts
 MAX_CAMERA_OUTPUT = 100
 MIN_CAMERA_OUTPUT = 100
-MAX_CAMERA_ANGLE = 45 #deg
-MIN_CAMERA_ANGLE = -45 #deg
+MAX_CAMERA_ANGLE = 60 #deg
+MIN_CAMERA_ANGLE = -43 #deg
 CAMERA_TURN_RATE = 200 #/sec
 
 class MapThread(threading.Thread):
@@ -69,7 +69,7 @@ class MapThread(threading.Thread):
         elif (self.camera_angle == MIN_CAMERA_ANGLE):
             self.servos[CAMERA_SERVO_BOARD][CAMERA_SERVO_PIN] = 0
             time.sleep(1)
-            self.camera_angle = 0
+            self.camera_angle = 6
             print "changed to 0"
             
         
