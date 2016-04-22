@@ -19,6 +19,7 @@ class MapThread(threading.Thread):
     def __init__(self, SteadycamThread, power):        
         threading.Thread.__init__(self)
         self.name = "MapThread"
+        self.SteadycamThread = SteadycamThread
         self.power = power
         self.a_cube_locations = []
         self.b_cube_locations = []
@@ -33,12 +34,12 @@ class MapThread(threading.Thread):
         current_time = time.time()
         
         self.camera_location = map.getInitialCameraLocation(zone, current_time)
-        self.setMotionThreadRobotLocation()
+        self.setMotionThreadRobotLocation(self.SteadycamThread.camera_angle)
         self.starting_cube_locations = map.getStartingCubeLocations(current_time)
         self.robot_locations = map.getStartingRobotLocations(current_time)
         
-    def setMotionThreadRobotLocation(self):
-        robot_location = map.robotLocationFromCameraLocation(self.camera_location, self.camera_angle) # self.camera_location
+    def setMotionThreadRobotLocation(self, camera_angle):
+        robot_location = map.robotLocationFromCameraLocation(self.camera_location, camera_angle) # self.camera_location
         self.MotionThread.setRobotLocation(robot_location)
         
     def filterCubesByAge(self, current_time):
@@ -60,7 +61,12 @@ class MapThread(threading.Thread):
         
         while (True):
             
-            self.camera_location = map.cameraLocationFromRobotLocation(self.MotionThread.robot_location, self.camera_angle) #self.MotionThread.robot_location
+            with self.SteadycamThread.camera_moving_lock:
+                self.SteadycamThread.nextPan()
+                markers = self.see( res=(1280,960) )
+                camera_angle_at_latest_markers = self.SteadycamThread.camera_angle
+            
+            self.camera_location = map.cameraLocationFromRobotLocation(self.MotionThread.robot_location, camera_angle_at_latest_markers) #self.MotionThread.robot_location
             current_time = time.time()
             self.filterCubesByAge(current_time)
             
@@ -78,7 +84,7 @@ class MapThread(threading.Thread):
             RList = [R0, R1, R2, R3]
             
             noise.signalCamera(self.power)
-            markers = self.see( res=(1280,960) )
+            
             
             for marker in markers:
                 
@@ -122,7 +128,7 @@ class MapThread(threading.Thread):
                 
                 if (A.marker_in_range_seen == True):
                     self.camera_location = A.processMarkers()
-                    self.setMotionThreadRobotLocation()
+                    self.setMotionThreadRobotLocation(camera_angle_at_latest_markers)
             
             if (current_time - self.camera_location['time'] < MAX_BLIND_TIME):
                 
