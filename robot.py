@@ -84,7 +84,7 @@ ServoThread = servos.ServoThread(R.servos, R.power)
 print "ServoThread setup"
 
 # Setup Steadycam Thread
-SteadyThread = steady.SteadycamThread(R.ruggeduinos[0], R.power)
+SteadycamThread = steady.SteadycamThread(R.ruggeduinos[0], R.power)
 print "SteadycamThread setup"
 
 # Setup Motion Thread
@@ -94,7 +94,7 @@ print "MotionThread setup"
 MotionThread.calibrationCheck()
 
 # Setup Map Thread
-MapThread = map_thread.MapThread(SteadyThread, R.power)
+MapThread = map_thread.MapThread(SteadycamThread, R.power)
 print "MapThread setup"
 
 # Setup Target Thread
@@ -118,6 +118,9 @@ print "wait_start returned"
 
 DebugThread.start()
 print "DebugThread started"
+
+SteadycamThread.start()
+print "SteadycamThread started"
 
 M = motors.MotorHandler(R.motors)
 print "MotorHandler setup"
