@@ -17,7 +17,7 @@ MIN_CAMERA_OUTPUT = 0
 CAMERA_PAN_SEQUENCE = [0.5, 0.75, 1, 0.75, 0.5, 0.25, 0, 0.25]
 START_PAN_INDEX = 0
 
-class SteadyThread(threading.Thread):
+class SteadycamThread(threading.Thread):
     
     def __init__(self, ruggeduino, power, steady_time_period = 0.01, pan_time_period = 0.1): #100hz, 10hz
         threading.Thread.__init__(self)
