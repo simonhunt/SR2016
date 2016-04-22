@@ -5,10 +5,11 @@ DEBUG_DEBUG = True
 DEBUG_MOTION = True
 DEBUG_Y = False
 DEBUG_S = False
-DEBUG_M = True
+DEBUG_M = False
 DEBUG_MAP = False
 DEBUG_TARGET = True
 DEBUG_SERVO = False
+DEBUG_STEADY_CAM = True
 
 
 class DebugThread(threading.Thread):
