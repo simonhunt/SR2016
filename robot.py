@@ -206,10 +206,10 @@ def getCubeDemo():
     
     print "setting turn_location: " + str(cube_approach_path['approach_location'])
 
-    TargetThread.setTarget(cube_approach_path['cube_location'])
+    TargetThread.addTarget(cube_approach_path['cube_location'])
     noise.signalActivity(R.power)
     
-    print "setting cube_to_approach: " + str(cube_approach_path)
+    print "adding cube_to_approach: " + str(cube_approach_path)
     
     while(TargetThread.target != cube_approach_path['cube_location']):
         time.sleep(0.1)
