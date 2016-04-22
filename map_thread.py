@@ -67,7 +67,7 @@ class MapThread(threading.Thread):
         
         elif (self.camera_angle == MAX_CAMERA_ANGLE):
             self.servos[CAMERA_SERVO_BOARD][CAMERA_SERVO_PIN] = -100
-            new_angle = self.ruggeduino.setCameraServoAngle(0)
+            new_angle = self.ruggeduino.setCameraServoAngle(1)
             time.sleep(1)
             self.camera_angle = MIN_CAMERA_ANGLE
             print "changed to -100, new_angle = " + str(new_angle)
