@@ -58,16 +58,19 @@ class MapThread(threading.Thread):
             self.servos[CAMERA_SERVO_BOARD][CAMERA_SERVO_PIN] = 100
             time.sleep(1)
             self.camera_angle = MAX_CAMERA_ANGLE
+            print "changed to 100"
         
         elif (self.camera_angle == MAX_CAMERA_ANGLE):
             self.servos[CAMERA_SERVO_BOARD][CAMERA_SERVO_PIN] = -100
             time.sleep(1)
             self.camera_angle = MIN_CAMERA_ANGLE
+            print "changed to -100"
         
         elif (self.camera_angle == - MIN_CAMERA_ANGLE):
             self.servos[CAMERA_SERVO_BOARD][CAMERA_SERVO_PIN] = 0
             time.sleep(1)
             self.camera_angle = 0
+            print "changed to 0"
             
         
     def moveCameraServo(self, new_camera_angle):
