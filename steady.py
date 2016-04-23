@@ -58,8 +58,17 @@ class SteadycamThread(threading.Thread):
         
     def moveCameraServo(self, new_camera_angle):
         new_camera_angle = mapToLimits(new_camera_angle, MIN_CAMERA_ANGLE, MAX_CAMERA_ANGLE)
-        new_output = int(mapToLimits(((((new_camera_angle - MIN_CAMERA_ANGLE) / (MAX_CAMERA_ANGLE - MIN_CAMERA_ANGLE)) * (MAX_CAMERA_OUTPUT - MIN_CAMERA_OUTPUT)) + MIN_CAMERA_OUTPUT), MAX_CAMERA_OUTPUT, MIN_CAMERA_OUTPUT))
+        #new_output = int(mapToLimits(((((new_camera_angle - MIN_CAMERA_ANGLE) / (MAX_CAMERA_ANGLE - MIN_CAMERA_ANGLE)) * (MAX_CAMERA_OUTPUT - MIN_CAMERA_OUTPUT)) + MIN_CAMERA_OUTPUT), MAX_CAMERA_OUTPUT, MIN_CAMERA_OUTPUT))
+        # new_output = mapToLimits(((((new_camera_angle - MIN_CAMERA_ANGLE) / (MAX_CAMERA_ANGLE - MIN_CAMERA_ANGLE)) * (MAX_CAMERA_OUTPUT - MIN_CAMERA_OUTPUT)) + MIN_CAMERA_OUTPUT), MAX_CAMERA_OUTPUT, MIN_CAMERA_OUTPUT)
+        
+        # new_output = int(new_output)
+        
+        new_output = int(new_camera_angle)
+
+        
+        new_output
         change_in_output = abs(new_output - self.last_output)
+        self.last_output = new_output
         self.ruggeduino.setCameraServoAngle(new_output)
         self.camera_angle = new_camera_angle
         return change_in_output
