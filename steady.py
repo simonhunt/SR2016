@@ -64,9 +64,7 @@ class SteadycamThread(threading.Thread):
         # new_output = int(new_output)
         
         new_output = int(new_camera_angle)
-
         
-        new_output
         change_in_output = abs(new_output - self.last_output)
         self.last_output = new_output
         self.ruggeduino.setCameraServoAngle(new_output)
