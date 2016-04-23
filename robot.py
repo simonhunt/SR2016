@@ -131,6 +131,9 @@ print "MotionThread prepared for start"
 MapThread.prepareForStart(R.see, R.zone, MotionThread)
 print "MapThread prepared for start"
 
+SteadycamThread.prepareForTargetting(MotionThread)
+print "MapThread prepared for targetting"
+
 MotionThread.start()
 print "MotionThread started" 
 
