@@ -67,12 +67,13 @@ class SteadycamThread(threading.Thread):
         self.camera_angle = new_camera_angle
         return change_in_output
         
-    def getOutputFromAngle(self, desired_angle):
+    def getOutputFromAngle(self, new_camera_angle):
         
         lower_measurement_index = 0
         
         for camera_measurement in CAMERA_MEASUREMENTS:
-            if (desired_angle < camera_measurement[0]):
+            
+            if (new_camera_angle < camera_measurement[0]):
                 lower_measurement_index += 1
             
             else: # angle >= camera_measurement[0]
@@ -83,8 +84,11 @@ class SteadycamThread(threading.Thread):
         lower_measurement_output = CAMERA_MEASUREMENTS[lower_measurement_index][1]
         upper_measurement_output = CAMERA_MEASUREMENTS[lower_measurement_index + 1][1]
         
-        output = (((desired_angle - lower_measurement_angle) / (upper_measurement_angle - lower_measurement_angle)) * (upper_measurement_output - lower_measurement_output)) + lower_measurement_output
+        output = (((new_camera_angle - lower_measurement_angle) / (upper_measurement_angle - lower_measurement_angle)) * (upper_measurement_output - lower_measurement_output)) + lower_measurement_output
         output = int(mapToLimits(output, MAX_CAMERA_OUTPUT, MIN_CAMERA_OUTPUT))
+        
+        return output
+        
     def run(self):
         print "Starting " + self.name
         
