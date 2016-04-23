@@ -269,7 +269,7 @@ def testArms():
 
 time.sleep(5)
 
-testArms():
+testArms()
 
 MotionThread.setAction(TURN_TO, - 45)
 
