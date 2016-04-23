@@ -3,8 +3,10 @@ import time
  
 import noise
 
-from limits import mapToLimits
+from limits import angleMod, mapToLimits
 from debug import DEBUG_STEADYCAM
+from map import cameraLocationFromRobotLocation
+from polar import *
 
 from robot_1 import MAX_CAMERA_ANGLE, MIN_CAMERA_ANGLE, CAMERA_TURN_RATE, CAMERA_STABILISATION_TIME
 
@@ -17,6 +19,8 @@ MIN_CAMERA_OUTPUT = 0
 CAMERA_PAN_SEQUENCE = [0.5, 0.75, 1, 0.75, 0.5, 0.25, 0, 0.25]
 START_PAN_INDEX = 0
 
+test_target = {'x': 0, 'y': 7}
+
 class SteadycamThread(threading.Thread):
     
     def __init__(self, ruggeduino, power, steady_time_period = 0.01, pan_time_period = 0.1): #100hz, 10hz
@@ -28,14 +32,19 @@ class SteadycamThread(threading.Thread):
         self.pan_time_period = pan_time_period
         self.camera_angle = MIN_CAMERA_ANGLE
         self.last_output = 0
-        self.steady_targets = None
+        self.steady_targets = []
         self.next_pan = False
         self.current_pan_index = START_PAN_INDEX
         self.camera_moving_lock = threading.Lock()
+        self.preparedForTargetting = False
         
         self.testServo()
         
         self.setPan()
+        
+    def prepareForTargetting(self, MotionThread):
+        self.MotionThread = MotionThread
+        self.preparedForTargetting = True
         
     def testServo(self):
         self.moveCameraServo(MAX_CAMERA_ANGLE)
@@ -60,11 +69,11 @@ class SteadycamThread(threading.Thread):
         
         while (True):
             
-            if (self.steady_targets == None):
+            if (len(self.steady_targets) == 0):
                 self.panBehaviour()
                 time.sleep(self.pan_time_period)
                 
-            else: # self.steady_targets != None
+            elif (self.preparedForTargetting == True): # len(self.steady_targets) != 0
                 self.steadyBehaviour()
                 time.sleep(self.steady_time_period)
         
@@ -88,7 +97,10 @@ class SteadycamThread(threading.Thread):
         time.sleep(time_to_sleep)
     
     def steadyBehaviour(self):
-        pass
+        selected_target = 
+        default_camera_location = cameraLocationFromRobotLocation(self.MotionThread.robot_location)
+        desired_camera_angle = getPolarT(default_camera_location, self.MotionThread.robot_location)
+        
         
     def debug(self):
         
