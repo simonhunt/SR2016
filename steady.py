@@ -19,7 +19,7 @@ MIN_CAMERA_OUTPUT = 0
 CAMERA_PAN_SEQUENCE = [0.5, 0.75, 1, 0.75, 0.5, 0.25, 0, 0.25]
 START_PAN_INDEX = 0
 
-test_target = {'x': 0, 'y': 7}
+TEST_TARGET = {'x': 0, 'y': 7}
 
 class SteadycamThread(threading.Thread):
     
@@ -97,9 +97,23 @@ class SteadycamThread(threading.Thread):
         time.sleep(time_to_sleep)
     
     def steadyBehaviour(self):
-        selected_target = 
+        selected_target = TEST_TARGET
         default_camera_location = cameraLocationFromRobotLocation(self.MotionThread.robot_location)
-        desired_camera_angle = getPolarT(default_camera_location, self.MotionThread.robot_location)
+        desired_camera_yaw = getPolarT(default_camera_location, selected_target)
+        desired_camera_angle = angleMod(desired_camera_yaw - default_camera_location['yaw'])
+        
+        if ((desired_camera_angle > MAX_CAMERA_ANGLE) or (desired_camera_angle < MIN_CAMERA_ANGLE)):
+            angle_to_max = angleMod(desired_camera_angle - MAX_CAMERA_ANGLE)
+            angle_to_min = angleMod(desired_camera_angle - MIN_CAMERA_ANGLE)
+            
+            if (abs(angle_to_max) > abs(angle_to_min)):
+                desired_camera_angle = MIN_CAMERA_ANGLE
+                
+            else: #abs(angle_to_max) <= abs(angle_to_min)
+                desired_camera_angle = MAX_CAMERA_ANGLE
+        
+        self.moveCameraServo(desired_camera_angle)
+        
         
         
     def debug(self):
