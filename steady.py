@@ -121,7 +121,6 @@ class SteadycamThread(threading.Thread):
         self.moveCameraServo(desired_camera_angle)
         
         
-        
     def debug(self):
         
         if (DEBUG_STEADYCAM == True):
