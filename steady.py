@@ -8,7 +8,7 @@ from debug import DEBUG_STEADYCAM
 from map import cameraLocationFromRobotLocation
 from polar import *
 
-from robot_1 import MAX_CAMERA_ANGLE, MIN_CAMERA_ANGLE, CAMERA_TURN_RATE, CAMERA_STABILISATION_TIME
+from robot_1 import MAX_CAMERA_ANGLE, MIN_CAMERA_ANGLE, CAMERA_TURN_RATE, CAMERA_STABILISATION_TIME, ROBOT_TO_DEFAULT_CAMERA_YAW
 
 MAX_CAMERA_OUTPUT = 180
 MIN_CAMERA_OUTPUT = 0
@@ -104,7 +104,7 @@ class SteadycamThread(threading.Thread):
     
     def steadyBehaviour(self):
         selected_target = TEST_TARGET
-        default_camera_location = cameraLocationFromRobotLocation(self.MotionThread.robot_location)
+        default_camera_location = cameraLocationFromRobotLocation(self.MotionThread.robot_location, ROBOT_TO_DEFAULT_CAMERA_YAW)
         desired_camera_yaw = getPolarT(default_camera_location, selected_target)
         desired_camera_angle = angleMod(desired_camera_yaw - default_camera_location['yaw'])
         
