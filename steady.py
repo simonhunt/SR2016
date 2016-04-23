@@ -93,6 +93,7 @@ class SteadycamThread(threading.Thread):
         pan_fraction = CAMERA_PAN_SEQUENCE[self.pan_index]
         print str(pan_fraction)
         new_camera_angle = ((MAX_CAMERA_ANGLE - MIN_CAMERA_ANGLE) * pan_fraction) + MIN_CAMERA_ANGLE
+        print str(new_camera_angle)
         change_in_output = self.moveCameraServo(new_camera_angle)
         time_to_sleep = (change_in_output / CAMERA_TURN_RATE) + CAMERA_STABILISATION_TIME
         time.sleep(time_to_sleep)
