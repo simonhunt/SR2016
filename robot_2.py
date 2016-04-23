@@ -2,7 +2,7 @@
 
 #custom_ruggeduino
 
-WHEEL_RADIUS = 0.04875 #0.04826 #0.05134
+WHEEL_RADIUS = 0.035
 ENCODER_RESOLUTION = 96
 
 #debug
@@ -63,7 +63,7 @@ MIN_LINEAR_POWER = 20
 
 INITIAL_MPU_YAW_OFFSET = 9 #degrees   
 
-WHEEL_BASE = 0.333 #meters
+WHEEL_BASE = 0.436 #meters
 
 #noise
 
