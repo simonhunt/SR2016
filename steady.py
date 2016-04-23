@@ -17,6 +17,7 @@ MIN_CAMERA_OUTPUT = 0
 # CAMERA_TURN_RATE = 180 #output/sec
 # CAMERA_STABILISATION_TIME = 0.1 #sec
 CAMERA_PAN_SEQUENCE = [0, 0.25, 0.5, 0.75, 1, 0.75, 0.5, 0.25]
+CAMERA_MEASUREMENTS = [[0, 0], [192, 180]]
 START_PAN_INDEX = 0
 
 TEST_TARGET = {'x': 0, 'y': 7}
@@ -59,15 +60,31 @@ class SteadycamThread(threading.Thread):
     def moveCameraServo(self, new_camera_angle):
         new_camera_angle = mapToLimits(new_camera_angle, MAX_CAMERA_ANGLE, MIN_CAMERA_ANGLE)
         new_output = int(mapToLimits(((((new_camera_angle - MIN_CAMERA_ANGLE) / (MAX_CAMERA_ANGLE - MIN_CAMERA_ANGLE)) * (MAX_CAMERA_OUTPUT - MIN_CAMERA_OUTPUT)) + MIN_CAMERA_OUTPUT), MAX_CAMERA_OUTPUT, MIN_CAMERA_OUTPUT))
-        new_output = mapToLimits(((((new_camera_angle - MIN_CAMERA_ANGLE) / (MAX_CAMERA_ANGLE - MIN_CAMERA_ANGLE)) * (MAX_CAMERA_OUTPUT - MIN_CAMERA_OUTPUT)) + MIN_CAMERA_OUTPUT), MAX_CAMERA_OUTPUT, MIN_CAMERA_OUTPUT)
-        new_output = int(new_output)
         
         change_in_output = abs(new_output - self.last_output)
         self.last_output = new_output
         self.ruggeduino.setCameraServoAngle(new_output)
         self.camera_angle = new_camera_angle
         return change_in_output
-    
+        
+    def getOutputFromAngle(self, desired_angle):
+        
+        lower_measurement_index = 0
+        
+        for camera_measurement in CAMERA_MEASUREMENTS:
+            if (desired_angle < camera_measurement[0]):
+                lower_measurement_index += 1
+            
+            else: # angle >= camera_measurement[0]
+                break
+            
+        lower_measurement_angle = CAMERA_MEASUREMENTS[lower_measurement_index][0]
+        upper_measurement_angle = CAMERA_MEASUREMENTS[lower_measurement_index + 1][0]
+        lower_measurement_output = CAMERA_MEASUREMENTS[lower_measurement_index][1]
+        upper_measurement_output = CAMERA_MEASUREMENTS[lower_measurement_index + 1][1]
+        
+        output = (((desired_angle - lower_measurement_angle) / (upper_measurement_angle - lower_measurement_angle)) * (upper_measurement_output - lower_measurement_output)) + lower_measurement_output
+        output = int(mapToLimits(output, MAX_CAMERA_OUTPUT, MIN_CAMERA_OUTPUT))
     def run(self):
         print "Starting " + self.name
         
