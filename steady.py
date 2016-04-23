@@ -105,6 +105,7 @@ class SteadycamThread(threading.Thread):
     def steadyBehaviour(self):
         selected_target = TEST_TARGET
         default_camera_location = cameraLocationFromRobotLocation(self.MotionThread.robot_location, ROBOT_TO_DEFAULT_CAMERA_YAW)
+        
         desired_camera_yaw = getPolarT(default_camera_location, selected_target)
         desired_camera_angle = angleMod(desired_camera_yaw - default_camera_location['yaw'])
         
@@ -118,9 +119,13 @@ class SteadycamThread(threading.Thread):
             else: #abs(angle_to_max) <= abs(angle_to_min)
                 desired_camera_angle = MAX_CAMERA_ANGLE
         
+        print "default_camera_location['yaw'] = " + str(default_camera_location['yaw'])
+        print "desired_camera_yaw = " + str(desired_camera_yaw)
+        print "desired_camera_angle = " + str(desired_camera_angle)
+        
         self.moveCameraServo(desired_camera_angle)
-        
-        
+    
+    
     def debug(self):
         
         if (DEBUG_STEADYCAM == True):
