@@ -35,7 +35,6 @@ class SteadycamThread(threading.Thread):
         self.steady_targets = []
         self.next_pan = False
         self.pan_index = START_PAN_INDEX
-        self.current_pan_index = START_PAN_INDEX
         self.camera_moving_lock = threading.Lock()
         self.preparedForTargetting = False
         
@@ -85,7 +84,7 @@ class SteadycamThread(threading.Thread):
         if (self.next_pan == True):
             
             self.next_pan = False
-            self.pan_index = (self.current_pan_index + 1) % len(CAMERA_PAN_SEQUENCE)
+            self.pan_index = (self.pan_index + 1) % len(CAMERA_PAN_SEQUENCE)
             
             with self.camera_moving_lock:
                 self.setPan()
