@@ -108,7 +108,7 @@ RELEASE_CUBE_NEGATIVE_180 = {'rotate': - 100, 'lift': 0, 'grab': -20, 'time': 0.
 PREPARE_SECOND_ROTATE_NEGATIVE_180 = {'rotate': 100, 'lift': - 40, 'grab': -20, 'time': 0.5}
 ARMS_ON_CUBE_NEGATIVE_180_FAST = {'rotate': 100, 'lift': - 50, 'grab': 35, 'time': 0.5}
 
-LIFT_TIME_INDENT = 0.5
+LIFT_TIME_INDENT = 0
 
 #robot
 
