@@ -267,7 +267,7 @@ def testArms():
         ServoThread.addSequence(positions.TEST_SEQUENCE_180)
         time.sleep(30)
 
-time.sleep(60)
+time.sleep(5)
 
 MotionThread.setAction(TURN_TO, - 45)
 
