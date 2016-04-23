@@ -62,10 +62,10 @@ class MapThread(threading.Thread):
         
         while (True):
             
-            self.SteadycamThread.steady_targets = [1]
+            #self.SteadycamThread.steady_targets = [1]
             
             with self.SteadycamThread.camera_moving_lock:
-                #self.SteadycamThread.nextPan()
+                self.SteadycamThread.nextPan()
                 camera_angle_at_latest_markers = copy.deepcopy(self.SteadycamThread.camera_angle)
                 robot_location_at_latest_markers = copy.deepcopy(self.MotionThread.robot_location)
                 markers = self.see(res = (1280,960))
