@@ -18,7 +18,7 @@ ZONE_1_INITIAL_CAMERA_LOCATION = {'x': 7, 'y': 7, 'z': 0.125 + 0.315, 'yaw': - 1
 ZONE_2_INITIAL_CAMERA_LOCATION = {'x': 7, 'y': 1, 'z': 0.125 + 0.315, 'yaw': 135 - 90, 'pitch': - 13.6, 'roll': 2, 'time': None}
 ZONE_3_INITIAL_CAMERA_LOCATION = {'x': 1, 'y': 1, 'z': 0.125 + 0.315, 'yaw': 45 - 90, 'pitch': - 13.6, 'roll': 2, 'time': None}
 
-ROBOT_TO_CAMERA_VECTOR = {'alpha': 0, 'beta': 0, 'gamma': 0.315} #alpha forwards, beta left to right, gamma up
+ROBOT_TO_CAMERA_VECTOR = {'alpha': 0, 'beta': 0, 'gamma': 0.372} #alpha forwards, beta left to right, gamma up 47.7 - 12.5 #0.315
 ROBOT_TO_DEFAULT_CAMERA_YAW = - 90
 ROBOT_TO_CAMERA_PITCH = - 13.6# -11 #deg
 ROBOT_TO_CAMERA_ROLL = 2 #1.7 #deg
