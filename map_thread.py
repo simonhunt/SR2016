@@ -1,5 +1,6 @@
 import threading
 import time
+import copy
 
 from sr.robot import MARKER_ARENA, MARKER_ROBOT, NET_A, NET_B, NET_C
 
@@ -63,10 +64,11 @@ class MapThread(threading.Thread):
             
             with self.SteadycamThread.camera_moving_lock:
                 self.SteadycamThread.nextPan()
-                markers = self.see( res=(1280,960) )
-                camera_angle_at_latest_markers = self.SteadycamThread.camera_angle
+                camera_angle_at_latest_markers = copy.deepcopy(self.SteadycamThread.camera_angle)
+                robot_location_at_latest_markers = copy.deepcopy(self.MotionThread.robot_location)
+                markers = self.see(res = (1280,960))
             
-            self.camera_location = map.cameraLocationFromRobotLocation(self.MotionThread.robot_location, camera_angle_at_latest_markers) #self.MotionThread.robot_location
+            self.camera_location = map.cameraLocationFromRobotLocation(robot_location_at_latest_markers, camera_angle_at_latest_markers) #self.MotionThread.robot_location
             current_time = time.time()
             self.filterCubesByAge(current_time)
             
