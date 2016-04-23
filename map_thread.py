@@ -62,7 +62,7 @@ class MapThread(threading.Thread):
         
         while (True):
             
-            self.SteadycamThread.steady_targets =[1]
+            self.SteadycamThread.steady_targets = [1]
             
             with self.SteadycamThread.camera_moving_lock:
                 #self.SteadycamThread.nextPan()
