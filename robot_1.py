@@ -63,7 +63,7 @@ MIN_LINEAR_POWER = 20
 
 INITIAL_MPU_YAW_OFFSET = 9 #degrees   
 
-WHEEL_BASE = 0.33 #meters
+WHEEL_BASE = 0.333 #meters
 
 #noise
 
