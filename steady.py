@@ -33,7 +33,7 @@ class SteadycamThread(threading.Thread):
         self.pan_time_period = pan_time_period
         self.camera_angle = MIN_CAMERA_ANGLE
         self.last_output = 0
-        self.steady_targets = []
+        self.steady_target = None
         self.next_pan = False
         self.pan_index = START_PAN_INDEX
         self.camera_moving_lock = threading.Lock()
@@ -96,11 +96,11 @@ class SteadycamThread(threading.Thread):
         
         while (True):
             
-            if (len(self.steady_targets) == 0):
+            if (self.steady_target == None):
                 self.panBehaviour()
                 time.sleep(self.pan_time_period)
                 
-            elif (self.preparedForTargetting == True): # len(self.steady_targets) != 0
+            elif (self.preparedForTargetting == True): # self.steady_target != None
                 self.steadyBehaviour()
                 time.sleep(self.steady_time_period)
         
@@ -126,10 +126,9 @@ class SteadycamThread(threading.Thread):
         time.sleep(time_to_sleep)
     
     def steadyBehaviour(self):
-        selected_target = self.steady_targets[0]
         default_camera_location = cameraLocationFromRobotLocation(self.MotionThread.robot_location)
         
-        desired_camera_yaw = getPolarT(default_camera_location, selected_target)
+        desired_camera_yaw = getPolarT(default_camera_location, self.steady_target)
         desired_camera_angle = angleMod(desired_camera_yaw - default_camera_location['yaw'])
         
         if ((desired_camera_angle > MAX_CAMERA_ANGLE) or (desired_camera_angle < MIN_CAMERA_ANGLE)):
@@ -144,7 +143,6 @@ class SteadycamThread(threading.Thread):
         
         self.moveCameraServo(desired_camera_angle)
     
-    
     def debug(self):
         
         if (DEBUG_STEADYCAM == True):
@@ -152,6 +150,6 @@ class SteadycamThread(threading.Thread):
             print self.name
             
             print "camera_angle = " + str(self.camera_angle) + ", last_output = " + str(self.last_output)
-            print "steady_targets = " + str(self.steady_targets)
+            print "steady_target = " + str(self.steady_target)
                     
         
