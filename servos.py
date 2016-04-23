@@ -51,7 +51,7 @@ class ServoThread(threading.Thread):
         self.initialiseOffsets()
         self.sequence = []
         
-        self.moveTo(ARMS_UP_OUT_THE_WAY)
+        self.moveTo(ARMS_CLOSED_PROTECTED)
         
     def processNewPosition(self):
         
