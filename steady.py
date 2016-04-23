@@ -34,6 +34,7 @@ class SteadycamThread(threading.Thread):
         self.last_output = 0
         self.steady_targets = []
         self.next_pan = False
+        self.pan_index = START_PAN_INDEX
         self.current_pan_index = START_PAN_INDEX
         self.camera_moving_lock = threading.Lock()
         self.preparedForTargetting = False
