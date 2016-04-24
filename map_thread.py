@@ -28,6 +28,14 @@ class MapThread(threading.Thread):
         self.ignore_arena_markers = False
         self.targeted_cube = None
         
+    def setTargetedCube(self, targeted_cube):
+        self.ignore_arena_markers = True
+        self.targeted_cube = targeted_cube
+    
+    def removeTargetedCube(self):
+        self.ignore_arena_markers = False
+        self.targeted_cube = None
+        
     def prepareForStart(self, see, zone, MotionThread):
         self.zone = zone
         self.see = see
