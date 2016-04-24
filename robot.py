@@ -212,13 +212,14 @@ def getCubeDemo():
     lift_time = positions.LIFT_TIMES[cube_approach_path['approach_location']['degrees']]
     down_time = positions.DOWN_TIMES[cube_approach_path['approach_location']['degrees']]
     
+    MapThread.setTargetedCube(cube_approach_path['cube_location'])
+    print "setting targetted_cube: " + str(cube_approach_path['approach_location'])
+    
     TargetThread.setTarget(cube_approach_path['approach_location'])
-    noise.signalActivity(R.power)
     
     print "setting turn_location: " + str(cube_approach_path['approach_location'])
 
     TargetThread.addTarget(cube_approach_path['cube_location'])
-    noise.signalActivity(R.power)
     
     print "adding cube_to_approach: " + str(cube_approach_path)
     
@@ -229,6 +230,10 @@ def getCubeDemo():
         
     while(TargetThread.target != None):
         time.sleep(0.1)
+        
+    MapThread.removeTargetedCube()
+    
+    print "removing targetted_cube"
     
     ServoThread.setSequence(arm_phases[1])
     ServoThread.addSequence(arm_phases[2])  
@@ -252,7 +257,7 @@ def getCubeDemo():
     while(TargetThread.target != None):
         time.sleep(0.1)
     
-    MotionThread.setAction(MOVE_HOLD, - 1)
+    MotionThread.setAction(MOVE_AND_TURN_TO, - 1, 135)
     
 
 def testArms():
