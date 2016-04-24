@@ -14,6 +14,11 @@ MAX_CUBE_AGE = 5 #seconds
 MAX_BLIND_TIME = 1000 #seconds
 MAX_ARENA_MARKER_DISTANCE = 2 #meters
 
+MAX_D_X = 0.125 #meters
+MAX_D_Y = 0.125 #meters
+MAX_D_Z = 0.125 #meters
+MAX_D_PITCH = 20 #degrees
+
 
 class MapThread(threading.Thread):
     
@@ -65,6 +70,50 @@ class MapThread(threading.Thread):
         for C in self.c_cube_locations:
              if ((current_time - C['time']) > MAX_CUBE_AGE):
                  self.c_cube_locations.remove(C)
+                 
+    def updateTargetedCube(self, new_a_cube_locations, new_b_cube_locations, new_c_cube_locations):
+        
+        if (self.targeted_cube['net'] == 'A'):
+            self.checkForNewTargetedCubeLocation(new_a_cube_locations)
+            
+        elif (self.targeted_cube['net'] == 'B'):
+            self.checkForNewTargetedCubeLocation(new_b_cube_locations)
+            
+        elif (self.targeted_cube['net'] == 'C'):
+            self.checkForNewTargetedCubeLocation(new_c_cube_locations)
+            
+        elif (self.targeted_cube['net'] == '*'):
+            all_new_cube_locations = []
+            all_new_cube_locations.extend(new_a_cube_locations)
+            all_new_cube_locations.extend(new_b_cube_locations)
+            all_new_cube_locations.extend(new_c_cube_locations)
+            self.checkForNewTargetedCubeLocation(all_new_cube_locations)
+            
+    def checkForNewTargetedCubeLocation(self, new_cube_locations):
+        
+        new_targeted_cube_locations = []
+        
+        for new_cube_location in new_cube_locations:
+            
+            if (self.isNewCubeTargettedCube(new_cube_location) == True):
+                new_targeted_cube_locations.append(new_cube_location)
+                
+        if len(new_targeted_cube_locations != 0):
+            print "NEW TARGETED_CUBE SPOTTED: list = " +  str(new_targeted_cube_locations)
+                
+            
+    def isNewCubeTargettedCube(self, new_cube_location):
+        same = False
+        d_x = abs(new_cube_location['x'] - self.targeted_cube['cube_location']['x'])
+        d_y = abs(new_cube_location['y'] - self.targeted_cube['cube_location']['y'])
+        d_z = abs(new_cube_location['z'] - self.targeted_cube['cube_location']['z'])
+        d_pitch = abs(new_cube_location['pitch'] - self.targeted_cube['cube_location']['pitch'])
+        team_scoring_same = (new_cube_location['team_scoring'] == self.targeted_cube['cube_location']['team_scoring'])
+        
+        if ((d_x < MAX_D_X) and (d_y < MAX_D_Y) and (d_z < MAX_D_Z) and (d_pitch < MAX_D_PITCH) and (team_scoring_same == True)):
+            same = True
+            
+        return same
     
     def run(self):
         print "Starting " + self.name
@@ -77,7 +126,7 @@ class MapThread(threading.Thread):
                     self.SteadycamThread.nextPan()
                     
                 else: #self.targeted_cube != None
-                    self.SteadycamThread.steady_target = self.targeted_cube
+                    self.SteadycamThread.steady_target = self.targeted_cube['cube_location']
                     
                 camera_angle_at_latest_markers = copy.deepcopy(self.SteadycamThread.camera_angle)
                 robot_location_at_latest_markers = copy.deepcopy(self.MotionThread.robot_location)
@@ -157,16 +206,20 @@ class MapThread(threading.Thread):
                     i += 1
                 
                 if (TA.marker_seen == True):
-                    self.a_cube_locations.extend(TA.processMarkers(self.camera_location, self.zone))
+                    new_a_cube_locations = TA.processMarkers(self.camera_location, self.zone)
+                    self.a_cube_locations.extend(new_a_cube_locations)
                 
                 if (TB.marker_seen == True):
-                    self.b_cube_locations.extend(TB.processMarkers(self.camera_location, self.zone))
+                    new_b_cube_locations = TB.processMarkers(self.camera_location, self.zone)
+                    self.b_cube_locations.extend(new_b_cube_locations)
+                    
                     
                 if (TC.marker_seen == True):
-                    self.c_cube_locations.extend(TC.processMarkers(self.camera_location, self.zone))
+                    new_c_cube_locations = TC.processMarkers(self.camera_location, self.zone)
+                    self.c_cube_locations.extend(new_c_cube_locations)
         
         print "Exiting " + self.name
-        
+      
     def debug(self):
         
         if (DEBUG_MAP == True):
