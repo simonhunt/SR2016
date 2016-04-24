@@ -212,8 +212,8 @@ def getCubeDemo():
     lift_time = positions.LIFT_TIMES[cube_approach_path['approach_location']['degrees']]
     down_time = positions.DOWN_TIMES[cube_approach_path['approach_location']['degrees']]
     
-    MapThread.setTargetedCube(cube_approach_path['cube_location'])
-    print "setting targetted_cube: " + str(cube_approach_path['approach_location'])
+    MapThread.setTargetedCube(cube_approach_path)
+    print "setting targetted_cube: " + str(cube_approach_path)
     
     TargetThread.setTarget(cube_approach_path['approach_location'])
     
