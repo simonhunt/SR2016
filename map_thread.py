@@ -193,7 +193,7 @@ class MapThread(threading.Thread):
                 A.filterMarkersByDistance(MAX_ARENA_MARKER_DISTANCE)
                 
                 if (A.marker_in_range_seen == True):
-                    self.camera_location = A.processMarkers()
+                    self.camera_location = A.processMarkers(self.camera_location)
                     self.setMotionThreadRobotLocation(camera_angle_at_latest_markers)
             
             if (current_time - self.camera_location['time'] < MAX_BLIND_TIME):
