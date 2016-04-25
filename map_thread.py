@@ -54,8 +54,27 @@ class MapThread(threading.Thread):
         self.robot_locations = map.getStartingRobotLocations(current_time)
         
     def setMotionThreadRobotLocation(self, camera_angle):
-        old_camera_location = 
         robot_location = map.robotLocationFromCameraLocation(self.camera_location, camera_angle) # self.camera_location
+        self.MotionThread.setRobotLocation(robot_location)
+        
+    def updateMotionThreadRobotLocation(self, camera_angle, old_camera_location, new_camera_location):
+        
+        d_x = new_camera_location['x'] - old_camera_location['x']
+        d_y = new_camera_location['y'] - old_camera_location['y']
+        d_z = new_camera_location['z'] - old_camera_location['z']
+        d_yaw = new_camera_location['yaw'] - old_camera_location['yaw']
+        d_pitch = new_camera_location['pitch'] - old_camera_location['pitch']
+        d_roll = new_camera_location['roll'] - old_camera_location['roll']
+        
+        robot_location = map.robotLocationFromCameraLocation(self.camera_location, camera_angle) # self.camera_location
+        
+        robot_location['x'] += d_x
+        robot_location['y'] += d_y
+        robot_location['z'] += d_z
+        robot_location['yaw'] += d_yaw
+        robot_location['pitch'] += d_pitch
+        robot_location['roll'] += d_roll
+        
         self.MotionThread.setRobotLocation(robot_location)
         
     def filterCubesByAge(self, current_time):
@@ -196,7 +215,7 @@ class MapThread(threading.Thread):
                 
                 if (A.marker_in_range_seen == True):
                     camera_location_from_latest_markers = A.processMarkers(camera_location_at_latest_markers)
-                    self.setMotionThreadRobotLocation(  , camera_location_at_latest_markers, camera_location_from_latest_markers)
+                    self.updateMotionThreadRobotLocation(camera_angle_at_latest_markers, camera_location_at_latest_markers, camera_location_from_latest_markers)
             
             if (current_time - self.camera_location['time'] < MAX_BLIND_TIME):
                 
