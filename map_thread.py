@@ -54,6 +54,7 @@ class MapThread(threading.Thread):
         self.robot_locations = map.getStartingRobotLocations(current_time)
         
     def setMotionThreadRobotLocation(self, camera_angle):
+        old_camera_location = 
         robot_location = map.robotLocationFromCameraLocation(self.camera_location, camera_angle) # self.camera_location
         self.MotionThread.setRobotLocation(robot_location)
         
@@ -132,7 +133,8 @@ class MapThread(threading.Thread):
                 robot_location_at_latest_markers = copy.deepcopy(self.MotionThread.robot_location)
                 markers = self.see(res = (1280,960))
             
-            self.camera_location = map.cameraLocationFromRobotLocation(robot_location_at_latest_markers, camera_angle_at_latest_markers) #self.MotionThread.robot_location
+            camera_location_at_latest_markers = map.cameraLocationFromRobotLocation(robot_location_at_latest_markers, camera_angle_at_latest_markers) #self.MotionThread.robot_location
+            camera_location_from_latest_markers = copy.deepcopy(camera_location_at_latest_markers)
             current_time = time.time()
             self.filterCubesByAge(current_time)
             
@@ -193,8 +195,8 @@ class MapThread(threading.Thread):
                 A.filterMarkersByDistance(MAX_ARENA_MARKER_DISTANCE)
                 
                 if (A.marker_in_range_seen == True):
-                    self.camera_location = A.processMarkers(self.camera_location)
-                    self.setMotionThreadRobotLocation(camera_angle_at_latest_markers)
+                    camera_location_from_latest_markers = A.processMarkers(camera_location_at_latest_markers)
+                    self.setMotionThreadRobotLocation(  , camera_location_at_latest_markers, camera_location_from_latest_markers)
             
             if (current_time - self.camera_location['time'] < MAX_BLIND_TIME):
                 
@@ -202,20 +204,20 @@ class MapThread(threading.Thread):
                 for R in RList:
                     
                     if (R.marker_seen == True):
-                        self.robot_locations[i] = R.processMarkers(self.camera_location)
+                        self.robot_locations[i] = R.processMarkers(camera_location_from_latest_markers)
                     i += 1
                 
                 if (TA.marker_seen == True):
-                    new_a_cube_locations = TA.processMarkers(self.camera_location, self.zone)
+                    new_a_cube_locations = TA.processMarkers(camera_location_from_latest_markers, self.zone)
                     self.a_cube_locations.extend(new_a_cube_locations)
                 
                 if (TB.marker_seen == True):
-                    new_b_cube_locations = TB.processMarkers(self.camera_location, self.zone)
+                    new_b_cube_locations = TB.processMarkers(camera_location_from_latest_markers, self.zone)
                     self.b_cube_locations.extend(new_b_cube_locations)
                     
                     
                 if (TC.marker_seen == True):
-                    new_c_cube_locations = TC.processMarkers(self.camera_location, self.zone)
+                    new_c_cube_locations = TC.processMarkers(camera_location_from_latest_markers, self.zone)
                     self.c_cube_locations.extend(new_c_cube_locations)
         
         print "Exiting " + self.name
