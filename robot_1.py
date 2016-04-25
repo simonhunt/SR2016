@@ -35,7 +35,7 @@ MAX_NUMBER_OF_ENEMY_IN_APPROACH_RADIUS = 1 #inclusive (1 is ok)
 MIN_ENEMY_DISTANCE_TO_CUBE = 0.75 #meters
 MIN_ENEMY_DISTANCE_TO_APPROACH = 1 #meters
 
-MOVING_SPEED = 1 #meter/sec
+MOVING_SPEED = 1  #meter/sec
 ANGULAR_SPEED = 90 #deg/sec
 
 TURN_ZERO_TIME = 0.5 #sec
