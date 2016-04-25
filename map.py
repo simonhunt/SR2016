@@ -108,8 +108,8 @@ class MarkerHandler():
 
 class ArenaMarkerHandler(MarkerHandler):
             
-    def processMarkers(self):
-        camera_locations = []
+    def processMarkers(self, initial_camera_location):
+        camera_locations = [initial_camera_location]
         
         for marker in self.markers:
             camera_location = cameraLocationFromArenaMarker(marker, self.current_time)
