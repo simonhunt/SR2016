@@ -33,6 +33,7 @@ class MapThread(threading.Thread):
         self.c_cube_locations = []
         self.ignore_arena_markers = False
         self.targeted_cube = None
+        self.updated_targeted_cube = False
         
     def setTargetedCube(self, targeted_cube):
         self.ignore_arena_markers = True
@@ -145,6 +146,7 @@ class MapThread(threading.Thread):
     def setNewTargetedCube(self, new_cube_locations):
         average_new_cube_location = map.getAverageLocation(new_cube_locations)
         self.targeted_cube['cube_location'] = average_new_cube_location
+        self.updated_targeted_cube = True
     
     def run(self):
         print "Starting " + self.name
