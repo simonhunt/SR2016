@@ -164,6 +164,7 @@ class MapThread(threading.Thread):
                 robot_location_at_latest_markers = copy.deepcopy(self.MotionThread.robot_location)
                 markers = self.see(res = (1280,960))
             
+            noise.signalCamera(self.power)
             camera_location_at_latest_markers = map.cameraLocationFromRobotLocation(robot_location_at_latest_markers, camera_angle_at_latest_markers) #self.MotionThread.robot_location
             camera_location_from_latest_markers = copy.deepcopy(camera_location_at_latest_markers)
             current_time = time.time()
@@ -182,7 +183,7 @@ class MapThread(threading.Thread):
             
             RList = [R0, R1, R2, R3]
             
-            noise.signalCamera(self.power)
+            
             
             
             for marker in markers:
