@@ -132,6 +132,9 @@ class MapThread(threading.Thread):
         
         if ((d_x < MAX_D_X) and (d_y < MAX_D_Y) and (d_z < MAX_D_Z) and (d_pitch < MAX_D_PITCH) and (team_scoring_same == True)):
             same = True
+        
+        else:
+            print "rejecting targetted_cube with (d_x, d_y, d_z, d_pitch) = " + str((d_x, d_y, d_z, d_pitch))
             
         return same
     
