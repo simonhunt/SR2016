@@ -116,7 +116,7 @@ class TargetThread(threading.Thread):
             
         return reached
         
-    def changeCurentTarget(self, new_current_target):
+    def changeCurrentTarget(self, new_current_target):
         self.target = new_current_target
             
     def moveToTarget(self):        
