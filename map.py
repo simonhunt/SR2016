@@ -151,6 +151,8 @@ class TokenMarkerHandler(MarkerHandler):
 def getAverageLocation(locations):
     ## Returns the average of the camera_location from the arenaMarker
     
+    average_location = copy.deepcopy(locations[0]
+    
     total_location_X = 0
     total_location_Y = 0
     total_location_Z = 0
@@ -175,9 +177,14 @@ def getAverageLocation(locations):
     average_location_Yaw = math.degrees(cmath.phase(total_yaw_unit_vector))
     average_location_Pitch = math.degrees(cmath.phase(total_pitch_unit_vector))
     average_location_Roll = math.degrees(cmath.phase(total_roll_unit_vector))
-    time = locations[0]['time']
     
-    average_location = {'x': average_location_X, 'y': average_location_Y, 'z': average_location_Z, 'yaw': average_location_Yaw, 'pitch': average_location_Pitch, 'roll': average_location_Roll, 'time': time}
+    # average_location = {'x': average_location_X, 'y': average_location_Y, 'z': average_location_Z, 'yaw': average_location_Yaw, 'pitch': average_location_Pitch, 'roll': average_location_Roll, 'time': time}
+    average_location['x'] = average_location_X
+    average_location['y'] = average_location_Y
+    average_location['z'] = average_location_Z
+    average_location['yaw'] = average_location_YAW
+    average_location['pitch'] = average_location_PITCH
+    average_location['roll'] = average_location_ROLL
     return average_location
 
 ## OBJECT MARKER CODE ###########################################################################################
