@@ -144,9 +144,9 @@ class MapThread(threading.Thread):
         
     def setNewTargetedCube(self, new_cube_locations):
         average_new_cube_location = map.getAverageLocation(new_cube_locations)
-        print "self.targeted_cube = " + str(self.targeted_cube)
+        print "147 self.targeted_cube = " + str(self.targeted_cube)
         self.targeted_cube['cube_location'] = average_new_cube_location
-        print "self.targeted_cube = " + str(self.targeted_cube)
+        print "149 self.targeted_cube = " + str(self.targeted_cube)
     
     def run(self):
         print "Starting " + self.name
@@ -159,7 +159,7 @@ class MapThread(threading.Thread):
                     self.SteadycamThread.nextPan()
                     
                 else: #self.targeted_cube != None
-                    print "self.targeted_cube = " + str(self.targeted_cube)
+                    print "162 self.targeted_cube = " + str(self.targeted_cube)
                 
                     self.SteadycamThread.steady_target = self.targeted_cube['cube_location']
                     
