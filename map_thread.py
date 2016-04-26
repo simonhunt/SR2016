@@ -157,7 +157,7 @@ class MapThread(threading.Thread):
                     self.SteadycamThread.nextPan()
                     
                 else: #self.targeted_cube != None
-                    print "self.targeted_cube['cube_location']" + str(self.targeted_cube['cube_location'])
+                    print "self.targeted_cube['cube_location'] = " + str(self.targeted_cube['cube_location'])
                     self.SteadycamThread.steady_target = self.targeted_cube['cube_location']
                     
                 camera_angle_at_latest_markers = copy.deepcopy(self.SteadycamThread.camera_angle)
