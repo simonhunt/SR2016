@@ -36,7 +36,7 @@ class MapThread(threading.Thread):
         
     def setTargetedCube(self, targeted_cube):
         self.ignore_arena_markers = True
-        self.targeted_cube = targeted_cube
+        self.targeted_cube = copy.deepcopy(targeted_cube)
     
     def removeTargetedCube(self):
         self.ignore_arena_markers = False
