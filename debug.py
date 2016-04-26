@@ -11,7 +11,6 @@ DEBUG_TARGET = True
 DEBUG_SERVO = False
 DEBUG_STEADYCAM = True
 
-
 class DebugThread(threading.Thread):
     
     def __init__(self, Threads, time_period = 1): #default 1hz
