@@ -7,7 +7,7 @@ from sr.robot import MARKER_ARENA, MARKER_ROBOT, NET_A, NET_B, NET_C
 import map 
 import noise
 
-from limits import mapToLimits
+from limits import mapToLimits, rightAngleMod
 from debug import DEBUG_MAP
 
 MAX_CUBE_AGE = 5 #seconds 
@@ -18,7 +18,8 @@ MAX_D_X = 0.125 #meters
 MAX_D_Y = 0.125 #meters
 MAX_D_Z = 0.25 #meters
 MAX_D_PITCH = 45 #degrees
-
+MAX_D_YAW = 20 #degrees
+MAX_D_ROLL = 20 #degrees
 
 class MapThread(threading.Thread):
     
@@ -120,6 +121,7 @@ class MapThread(threading.Thread):
                 
         if (len(new_targeted_cube_locations) != 0):
             print "NEW TARGETED_CUBE SPOTTED: list = " +  str(new_targeted_cube_locations)
+            self.setTargettedCube(new_targeted_cube_locations)
                 
             
     def isNewCubeTargettedCube(self, new_cube_location):
@@ -127,16 +129,22 @@ class MapThread(threading.Thread):
         d_x = abs(new_cube_location['x'] - self.targeted_cube['cube_location']['x'])
         d_y = abs(new_cube_location['y'] - self.targeted_cube['cube_location']['y'])
         d_z = abs(new_cube_location['z'] - self.targeted_cube['cube_location']['z'])
+        d_yaw = abs(rightAngleMod(new_cube_location['yaw'] - self.targeted_cube['cube_location']['yaw']))
         d_pitch = abs(new_cube_location['pitch'] - self.targeted_cube['cube_location']['pitch'])
+        d_roll =  abs(rightAngleMod(new_cube_location['roll'] - self.targeted_cube['cube_location']['roll']))
         team_scoring_same = (new_cube_location['team_scoring'] == self.targeted_cube['cube_location']['team_scoring'])
         
-        if ((d_x < MAX_D_X) and (d_y < MAX_D_Y) and (d_z < MAX_D_Z) and (d_pitch < MAX_D_PITCH) and (team_scoring_same == True)):
+        if ((d_x < MAX_D_X) and (d_y < MAX_D_Y) and (d_z < MAX_D_Z) and (d_yaw < MAX_D_YAW) and (d_pitch < MAX_D_PITCH) and (d_roll < MAX_D_ROLL) and (team_scoring_same == True)):
             same = True
         
         else:
-            print "rejecting targetted_cube with (d_x, d_y, d_z, d_pitch) = " + str((d_x, d_y, d_z, d_pitch))
+            print "rejecting targetted_cube with (d_x, d_y, d_z, d_yaw, d_pitch, d_roll) = " + str((d_x, d_y, d_z, d_yaw, d_pitch, d_roll))
             
         return same
+        
+    def setNewTargettedCube(self, new_cube_locations):
+        average_new_cube_location = getAverageLocation(new_cube_locations)
+        self.targetted_cube = average_new_cube_location
     
     def run(self):
         print "Starting " + self.name
