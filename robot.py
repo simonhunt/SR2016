@@ -102,7 +102,7 @@ TargetThread = target.TargetThread(MotionThread, R.power)
 print "TargetThread setup"
 
 # Setup Debug Thread
-DebugThread = debug.DebugThread((MotionThread, MapThread, TargetThread, ServoThread))
+DebugThread = debug.DebugThread((MotionThread, MapThread, TargetThread, ServoThread, SteadycamThread))
 print "DebugThread setup"
 
 #Signal that the start button is ready to be pressed by making a sound
