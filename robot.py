@@ -233,7 +233,8 @@ def getCubeDemo():
         
         if (MapThread.updated_targeted_cube == True):
             MapThread.updated_target_cube = False
-            TargetThread.setCurrentTarget(copy.deepcopy(MapThread.targeted_cube['cube_location']))
+            TargetThread.changeCurrentTarget(copy.deepcopy(MapThread.targeted_cube['cube_location']))
+            print "changing current target: " + str(MapThread.targeted_cube['cube_location']))
             
         time.sleep(0.1)
         
