@@ -121,7 +121,7 @@ class MapThread(threading.Thread):
                 
         if (len(new_targeted_cube_locations) != 0):
             print "NEW TARGETED_CUBE SPOTTED: list = " +  str(new_targeted_cube_locations)
-            self.setTargettedCube(new_targeted_cube_locations)
+            self.setTargetedCube(new_targeted_cube_locations)
                 
             
     def isNewCubeTargettedCube(self, new_cube_location):
@@ -142,9 +142,9 @@ class MapThread(threading.Thread):
             
         return same
         
-    def setNewTargettedCube(self, new_cube_locations):
-        average_new_cube_location = getAverageLocation(new_cube_locations)
-        self.targetted_cube = average_new_cube_location
+    def setNewTargetedCube(self, new_cube_locations):
+        average_new_cube_location = map.getAverageLocation(new_cube_locations)
+        self.targeted_cube = average_new_cube_location
     
     def run(self):
         print "Starting " + self.name
