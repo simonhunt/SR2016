@@ -1,6 +1,7 @@
 print "Main thread started"
 
 import time
+import copy
 
 from sr.robot import *
 
@@ -229,6 +230,11 @@ def getCubeDemo():
     ServoThread.setSequence(arm_phases[0])
         
     while(TargetThread.target != None):
+        
+        if (MapThread.updated_targeted_cube == True):
+            MapThread.updated_target_cube = False
+            TargetThread.setCurrentTarget(copy.deepcopy(MapThread.targeted_cube['cube_location']))
+            
         time.sleep(0.1)
         
     MapThread.removeTargetedCube()
