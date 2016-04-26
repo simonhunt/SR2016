@@ -182,9 +182,9 @@ def getAverageLocation(locations):
     average_location['x'] = average_location_X
     average_location['y'] = average_location_Y
     average_location['z'] = average_location_Z
-    average_location['yaw'] = average_location_YAW
-    average_location['pitch'] = average_location_PITCH
-    average_location['roll'] = average_location_ROLL
+    average_location['yaw'] = average_location_Yaw
+    average_location['pitch'] = average_location_Pitch
+    average_location['roll'] = average_location_Roll
     return average_location
 
 ## OBJECT MARKER CODE ###########################################################################################
