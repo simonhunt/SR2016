@@ -250,7 +250,7 @@ class MapThread(threading.Thread):
                 new_c_cube_locations = []
                 
             if (self.targeted_cube != None):
-                updateTargetedCube(new_a_cube_locations, new_b_cube_locations, new_c_cube_locations)
+                self.updateTargetedCube(new_a_cube_locations, new_b_cube_locations, new_c_cube_locations)
                 
             
         
