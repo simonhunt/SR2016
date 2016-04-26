@@ -121,9 +121,7 @@ class MapThread(threading.Thread):
                 
         if (len(new_targeted_cube_locations) != 0):
             print "NEW TARGETED_CUBE SPOTTED: list = " +  str(new_targeted_cube_locations)
-            self.setNewTargetedCube(new_targeted_cube_locations)
-            noise.signalGood(self.power)
-                
+            self.setNewTargetedCube(new_targeted_cube_locations)                
             
     def isNewCubeTargettedCube(self, new_cube_location):
         same = False
@@ -136,6 +134,7 @@ class MapThread(threading.Thread):
         team_scoring_same = (new_cube_location['team_scoring'] == self.targeted_cube['cube_location']['team_scoring'])
         
         if ((d_x < MAX_D_X) and (d_y < MAX_D_Y) and (d_z < MAX_D_Z) and (d_yaw < MAX_D_YAW) and (d_pitch < MAX_D_PITCH) and (d_roll < MAX_D_ROLL) and (team_scoring_same == True)):
+            print "accepting targetted_cube with (d_x, d_y, d_z, d_yaw, d_pitch, d_roll) = " + str((d_x, d_y, d_z, d_yaw, d_pitch, d_roll))
             same = True
         
         else:
@@ -145,9 +144,7 @@ class MapThread(threading.Thread):
         
     def setNewTargetedCube(self, new_cube_locations):
         average_new_cube_location = map.getAverageLocation(new_cube_locations)
-        print "147 self.targeted_cube = " + str(self.targeted_cube)
         self.targeted_cube['cube_location'] = average_new_cube_location
-        print "149 self.targeted_cube = " + str(self.targeted_cube)
     
     def run(self):
         print "Starting " + self.name
@@ -160,7 +157,6 @@ class MapThread(threading.Thread):
                     self.SteadycamThread.nextPan()
                     
                 else: #self.targeted_cube != None
-                    print "162 self.targeted_cube = " + str(self.targeted_cube)
                 
                     self.SteadycamThread.steady_target = self.targeted_cube['cube_location']
                     
@@ -264,8 +260,6 @@ class MapThread(threading.Thread):
                 
             if (self.targeted_cube != None):
                 self.updateTargetedCube(new_a_cube_locations, new_b_cube_locations, new_c_cube_locations)
-                
-            
         
         print "Exiting " + self.name
       
