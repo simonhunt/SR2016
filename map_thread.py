@@ -231,14 +231,28 @@ class MapThread(threading.Thread):
                 new_a_cube_locations = TA.processMarkers(camera_location_from_latest_markers, self.zone)
                 self.a_cube_locations.extend(new_a_cube_locations)
             
+            else: 
+                new_a_cube_locations = []
+            
             if (TB.marker_seen == True):
                 new_b_cube_locations = TB.processMarkers(camera_location_from_latest_markers, self.zone)
                 self.b_cube_locations.extend(new_b_cube_locations)
+                
+            else: 
+                new_b_cube_locations = []
                 
                 
             if (TC.marker_seen == True):
                 new_c_cube_locations = TC.processMarkers(camera_location_from_latest_markers, self.zone)
                 self.c_cube_locations.extend(new_c_cube_locations)
+                
+            else: 
+                new_c_cube_locations = []
+                
+            if (self.targeted_cube != None):
+                updateTargetedCube(new_a_cube_locations, new_b_cube_locations, new_c_cube_locations)
+                
+            
         
         print "Exiting " + self.name
       
