@@ -151,7 +151,7 @@ class TokenMarkerHandler(MarkerHandler):
 def getAverageLocation(locations):
     ## Returns the average of the camera_location from the arenaMarker
     
-    average_location = copy.deepcopy(locations[0]
+    average_location = copy.deepcopy(locations[0])
     
     total_location_X = 0
     total_location_Y = 0
