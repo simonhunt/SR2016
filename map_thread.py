@@ -144,7 +144,7 @@ class MapThread(threading.Thread):
         
     def setNewTargetedCube(self, new_cube_locations):
         average_new_cube_location = map.getAverageLocation(new_cube_locations)
-        self.targeted_cube = average_new_cube_location
+        self.targeted_cube['cube_location'] = average_new_cube_location
     
     def run(self):
         print "Starting " + self.name
