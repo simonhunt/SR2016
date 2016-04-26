@@ -146,6 +146,7 @@ class MapThread(threading.Thread):
         average_new_cube_location = map.getAverageLocation(new_cube_locations)
         print "self.targeted_cube = " + str(self.targeted_cube)
         self.targeted_cube['cube_location'] = average_new_cube_location
+        print "self.targeted_cube = " + str(self.targeted_cube)
     
     def run(self):
         print "Starting " + self.name
