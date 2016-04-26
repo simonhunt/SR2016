@@ -121,7 +121,7 @@ class MapThread(threading.Thread):
                 
         if (len(new_targeted_cube_locations) != 0):
             print "NEW TARGETED_CUBE SPOTTED: list = " +  str(new_targeted_cube_locations)
-            self.setTargetedCube(new_targeted_cube_locations)
+            self.setNewTargetedCube(new_targeted_cube_locations)
                 
             
     def isNewCubeTargettedCube(self, new_cube_location):
