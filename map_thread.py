@@ -48,13 +48,13 @@ class MapThread(threading.Thread):
         
         current_time = time.time()
         
-        self.camera_location = map.getInitialCameraLocation(zone, current_time)
-        self.setMotionThreadRobotLocation(self.SteadycamThread.camera_angle)
+        camera_location = map.getInitialCameraLocation(zone, current_time)
+        self.setMotionThreadRobotLocation(self.SteadycamThread.camera_angle, camera_location)
         self.starting_cube_locations = map.getStartingCubeLocations(current_time)
         self.robot_locations = map.getStartingRobotLocations(current_time)
         
-    def setMotionThreadRobotLocation(self, camera_angle):
-        robot_location = map.robotLocationFromCameraLocation(self.camera_location, camera_angle) # self.camera_location
+    def setMotionThreadRobotLocation(self, camera_angle, camera_location):
+        robot_location = map.robotLocationFromCameraLocation(camera_location, camera_angle) # self.camera_location
         self.MotionThread.setRobotLocation(robot_location)
         
     def updateMotionThreadRobotLocation(self, camera_angle, old_camera_location, new_camera_location):
@@ -66,7 +66,7 @@ class MapThread(threading.Thread):
         d_pitch = new_camera_location['pitch'] - old_camera_location['pitch']
         d_roll = new_camera_location['roll'] - old_camera_location['roll']
         
-        robot_location = map.robotLocationFromCameraLocation(self.camera_location, camera_angle) # self.camera_location
+        robot_location = copy.deepcopy(self.MotionThread.robot_location)
         
         robot_location['x'] += d_x
         robot_location['y'] += d_y
