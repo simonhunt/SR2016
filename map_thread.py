@@ -217,27 +217,25 @@ class MapThread(threading.Thread):
                     camera_location_from_latest_markers = A.processMarkers(camera_location_at_latest_markers)
                     self.updateMotionThreadRobotLocation(camera_angle_at_latest_markers, camera_location_at_latest_markers, camera_location_from_latest_markers)
             
-            if (current_time - self.camera_location['time'] < MAX_BLIND_TIME):
+            i = 0
+            for R in RList:
                 
-                i = 0
-                for R in RList:
-                    
-                    if (R.marker_seen == True):
-                        self.robot_locations[i] = R.processMarkers(camera_location_from_latest_markers)
-                    i += 1
+                if (R.marker_seen == True):
+                    self.robot_locations[i] = R.processMarkers(camera_location_from_latest_markers)
+                i += 1
+            
+            if (TA.marker_seen == True):
+                new_a_cube_locations = TA.processMarkers(camera_location_from_latest_markers, self.zone)
+                self.a_cube_locations.extend(new_a_cube_locations)
+            
+            if (TB.marker_seen == True):
+                new_b_cube_locations = TB.processMarkers(camera_location_from_latest_markers, self.zone)
+                self.b_cube_locations.extend(new_b_cube_locations)
                 
-                if (TA.marker_seen == True):
-                    new_a_cube_locations = TA.processMarkers(camera_location_from_latest_markers, self.zone)
-                    self.a_cube_locations.extend(new_a_cube_locations)
                 
-                if (TB.marker_seen == True):
-                    new_b_cube_locations = TB.processMarkers(camera_location_from_latest_markers, self.zone)
-                    self.b_cube_locations.extend(new_b_cube_locations)
-                    
-                    
-                if (TC.marker_seen == True):
-                    new_c_cube_locations = TC.processMarkers(camera_location_from_latest_markers, self.zone)
-                    self.c_cube_locations.extend(new_c_cube_locations)
+            if (TC.marker_seen == True):
+                new_c_cube_locations = TC.processMarkers(camera_location_from_latest_markers, self.zone)
+                self.c_cube_locations.extend(new_c_cube_locations)
         
         print "Exiting " + self.name
       
