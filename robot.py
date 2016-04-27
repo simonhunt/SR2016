@@ -232,7 +232,7 @@ def getCubeDemo():
     while(TargetThread.target != None):
         
         if (MapThread.updated_targeted_cube == True):
-            MapThread.updated_target_cube = False
+            MapThread.updated_targeted_cube = False
             TargetThread.changeCurrentTarget(copy.deepcopy(MapThread.targeted_cube['cube_location']))
             print "changing current target: " + str(MapThread.targeted_cube['cube_location'])
             noise.signalActivity(R.power)
