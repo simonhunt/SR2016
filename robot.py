@@ -298,8 +298,6 @@ def steadyTest():
             break
     
     arm_phases = positions.PHASES[cube_approach_path['approach_location']['degrees']]
-    lift_time = positions.LIFT_TIMES[cube_approach_path['approach_location']['degrees']]
-    down_time = positions.DOWN_TIMES[cube_approach_path['approach_location']['degrees']]
     
     MapThread.setTargetedCube(cube_approach_path)
     print "setting targetted_cube: " + str(cube_approach_path)
@@ -307,9 +305,21 @@ def steadyTest():
     time.sleep(20)
 
     TargetThread.setTarget(copy.deepcopy(MapThread.targeted_cube['cube_location']))
+    
+    ServoThread.setSequence(arm_phases[0])
+    
+    while(TargetThread.target != None):
+        
+        if (MapThread.updated_targeted_cube == True):
+            MapThread.updated_targeted_cube = False
+            TargetThread.changeCurrentTarget(copy.deepcopy(MapThread.targeted_cube['cube_location']))
+            print "changing current target: " + str(MapThread.targeted_cube['cube_location'])
+            noise.signalActivity(R.power)
+            noise.signalActivity(R.power)
+            noise.signalActivity(R.power)
 
         
-    ServoThread.setSequence(arm_phases[0])
+    
 
     
 
