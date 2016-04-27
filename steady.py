@@ -60,17 +60,17 @@ class SteadycamThread(threading.Thread):
         self.next_pan = True
         
     def moveCameraServo(self, new_camera_angle):
-        print "new_camera_angle = " + str(new_camera_angle)
+        # print "new_camera_angle = " + str(new_camera_angle)
         new_camera_angle = mapToLimits(new_camera_angle, MAX_CAMERA_ANGLE, MIN_CAMERA_ANGLE)
         #new_output = int(mapToLimits(((((new_camera_angle - MIN_CAMERA_ANGLE) / (MAX_CAMERA_ANGLE - MIN_CAMERA_ANGLE)) * (MAX_CAMERA_OUTPUT - MIN_CAMERA_OUTPUT)) + MIN_CAMERA_OUTPUT), MAX_CAMERA_OUTPUT, MIN_CAMERA_OUTPUT))
         
-        print "new_camera_angle = " + str(new_camera_angle)
+        # print "new_camera_angle = " + str(new_camera_angle)
         new_output = self.getOutputFromAngle(new_camera_angle)
-        print "new_output = " + str(new_output)
+        # print "new_output = " + str(new_output)
         
         change_in_output = abs(new_output - self.last_output)
         self.last_output = new_output
-        print "new_output = " + str(new_output)
+        # print "new_output = " + str(new_output)
         self.ruggeduino.setCameraServoAngle(new_output)
         self.camera_angle = new_camera_angle
         return change_in_output
@@ -91,26 +91,26 @@ class SteadycamThread(threading.Thread):
             lower_measurement_index += 1
             upper_measurement_index += 1
         
-        print str(appropriate_lower_measurement_index)
-        print str(appropriate_upper_measurement_index)
+        # print str(appropriate_lower_measurement_index)
+        # print str(appropriate_upper_measurement_index)
             
         lower_measurement_angle = CAMERA_MEASUREMENTS[appropriate_lower_measurement_index][0]
         upper_measurement_angle = CAMERA_MEASUREMENTS[appropriate_upper_measurement_index][0]
         lower_measurement_output = CAMERA_MEASUREMENTS[appropriate_lower_measurement_index][1]
         upper_measurement_output = CAMERA_MEASUREMENTS[appropriate_upper_measurement_index][1]
         
-        print "lower_measurement_angle " + str(lower_measurement_angle)
-        print "upper_measurement_angle " + str(upper_measurement_angle)
-        print "lower_measurement_output " + str(lower_measurement_output)
-        print "upper_measurement_output " + str(upper_measurement_output)
+        # print "lower_measurement_angle " + str(lower_measurement_angle)
+        # print "upper_measurement_angle " + str(upper_measurement_angle)
+        # print "lower_measurement_output " + str(lower_measurement_output)
+        # print "upper_measurement_output " + str(upper_measurement_output)
         
         gradient = (upper_measurement_output - lower_measurement_output) / (upper_measurement_angle - lower_measurement_angle)
         d_angle = (new_camera_angle - lower_measurement_angle)
         output = lower_measurement_output + (gradient * d_angle)
         
-        print "gradient " + str(gradient)
-        print "d_angle " + str(d_angle)
-        print "output " + str(output)
+        # print "gradient " + str(gradient)
+        # print "d_angle " + str(d_angle)
+        # print "output " + str(output)
         
         # output = (((new_camera_angle - lower_measurement_angle) / (upper_measurement_angle - lower_measurement_angle)) * (upper_measurement_output - lower_measurement_output)) + lower_measurement_output
         output = int(mapToLimits(output, MAX_CAMERA_OUTPUT, MIN_CAMERA_OUTPUT))
@@ -144,9 +144,9 @@ class SteadycamThread(threading.Thread):
             
     def setPan(self):
         pan_fraction = CAMERA_PAN_SEQUENCE[self.pan_index]
-        print str(pan_fraction)
+        # print str(pan_fraction)
         new_camera_angle = ((MAX_CAMERA_ANGLE - MIN_CAMERA_ANGLE) * pan_fraction) + MIN_CAMERA_ANGLE
-        print str(new_camera_angle)
+        # print str(new_camera_angle)
         change_in_output = self.moveCameraServo(new_camera_angle)
         time_to_sleep = (change_in_output / CAMERA_TURN_RATE) + CAMERA_STABILISATION_TIME
         time.sleep(time_to_sleep)
