@@ -284,6 +284,8 @@ def testArms():
         time.sleep(30)
         
 def steadyTest():
+    return_location = StoreManager.getReturnLocation()
+    store_location = StoreManager.getStoreLocation()
     current_time = time.time()
     
     while ((len(MapThread.a_cube_locations) == 0) and (len(MapThread.b_cube_locations) == 0) and (len(MapThread.c_cube_locations) == 0)):
