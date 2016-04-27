@@ -103,7 +103,7 @@ class SteadycamThread(threading.Thread):
         #         upper_measurement_index += 1
         
         print str(appropriate_lower_measurement_index)
-        print str(appropriate_upper_measurement_index
+        print str(appropriate_upper_measurement_index)
             
         lower_measurement_angle = CAMERA_MEASUREMENTS[appropriate_lower_measurement_index][0]
         upper_measurement_angle = CAMERA_MEASUREMENTS[appropriate_upper_measurement_index][0]
