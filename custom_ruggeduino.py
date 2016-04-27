@@ -63,9 +63,9 @@ class MpuSonarEncoderRuggeduino(Ruggeduino):
         tens_char = chr(tens + 97)
         units_char = chr(units + 97)
         
-        print "units = " + str(units) + str(units_char)
-        print "tens = " + str(tens) + str(tens_char)
-        print "hundreds = " + str(hundreds) + str(hundreds_char)
+        # print "units = " + str(units) + str(units_char)
+        # print "tens = " + str(tens) + str(tens_char)
+        # print "hundreds = " + str(hundreds) + str(hundreds_char)
         
         with self.lock:
             #new_angle = int(self.command('t' + hundreds_char + tens_char + units_char))
