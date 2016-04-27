@@ -101,6 +101,10 @@ class SteadycamThread(threading.Thread):
         d_angle = (new_camera_angle - lower_measurement_angle)
         output = lower_measurement_output + (gradient * d_angle)
         
+        print "gradient" + str(d_angle)
+        print "d_angle" + str(d_angle)
+        print "output" + str(d_angle)
+        
         # output = (((new_camera_angle - lower_measurement_angle) / (upper_measurement_angle - lower_measurement_angle)) * (upper_measurement_output - lower_measurement_output)) + lower_measurement_output
         output = int(mapToLimits(output, MAX_CAMERA_OUTPUT, MIN_CAMERA_OUTPUT))
         
