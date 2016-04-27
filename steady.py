@@ -17,7 +17,7 @@ MIN_CAMERA_OUTPUT = 0
 # CAMERA_TURN_RATE = 180 #output/sec
 # CAMERA_STABILISATION_TIME = 0.1 #sec
 CAMERA_PAN_SEQUENCE = [0, 0.2, 0.6, 1, 0.8, 0.4]
-CAMERA_MEASUREMENTS = [[-6.97, 0], [35.3, 36], [74.22, 72], [110.38, 98], [147.81, 134], [184.47, 180]] #[[0, 0], [192, 180]]
+CAMERA_MEASUREMENTS = [[-6.97 - 5, 0], [35.3 - 5, 36], [74.22 - 5, 72], [110.38 - 5, 98], [147.81 - 5, 134], [184.47 - 5, 180]] #[[0, 0], [192, 180]]
 START_PAN_INDEX = 0
 
 TEST_TARGET = {'x': 0, 'y': 7}
@@ -50,7 +50,7 @@ class SteadycamThread(threading.Thread):
     def testServo(self):
         self.moveCameraServo(MAX_CAMERA_ANGLE)
         time.sleep(0.5)
-        self.moveCameraServo((MAX_CAMERA_ANGLE + MIN_CAMERA_ANGLE) / 2)
+        self.moveCameraServo(90)
         time.sleep(0.5)
         self.moveCameraServo(MIN_CAMERA_ANGLE)
         time.sleep(0.5)
