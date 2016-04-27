@@ -49,9 +49,9 @@ class SteadycamThread(threading.Thread):
         
     def testServo(self):
         self.moveCameraServo(MAX_CAMERA_ANGLE)
-        time.sleep(5)
+        time.sleep(0.5)
         self.moveCameraServo(MIN_CAMERA_ANGLE)
-        time.sleep(5)
+        time.sleep(0.5)
         
     def nextPan(self):
         self.steady_target = None
