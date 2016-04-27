@@ -74,35 +74,38 @@ class SteadycamThread(threading.Thread):
         return change_in_output
         
     def getOutputFromAngle(self, new_camera_angle):
-        lower_measurement_index = -1
-        upper_measurement_index = 0
+        appropriate_lower_measurement_index = 0
+        appropriate_upper_measurement_index = len(CAMERA_MEASUREMENTS) - 1
         
-        # i = 0
+        lower_measurement_index = 0
+        upper_measurement_index = 1
         
-        # while (upper_measurement_index < len(CAMERA_MEASUREMENTS))
+        while (upper_measurement_index < len(CAMERA_MEASUREMENTS))
             
-        #     if (new_camera_angle <= CAMERA_MEASUREMENTS[upper_measurement_index][0] and new_camera_angle >= CAMERA_MEASUREMENTS[lower_measurement_index][0]):
+            if (new_camera_angle <= CAMERA_MEASUREMENTS[upper_measurement_index][0] and new_camera_angle >= CAMERA_MEASUREMENTS[lower_measurement_index][0]):
+                appropriate_lower_measurement_index = lower_measurement_index
+                appropriate_upper_measurement_index = upper_measurement_index
              
-        #     lower_measurement_index = 0
-        #     upper_measurement_index = 1
+            lower_measurement_index += 1
+            upper_measurement_index += 1
             
         
-        for camera_measurement in CAMERA_MEASUREMENTS:
+        # for camera_measurement in CAMERA_MEASUREMENTS:
             
-            if (new_camera_angle < camera_measurement[0]):
-                lower_measurement_angle = CAMERA_MEASUREMENTS[lower_measurement_index][0]
-                upper_measurement_angle = CAMERA_MEASUREMENTS[upper_measurement_index][0]
-                lower_measurement_output = CAMERA_MEASUREMENTS[lower_measurement_index][1]
-                upper_measurement_output = CAMERA_MEASUREMENTS[upper_measurement_index][1]
+        #     if (new_camera_angle < camera_measurement[0]):
+        #         lower_measurement_angle = CAMERA_MEASUREMENTS[lower_measurement_index][0]
+        #         upper_measurement_angle = CAMERA_MEASUREMENTS[upper_measurement_index][0]
+        #         lower_measurement_output = CAMERA_MEASUREMENTS[lower_measurement_index][1]
+        #         upper_measurement_output = CAMERA_MEASUREMENTS[upper_measurement_index][1]
             
-            else: # angle >= camera_measurement[0]
-                lower_measurement_index += 1
-                upper_measurement_index += 1
+        #     else: # angle >= camera_measurement[0]
+        #         lower_measurement_index += 1
+        #         upper_measurement_index += 1
             
-        # lower_measurement_angle = CAMERA_MEASUREMENTS[lower_measurement_index][0]
-        # upper_measurement_angle = CAMERA_MEASUREMENTS[upper_measurement_index][0]
-        # lower_measurement_output = CAMERA_MEASUREMENTS[lower_measurement_index][1]
-        # upper_measurement_output = CAMERA_MEASUREMENTS[upper_measurement_index][1]
+        lower_measurement_angle = CAMERA_MEASUREMENTS[appropriate_lower_measurement_index][0]
+        upper_measurement_angle = CAMERA_MEASUREMENTS[appropriate_upper_measurement_index][0]
+        lower_measurement_output = CAMERA_MEASUREMENTS[appropriate_lower_measurement_index][1]
+        upper_measurement_output = CAMERA_MEASUREMENTS[appropriate_upper_measurement_index][1]
         
         output = (((new_camera_angle - lower_measurement_angle) / (upper_measurement_angle - lower_measurement_angle)) * (upper_measurement_output - lower_measurement_output)) + lower_measurement_output
         output = int(mapToLimits(output, MAX_CAMERA_OUTPUT, MIN_CAMERA_OUTPUT))
