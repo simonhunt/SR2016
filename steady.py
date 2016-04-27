@@ -88,19 +88,6 @@ class SteadycamThread(threading.Thread):
              
             lower_measurement_index += 1
             upper_measurement_index += 1
-            
-        
-        # for camera_measurement in CAMERA_MEASUREMENTS:
-            
-        #     if (new_camera_angle < camera_measurement[0]):
-        #         lower_measurement_angle = CAMERA_MEASUREMENTS[lower_measurement_index][0]
-        #         upper_measurement_angle = CAMERA_MEASUREMENTS[upper_measurement_index][0]
-        #         lower_measurement_output = CAMERA_MEASUREMENTS[lower_measurement_index][1]
-        #         upper_measurement_output = CAMERA_MEASUREMENTS[upper_measurement_index][1]
-            
-        #     else: # angle >= camera_measurement[0]
-        #         lower_measurement_index += 1
-        #         upper_measurement_index += 1
         
         print str(appropriate_lower_measurement_index)
         print str(appropriate_upper_measurement_index)
@@ -110,7 +97,11 @@ class SteadycamThread(threading.Thread):
         lower_measurement_output = CAMERA_MEASUREMENTS[appropriate_lower_measurement_index][1]
         upper_measurement_output = CAMERA_MEASUREMENTS[appropriate_upper_measurement_index][1]
         
-        output = (((new_camera_angle - lower_measurement_angle) / (upper_measurement_angle - lower_measurement_angle)) * (upper_measurement_output - lower_measurement_output)) + lower_measurement_output
+        gradient = (upper_measurement_output - lower_measurement_output) / (upper_measurement_angle - lower_measurement_angle)
+        d_angle = (new_camera_angle - lower_measurement_angle)
+        output = lower_measurement_output + (gradient * d_angle)
+        
+        # output = (((new_camera_angle - lower_measurement_angle) / (upper_measurement_angle - lower_measurement_angle)) * (upper_measurement_output - lower_measurement_output)) + lower_measurement_output
         output = int(mapToLimits(output, MAX_CAMERA_OUTPUT, MIN_CAMERA_OUTPUT))
         
         return output
