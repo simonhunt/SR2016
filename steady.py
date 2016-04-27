@@ -74,9 +74,8 @@ class SteadycamThread(threading.Thread):
         return change_in_output
         
     def getOutputFromAngle(self, new_camera_angle):
-        
-        lower_measurement_index = 0
-        upper_measurement_index = 1
+        lower_measurement_index = - 1
+        upper_measurement_index = 0
         
         for camera_measurement in CAMERA_MEASUREMENTS:
             
