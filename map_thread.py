@@ -164,7 +164,8 @@ class MapThread(threading.Thread):
                     
                 camera_angle_at_latest_markers = copy.deepcopy(self.SteadycamThread.camera_angle)
                 robot_location_at_latest_markers = copy.deepcopy(self.MotionThread.robot_location)
-                markers = self.see(res = (1280,960))
+                markers = self.see()
+                #markers = self.see(res = (1280,960))
             
             noise.signalCamera(self.power)
             camera_location_at_latest_markers = map.cameraLocationFromRobotLocation(robot_location_at_latest_markers, camera_angle_at_latest_markers) #self.MotionThread.robot_location
