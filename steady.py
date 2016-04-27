@@ -80,7 +80,7 @@ class SteadycamThread(threading.Thread):
         lower_measurement_index = 0
         upper_measurement_index = 1
         
-        while (upper_measurement_index < len(CAMERA_MEASUREMENTS))
+        while (upper_measurement_index < len(CAMERA_MEASUREMENTS)):
             
             if (new_camera_angle <= CAMERA_MEASUREMENTS[upper_measurement_index][0] and new_camera_angle >= CAMERA_MEASUREMENTS[lower_measurement_index][0]):
                 appropriate_lower_measurement_index = lower_measurement_index
@@ -101,6 +101,9 @@ class SteadycamThread(threading.Thread):
         #     else: # angle >= camera_measurement[0]
         #         lower_measurement_index += 1
         #         upper_measurement_index += 1
+        
+        print str(appropriate_lower_measurement_index)
+        print str(appropriate_upper_measurement_index
             
         lower_measurement_angle = CAMERA_MEASUREMENTS[appropriate_lower_measurement_index][0]
         upper_measurement_angle = CAMERA_MEASUREMENTS[appropriate_upper_measurement_index][0]
