@@ -282,6 +282,34 @@ def testArms():
         time.sleep(20)
         ServoThread.addSequence(positions.TEST_SEQUENCE_180)
         time.sleep(30)
+        
+def steadyTest():
+    current_time = time.time()
+    
+    while ((len(MapThread.a_cube_locations) == 0) and (len(MapThread.b_cube_locations) == 0) and (len(MapThread.c_cube_locations) == 0)):
+        time.sleep(1)
+    
+    while (True):
+        
+        if ((len(MapThread.a_cube_locations) != 0) or (len(MapThread.b_cube_locations) != 0) or (len(MapThread.c_cube_locations) != 0)):        
+            cube_approach_path = method.decideCubeApproachPath(MapThread.a_cube_locations, MapThread.b_cube_locations, MapThread.c_cube_locations, return_location, MotionThread.robot_location, R.zone, MapThread.robot_locations, current_time) 
+            break
+    
+    arm_phases = positions.PHASES[cube_approach_path['approach_location']['degrees']]
+    lift_time = positions.LIFT_TIMES[cube_approach_path['approach_location']['degrees']]
+    down_time = positions.DOWN_TIMES[cube_approach_path['approach_location']['degrees']]
+    
+    MapThread.setTargetedCube(cube_approach_path)
+    print "setting targetted_cube: " + str(cube_approach_path)
+    
+    time.sleep(20)
+
+    TargetThread.setTarget(copy.deepcopy(MapThread.targeted_cube['cube_location']))
+
+        
+    ServoThread.setSequence(arm_phases[0])
+
+    
 
 time.sleep(5)
 
@@ -291,37 +319,37 @@ time.sleep(10)
 
 noise.signalGood(R.power)
 
-getCubeDemo()
+steadyTest()
 
-time.sleep(5)
+# time.sleep(5)
 
-MotionThread.setAction(TURN_TO, - 45)
+# MotionThread.setAction(TURN_TO, - 45)
 
-time.sleep(10)
+# time.sleep(10)
 
-noise.signalGood(R.power)
+# noise.signalGood(R.power)
 
-getCubeDemo()
+# getCubeDemo()
 
-time.sleep(5)
+# time.sleep(5)
 
-MotionThread.setAction(TURN_TO, - 45)
+# MotionThread.setAction(TURN_TO, - 45)
 
-time.sleep(10)
+# time.sleep(10)
 
-noise.signalGood(R.power)
+# noise.signalGood(R.power)
 
-getCubeDemo()
+# getCubeDemo()
 
-time.sleep(5)
+# time.sleep(5)
 
-MotionThread.setAction(TURN_TO, - 45)
+# MotionThread.setAction(TURN_TO, - 45)
 
-time.sleep(10)
+# time.sleep(10)
 
-noise.signalGood(R.power)
+# noise.signalGood(R.power)
 
-getCubeDemo()
+# getCubeDemo()
     
 print "Main thread exited"
 
