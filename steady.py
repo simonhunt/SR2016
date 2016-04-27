@@ -63,6 +63,7 @@ class SteadycamThread(threading.Thread):
         #new_output = int(mapToLimits(((((new_camera_angle - MIN_CAMERA_ANGLE) / (MAX_CAMERA_ANGLE - MIN_CAMERA_ANGLE)) * (MAX_CAMERA_OUTPUT - MIN_CAMERA_OUTPUT)) + MIN_CAMERA_OUTPUT), MAX_CAMERA_OUTPUT, MIN_CAMERA_OUTPUT))
         
         new_output = self.getOutputFromAngle(new_camera_angle)
+        print "new_output = " + str(new_camera_angle)
         
         change_in_output = abs(new_output - self.last_output)
         self.last_output = new_output
