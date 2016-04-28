@@ -154,7 +154,7 @@ RIGHT_GRAB_DIRECTION = 1
 RIGHT_GRAB_OFFSET = 0
 
 #steady_thread
-ADJUST = - 6.66 #- 10 + 7 - 1 - 3 -2
+ADJUST = - 7 #- 10 + 7 - 1 - 3 -2
 
 CAMERA_MEASUREMENTS = [[0 + ADJUST, 0], [99.678 + ADJUST, 90], [193.272 + ADJUST, 180]]
 
