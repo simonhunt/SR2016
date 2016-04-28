@@ -333,16 +333,16 @@ def steadyTest():
 
     
 
-time.sleep(5)
+# time.sleep(5)
 
-MotionThread.setAction(MOVE_HOLD, 1.5)
+# MotionThread.setAction(MOVE_HOLD, 1.5)
 
 time.sleep(5)
 
 noise.signalGood(R.power)
 
 
-# steadyTest()
+steadyTest()
     
 # time.sleep(5)
 
