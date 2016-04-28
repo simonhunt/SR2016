@@ -240,8 +240,8 @@ def getCubeDemo():
             noise.signalActivity(R.power)
             noise.signalActivity(R.power)
             
-            
-        time.sleep(0.1)
+        else:
+            time.sleep(0.1)
         
     MapThread.removeTargetedCube()
     
@@ -337,41 +337,41 @@ def steadyTest():
 
 # MotionThread.setAction(MOVE_HOLD, 1.5)
 
+# time.sleep(5)
+
+# noise.signalGood(R.power)
+
+# steadyTest()
+    
 time.sleep(5)
+
+MotionThread.setAction(TURN_TO, - 45)
+
+time.sleep(10)
 
 noise.signalGood(R.power)
 
-steadyTest()
-    
-# time.sleep(5)
+getCubeDemo()
 
-# MotionThread.setAction(TURN_TO, - 45)
+time.sleep(5)
 
-# time.sleep(10)
+MotionThread.setAction(TURN_TO, - 45)
 
-# noise.signalGood(R.power)
+time.sleep(10)
 
-# getCubeDemo()
+noise.signalGood(R.power)
 
-# time.sleep(5)
+getCubeDemo()
 
-# MotionThread.setAction(TURN_TO, - 45)
+time.sleep(5)
 
-# time.sleep(10)
+MotionThread.setAction(TURN_TO, - 45)
 
-# noise.signalGood(R.power)
+time.sleep(10)
 
-# getCubeDemo()
+noise.signalGood(R.power)
 
-# time.sleep(5)
-
-# MotionThread.setAction(TURN_TO, - 45)
-
-# time.sleep(10)
-
-# noise.signalGood(R.power)
-
-# getCubeDemo()
+getCubeDemo()
     
 print "Main thread exited"
 
