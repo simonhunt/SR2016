@@ -187,9 +187,6 @@ class MapThread(threading.Thread):
             
             RList = [R0, R1, R2, R3]
             
-            
-            
-            
             for marker in markers:
                 
                 if (marker.info.marker_type == MARKER_ARENA): # & (m.info.code < 28)
