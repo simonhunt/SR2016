@@ -303,10 +303,15 @@ def steadyTest():
     print "setting targetted_cube: " + str(cube_approach_path)
     
     time.sleep(20)
-
-    TargetThread.setTarget(copy.deepcopy(MapThread.targeted_cube['cube_location']))
+    
+    cube_target = copy.deepcopy(MapThread.targeted_cube['cube_location'])
+    
+    TargetThread.setTarget(cube_target)
     
     ServoThread.setSequence(arm_phases[0])
+    
+    while(TargetThread.target != cube_target):
+        time.sleep (0.1)
     
     while(TargetThread.target != None):
         
@@ -319,6 +324,8 @@ def steadyTest():
             noise.signalActivity(R.power)
             noise.signalActivity(R.power)
             noise.signalActivity(R.power)
+            
+        time.sleep(0.1)
 
         
     
