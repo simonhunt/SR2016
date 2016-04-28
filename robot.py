@@ -45,7 +45,7 @@ DEBUG_STEERING = 0
 # MIN_SPEED = 0
 
 ORIGIN = {'x': 0, 'y': 0, 'z': 0}
-THREETHREE = {'x': 3, 'y': 3, 'z': 0}
+THREEFIVE = {'x': 3, 'y': 5, 'z': 0}
 
 if (DEBUG_YAW_DRIFT == True):
     YAW_DRIFT = DEBUG_TEST_DRIFT
