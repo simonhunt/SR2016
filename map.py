@@ -309,7 +309,7 @@ def objectLocationFromObjectMarker(object_marker, camera_location, current_time,
 ################################################################################################################
 ################################################################################################################
  
-def cameraLocationFromRobotLocation(robot_location, camera_rotation = 0):
+def cameraLocationFromRobotLocation(robot_location, camera_rotation):
     robot_to_camera_yaw = ROBOT_TO_DEFAULT_CAMERA_YAW + camera_rotation
     camera_location = copy.deepcopy(robot_location)
     vector = getRobotLocationToCameraLocationVector(robot_location)
@@ -328,7 +328,7 @@ def getRobotLocationToCameraLocationVector(robot_location):
     vector = {'x': dx, 'y': dy, 'z': dz}
     return vector
     
-def robotLocationFromCameraLocation(camera_location, camera_rotation = 0):
+def robotLocationFromCameraLocation(camera_location, camera_rotation):
     robot_to_camera_yaw = ROBOT_TO_DEFAULT_CAMERA_YAW + camera_rotation
     robot_location = copy.deepcopy(camera_location)
     robot_location['yaw'] -= robot_to_camera_yaw
