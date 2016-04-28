@@ -144,6 +144,7 @@ class MapThread(threading.Thread):
         return same
         
     def setNewTargetedCube(self, new_cube_locations):
+        new_cube_locations.append(copy.deepcopy(self.targeted_cube['cube_location']))
         average_new_cube_location = map.getAverageLocation(new_cube_locations)
         self.targeted_cube['cube_location'] = average_new_cube_location
         self.updated_targeted_cube = True
