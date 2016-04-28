@@ -335,13 +335,12 @@ def steadyTest():
 
 time.sleep(5)
 
-MotionThread.setAction(TURN_TO, - 45)
+MotionThread.setAction(MOVE_HOLD, 1.5)
 
 time.sleep(5)
 
 noise.signalGood(R.power)
 
-TargetThread.setTarget(THREEFIVE)
 
 # steadyTest()
     
