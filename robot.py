@@ -341,7 +341,7 @@ time.sleep(10)
 
 noise.signalGood(R.power)
 
-targetThread.setTarget(THREEFIVE)
+TargetThread.setTarget(THREEFIVE)
 
 # steadyTest()
 
