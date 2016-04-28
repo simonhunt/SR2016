@@ -160,6 +160,8 @@ MIN_CAMERA_ANGLE = - 6.97 + 15 #deg
 CAMERA_TURN_RATE = 180 #output/sec
 CAMERA_STABILISATION_TIME = 0.2 #sec
 
+CAMERA_MEASUREMENTS = [[-6.97 + 15, 0], [35.3 + 15, 36], [74.22 + 15, 72], [110.38 + 15, 98], [147.81 + 15, 134], [184.47 + 15, 180]] #[[0, 0], [192, 180]]
+
 #target
 
 #turn
