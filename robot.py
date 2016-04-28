@@ -310,6 +310,8 @@ def steadyTest():
     
     while(TargetThread.target != None):
         
+        print "UPDATED"
+        
         if (MapThread.updated_targeted_cube == True):
             MapThread.updated_targeted_cube = False
             TargetThread.changeCurrentTarget(copy.deepcopy(MapThread.targeted_cube['cube_location']))
