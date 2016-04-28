@@ -341,7 +341,6 @@ time.sleep(5)
 
 noise.signalGood(R.power)
 
-
 steadyTest()
     
 # time.sleep(5)
