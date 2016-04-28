@@ -19,7 +19,7 @@ BAD_DURATION = 300 #milliseconds
 ACTION_NOTE = 'b'
 ACTION_DURATION = 200 #milliseconds
 
-ACTIVITY_NOTE = 'b'
+ACTIVITY_NOTE = 'g'
 ACTIVITY_DURATION = 100 #milliseconds
 
 CAMERA_NOTE = 'd'
