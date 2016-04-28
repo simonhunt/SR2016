@@ -337,7 +337,7 @@ def steadyTest():
 
 # MotionThread.setAction(TURN_TO, - 45)
 
-time.sleep(10)
+time.sleep(1)
 
 noise.signalGood(R.power)
 
