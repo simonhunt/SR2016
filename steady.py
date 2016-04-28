@@ -49,29 +49,11 @@ class SteadycamThread(threading.Thread):
         
     def testServo(self):
         self.moveCameraServo(MAX_CAMERA_ANGLE)
-        time.sleep(10)
+        time.sleep(0.5)
         self.moveCameraServo(90)
-        time.sleep(10)
+        time.sleep(0.5)
         self.moveCameraServo(MIN_CAMERA_ANGLE)
-        time.sleep(10)
-        self.moveCameraServo(MAX_CAMERA_ANGLE)
-        time.sleep(10)
-        self.moveCameraServo(90)
-        time.sleep(10)
-        self.moveCameraServo(MIN_CAMERA_ANGLE)
-        time.sleep(10)
-        self.moveCameraServo(MAX_CAMERA_ANGLE)
-        time.sleep(10)
-        self.moveCameraServo(90)
-        time.sleep(10)
-        self.moveCameraServo(MIN_CAMERA_ANGLE)
-        time.sleep(10)
-        self.moveCameraServo(MAX_CAMERA_ANGLE)
-        time.sleep(10)
-        self.moveCameraServo(90)
-        time.sleep(10)
-        self.moveCameraServo(MIN_CAMERA_ANGLE)
-        time.sleep(10)
+        
         
     def nextPan(self):
         self.steady_target = None
