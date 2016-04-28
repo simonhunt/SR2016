@@ -16,7 +16,7 @@ MIN_CAMERA_OUTPUT = 0
 # MIN_CAMERA_ANGLE = 0 #deg
 # CAMERA_TURN_RATE = 180 #output/sec
 # CAMERA_STABILISATION_TIME = 0.1 #sec
-CAMERA_PAN_SEQUENCE = [0, 0.2, 0.6, 1, 0.8, 0.4]
+CAMERA_PAN_SEQUENCE = [0, 0.5, 1]#[0, 0.2, 0.6, 1, 0.8, 0.4]
 
 START_PAN_INDEX = 0
 
@@ -53,7 +53,6 @@ class SteadycamThread(threading.Thread):
         self.moveCameraServo(90)
         time.sleep(0.5)
         self.moveCameraServo(MIN_CAMERA_ANGLE)
-        
         
     def nextPan(self):
         self.steady_target = None
