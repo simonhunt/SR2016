@@ -61,7 +61,7 @@ MIN_LINEAR_POWER = 20
 
 #multi
 
-INITIAL_MPU_YAW_OFFSET = 9 #degrees   
+INITIAL_MPU_YAW_OFFSET = 0 #degrees   
 
 WHEEL_BASE = 0.333 #meters
 
