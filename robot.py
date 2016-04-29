@@ -355,8 +355,7 @@ def sonarTest():
 
 noise.signalGood(R.power)
 
-getCubeDemo()
-
+testArms()
 
 # steadyTest()
     
