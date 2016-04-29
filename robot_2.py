@@ -5,6 +5,9 @@
 WHEEL_RADIUS = 0.035
 ENCODER_RESOLUTION = 96
 
+DEFAULT_TRIG_PIN = 6
+DEFAULT_ECHO_PIN = 7
+
 #debug
 
 #limits
@@ -13,10 +16,10 @@ ENCODER_RESOLUTION = 96
 
 #map
 
-ZONE_0_INITIAL_CAMERA_LOCATION = {'x': 1, 'y': 7, 'z': 0.125 + 0.315, 'yaw': - 45 - 90, 'pitch': - 13.6, 'roll': 2, 'time': None}
-ZONE_1_INITIAL_CAMERA_LOCATION = {'x': 7, 'y': 7, 'z': 0.125 + 0.315, 'yaw': - 135 - 90, 'pitch': - 13.6, 'roll': 2, 'time': None}
-ZONE_2_INITIAL_CAMERA_LOCATION = {'x': 7, 'y': 1, 'z': 0.125 + 0.315, 'yaw': 135 - 90, 'pitch': - 13.6, 'roll': 2, 'time': None}
-ZONE_3_INITIAL_CAMERA_LOCATION = {'x': 1, 'y': 1, 'z': 0.125 + 0.315, 'yaw': 45 - 90, 'pitch': - 13.6, 'roll': 2, 'time': None}
+ZONE_0_INITIAL_CAMERA_LOCATION = {'x': 1, 'y': 7, 'z': 0.125 + 0.315, 'yaw': - 45 - 99, 'pitch': - 13.6, 'roll': 2, 'time': None}
+ZONE_1_INITIAL_CAMERA_LOCATION = {'x': 7, 'y': 7, 'z': 0.125 + 0.315, 'yaw': - 135 - 99, 'pitch': - 13.6, 'roll': 2, 'time': None}
+ZONE_2_INITIAL_CAMERA_LOCATION = {'x': 7, 'y': 1, 'z': 0.125 + 0.315, 'yaw': 135 - 99, 'pitch': - 13.6, 'roll': 2, 'time': None}
+ZONE_3_INITIAL_CAMERA_LOCATION = {'x': 1, 'y': 1, 'z': 0.125 + 0.315, 'yaw': 45 - 99, 'pitch': - 13.6, 'roll': 2, 'time': None}
 
 ROBOT_TO_CAMERA_VECTOR = {'alpha': 0, 'beta': 0, 'gamma': 0.372} #alpha forwards, beta left to right, gamma up 47.7 - 12.5 #0.315
 ROBOT_TO_DEFAULT_CAMERA_YAW = - 90
@@ -73,39 +76,45 @@ WHEEL_BASE = 0.436 #meters
 
 #positions
 
-INITIALISATION = {'rotate': 0, 'lift': 0, 'grab': 0, 'time': 1}
-ARMS_UP_OUT_THE_WAY = {'rotate': 0, 'lift': 100, 'grab': - 75, 'time': 1}
-ARMS_UP_OUT_THE_WAY_WAIT = {'rotate': 0, 'lift': 100, 'grab': - 75, 'time': 2}
-ARMS_CLOSED_PROTECTED = {'rotate': 0, 'lift': 100, 'grab': 40, 'time': 2}
+GRAB = 35
+OPEN = -75
 
-ARMS_WIDE_ZERO = {'rotate': 0, 'lift': - 100, 'grab': - 70, 'time': 1}
-ARMS_ON_CUBE_ZERO = {'rotate': 0, 'lift': - 100, 'grab': 35, 'time': 1}
-LIFT_CUBE_ZERO = {'rotate': 60, 'lift': 0, 'grab': 35, 'time': 1}
+INITIALISATION = {'rotate': 0, 'lift': 0, 'grab': 0, 'time': 1}
+ARMS_UP_OUT_THE_WAY = {'rotate': 0, 'lift': 100, 'grab': OPEN, 'time': 1}
+ARMS_UP_OUT_THE_WAY_WAIT = {'rotate': 0, 'lift': 100, 'grab': OPEN, 'time': 2}
+ARMS_CLOSED_PROTECTED = {'rotate': 0, 'lift': 100, 'grab': 80, 'time': 2}
+
+ARMS_WIDE_ZERO = {'rotate': 0, 'lift': - 100, 'grab': OPEN, 'time': 1}
+ARMS_ON_CUBE_ZERO = {'rotate': 0, 'lift': - 100, 'grab': GRAB, 'time': 1}
+LIFT_CUBE_ZERO = {'rotate': 60, 'lift': 0, 'grab': GRAB, 'time': 1}
 RELEASE_CUBE_ZERO = {'rotate': 60, 'lift': 0, 'grab': -20, 'time': 0.5}
 
-ARMS_WIDE_POSTIVE = {'rotate': - 100, 'lift': - 60, 'grab': - 70, 'time': 1}
-ARMS_ON_CUBE_90 = {'rotate': - 100, 'lift': - 60, 'grab': 35, 'time': 1}
-LIFT_CUBE_90 = {'rotate': - 100, 'lift': 80, 'grab': 35, 'time': 1}
-TURN_CUBE_90 = {'rotate': 100, 'lift': 80, 'grab': 35, 'time': 2}
-DOWN_CUBE_90 = {'rotate': 100, 'lift': -20, 'grab': 35, 'time': 1}
+ARMS_WIDE_POSTIVE = {'rotate': - 100, 'lift': - 60, 'grab': OPEN, 'time': 1}
+ARMS_ON_CUBE_90 = {'rotate': - 100, 'lift': - 60, 'grab': GRAB, 'time': 1}
+LIFT_CUBE_90 = {'rotate': - 100, 'lift': 80, 'grab': GRAB, 'time': 1}
+TURN_CUBE_90 = {'rotate': 100, 'lift': 80, 'grab': GRAB, 'time': 2}
+DOWN_CUBE_90 = {'rotate': 100, 'lift': -20, 'grab': GRAB, 'time': 1}
 RELEASE_CUBE_90 = {'rotate': 100, 'lift': -20, 'grab': -20, 'time': 0.5}
 
-ARMS_WIDE_NEGATIVE= {'rotate': 100, 'lift': - 50, 'grab': - 70, 'time': 1}
-ARMS_ON_CUBE_NEGATIVE_90 = {'rotate': 100, 'lift': - 50, 'grab': 35, 'time': 1}
-LIFT_CUBE_NEGATIVE_90 = {'rotate': 100, 'lift': 60, 'grab': 35, 'time': 1}
-TURN_CUBE_NEGATIVE_90 = {'rotate': 10, 'lift': 60, 'grab': 35, 'time': 2}
-DOWN_CUBE_NEGATIVE_90 = {'rotate': -80, 'lift': -10, 'grab': 35, 'time': 1}
+ARMS_WIDE_NEGATIVE= {'rotate': 100, 'lift': - 50, 'grab': OPEN, 'time': 1}
+ARMS_ON_CUBE_NEGATIVE_90 = {'rotate': 100, 'lift': - 50, 'grab': GRAB, 'time': 1}
+LIFT_CUBE_NEGATIVE_90 = {'rotate': 100, 'lift': 60, 'grab': GRAB, 'time': 1}
+TURN_CUBE_NEGATIVE_90 = {'rotate': 10, 'lift': 60, 'grab': GRAB, 'time': 2}
+DOWN_CUBE_NEGATIVE_90 = {'rotate': -80, 'lift': -10, 'grab': GRAB, 'time': 1}
 RELEASE_CUBE_NEGATIVE_90 = {'rotate': -80, 'lift': -10, 'grab': -20, 'time': 0.5}
 
 PREPARE_SECOND_ROTATE_180 = {'rotate': - 100, 'lift': - 60, 'grab': -20, 'time': 0.5}
-ARMS_ON_CUBE_180_FAST = {'rotate': -100, 'lift': - 60, 'grab': 35, 'time': 0.5}
+ARMS_ON_CUBE_180_FAST = {'rotate': -100, 'lift': - 60, 'grab': GRAB, 'time': 0.5}
 
-ARMS_ON_CUBE_NEGATIVE_180 = {'rotate': 100, 'lift': - 70, 'grab': 35, 'time': 2}
-LIFT_CUBE_NEGATIVE_180 = {'rotate': 100, 'lift': 40, 'grab': 35, 'time': 2}
-TURN_CUBE_NEGATIVE_180 = {'rotate': - 100, 'lift': 40, 'grab': 35, 'time': 2}
-DOWN_CUBE_NEGATIVE_180 = {'rotate': - 100, 'lift': -35, 'grab': 35, 'time': 1}
+ARMS_ON_CUBE_NEGATIVE_180 = {'rotate': 100, 'lift': OPEN, 'grab': GRAB, 'time': 2}
+LIFT_CUBE_NEGATIVE_180 = {'rotate': 100, 'lift': 40, 'grab': GRAB, 'time': 2}
+TURN_CUBE_NEGATIVE_180 = {'rotate': - 100, 'lift': 40, 'grab': GRAB, 'time': 2}
+DOWN_CUBE_NEGATIVE_180 = {'rotate': - 100, 'lift': -35, 'grab': GRAB, 'time': 1}
 RELEASE_CUBE_NEGATIVE_180 = {'rotate': - 100, 'lift': 0, 'grab': -20, 'time': 0.5}
 PREPARE_SECOND_ROTATE_NEGATIVE_180 = {'rotate': 100, 'lift': - 40, 'grab': -20, 'time': 0.5}
+ARMS_ON_CUBE_NEGATIVE_180_FAST = {'rotate': 100, 'lift': - 50, 'grab': GRAB, 'time': 0.5}
+
+LIFT_TIME_INDENT = - 0.5D_ROTATE_NEGATIVE_180 = {'rotate': 100, 'lift': - 40, 'grab': -20, 'time': 0.5}
 ARMS_ON_CUBE_NEGATIVE_180_FAST = {'rotate': 100, 'lift': - 50, 'grab': 35, 'time': 0.5}
 
 LIFT_TIME_INDENT = 0
@@ -153,9 +162,13 @@ RIGHT_GRAB_OFFSET = 0
 
 #steady_thread
 
-MAX_CAMERA_ANGLE = 192 #deg
-MIN_CAMERA_ANGLE = 0 #deg
-CAMERA_TURN_RATE = 180 #output/sec
+ADJUST = - 7 #- 10 + 7 - 1 - 3 -2
+
+CAMERA_MEASUREMENTS = [[0 - 2 + ADJUST, 0], [99.678 - 1.5 + ADJUST, 90], [193.272 + 1 - 2.5 + ADJUST, 180]]
+
+MAX_CAMERA_ANGLE = CAMERA_MEASUREMENTS[-1][0]  #184.47 + ADJUST #deg
+MIN_CAMERA_ANGLE = CAMERA_MEASUREMENTS[0][0] #- 6.97 + ADJUST #deg
+CAMERA_TURN_RATE = 90 #output/sec
 CAMERA_STABILISATION_TIME = 0.2 #sec
 
 #target
