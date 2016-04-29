@@ -82,7 +82,7 @@ OPEN = -75
 INITIALISATION = {'rotate': 0, 'lift': 0, 'grab': 0, 'time': 1}
 ARMS_UP_OUT_THE_WAY = {'rotate': 0, 'lift': 100, 'grab': OPEN, 'time': 1}
 ARMS_UP_OUT_THE_WAY_WAIT = {'rotate': 0, 'lift': 100, 'grab': OPEN, 'time': 2}
-ARMS_CLOSED_PROTECTED = {'rotate': 0, 'lift': 100, 'grab': 60, 'time': 2}
+ARMS_CLOSED_PROTECTED = {'rotate': 0, 'lift': 100, 'grab': 80, 'time': 2}
 
 ARMS_WIDE_ZERO = {'rotate': 0, 'lift': - 100, 'grab': OPEN, 'time': 1}
 ARMS_ON_CUBE_ZERO = {'rotate': 0, 'lift': - 100, 'grab': GRAB, 'time': 1}
