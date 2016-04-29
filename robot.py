@@ -330,6 +330,8 @@ def steadyTest():
         
 def sonarTest():
     
+    ServoThread.setSequence(PHASE_0_ZERO)
+    
     while (True):
         time.sleep(0.2)
         print str(Ruggeduino[0].sonar(6, 7))
