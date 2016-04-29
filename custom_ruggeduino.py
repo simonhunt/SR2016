@@ -3,7 +3,7 @@ import time
 import math
 from limits import angleMod
 
-from robot_1 import WHEEL_RADIUS, ENCODER_RESOLUTION
+from robot_1 import WHEEL_RADIUS, ENCODER_RESOLUTION, DEFAULT_TRIG_PIN, DEFAULT_ECHO_PIN
 
 MAX_SONAR = 5000
 
@@ -41,7 +41,7 @@ class MpuSonarEncoderRuggeduino(Ruggeduino):
         with self.lock:
             self.command('m')
             
-    def sonar(self, trig_pin, echo_pin):   #pin = trig, pin+1=echo
+    def sonar(self, trig_pin = DEFAULT_TRIG_PIN, echo_pin = DEFAULT_ECHO_PIN):   #pin = trig, pin+1=echo
     
         with self.lock:
             trig_pin_char = chr(trig_pin + 97) 
