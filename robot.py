@@ -347,7 +347,7 @@ def sonarTest():
 
     
 
-# time.sleep(5)
+time.sleep(5)
 
 # MotionThread.setAction(MOVE_HOLD, 1.5)
 
