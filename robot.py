@@ -357,9 +357,9 @@ def sonarTest():
 
 # steadyTest()
     
-time.sleep(5)
+# time.sleep(5)
 
-sonarTest()
+# sonarTest()
 
 # MotionThread.setAction(TURN_TO, - 45)
 
