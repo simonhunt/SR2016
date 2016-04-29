@@ -330,7 +330,7 @@ def steadyTest():
         
 def sonarTest():
     
-    ServoThread.setSequence(PHASE_0_ZERO)
+    ServoThread.setSequence(positions.PHASE_0_ZERO)
     
     while (True):
         time.sleep(0.2)
