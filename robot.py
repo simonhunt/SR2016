@@ -349,47 +349,33 @@ def sonarTest():
 
 time.sleep(5)
 
-# MotionThread.setAction(MOVE_HOLD, 1.5)
+MotionThread.setAction(TURN_TO, - 45)
 
-# time.sleep(5)
+time.sleep(10)
 
 noise.signalGood(R.power)
 
-testArms()
+getCubeDemo()
 
-# steadyTest()
-    
-# time.sleep(5)
+time.sleep(5)
 
-# sonarTest()
+MotionThread.setAction(TURN_TO, - 45)
 
-# MotionThread.setAction(TURN_TO, - 45)
+time.sleep(10)
 
-# time.sleep(10)
+noise.signalGood(R.power)
 
-# noise.signalGood(R.power)
+getCubeDemo()
 
-# getCubeDemo()
+time.sleep(5)
 
-# time.sleep(5)
+MotionThread.setAction(TURN_TO, - 45)
 
-# MotionThread.setAction(TURN_TO, - 45)
+time.sleep(10)
 
-# time.sleep(10)
+noise.signalGood(R.power)
 
-# noise.signalGood(R.power)
-
-# getCubeDemo()
-
-# time.sleep(5)
-
-# MotionThread.setAction(TURN_TO, - 45)
-
-# time.sleep(10)
-
-# noise.signalGood(R.power)
-
-# getCubeDemo()
+getCubeDemo()
     
 print "Main thread exited"
 
