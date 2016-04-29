@@ -332,9 +332,9 @@ def sonarTest():
     
     ServoThread.setSequence(positions.PHASE_0_ZERO)
     distance = 1
-    while (distance > 0.15):
+    while (distance > 0.17):
         time.sleep(0.2)
-        distance = R.ruggeduinos[0].sonar(6, 7)
+        distance = R.ruggeduinos[0].sonar()
         print str(distance)
         
     ServoThread.setSequence(positions.PHASE_1_ZERO)
