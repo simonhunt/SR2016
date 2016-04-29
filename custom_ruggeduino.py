@@ -5,6 +5,8 @@ from limits import angleMod
 
 from robot_1 import WHEEL_RADIUS, ENCODER_RESOLUTION
 
+MAX_SONAR = 5000
+
 # WHEEL_RADIUS = 0.04875 #0.04826 #0.05134
 # ENCODER_RESOLUTION = 96
 
@@ -47,7 +49,7 @@ class MpuSonarEncoderRuggeduino(Ruggeduino):
             duration = int(self.command('s' + trig_pin_char + echo_pin_char))  # s for sonar
         
         if (duration == 0):
-            duration = 5000
+            duration = MAX_SONAR
         distance = duration * 0.00028
         return distance
         
