@@ -46,6 +46,8 @@ class MpuSonarEncoderRuggeduino(Ruggeduino):
             echo_pin_char = chr(echo_pin + 97)
             duration = int(self.command('s' + trig_pin_char + echo_pin_char))  # s for sonar
         
+        if (duration == 0):
+            duration = 5000
         distance = duration * 0.00028
         return distance
         
