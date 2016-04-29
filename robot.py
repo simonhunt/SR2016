@@ -353,7 +353,7 @@ def sonarTest():
 
 # time.sleep(5)
 
-# noise.signalGood(R.power)
+noise.signalGood(R.power)
 
 # steadyTest()
     
