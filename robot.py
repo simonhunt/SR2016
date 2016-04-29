@@ -327,8 +327,12 @@ def steadyTest():
             noise.signalActivity(R.power)
             
         time.sleep(0.1)
-
         
+def sonarTest():
+    
+    while (True):
+        time.sleep(0.2)
+        print str(Ruggeduino[0].sonar(6, 7))
     
 
     
