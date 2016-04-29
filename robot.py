@@ -334,7 +334,7 @@ def sonarTest():
     
     while (True):
         time.sleep(0.2)
-        print str(Ruggeduino[0].sonar(6, 7))
+        print str(MpuSonarEncoderRuggeduino.sonar(6, 7))
     
 
     
