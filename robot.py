@@ -330,14 +330,19 @@ def steadyTest():
         
 def sonarTest():
     
-    ServoThread.setSequence(positions.PHASE_0_ZERO)
-    distance = 1
-    while (distance > 0.17):
-        time.sleep(0.2)
-        distance = R.ruggeduinos[0].sonar()
-        print str(distance)
+    while (True):   
+        ServoThread.setSequence(positions.PHASE_0_ZERO)
+        distance = 1
         
-    ServoThread.setSequence(positions.PHASE_1_ZERO)
+        while (distance > 0.17):
+            time.sleep(0.2)
+            distance = R.ruggeduinos[0].sonar()
+            print str(distance)
+            
+        ServoThread.setSequence(positions.PHASE_1_ZERO)
+        time.sleep (5)
+        ServoThread.setSequence(positions.PHASE_0_ZERO)
+        time.sleep (5)
     
 
     
