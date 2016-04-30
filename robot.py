@@ -295,10 +295,8 @@ def storeCube(return_location, store_location, arm_phases, down_time):
     while(TargetThread.target != None):
         time.sleep(0.1)
     
-    # MotionThread.setAction(MOVE, - 1)
-    # time.sleep(3)
-    # TargetThread.setTarget(next_cube_location)
-    # time.sleep(5)
+    MotionThread.setAction(MOVE, - 1)
+    time.sleep(1.5)
 
 def testArms():
     
@@ -384,6 +382,8 @@ def sonarCheckCube():
     print str(R.ruggeduinos[0].sonar())
          
     return cube_is_in_reach
+    
+Servos.setPosition(ARMS_UP_OUT_OF_THE_WAY)
 
 while(True):
     
