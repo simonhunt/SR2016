@@ -385,7 +385,13 @@ def sonarCheckCube():
          
     return cube_is_in_reach
 
-
+while(True):
+    
+    if (sonarCheckCube() == True):
+        
+        noise.signalGood(R.power)
+    
+    time.sleep(1)
     
 time.sleep(5)
 
