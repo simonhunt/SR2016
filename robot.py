@@ -383,7 +383,7 @@ def sonarCheckCube():
          
     return cube_is_in_reach
     
-Servos.setPosition(ARMS_UP_OUT_OF_THE_WAY)
+ServoThread.setPosition(ARMS_UP_OUT_OF_THE_WAY)
 
 while(True):
     
