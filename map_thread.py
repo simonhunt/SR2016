@@ -31,17 +31,16 @@ class MapThread(threading.Thread):
         self.a_cube_locations = []
         self.b_cube_locations = []
         self.c_cube_locations = []
-        self.ignore_arena_markers = False #True
+        self.ignore_arena_markers = True #True
         self.targeted_cube = None
         self.updated_targeted_cube = False
         
     def setTargetedCube(self, targeted_cube):
-        self.ignore_arena_markers = False #
+        self.ignore_arena_markers = True #
         self.targeted_cube = copy.deepcopy(targeted_cube)
     
     def removeTargetedCube(self):
-        self.ignore_arena_markers = False #false
-        self.targeted_cube = None
+        self.ignore_arena_markers = True
         
     def prepareForStart(self, see, zone, MotionThread):
         self.zone = zone
