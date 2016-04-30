@@ -55,7 +55,7 @@ def getInitialCameraLocation(zone, current_time): ##this method is not finished
         initial_camera_location = ZONE_2_INITIAL_CAMERA_LOCATION
     
     else: #zone == 3
-        initial_camera_location = ZONE_0_INITIAL_CAMERA_LOCATION
+        initial_camera_location = ZONE_3_INITIAL_CAMERA_LOCATION
     
     initial_camera_location['time'] = current_time
         
