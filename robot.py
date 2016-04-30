@@ -343,56 +343,60 @@ def sonarTest():
         time.sleep (5)
         ServoThread.setSequence(positions.PHASE_0_ZERO)
         time.sleep (5)
+        
+time.sleep(5)
+
+targetThread.setTarget(THREE_FIVE)
     
-time.sleep(5)
+# time.sleep(5)
 
-MotionThread.setAction(TURN_TO, - 45)
+# MotionThread.setAction(TURN_TO, - 45)
 
-time.sleep(10)
+# time.sleep(10)
 
-noise.signalGood(R.power)
+# noise.signalGood(R.power)
 
-getCubeDemo()
+# getCubeDemo()
 
-time.sleep(5)
+# time.sleep(5)
 
-MotionThread.setAction(TURN_TO, - 45)
+# MotionThread.setAction(TURN_TO, - 45)
 
-time.sleep(10)
+# time.sleep(10)
 
-noise.signalGood(R.power)
+# noise.signalGood(R.power)
 
-getCubeDemo()
+# getCubeDemo()
 
-time.sleep(5)
+# time.sleep(5)
 
-MotionThread.setAction(TURN_TO, - 45)
+# MotionThread.setAction(TURN_TO, - 45)
 
-time.sleep(10)
+# time.sleep(10)
 
-noise.signalGood(R.power)
+# noise.signalGood(R.power)
 
-getCubeDemo()
+# getCubeDemo()
 
-time.sleep(5)
+# time.sleep(5)
 
-MotionThread.setAction(TURN_TO, - 45)
+# MotionThread.setAction(TURN_TO, - 45)
 
-time.sleep(10)
+# time.sleep(10)
 
-noise.signalGood(R.power)
+# noise.signalGood(R.power)
 
-getCubeDemo()
+# getCubeDemo()
 
-time.sleep(5)
+# time.sleep(5)
 
-MotionThread.setAction(TURN_TO, - 45)
+# MotionThread.setAction(TURN_TO, - 45)
 
-time.sleep(10)
+# time.sleep(10)
 
-noise.signalGood(R.power)
+# noise.signalGood(R.power)
 
-getCubeDemo()
+# getCubeDemo()
 
 print "Main thread exited"
 
