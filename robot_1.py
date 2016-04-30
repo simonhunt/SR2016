@@ -16,10 +16,10 @@ DEFAULT_ECHO_PIN = 7
 
 #map
 
-ZONE_0_INITIAL_CAMERA_LOCATION = {'x': 1, 'y': 7, 'z': 0.125 + 0.315, 'yaw': - 45 - 99, 'pitch': - 13.6 - 20, 'roll': 2, 'time': None}
-ZONE_1_INITIAL_CAMERA_LOCATION = {'x': 7, 'y': 7, 'z': 0.125 + 0.315, 'yaw': - 135 - 99, 'pitch': - 13.6 - 20, 'roll': 2, 'time': None}
-ZONE_2_INITIAL_CAMERA_LOCATION = {'x': 7, 'y': 1, 'z': 0.125 + 0.315, 'yaw': 135 - 99, 'pitch': - 13.6 - 20, 'roll': 2, 'time': None}
-ZONE_3_INITIAL_CAMERA_LOCATION = {'x': 1, 'y': 1, 'z': 0.125 + 0.315, 'yaw': 45 - 99, 'pitch': - 13.6 - 20, 'roll': 2, 'time': None}
+ZONE_0_INITIAL_CAMERA_LOCATION = {'x': 0.5, 'y': 7.5, 'z': 0.125 + 0.315, 'yaw': - 45 - 99, 'pitch': - 13.6 - 20, 'roll': 2, 'time': None}
+ZONE_1_INITIAL_CAMERA_LOCATION = {'x': 7.5, 'y': 7.5, 'z': 0.125 + 0.315, 'yaw': - 135 - 99, 'pitch': - 13.6 - 20, 'roll': 2, 'time': None}
+ZONE_2_INITIAL_CAMERA_LOCATION = {'x': 7.5, 'y': 0.5, 'z': 0.125 + 0.315, 'yaw': 135 - 99, 'pitch': - 13.6 - 20, 'roll': 2, 'time': None}
+ZONE_3_INITIAL_CAMERA_LOCATION = {'x': 0.5, 'y': 0.5, 'z': 0.125 + 0.315, 'yaw': 45 - 99, 'pitch': - 13.6 - 20, 'roll': 2, 'time': None}
 
 ROBOT_TO_CAMERA_VECTOR = {'alpha': 0, 'beta': 0, 'gamma': 0.372} #alpha forwards, beta left to right, gamma up 47.7 - 12.5 #0.315
 ROBOT_TO_DEFAULT_CAMERA_YAW = - 90
