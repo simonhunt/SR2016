@@ -243,6 +243,10 @@ def getCubeDemo():
             
         else:
             time.sleep(0.1)
+            
+    MotionThread.setAction(MOVE_HOLD, 0.5)
+    
+    time.sleep(3)
         
     MapThread.removeTargetedCube()
     SteadycamThread.nextPan()
