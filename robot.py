@@ -197,12 +197,25 @@ def storeCubeDemo(cubes_stored = 0):
     TargetThread.addTarget(return_location)
     TargetThread.addTarget(store_location)
     
+def getCubeRoutine():
 
-def getToCube():
     next_cube_location = StoreManager.next_cube_location
     return_location = StoreManager.getReturnLocation()
     store_location = StoreManager.getStoreLocation()
-    current_time = time.time()
+    
+    cube_approach_path = decideOnCube(return_location)
+    
+    arm_phases = positions.PHASES[cube_approach_path['approach_location']['degrees']]
+    lift_time = positions.LIFT_TIMES[cube_approach_path['approach_location']['degrees']]
+    down_time = positions.DOWN_TIMES[cube_approach_path['approach_location']['degrees']]
+    
+    getToCube(return_location, store_location, cube_approach_path, arm_phases, lift_time)
+    
+    storeCube()
+    
+def decideOnCube(return_location, current_time = time.time()):
+    
+    cube_approach_path = None
     
     while ((len(MapThread.a_cube_locations) == 0) and (len(MapThread.b_cube_locations) == 0) and (len(MapThread.c_cube_locations) == 0)):
         time.sleep(1)
@@ -212,10 +225,13 @@ def getToCube():
         if ((len(MapThread.a_cube_locations) != 0) or (len(MapThread.b_cube_locations) != 0) or (len(MapThread.c_cube_locations) != 0)):        
             cube_approach_path = method.decideCubeApproachPath(MapThread.a_cube_locations, MapThread.b_cube_locations, MapThread.c_cube_locations, return_location, MotionThread.robot_location, R.zone, MapThread.robot_locations, current_time) 
             break
+        
+    return cube_approach_path
     
-    arm_phases = positions.PHASES[cube_approach_path['approach_location']['degrees']]
-    lift_time = positions.LIFT_TIMES[cube_approach_path['approach_location']['degrees']]
-    down_time = positions.DOWN_TIMES[cube_approach_path['approach_location']['degrees']]
+
+def getToCube(return_location, store_location, cube_approach_path, arm_phases, lift_time, current_time = time.time()):
+    
+    cube_got_to = False
     
     MapThread.setTargetedCube(cube_approach_path)
     print "setting targetted_cube: " + str(cube_approach_path)
@@ -247,20 +263,20 @@ def getToCube():
             time.sleep(0.1)
             
     MapThread.removeTargetedCube()
-            
-    if (sonarTest() == True):
-        storeCube()
-
-def storeCube():
-    
-    time.sleep(2)
-    
     print "removing targetted_cube"
-    
-    ServoThread.setSequence(arm_phases[1])
-    ServoThread.addSequence(arm_phases[2])  
-    print "turning with degrees = " + str(cube_approach_path['approach_location']['degrees'])
-    time.sleep(lift_time)
+            
+    if (sonarTest() == True):       
+        ServoThread.setSequence(arm_phases[1])
+        ServoThread.addSequence(arm_phases[2])  
+        
+        print "turning with degrees = " + str(cube_approach_path['approach_location']['degrees'])
+        time.sleep(lift_time)
+        
+        cube_got_to = True
+        
+    return cube_got_to
+
+def storeCube(return_location, store_location, arm_phases, down_time):
     
     TargetThread.setTarget(return_location)
     print "setting return_location: " + str(return_location)
@@ -279,10 +295,10 @@ def storeCube():
     while(TargetThread.target != None):
         time.sleep(0.1)
     
-    MotionThread.setAction(MOVE, - 1)
-    time.sleep(3)
-    TargetThread.setTarget(next_cube_location)
-    time.sleep(5)
+    # MotionThread.setAction(MOVE, - 1)
+    # time.sleep(3)
+    # TargetThread.setTarget(next_cube_location)
+    # time.sleep(5)
 
 def testArms():
     
