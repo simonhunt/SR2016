@@ -128,7 +128,7 @@ SKI = 0
 SKD = 0
 S_I_LIMIT = 0
 
-MAX_CUBE_SONAR_DISTANCE = 0.2 #meters
+MAX_CUBE_SONAR_DISTANCE = 0.25 #meters
 
 
 #servos
