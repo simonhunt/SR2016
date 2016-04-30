@@ -384,11 +384,7 @@ def sonarCheckCube():
     print str(R.ruggeduinos[0].sonar())
          
     return cube_is_in_reach
-    
-    
-def sonarDemo
-        
-        
+
 
     
 time.sleep(5)
