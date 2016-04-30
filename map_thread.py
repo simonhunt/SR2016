@@ -159,6 +159,7 @@ class MapThread(threading.Thread):
                 
                 if (self.targeted_cube == None or self.next_pan_called == True):
                     self.next_pan_called = False
+                    self.targeted_cube = None
                     self.SteadycamThread.nextPan()
                     
                 else: #self.targeted_cube != None
