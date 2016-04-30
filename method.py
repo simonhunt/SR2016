@@ -43,6 +43,9 @@ def decideCubeToApproach(a_cube_locations, b_cube_locations, c_cube_locations):
     return cube_approach
     
 def decideCubeApproachPath(a_cube_locations, b_cube_locations, c_cube_locations, return_location, robot_location, zone, robot_locations, current_time):
+    robot_locations_copy = copy.deepcopy(robot_locations)
+    robot_locations_copy.pop(zone)
+    print "removed self from robots list = " + str(robot_locations_copy)
     
     cube_approach_paths = []
     
@@ -50,11 +53,11 @@ def decideCubeApproachPath(a_cube_locations, b_cube_locations, c_cube_locations,
     
     for cube_location in a_cube_locations:
         
-        if (isCubeLocationOk(cube_location, robot_locations, zone, current_time) == True):
+        if (isCubeLocationOk(cube_location, robot_locations_copy, zone, current_time) == True):
             
             for cube_approach_location in cube_location['approach']:
                 
-                if (isApproachLocationOk(cube_approach_location, robot_locations, current_time) == True):
+                if (isApproachLocationOk(cube_approach_location, robot_locations_copy, current_time) == True):
                     cube_approach_path = {}
                     cube_approach_path['cube_location'] = cube_location
                     cube_approach_path['cube_location']['max_d_theta'] = CUBE_MAX_D_THETA
@@ -66,7 +69,7 @@ def decideCubeApproachPath(a_cube_locations, b_cube_locations, c_cube_locations,
     
     for cube_location in b_cube_locations:
         
-        if (isCubeLocationOk(cube_location, robot_locations, zone, current_time) == True):
+        if (isCubeLocationOk(cube_location, robot_locations_copy, zone, current_time) == True):
             
             for cube_approach_location in cube_location['approach']:
                 
@@ -82,11 +85,11 @@ def decideCubeApproachPath(a_cube_locations, b_cube_locations, c_cube_locations,
     
     for cube_location in c_cube_locations:
         
-        if (isCubeLocationOk(cube_location, robot_locations, zone, current_time) == True):
+        if (isCubeLocationOk(cube_location, robot_locations_copy, zone, current_time) == True):
             
             for cube_approach_location in cube_location['approach']:
                 
-                if (isApproachLocationOk(cube_approach_location, robot_locations, current_time) == True):
+                if (isApproachLocationOk(cube_approach_location, robot_locations_copy, current_time) == True):
                     cube_approach_path = {}
                     cube_approach_path['cube_location'] = cube_location
                     cube_approach_path['cube_location']['max_d_theta'] = CUBE_MAX_D_THETA
@@ -100,7 +103,7 @@ def decideCubeApproachPath(a_cube_locations, b_cube_locations, c_cube_locations,
     best_cube_approach_path = None
     
     for cube_approach_path in cube_approach_paths:
-        cube_approach_path_info = getCubeApproachPathInfo(cube_approach_path, return_location, robot_location, zone, robot_locations, current_time)
+        cube_approach_path_info = getCubeApproachPathInfo(cube_approach_path, return_location, robot_location, zone, robot_locations_copy, current_time)
         
         if (cube_approach_path_info['score'] > best_info['score']):
             
