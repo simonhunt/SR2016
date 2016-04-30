@@ -129,6 +129,7 @@ SKD = 0
 S_I_LIMIT = 0
 
 MAX_CUBE_SONAR_DISTANCE = 0.25 #meters
+SONAR_TIMEPERIOD = 0.01
 
 
 #servos
