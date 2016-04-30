@@ -379,6 +379,9 @@ def sonarCheckCube():
             
             if (R.ruggeduinos[0].sonar() <= MAX_CUBE_SONAR_DISTANCE):
                 cube_is_in_reach = True
+                
+    
+    print str(R.ruggeduinos[0].sonar())
          
     return cube_is_in_reach
         
