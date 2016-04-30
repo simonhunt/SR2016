@@ -34,6 +34,7 @@ class MapThread(threading.Thread):
         self.ignore_arena_markers = True #True
         self.targeted_cube = None
         self.updated_targeted_cube = False
+        self.next_pan_called = False
         
     def setTargetedCube(self, targeted_cube):
         self.ignore_arena_markers = True #
@@ -41,6 +42,7 @@ class MapThread(threading.Thread):
     
     def removeTargetedCube(self):
         self.ignore_arena_markers = True
+        self.next_pan_called = True
         
     def prepareForStart(self, see, zone, MotionThread):
         self.zone = zone
@@ -155,7 +157,8 @@ class MapThread(threading.Thread):
             
             with self.SteadycamThread.camera_moving_lock:
                 
-                if (self.targeted_cube == None):
+                if (self.targeted_cube == None or self.next_pan_called == True):
+                    self.next_pan_called = False
                     self.SteadycamThread.nextPan()
                     
                 else: #self.targeted_cube != None
