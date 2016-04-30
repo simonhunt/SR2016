@@ -12,8 +12,8 @@ MAX_TIME_SINCE_ENEMY_SEEN = 5 #seconds
 STARTING_SMALLEST_DISTANCE = 8 #meters
 #ENEMY_ROBOT_RADIUS = 2.5 #meters
 MAX_CUBE_Z = 2 #meters
-MAX_ROLL_FROM_LEVEL = 45 #degrees
-MAX_PITCH_FROM_LEVEL = 45 #degrees
+MAX_ROLL_FROM_LEVEL = 90 #degrees
+MAX_PITCH_FROM_LEVEL = 90 #degrees
 # MAX_NUMBER_OF_ENEMY_IN_CUBE_RADIUS = 2 #inclusive (2 is ok)
 # MAX_NUMBER_OF_ENEMY_IN_APPROACH_RADIUS = 1 #inclusive (1 is ok)
 # MIN_ENEMY_DISTANCE_TO_CUBE = 0.75 #meters
@@ -125,8 +125,8 @@ def isCubeLocationOk(cube_location, robot_locations, zone, current_time):
     
     roll_from_level = abs(limits.rightAngleMod(cube_location['roll']))
     pitch_from_level = abs(cube_location['pitch'])
-    cube_location_within_arena = isLocationWithinArena(cube_location)
-    points_increase = getPointsIncrease(cube_location, zone)
+    cube_location_within_arena = True #isLocationWithinArena(cube_location)
+    points_increase = 2 #getPointsIncrease(cube_location, zone)
     nearest_enemy_distance = getNearestEnemyRobotDistanceToLocation(cube_location, robot_locations, current_time)
     number_of_enemy_within_radius = getNumberOfEnemyRobotsWithinRadiusFromLocation(cube_location, robot_locations, current_time)
     
