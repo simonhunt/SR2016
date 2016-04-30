@@ -251,6 +251,20 @@ def getCubeDemo():
     time.sleep(3)
         
     MapThread.removeTargetedCube()
+    time.sleep(0.01)
+    MapThread.removeTargetedCube()
+    time.sleep(0.01)
+    MapThread.removeTargetedCube()
+    time.sleep(0.01)
+    MapThread.removeTargetedCube()
+    time.sleep(0.01)
+    MapThread.removeTargetedCube()
+    time.sleep(0.01)
+    MapThread.removeTargetedCube()
+    time.sleep(0.01)
+    MapThread.removeTargetedCube()
+    time.sleep(0.01)
+    MapThread.removeTargetedCube()
     SteadycamThread.nextPan()
     
     print "removing targetted_cube"
