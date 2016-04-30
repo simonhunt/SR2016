@@ -53,7 +53,7 @@ class StoreManager():
     def __init__(self, zone):
         self.store_locations = STORE_LOCATIONS[zone]
         self.return_locations = RETURN_LOCATIONS[zone]
-        self.next_cube_location= = NEXT_CUBE_LOCATIONS[zone]
+        self.next_cube_location = NEXT_CUBE_LOCATIONS[zone]
         self.cubes_stored = 0
         
     def getReturnLocation(self):
