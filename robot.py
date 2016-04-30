@@ -391,31 +391,7 @@ time.sleep(5)
 
 noise.signalGood(R.power)
 
-getCubeDemo()
-
-time.sleep(5)
-
-noise.signalGood(R.power)
-
-getCubeDemo()
-
-time.sleep(5)
-
-noise.signalGood(R.power)
-
-getCubeDemo()
-
-time.sleep(5)
-
-noise.signalGood(R.power)
-
-getCubeDemo()
-
-time.sleep(5)
-
-noise.signalGood(R.power)
-
-getCubeDemo()
+getCubeRoutine()
 
 time.sleep(5)
 
