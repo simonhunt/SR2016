@@ -248,7 +248,23 @@ def getCubeDemo():
             
     MotionThread.setAction(MOVE_HOLD, 0.25)
     
-    time.sleep(3)
+    MapThread.removeTargetedCube()
+    time.sleep(0.01)
+    MapThread.removeTargetedCube()
+    time.sleep(0.01)
+    MapThread.removeTargetedCube()
+    time.sleep(0.01)
+    MapThread.removeTargetedCube()
+    time.sleep(0.01)
+    MapThread.removeTargetedCube()
+    time.sleep(0.01)
+    MapThread.removeTargetedCube()
+    time.sleep(0.01)
+    MapThread.removeTargetedCube()
+    time.sleep(0.01)
+    MapThread.removeTargetedCube()
+    
+    time.sleep(2)
         
     MapThread.removeTargetedCube()
     time.sleep(0.01)
