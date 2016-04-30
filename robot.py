@@ -209,10 +209,10 @@ def getCubeRoutine():
     lift_time = positions.LIFT_TIMES[cube_approach_path['approach_location']['degrees']]
     down_time = positions.DOWN_TIMES[cube_approach_path['approach_location']['degrees']]
     
-     if (getToCube(return_location, store_location, cube_approach_path, arm_phases, lift_time) == True):
-         noise.signalGood(R.power)
+    if (getToCube(return_location, store_location, cube_approach_path, arm_phases, lift_time) == True):
+        noise.signalGood(R.power)
     
-    storeCube(return_location, store_location, arm_phases, lift_time)
+    storeCube(return_location, store_location, arm_phases, lift_time, next_cube_location)
     
 def decideOnCube(return_location, current_time = time.time()):
     
