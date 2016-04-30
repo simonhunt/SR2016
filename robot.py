@@ -23,7 +23,7 @@ import steady
 from limits import mapToLimits
 from actions import *
 
-from robot_1 import YAW_DRIFT, YKP, YKI, YKD, Y_I_LIMIT, SKP, SKI, SKD, S_I_LIMIT, MAX_STEERING, MAX_SPEED, MIN_SPEED, MAX_CUBE_SONAR_DISTANCE
+from robot_1 import YAW_DRIFT, YKP, YKI, YKD, Y_I_LIMIT, SKP, SKI, SKD, S_I_LIMIT, MAX_STEERING, MAX_SPEED, MIN_SPEED, MAX_CUBE_SONAR_DISTANCE, SONAR_TIMEPERIOD
 
 DEBUG_YAW_DRIFT = False
 DEBUG_TEST_DRIFT = 0
@@ -209,7 +209,8 @@ def getCubeRoutine():
     lift_time = positions.LIFT_TIMES[cube_approach_path['approach_location']['degrees']]
     down_time = positions.DOWN_TIMES[cube_approach_path['approach_location']['degrees']]
     
-    getToCube(return_location, store_location, cube_approach_path, arm_phases, lift_time)
+     if (getToCube(return_location, store_location, cube_approach_path, arm_phases, lift_time) == True):
+         noise.signalGood(R.power)
     
     storeCube(return_location, store_location, arm_phases, lift_time)
     
@@ -276,7 +277,7 @@ def getToCube(return_location, store_location, cube_approach_path, arm_phases, l
         
     return cube_got_to
 
-def storeCube(return_location, store_location, arm_phases, down_time):
+def storeCube(return_location, store_location, arm_phases, down_time, next_cube_location):
     
     TargetThread.setTarget(return_location)
     print "setting return_location: " + str(return_location)
@@ -297,6 +298,8 @@ def storeCube(return_location, store_location, arm_phases, down_time):
     
     MotionThread.setAction(MOVE, - 1)
     time.sleep(1.5)
+    
+    TargetThread.setTarget(next_cube_location)
 
 def testArms():
     
@@ -377,21 +380,15 @@ def sonarCheckCube():
             
             if (R.ruggeduinos[0].sonar() <= MAX_CUBE_SONAR_DISTANCE):
                 cube_is_in_reach = True
-                
+    
+    else:
+        time.sleep(SONAR_TIMEPERIOD)
     
     print str(R.ruggeduinos[0].sonar())
          
     return cube_is_in_reach
     
 ServoThread.setPosition(positions.ARMS_WIDE_ZERO)
-
-while(True):
-    
-    if (sonarCheckCube() == True):
-        
-        noise.signalGood(R.power)
-    
-    time.sleep(1)
     
 time.sleep(5)
 
