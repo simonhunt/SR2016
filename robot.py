@@ -346,7 +346,7 @@ def sonarTest():
         
 time.sleep(5)
 
-TargetThread.setTarget(THREFIVE)
+TargetThread.setTarget(THREEFIVE)
     
 # time.sleep(5)
 
