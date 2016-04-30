@@ -14,12 +14,12 @@ MAX_CUBE_AGE = 5 #seconds
 MAX_BLIND_TIME = 1000 #seconds
 MAX_ARENA_MARKER_DISTANCE = 2 #meters
 
-MAX_D_X = 0.25 #meters
-MAX_D_Y = 0.25 #meters
-MAX_D_Z = 0.5 #meters
-MAX_D_PITCH = 30 #degrees
-MAX_D_YAW = 20 #degrees
-MAX_D_ROLL = 20 #degrees
+MAX_D_X = 0.5 #meters
+MAX_D_Y = 0.5 #meters
+MAX_D_Z = 1 #meters
+MAX_D_PITCH = 45 #degrees
+MAX_D_YAW = 30 #degrees
+MAX_D_ROLL = 30 #degrees
 
 class MapThread(threading.Thread):
     
