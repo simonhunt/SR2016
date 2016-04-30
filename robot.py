@@ -197,6 +197,7 @@ def storeCubeDemo(cubes_stored = 0):
     
 
 def getCubeDemo():
+    next_cube_location = StoreManager.next_cube_location
     return_location = StoreManager.getReturnLocation()
     store_location = StoreManager.getStoreLocation()
     current_time = time.time()
@@ -269,7 +270,9 @@ def getCubeDemo():
     while(TargetThread.target != None):
         time.sleep(0.1)
     
-    MotionThread.setAction(MOVE_AND_TURN_TO, - 1, 135)
+    MotionThread.setAction(MOVE, - 1)
+    time.sleep(3)
+    TargetThread.setTarget(next_cube_location)
     
 
 def testArms():
