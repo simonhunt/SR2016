@@ -142,9 +142,9 @@ def isCubeLocationOk(cube_location, robot_locations, zone, current_time):
         ok = False
         print "rejecting cube_location due to pitch_from_level = " + str(pitch_from_level) + ", cube_location = " + str(cube_location)
     
-    elif (cube_location_within_arena == False):
-        ok = False
-        print "rejecting cube_location due to cube_location_within_arena = " + str(cube_location_within_arena) + ", cube_location = " + str(cube_location)
+    # elif (cube_location_within_arena == False):
+    #     ok = False
+    #     print "rejecting cube_location due to cube_location_within_arena = " + str(cube_location_within_arena) + ", cube_location = " + str(cube_location)
         
     elif (points_increase == 0):
         ok = False
