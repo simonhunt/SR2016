@@ -211,7 +211,7 @@ def getCubeRoutine():
     
     getToCube(return_location, store_location, cube_approach_path, arm_phases, lift_time)
     
-    storeCube(return_location, store_location, cube_approach_path, arm_phases, lift_time)
+    storeCube(return_location, store_location, arm_phases, lift_time)
     
 def decideOnCube(return_location, current_time = time.time()):
     
