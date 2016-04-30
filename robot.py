@@ -23,13 +23,15 @@ import steady
 from limits import mapToLimits
 from actions import *
 
-from robot_1 import YAW_DRIFT, YKP, YKI, YKD, Y_I_LIMIT, SKP, SKI, SKD, S_I_LIMIT, MAX_STEERING, MAX_SPEED, MIN_SPEED
+from robot_1 import YAW_DRIFT, YKP, YKI, YKD, Y_I_LIMIT, SKP, SKI, SKD, S_I_LIMIT, MAX_STEERING, MAX_SPEED, MIN_SPEED, MAX_CUBE_SONAR_DISTANCE
 
 DEBUG_YAW_DRIFT = False
 DEBUG_TEST_DRIFT = 0
 DEBUG_TIMEPERIOD = 5
 DEBUG_SPEED = 0
 DEBUG_STEERING = 0
+
+DEFAULT_SONAR_TEST_LENGTH = 2 #seconds
 
 # YAW_DRIFT = 0.00417 #degrees per second 
 # YKP = 3
@@ -196,7 +198,7 @@ def storeCubeDemo(cubes_stored = 0):
     TargetThread.addTarget(store_location)
     
 
-def getCubeDemo():
+def getToCube():
     next_cube_location = StoreManager.next_cube_location
     return_location = StoreManager.getReturnLocation()
     store_location = StoreManager.getStoreLocation()
@@ -246,42 +248,12 @@ def getCubeDemo():
             
     MapThread.removeTargetedCube()
             
-    MotionThread.setAction(MOVE_HOLD, 0.25)
-    
-    MapThread.removeTargetedCube()
-    time.sleep(0.01)
-    MapThread.removeTargetedCube()
-    time.sleep(0.01)
-    MapThread.removeTargetedCube()
-    time.sleep(0.01)
-    MapThread.removeTargetedCube()
-    time.sleep(0.01)
-    MapThread.removeTargetedCube()
-    time.sleep(0.01)
-    MapThread.removeTargetedCube()
-    time.sleep(0.01)
-    MapThread.removeTargetedCube()
-    time.sleep(0.01)
-    MapThread.removeTargetedCube()
+    if (sonarTest() == True):
+        storeCube()
+
+def storeCube():
     
     time.sleep(2)
-        
-    MapThread.removeTargetedCube()
-    time.sleep(0.01)
-    MapThread.removeTargetedCube()
-    time.sleep(0.01)
-    MapThread.removeTargetedCube()
-    time.sleep(0.01)
-    MapThread.removeTargetedCube()
-    time.sleep(0.01)
-    MapThread.removeTargetedCube()
-    time.sleep(0.01)
-    MapThread.removeTargetedCube()
-    time.sleep(0.01)
-    MapThread.removeTargetedCube()
-    time.sleep(0.01)
-    MapThread.removeTargetedCube()
-    SteadycamThread.nextPan()
     
     print "removing targetted_cube"
     
@@ -368,21 +340,33 @@ def steadyTest():
             
         time.sleep(0.1)
         
-def sonarTest():
+def sonarTest(test_start_time = time.time(), test_length = DEFAULT_SONAR_TEST_LENGTH):
     
-    while (True):   
-        ServoThread.setSequence(positions.PHASE_0_ZERO)
-        distance = 1
+    test_passed = False
+    
+    while(time.time() < (test_start_time - test_length)):
+        test_passed = sonarCheckCube()
         
-        while (distance > 0.20):
-            time.sleep(0.2)
-            distance = R.ruggeduinos[0].sonar()
-            print str(distance)
+        if (test_passed == True):
+            break
+        
+    return test_passed
+        
+        
+def sonarCheckCube():
+    
+    cube_is_in_reach = False
+    
+    if (R.ruggeduinos[0].sonar() <= MAX_CUBE_SONAR_DISTANCE):
+        
+        if (R.ruggeduinos[0].sonar() <= MAX_CUBE_SONAR_DISTANCE):
             
-        ServoThread.setSequence(positions.PHASE_1_ZERO)
-        time.sleep (5)
-        ServoThread.setSequence(positions.PHASE_0_ZERO)
-        time.sleep (5)
+            if (R.ruggeduinos[0].sonar() <= MAX_CUBE_SONAR_DISTANCE):
+                cube_is_in_reach = True
+         
+    return cube_is_in_reach
+        
+        
         
 
     
