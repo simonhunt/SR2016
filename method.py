@@ -267,7 +267,10 @@ def estimateRoundTripTime(cube_location, approach_location, robot_location, retu
     return total_time
 
 def estimateRisk(cube_approach_path, robot_location, robot_locations, current_time):
-    return 1
+    distance_to_approach_location = getDistanceFromLocationToLocation(robot_location, cube_approach_path['approach_location'])    
+    distance_to_cube_location = getDistanceFromLocationToLocation(robot_location, cube_approach_path['cube_location'])
+    risk = (distance_to_approach_location)**2 * distance_to_cube_location**2
+    return risk
     
 def isLocationWithinArena(location, indent = (CUBE_WIDTH / 2)):
     
