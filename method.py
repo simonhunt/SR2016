@@ -100,7 +100,7 @@ def decideCubeApproachPath(a_cube_locations, b_cube_locations, c_cube_locations,
     print "cube_location and approach_locations screened, len(cube_approach_paths) = " + str(len(cube_approach_paths))
     
     best_info = {'score': 0}
-    best_cube_approach_path = None
+    best_cube_approach_path = {}
     
     for cube_approach_path in cube_approach_paths:
         cube_approach_path_info = getCubeApproachPathInfo(cube_approach_path, return_location, robot_location, zone, robot_locations_copy, current_time)
