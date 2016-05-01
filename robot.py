@@ -23,7 +23,7 @@ import steady
 from limits import mapToLimits
 from actions import *
 
-from robot_1 import YAW_DRIFT, YKP, YKI, YKD, Y_I_LIMIT, SKP, SKI, SKD, S_I_LIMIT, MAX_STEERING, MAX_SPEED, MIN_SPEED, MAX_CUBE_SONAR_DISTANCE, SONAR_TIMEPERIOD
+from robot_1 import YAW_DRIFT, YKP, YKI, YKD, Y_I_LIMIT, SKP, SKI, SKD, S_I_LIMIT, MAX_STEERING, MAX_SPEED, MIN_SPEED, MAX_CUBE_SONAR_DISTANCE, SONAR_TIMEPERIOD, DECIDE_ON_CUBE_TIMEPERIOD
 
 DEBUG_YAW_DRIFT = False
 DEBUG_TEST_DRIFT = 0
@@ -218,14 +218,15 @@ def decideOnCube(return_location, current_time = time.time()):
     
     cube_approach_path = None
     
-    while ((len(MapThread.a_cube_locations) == 0) and (len(MapThread.b_cube_locations) == 0) and (len(MapThread.c_cube_locations) == 0)):
-        time.sleep(1)
-    
     while (True):
+        
+        time.sleep(DECIDE_ON_CUBE_TIMEPERIOD)
         
         if ((len(MapThread.a_cube_locations) != 0) or (len(MapThread.b_cube_locations) != 0) or (len(MapThread.c_cube_locations) != 0)):        
             cube_approach_path = method.decideCubeApproachPath(MapThread.a_cube_locations, MapThread.b_cube_locations, MapThread.c_cube_locations, return_location, MotionThread.robot_location, R.zone, MapThread.robot_locations, current_time) 
-            break
+            
+            if (cube_approach_path != None):
+                break
         
     return cube_approach_path
     
